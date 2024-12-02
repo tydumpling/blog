@@ -1,6 +1,3 @@
-<p align="center">
-<img  alt="chodocs" src="https://chodocs.cn/chodocs-logo.svg"/>
-</p>
 
 <h1 align="center">
 ChoDocs
@@ -57,61 +54,7 @@ Front-end learning document collection
 - 💡 学习思考总结与学习动态公开分享
 - 🍭 设计资源导航，分享收藏的实用网站
 
-## 🔥 内容大全
 
-> 以下仅列举部分精华内容，更多内容请在 [ChoDocs 主站](https://chodocs.cn/)阅读，主站内还有对应 [bilibili](https://space.bilibili.com/351534170) 视频地址。
-
-### 前端基础
-
-- [HTML 基础面试题](https://github.com/chodocs/chodocs/blob/main/docs/interview/js/html.md)
-- [CSS 面试题大全（第一版）](https://github.com/chodocs/chodocs/blob/main/docs/interview/js/css.md)
-- [JS 相关面试题第一版](https://github.com/chodocs/chodocs/blob/main/docs/interview/js/index.md)
-- [JS 自测清单（一）](https://github.com/chodocs/chodocs/blob/main/docs/interview/js/test/1.md)
-- [JS 自测清单（二）](https://github.com/chodocs/chodocs/blob/main/docs/interview/js/test/2.md)
-- [JS 自测清单（三）](https://github.com/chodocs/chodocs/blob/main/docs/interview/js/test/3.md)
-- [TypeScript 基础面试题](https://github.com/chodocs/chodocs/blob/main/docs/interview/js/ts.md)
-
-### 计算机基础
-
-- [操作系统面试复习](https://github.com/chodocs/chodocs/blob/main/docs/interview/system/index.md)
-- [计算机网络-传输层协议专项复习](https://github.com/chodocs/chodocs/blob/main/docs/interview/net/tcp/index.md)
-- [计算机网络之应用层-HTTP、HTPS、DNS](https://github.com/chodocs/chodocs/blob/main/docs/interview/net/http/index.md)
-- [WebSocket 常见面试题](https://github.com/chodocs/chodocs/blob/main/docs/interview/net/websocket/index.md)
-- [什么是跨域，怎么解决](https://github.com/chodocs/chodocs/blob/main/docs/interview/net/cors/index.md)
-- [Cookie 相关面试题](https://github.com/chodocs/chodocs/blob/main/docs/interview/browser/cookie.md)
-- [消息队列和事件循环系统](https://github.com/chodocs/chodocs/blob/main/docs/interview/browser/principle/eventLoop.md)
-- [「导航渲染流程」你真的知道从输入 URL 到页面展示发生了什么吗？（内附思维导图）](https://github.com/chodocs/chodocs/blob/main/docs/interview/browser/process/index.md)
-- [浏览器缓存相关面试题总结](https://github.com/chodocs/chodocs/blob/main/docs/interview/browser/cache.md)
-- [使用浏览器开发者工具](https://github.com/chodocs/chodocs/blob/main/docs/interview/browser/performance.md)
-- [浏览器安全总结](https://github.com/chodocs/chodocs/blob/main/docs/interview/browser/safety/index.md)
-
-### 框架合集
-
-- [🐮 化身面试官出 30+Vue 面试题 - 2021 年版](https://github.com/chodocs/chodocs/blob/main/docs/interview/vue/index.md)
-- [🐮 React 模拟面试题 2023 版](https://github.com/chodocs/chodocs/blob/main/docs/interview/react-summary/index.md)
-
-### 前端设计模式
-
-- [单例模式](https://chodocs.cn/patterns/singleton-pattern/)
-- [代理模式](https://chodocs.cn/patterns/proxy-pattern/)
-- [提供者模式](https://chodocs.cn/patterns/provider-pattern/)
-- [原型模式](https://chodocs.cn/patterns/prototype-pattern/)
-- [容器/演示模式](https://chodocs.cn/patterns/container-presentational-pattern/)
-- [观察者模式](https://chodocs.cn/patterns/observer-pattern/)
-- [模块模式](https://chodocs.cn/patterns/module-pattern/)
-- [混合模式](https://chodocs.cn/patterns/mixin-pattern/)
-- [中介/中间件模式](https://chodocs.cn/patterns/middleware-pattern/)
-- [高阶组件模式](https://chodocs.cn/patterns/hoc-pattern/)
-- ...
-
-### 专题
-
-- [模拟面试](https://chodocs.cn/interview/interviewer/)
-- [前端算法路线](https://chodocs.cn/algorithm/guide/)
-- [前端设计模式大全](https://chodocs.cn/patterns/guide/)
-- [TypeScript 学习](https://chodocs.cn/ts/ch.html)
-- [春招实习大整理](https://chodocs.cn/interview/spring-internship/summary/)
-- [isolcat 三月面试合集](https://chodocs.cn/interview/isolcat/)
 
 ### 编程实用
 
@@ -126,13 +69,6 @@ Front-end learning document collection
 
 See the [**Contributing Guide**](https://chodocs.cn/contributing.html).
 
-## 🧑‍💻 Contributors
-
-Thank you to all the people who already contributed to my project!
-
-<a href="https://github.com/chodocs/chodocs/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=chodocs/chodocs" />
-</a>
 
 ## 📄 License
 
