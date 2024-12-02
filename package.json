@@ -1,0 +1,18 @@
+{
+  "type": "module", 
+  "/**/": "添加此行以指定项目使用ES模块", 
+  "devDependencies": {
+    "vitepress": "^1.0.0-alpha.29"
+  },
+  "scripts": {
+    "dev": "vitepress dev docs --host --port 8686",
+    "build": "vitepress build docs",
+    "serve": "vitepress serve docs",
+    "preview": "vitepress preview docs"
+  },
+  "dependencies": {
+    "less": "^4.2.0",
+    "less-loader": "^12.2.0",
+    "typescript": "^5.0.2"
+  }
+}
