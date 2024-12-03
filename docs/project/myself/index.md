@@ -5,13 +5,14 @@ title 项目模块
 
 主要收录网络上学习的项目，目前有：
 
+
 - [小兔鲜](./myself/小兔鲜/inweb/all)
 
   Web端：Vue3 + element-plus + axios + pinia
 
   Uniapp端：Vue3 + uni-ui + uniapp + pinia
 
-- [硅谷甄选](./myself/硅谷甄选/)
+- [硅谷甄选](./myself/硅谷甄选/) 
 
   Vue3 + ts + element-plus + axios + pinia
 

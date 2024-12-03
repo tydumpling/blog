@@ -39,11 +39,21 @@ export default defineConfig({
     '@vuepress/medium-zoom',          // 图片预览插件
     '@vuepress/nprogress',        //页面顶部进度条
   ],
+  // 文档中的所有 `details` 容器都会显示为`详细信息`。。
+  markdown: {
+    container: {
+      tipLabel: '提示',
+      warningLabel: '警告',
+      dangerLabel: '危险',
+      infoLabel: '信息',
+      detailsLabel: '详细信息'
+    }
+  },
   // 主题配置
   themeConfig: {
     logo: "/favicon.ico",
     // 获取每个文件最后一次 git 提交的 UNIX 时间戳(ms)，同时它将以合适的日期格式显示在每一页的底部
-    lastUpdated: 'Last Updated', // string | boolean
+    lastUpdated: 'last Update', // string | boolean
     siteTitle: "『 tydumpling博客 』",
     outlineTitle: '我是一个目录哦~',
     outline: [0, 6],
@@ -71,6 +81,7 @@ export default defineConfig({
         },
       },
     },
+  
     // 左侧导航栏
     sidebar,
     //社交链接
