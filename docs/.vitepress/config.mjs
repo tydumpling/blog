@@ -41,6 +41,13 @@ export default defineConfig({
   ],
   // 文档中的所有 `details` 容器都会显示为`详细信息`。。
   markdown: {
+    // lineNumbers:true, //代码快是否启动行号
+    image: {
+      // 默认禁用；设置为 true 可为所有图片启用懒加载。
+      lazyLoading: true
+    },
+    // 启用或禁用代码标签页功能Markdown 文件中创建带有标签页的代码块。
+    codeTabs: true,
     container: {
       tipLabel: '提示',
       warningLabel: '警告',
