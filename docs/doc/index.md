@@ -123,3 +123,136 @@ Wraps in a <div class="vp-raw">
 优化 CSS 输出：例如，自动添加浏览器前缀、压缩 CSS、转换 CSS 变量等。
 集成其他工具：与其他构建工具（如 Tailwind CSS、Autoprefixer 等）集成，以增强项目的样式处理能力。
 ```
+
+# 代码块指定文件内容
+```
+```js
+export default {
+  name: 'MyComponent',
+  // ...
+}
+```
+```
+
+# 在代码块中实现行高亮
+
+```
+```js{4}
+export default {
+  data () {
+    return {
+      msg: 'Highlighted!'
+    }
+  }
+}
+
+除了单行之外，还可以指定多个单行、多行，或两者均指定：
+
+多行：例如 {5-8}、{3-10}、{10-17}
+多个单行：例如 {4,7,9}
+多行与单行：例如 {4,7-13,16,23-27,40}
+也可以使用 // [!code highlight] 行内注释实现行高亮。
+在某一行上添加 // [!code focus] 注释将聚焦它并模糊代码的其他部分。
+此外，可以使用 // [!code focus:<lines>] 定义要聚焦的行数。
+在某一行添加 // [!code warning] 或 // [!code error] 注释将会为该行相应的着色。
+```
+
+# 代码块中的颜色差异
+在某一行添加 // [!code --] 或 // [!code ++] 注释将会为该行创建 diff，同时保留代码块的颜色。
+
+如果启用了代码块显示行号可以在代码块中添加 :line-numbers / :no-line-numbers 标记来覆盖在配置中的设置。
+还可以通过在 :line-numbers 之后添加 = 来自定义起始行号，例如 :line-numbers=2 表示代码块中的行号从 2 开始。
+
+# 导入代码片段
+```
+可以通过下面的语法来从现有文件中导入代码片段：
+<<< @/filepath
+
+导入片段行高亮
+<<< @/filepath{highlightLines}
+也可以使用 VS Code region 来只包含代码文件的相应部分。可以在文件目录后面的 # 符号后提供一个自定义的区域名：
+<<< @/snippets/snippet-with-region.js#snippet{1}
+
+// #region snippet
+function foo() {
+  // ..
+}
+// #endregion snippet
+
+export default foo
+
+输出
+function foo() {
+  // ..
+}
+
+```
+
+# 代码组
+
+::: code-group
+
+```js [config.js]
+/**
+ * @type {import('vitepress').UserConfig}
+ */
+const config = {
+  // ...
+}
+
+export default config
+```
+
+```ts [config.ts]
+import type { UserConfig } from 'vitepress'
+
+const config: UserConfig = {
+  // ...
+}
+
+export default config
+```
+::: code-group
+```代码1
+```
+```代码2
+```
+:::
+eg:
+:::
+
+```md
+::: code-group
+
+```js [config.js]
+/**
+ * @type {import('vitepress').UserConfig}
+ */
+const config = {
+  // ...
+}
+
+export default config
+```
+
+```ts [config.ts]
+import type { UserConfig } from 'vitepress'
+
+const config: UserConfig = {
+  // ...
+}
+
+export default config
+```
+
+:::
+```
+
+
+#包含 markdown 文件
+
+# Docs
+
+## Basics
+
+<!--@include: ./parts/basics.md-->

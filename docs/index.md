@@ -4,7 +4,6 @@ layout: home
 hero:
   name: tydumpling博客
   text: 欢迎来到tydumpling博客。<br/>这里记录自己的学习成果，项目学习经验。不定时更新~
-  
   tagline: 每天都要比昨天更有进步💪
   actions:
     - theme: brand
