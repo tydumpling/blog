@@ -6,8 +6,7 @@ import rewrites from "./rewrites.mjs";
 //:pkg：这是一个动态参数，表示匹配的路径中的一部分可以是任意值，并且这个值会被捕获并命名为 :pkg。例如，如果路径是 packages/vue/src/some-file.md，那么 :pkg 的值就是 vue。
 //这是路径的另一个固定部分，表示匹配的路径必须包含 src/。
 //.*这是一个正则表达式，表示匹配任意.的文件
-import boke from './public/boke.txt';
-import gitee from './public/gitee.txt';
+import socialLinks from './link.ts';
 import { defineConfig } from "vitepress";
 export default defineConfig({
   // 网站标题
@@ -92,19 +91,7 @@ export default defineConfig({
     // 左侧导航栏
     sidebar,
     //社交链接
-    socialLinks: [
-      { icon: "github", link: "https://github.com/duyidao" },
-      {
-        icon: {
-          svg: gitee
-        }, link: "https://gitee.com/duyidao"
-      },
-      {
-        icon: {
-          svg: boke
-        }, link: "https://duyidao.github.io/blogweb/#/"
-      },
-    ],
+    socialLinks,
     //页脚
     footer: {
       copyright: "Copyright © 2023-present tydumpling",
