@@ -688,7 +688,7 @@ const ProjectSidebar = [
   {
     text: "项目",
     items: [
-      { text: "🧟 灵思", link: "/lingsi/" },
+      { text: "🧟 中科星图", link: "/lingsi/" },
       { text: "⛷️百度外包", link: "/baidu/" },
       { text: "🔪 tydumpling博客", link: "/daodao/" },
       { text: "📜 自主学习", link: "/myself/" },
@@ -696,10 +696,10 @@ const ProjectSidebar = [
   },
 ]
 
-// 灵思的数组
+// 中科星图的数组
 const LingsiSidebar = [
   {
-    text: "🧟 灵思",
+    text: "🧟 中科星图",
     items: [
       { text: "🎶 音果云音", link: "/lingsi/music/" },
       { text: "🔧 职技网", link: "/lingsi/职技网/" },
@@ -1181,7 +1181,7 @@ const AboutSidebar = [
       { text: "🧑 关于我", link: "/about/" },
       { text: "🔪 关于tydumpling博客", link: "/about/blog" },
       { text: "📑 关于学习准则", link: "/about/furtrue" },
-      { text: "🧟 关于灵思", link: "/about/lingsi" },
+      { text: "🧟 关于中科星图", link: "/about/lingsi" },
       { text: "⛷️ 关于百度", link: "/about/baidu" },
     ],
   },

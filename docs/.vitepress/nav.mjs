@@ -44,7 +44,7 @@ export default [
       {
         text: "💼 工作项目",
         items: [
-          { text: "🧟 灵思", link: "/lingsi/" },
+          { text: "🧟 中科星图", link: "/lingsi/" },
           { text: "⛷️ 百度", link: "/baidu/" },
         ],
       },
@@ -96,7 +96,7 @@ export default [
       { text: "⭐ 关于我", link: "/about/" },
       { text: "🔪 关于tydumpling博客", link: "/about/blog" },
       { text: "📑 关于学习准则", link: "/about/furtrue" },
-      { text: "🧟 关于灵思", link: "/about/lingsi" },
+      { text: "🧟 关于中科星图", link: "/about/lingsi" },
       { text: "⛷️ 关于百度", link: "/about/baidu" },
     ],
   },
