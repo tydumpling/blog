@@ -213,9 +213,9 @@ const config: UserConfig = {
 export default config
 ```
 ::: code-group
-```代码1
+```js
 ```
-```代码2
+```html
 ```
 :::
 eg:
