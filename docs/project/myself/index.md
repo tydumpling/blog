@@ -35,3 +35,10 @@ title 项目模块
 
 
 
+<script setup>
+import { useData } from 'vitepress'
+
+const { page } = useData()
+</script>
+
+<pre>{{ page }}</pre>

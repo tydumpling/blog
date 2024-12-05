@@ -23,7 +23,7 @@ console.log(m.get('daodao')); // tydumpling
 ```js
 let map = new Map();
 let obj = {
-  name: "daodao"
+    name: "daodao"
 };
 
 map.set(obj, "daodao.com").set("name", "duyidao");
@@ -38,7 +38,7 @@ const hd = new Map();
 const arr = [["daodao", "tydumpling"], ["duyidao", "tydumpling小窝"]];
 
 arr.forEach(([key, value]) => {
-  hd.set(key, value);
+    hd.set(key, value);
 });
 console.log(hd); // Map(2) {'daodao' => 'tydumpling', 'duyidao' => 'tydumpling小窝'}
 ```
