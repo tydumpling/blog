@@ -32,3 +32,13 @@ title 项目模块
 - [优医问诊](./myself/优医问诊/)
   
   Vue3 + ts + vant + axios + pinia
+
+
+
+<script setup>
+import { useData } from 'vitepress'
+
+const { page } = useData()
+</script>
+
+<pre>{{ page }}</pre>
