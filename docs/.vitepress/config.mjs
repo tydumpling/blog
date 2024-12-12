@@ -11,7 +11,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   // 网站标题
   title: 'tydumpling博客',
-  // base: '/blog/',
+  base: '/blog/',
   // 网站描述
   description: 'tydumpling博客',
   // 打包目录
