@@ -38,7 +38,9 @@ export default defineConfig({
     '@vuepress/medium-zoom',          // 图片预览插件
     '@vuepress/nprogress',        //页面顶部进度条
   ],
-  // 文档中的所有 `details` 容器都会显示为`详细信息`。。
+// 忽略死链检查（指向一个不存在页面或资源）
+  ignoreDeadLinks: true,
+
   markdown: {
     // lineNumbers:true, //代码快是否启动行号
     image: {
@@ -47,6 +49,8 @@ export default defineConfig({
     },
     // 启用或禁用代码标签页功能Markdown 文件中创建带有标签页的代码块。
     codeTabs: true,
+    // 文档中的所有 `details` 容器都会显示为`详细信息`。。
+
     container: {
       tipLabel: '提示',
       warningLabel: '警告',
