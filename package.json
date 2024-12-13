@@ -5,12 +5,10 @@
     "vitepress": "^1.0.0-alpha.29"
   },
   "scripts": {
-    "dev": "vitepress dev docs --host --port 8686",
+    "dev": "vitepress dev docs --host --port 8006",
     "build": "vitepress build docs",
     "serve": "vitepress serve docs",
-    "preview": "vitepress preview docs",
-      "docs:build": "vitepress build docs",
-      "docs:preview": "vitepress preview docs"
+    "preview": "vitepress preview docs"
   },
   "dependencies": {
     "less": "^4.2.0",
