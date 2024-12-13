@@ -43,10 +43,12 @@ jobs:
           cache: pnpm # 或 npm / yarn
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      - name: Clean node_modules and pnpm-lock.yaml
+        run: rm -rf node_modules pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install # 或npm ci pnpm install / yarn install / bun install
       - name: Build with VitePress
-        run: pnpm run doc # 或 pnpm docs:build / yarn docs:build / bun run docs:build
+        run: pnpm run dev # 或 pnpm docs:build / yarn docs:build / bun run docs:build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
