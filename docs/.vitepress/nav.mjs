@@ -1,3 +1,6 @@
+
+
+// . 配置导航栏它是显示在页面顶部的位置,可以在themeConfig下nav中配置。这里link我们仅配置到 / 他会自动匹配到目录的 index.md 文件,因为index.md是vitepress的默认入口文件,在vuepress中使用的是README.md作为默认的入口文件
 export default [
   {
     text: "💻 前端知识",

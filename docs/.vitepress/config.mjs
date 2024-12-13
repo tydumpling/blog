@@ -17,8 +17,8 @@ export default defineConfig({
   // 打包目录
   dest: './dist',
   head: [
-    // 添加图标
-    ["link", { rel: "icon", href: "./favicon.ico" }],
+    //  添加图标配置网站的图标（显示在浏览器的 tab 上）
+    ["link", { rel: "icon", href: `/favicon.ico` }],
     ["meta", { property: "og:title", content: "tydumpling博客" }],
     ["meta", { property: "og:site_name", content: "tydumpling博客" }],
     ["meta", { property: "og:type", content: "website" }],
@@ -61,6 +61,16 @@ export default defineConfig({
   },
   // 主题配置
   themeConfig: {
+    docFooter: {
+      prev: "上一篇",
+      next: "下一篇",
+    },
+  },
+
+  editLink: {
+    pattern: 'https://github.com/tydumpling/blog/main/docs/:path',
+    text: '在github上编辑'
+  },
     logo: "/favicon.ico",
     // 获取每个文件最后一次 git 提交的 UNIX 时间戳(ms)，同时它将以合适的日期格式显示在每一页的底部
     lastUpdated: 'last Update', // string | boolean
