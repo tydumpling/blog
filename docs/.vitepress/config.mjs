@@ -65,8 +65,6 @@ export default defineConfig({
       prev: "上一篇",
       next: "下一篇",
     },
-  },
-
   editLink: {
     pattern: 'https://github.com/tydumpling/blog/main/docs/:path',
     text: '在github上编辑'
