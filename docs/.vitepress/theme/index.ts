@@ -10,7 +10,8 @@ import './styles/global.css'
 import './styles/demo.css'
 import './styles/utils.css'
 import './styles/vars.css'
-// import 'uno.css'
+import 'uno.css'
+import './styles/custom.css'
 
 if (inBrowser)
   import('./plugins/pwa')

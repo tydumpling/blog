@@ -1,16 +1,25 @@
 <!-- <script setup>
-import { useData } from 'vitepress'
-const { page, frontmatter } = useData()
+import { usePageFrontmatter } from '@vuepress/client'
+import DefaultThemeLayout from 'vitepress/theme'
+
+const frontmatter = usePageFrontmatter()
+const customLastUpdatedText = '最后更新时间' // 自定义的文字
 </script>
 
 <template>
-    <h1>Custom Layout!</h1>
+  <DefaultThemeLayout>
+    <template #doc-after>
+      <div v-if="frontmatter.lastUpdated" class="custom-last-updated">
+        {{ customLastUpdatedText }}: {{ frontmatter.lastUpdated }}
+      </div>
+    </template>
+  </DefaultThemeLayout>
+</template>
 
-    <div v-if="page.isNotFound">
-        Custom 404 page!
-    </div>
-    <div v-if="frontmatter.layout === 'home'">
-        Custom home page!
-    </div>
-    <Content v-else />
-</template> -->
+<style scoped>
+.custom-last-updated {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+</style> -->

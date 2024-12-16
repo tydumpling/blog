@@ -1,8 +1,12 @@
 import { defineConfig } from 'vitepress'
+import { withPwa } from '@vite-pwa/vitepress'
+import { generateSitemap as sitemap } from 'sitemap-ts'
 import nav from './nav.mjs'
 import sidebar from './silber.mjs'
 import rewrites from './rewrites.mjs'
 import { description, docsVersion, github, keywords, name, site } from './meta'
+import { pwa } from './plugins/pwa'
+import { genFeed } from './plugins/genFeed'
 
 // 'packages/:pkg/src/(.*)': ':pkg/index.md'
 // packages这是路径的固定部分，base路径
@@ -10,7 +14,10 @@ import { description, docsVersion, github, keywords, name, site } from './meta'
 // 这是路径的另一个固定部分，表示匹配的路径必须包含 src/。
 // .*这是一个正则表达式，表示匹配任意.的文件
 import socialLinks from './link.ts'
-export default defineConfig({
+
+export default withPwa(defineConfig({
+  pwa,
+
   // 网站标题
   title: 'tydumpling博客',
   base: '/blog/',
@@ -45,6 +52,10 @@ export default defineConfig({
     // analytics
     ['script', { 'async': '', 'defer': '', 'data-website-id': `${process.env.UMAMI_WEBSITE_ID || ''}`, 'src': `${process.env.UMAMI_ENDPOINT || ''}` }],
   ],
+  async buildEnd(siteConfig) {
+    await sitemap({ hostname: 'https://chodocs.cn/' })
+    await genFeed(siteConfig)
+  },
   // 使用插件
   plugins: [
     '@vuepress/active-header-links', // 页面滚动时自动激活侧边栏链接的插件
@@ -85,8 +96,15 @@ export default defineConfig({
     },
     // 首页标题图标
     logo: '/favicon.ico',
-    // 获取每个文件最后一次 git 提交的 UNIX 时间戳(ms)，同时它将以合适的日期格式显示在每一页的底部
-    lastUpdated: '上次更新', // string | boolean
+    // 获取每个文件最后一次 git 提交的 UNIX 时间戳(ms)，同时它将以合适的日期格式显示每一页的底部
+    lastUpdated: {
+      text: '最后更新于',
+      formatOptions: {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        locale: 'zh-CN',
+      },
+    },
     siteTitle: '『 tydumpling博客 』',
     outlineTitle: '导航~',
     outline: [0, 6],
@@ -125,4 +143,4 @@ export default defineConfig({
     },
   },
   rewrites,
-})
+}))

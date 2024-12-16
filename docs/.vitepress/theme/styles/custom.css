@@ -1,0 +1,16 @@
+.VPDocAsideOutline {
+    position: sticky !important;
+    top: var(--vp-nav-height) !important;
+    max-height: calc(100vh - var(--vp-nav-height)) !important;
+    overflow-y: auto !important;
+}
+
+/* 可选：美化滚动条样式 */
+.VPDocAsideOutline::-webkit-scrollbar {
+    width: 4px;
+}
+
+.VPDocAsideOutline::-webkit-scrollbar-thumb {
+    background-color: var(--vp-c-divider);
+    border-radius: 2px;
+}
