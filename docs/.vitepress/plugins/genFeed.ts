@@ -1,61 +1,64 @@
-// import type { Plugin } from 'vite'
-// import { replacer } from '../../../scripts/utils'
-// import { getReadingTime } from './../theme/utils'
+import path from 'node:path'
+import { writeFileSync } from 'node:fs'
+import { Feed } from 'feed'
+import { type SiteConfig, createContentLoader } from 'vitepress'
+import { site as baseUrl, description, name } from '../meta'
 
-// export function MarkdownTransform(): Plugin {
-//     return {
-//         name: 'chodocs-md-transform',
-//         enforce: 'pre',
-//         async transform(code, id) {
-//             if (!id.match(/\.md\b/))
-//                 return null
-//             // convert links to relative
-//             code = code.replace(/https?:\/\/chodocs\.cn\//g, '/')
-//             const [_name, i] = id.split('/').slice(-2)
+function reName(name: string) {
+  if (!name)
+    name = 'Choi Yang'
+  return name === 'Choi Yang' ? 'Chocolate1999' : name
+}
 
-//             // convert img
-//             const imgRegex = /!\[(.+?)\]\((.+?)\)/g
-//             let imgMatches = imgRegex.exec(code)
-//             while (imgMatches) {
-//                 const [text, link] = imgMatches.slice(1)
-//                 code = code.replace(imgMatches[0], `<img src="${link}" alt="${text || 'img'}" />`)
-//                 imgMatches = imgRegex.exec(code)
-//             }
+function getGithubLink(name: string) {
+  return `https://github.com/${reName(name)}`
+}
 
-//             // convert links to components
-//             const linkRegex = /\[(.+?)\]\((.+?)\)/g
-//             let matches = linkRegex.exec(code)
-//             while (matches) {
-//                 const [text, link] = matches.slice(1)
-//                 code = code.replace(matches[0], `<CustomLink title="${text}" href="${link}" />`)
-//                 matches = linkRegex.exec(code)
-//             }
+export async function genFeed(config: SiteConfig) {
+  const feed = new Feed({
+    title: name,
+    description,
+    id: baseUrl,
+    link: baseUrl,
+    language: 'zh-CN',
+    image: 'https://chodocs.cn/chodocs-logo.svg',
+    favicon: `${baseUrl}/favicon.ico`,
+    copyright:
+      'Copyright (c) 2022-present, Chocolate and ChoDocs contributors',
+  })
 
-//             // cut index.md
-//             if (_name === 'docs' && i === 'index.md')
-//                 return code
+  const posts = await createContentLoader('**/*.md', {
+    excerpt: true,
+    render: true,
+  }).load()
 
-//             const { footer } = await getDocsMarkdown()
-//             code = replacer(code, footer, 'FOOTER', 'tail')
-//             const { readTime, words } = getReadingTime(code)
-//             code = code
-//                 .replace(/(#\s.+?\n)/, `$1\n\n<PageInfo readTime="${readTime}" words="${words}"/>\n`)
+  posts.sort(
+    (a, b) =>
+      +new Date(b.frontmatter?.date as string)
+      - +new Date(a.frontmatter?.date as string),
+  )
 
-//             return code
-//         },
-//     }
-// }
+  for (const { url, frontmatter, html } of posts) {
+    let postTitle = '无题'
+    postTitle = html?.match(/<h1 id=(.*)>(.*?)<a .*?>/)?.[2] || postTitle
+    feed.addItem({
+      title: frontmatter?.title || postTitle,
+      id: `${baseUrl}${url.slice(1)}`,
+      link: `${baseUrl}${url.slice(1)}`,
+      guid: `${baseUrl}${url.slice(1)}`,
+      description: html,
+      content: html,
+      author: [
+        {
+          name: frontmatter?.author || 'Choi Yang',
+          link: frontmatter?.author
+            ? getGithubLink(frontmatter?.author)
+            : undefined,
+        },
+      ],
+      date: frontmatter?.date || new Date('2021-07-01'),
+    })
+  }
 
-// export async function getDocsMarkdown() {
-//     const ContributorsSection = `## Contributors
-//   <Contributors/>`
-
-//     const CopyRightSection = `
-//   <CopyRight/>`
-
-//     const footer = `${ContributorsSection}\n${CopyRightSection}\n`
-
-//     return {
-//         footer,
-//     }
-// }
+  writeFileSync(path.join(config.outDir, 'feed.xml'), feed.rss2())
+}

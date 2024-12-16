@@ -1,3 +1,4 @@
+// 修改路径
 export default {
   'learn/Canvas/(.*)': 'Canvas/(.*)',
   'learn/CSS/(.*)': 'CSS/(.*)',

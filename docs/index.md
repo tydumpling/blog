@@ -1,9 +1,14 @@
 ---
 layout: home
 
+title: tydumplingDocs
+titleTemplate: 蒸蒸日上~
+
 hero:
-  name: tydumpling博客
-  text: 欢迎来到tydumpling博客。<br/>这里记录自己的学习成果，项目学习经验。不定时更新~
+  name: tydumplingDocs
+  text: "Front-end learning"
+  tagline: |
+    🔥 谦谨行事方能多吉少恙。
   # 首页图标
   image:
     src: /logo.png
@@ -20,7 +25,7 @@ hero:
       link: /about/
     - theme: brand
       text: tydumpling小站
-      link: https://duyidao.github.io/blogweb/#/
+      link: https://tydumpling.github.io/blog/#/
 
 features:
   - icon: 📕
@@ -52,8 +57,57 @@ features:
     details: tydumpling博客效果展示，功能实现，不容错过
     link: https://duyidao.github.io/blogweb/#/
   - icon:  🎈️
-    title: 未完待续
-    details: 尽情期待
+    title: 持续更新中~
+    details: 尽情期待~
 
 ---
 
+<script setup>
+import {
+  VPTeamPage,
+  VPTeamPageTitle,
+  VPTeamMembers
+} from 'vitepress/theme';
+import { icons } from './socialIcons';
+
+const members = [
+  {
+    avatar: 'https://www.github.com/tydumpling.png',
+    name: 'Yuan tang',
+    title: '逆水行舟，不进则退',
+    desc: 'FE Developer<br/>Creator @ <a href="https://github.com/tydumpling/blog" target="_blank">tydumpling</a>',
+    links: [
+      { icon: 'github', link: 'https://github.com/tydumpling' },
+      {
+       icon: { svg: icons.bilibili } ,link: "https://space.bilibili.com/201738571",
+      },
+      // { icon: 'youtube', link: 'https://www.youtube.com/@tydumpling'},
+    ]
+  },
+  {
+    avatar: 'https://www.github.com/tydumplings.png',
+    name: 'tydumplings',
+    title: '热爱学习',
+      desc: 'FE Developer<br/>Creator @ <a href="https://github.com/tydumpling/blog" target="_blank">tydumpling</a>',
+    links: [
+      { icon: 'github', link: 'https://github.com/tydumplings' },
+      {
+       icon: { svg: icons.bilibili } ,link: "https://space.bilibili.com/201738571",
+      },
+    ]
+  },
+]
+</script>
+
+<VPTeamPage>
+  <VPTeamPageTitle>
+    <template #title>
+      核心成员介绍
+    </template>
+  </VPTeamPageTitle>
+  <VPTeamMembers
+    :members="members"
+  />
+</VPTeamPage>
+
+<HomeContributors/>
