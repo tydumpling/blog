@@ -3,7 +3,7 @@
 使用 `=` 进行变量赋值
 
 ```js
-let url = 'tydumpling.com';
+const url = 'tydumpling.com'
 ```
 
 ## 算术运算符
@@ -19,9 +19,9 @@ let url = 'tydumpling.com';
 | %      | 取余数 |
 
 ```js
-let a = 5,b = 3;
-console.log(a * b); //15
-console.log(a % b); //2
+const a = 5; const b = 3
+console.log(a * b) // 15
+console.log(a % b) // 2
 ```
 
 ## 复合运算符
@@ -29,19 +29,19 @@ console.log(a % b); //2
 可以使用 `*=、/=、+=、-=、%=` 简写算术运算。即 `n*=2` 等同于 `n=n*2`。
 
 ```js
-let n = 2;
-n *= 2;
-console.log(n);
+let n = 2
+n *= 2
+console.log(n)
 ```
 
 对变量加减相应数值。
 
 ```js
-let n = 2;
-n += 3;
-console.log(n); //0
-n -= 5;
-console.log(n); //5
+let n = 2
+n += 3
+console.log(n) // 0
+n -= 5
+console.log(n) // 5
 ```
 
 `n+=3` 是 `n=n+3` 的简写形式
@@ -53,11 +53,11 @@ console.log(n); //5
 前置操作会在表达式最先执行。
 
 ```js
-let n = 1;
+let n = 1
 ++n
-console.log(n);
+console.log(n)
 --n
-console.log(n);
+console.log(n)
 ```
 
 ++n 就是 n=n+1 的简写形式。
@@ -65,9 +65,9 @@ console.log(n);
 使用后置操作符，`++n` 会在最先执行，所以 f 的结果是 33。
 
 ```js
-let n = 2;
-let f = 30 + ++n;
-console.log(f);
+let n = 2
+const f = 30 + ++n
+console.log(f)
 ```
 
 ### 后置操作
@@ -75,25 +75,25 @@ console.log(f);
 后置操作会在表达式最后执行。
 
 ```js
-let n = 1;
+let n = 1
 n++
-console.log(n);
+console.log(n)
 ```
 
 使用后置操作符，`n++` 会在最后执行，所以 f 的结果是 32。
 
 ```js
-let n = 2;
-let f = 30 + n++;
-console.log(f);
+let n = 2
+const f = 30 + n++
+console.log(f)
 ```
 
 参与数学计算
 
 ```js
-let a = 1;
-b = a++ + 2;
-console.log(b); //3
+let a = 1
+b = a++ + 2
+console.log(b) // 3
 ```
 
 ## 比较运算符
@@ -110,14 +110,14 @@ console.log(b); //3
 下面来体验不同类型的比较结果
 
 ```js
-let a = 1,b = 2,c = '1';
+const a = 1; const b = 2; const c = '1'
 
-console.log(a < b); //true
-console.log(a == b); //false
-console.log(a == c); //true
-console.log(a === c); //false
-console.log(a == true); //true
-console.log(a === true); //false
+console.log(a < b) // true
+console.log(a == b) // false
+console.log(a == c) // true
+console.log(a === c) // false
+console.log(a == true) // true
+console.log(a === true) // false
 ```
 
 以下示例不允许年龄超过 90 岁
@@ -144,10 +144,9 @@ console.log(a === true); //false
 使用 `&&` 符号表示逻辑与，指符号两端都为 true 时表达式结果为 true。
 
 ```js
-let a = true,b = true;
-if (a && b) {
-    console.log('表达式成立');
-}
+const a = true; const b = true
+if (a && b)
+  console.log('表达式成立')
 ```
 
 ### 逻辑或
@@ -155,10 +154,9 @@ if (a && b) {
 使用 `||` 符号表示逻辑或，指符号左右两端有一方为 true，表达式即成立。
 
 ```js
-let a = true,b = false;
-if (a || b) {
-    console.log('表达式成立');
-}
+const a = true; const b = false
+if (a || b)
+  console.log('表达式成立')
 ```
 
 ### 逻辑非
@@ -166,10 +164,9 @@ if (a || b) {
 使用 `!` 符号表示逻辑非，即原来是 true 转变为 false，反之亦然。
 
 ```js
-let a = true,b = false;
-if (a && !b) {
-    console.log('表达式成立');
-}
+const a = true; const b = false
+if (a && !b)
+  console.log('表达式成立')
 ```
 
 ### 优先级
@@ -177,13 +174,13 @@ if (a && !b) {
 下列中因为 `&&` 的优先级高所以结果是 `true`。
 
 ```js
-console.log(true || false && false);
+console.log(true || false && false)
 ```
 
 可以使用 `()` 来提高优先级
 
 ```js
-console.log((true || false) && false);
+console.log((true || false) && false)
 ```
 
 ### 密码比对实例
@@ -223,36 +220,36 @@ console.log((true || false) && false);
 下例中 `a` 为真值，就已经知道结果了就不会再判断 `f` 的值了。
 
 ```js
-let a = true,f = false;
-console.log(a || f);
+const a = true; const f = false
+console.log(a || f)
 ```
 
 同理当 `f` 值为假时，就已经可以判断 `&&` 的结果了，就没有判断 `a`的必要了。
 
 ```js
-let a = true,f = false;
-console.log(f && a);
+const a = true; const f = false
+console.log(f && a)
 ```
 
 使用短路特性赋值
 
 ```js
-let sex = prompt("你的性别是？") || "保密";
-console.log(sex);
+const sex = prompt('你的性别是？') || '保密'
+console.log(sex)
 ```
 
 当 opt.url 没有值时，使用短路特性设置 url 的值
 
 ```js
-let opt = {
-    url: ''
-};
+const opt = {
+  url: ''
+}
 
 function getUrl(opt) {
-    opt.url = 'tydumpling.com';
+  opt.url = 'tydumpling.com'
 }
-opt.url || getUrl(opt);
-console.log(opt.url);
+opt.url || getUrl(opt)
+console.log(opt.url)
 ```
 
 ### 实例操作
@@ -296,18 +293,18 @@ query("#form").addEventListener("submit", function(event) {
 当条件为真时执行表达式代码块。
 
 ```js
-let state = true;
-if (true) {
-    console.log('表达式成立');
-}
+const state = true
+if (true)
+  console.log('表达式成立')
 ```
 
 如果只有一条代码块，可以不用写 `{}`
 
 ```js
-let state = true;
-if (true) console.log('表达式成立');
-console.log('一直都显示的内容');
+const state = true
+if (true)
+  console.log('表达式成立')
+console.log('一直都显示的内容')
 ```
 
 ### if/else
@@ -343,24 +340,24 @@ console.log('一直都显示的内容');
 是针对 `if` 判断的简写形式。
 
 ```js
-let n = true ? 1 : 2;
-console.log(n); //1
+const n = true ? 1 : 2
+console.log(n) // 1
 
-let f = true ? (1 == true ? 'yes' : 'no') : 3;
-console.log(f); // yes
+const f = true ? (1 == true ? 'yes' : 'no') : 3
+console.log(f) // yes
 ```
 
 下面是创建 DIV 元素的示例，使用三元表达式设置初始值
 
 ```js
 function div(options = {}) {
-  let div = document.createElement("div");
-  div.style.width = options.width ? options.width : "100px";
-  div.style.height = options.height ? options.height : "100px";
-  div.style.backgroundColor = options.bgcolor ? options.bgcolor : "red";
-  document.body.appendChild(div);
+  const div = document.createElement('div')
+  div.style.width = options.width ? options.width : '100px'
+  div.style.height = options.height ? options.height : '100px'
+  div.style.backgroundColor = options.bgcolor ? options.bgcolor : 'red'
+  document.body.appendChild(div)
 }
-div();
+div()
 ```
 
 ### switch
@@ -373,30 +370,30 @@ div();
 - 如果`case`执行后缺少 break 则接着执行后面的语句
 
 ```js
-let name = '视频';
+const name = '视频'
 switch (name) {
-    case '产品':
-        console.log('duyidao.com');
-        break;
-    case '视频':
-        console.log('tydumpling.com'); // 执行此条
-        break;
-    default:
-        console.log('dao.com')
+  case '产品':
+    console.log('duyidao.com')
+    break
+  case '视频':
+    console.log('tydumpling.com') // 执行此条
+    break
+  default:
+    console.log('dao.com')
 }
 ```
 
 case 合用示例
 
 ```js
-let error = 'warning';
+const error = 'warning'
 switch (error) {
   case 'notice':
   case 'warning':
-      console.log('警告或提示信息');
-      break;
+    console.log('警告或提示信息')
+    break
   case 'error':
-      console.log('错误信息');
+    console.log('错误信息')
 }
 ```
 
@@ -406,25 +403,25 @@ switch (error) {
 function message(age) {
   switch (true) {
     case age < 15:
-      console.log("儿童");
-      break;
+      console.log('儿童')
+      break
     case age < 25:
-      console.log("青少年");
-      break;
+      console.log('青少年')
+      break
     case age < 40:
-      console.log("青年");
-      break;
+      console.log('青年')
+      break
     case age < 60:
-      console.log("中年");
-      break;
+      console.log('中年')
+      break
     case age < 100:
-      console.log("老年");
-      break;
+      console.log('老年')
+      break
     default:
-      console.log("年龄输出错误");
+      console.log('年龄输出错误')
   }
 }
-message(10);
+message(10)
 ```
 
 下面例子缺少 break 后，会接着执行后面的 switch 代码。
@@ -432,11 +429,11 @@ message(10);
 ```js
 switch (1) {
   case 1:
-    console.log(1);
+    console.log(1)
   case 2:
-    console.log(2);
+    console.log(2)
   default:
-    console.log("default");
+    console.log('default')
 }
 ```
 
@@ -449,12 +446,12 @@ switch (1) {
 循环执行语句，需要设置跳出循环的条件否则会陷入死循环状态。下面是循环输出表格的示例。
 
 ```js
-let row = 5;
-document.write(`<table border="1" width="100">`);
-while (row-- != 0) {
-  document.write(`<tr><td>${row}</td></tr>`);
-}
-document.write(`</table>`);
+let row = 5
+document.write('<table border="1" width="100">')
+while (row-- != 0)
+  document.write(`<tr><td>${row}</td></tr>`)
+
+document.write('</table>')
 ```
 
 ### do/while
@@ -532,10 +529,9 @@ for (let i = 1; i <= 5; i++) {
 for 的三个参数可以都省略或取几个
 
 ```js
-let i = 1;
-for (; i < 10; ) {
-  console.log(i++);
-}
+let i = 1
+for (; i < 10;)
+  console.log(i++)
 ```
 
 ### break/continue
@@ -546,19 +542,21 @@ break 用于退出当前循环，continue 用于退出当前循环返回循环�
 
 ```js
 for (let i = 1; i <= 10; i++) {
-  if (i % 2) continue;
-  console.log(i);
+  if (i % 2)
+    continue
+  console.log(i)
 }
 ```
 
 获取三个奇数，超过时使用 `break`退出循环
 
 ```js
-let count = 0,num = 3;
+let count = 0; const num = 3
 for (let i = 1; i <= 10; i++) {
   if (i % 2) {
-    console.log(i);
-    if (++count == num) break;
+    console.log(i)
+    if (++count == num)
+      break
   }
 }
 ```
@@ -572,13 +570,13 @@ for (let i = 1; i <= 10; i++) {
 ```js
 tydumpling: for (let i = 1; i <= 10; i++) {
   duyidao: for (let n = 1; n <= 10; n++) {
-    if (n % 2 != 0) {
-      continue duyidao;
-    }
-    console.log(i, n);
-    if (i + n > 15) {
-      break tydumpling;
-    }
+    if (n % 2 != 0)
+      continue duyidao
+
+    console.log(i, n)
+    if (i + n > 15)
+      break tydumpling
+
   }
 }
 ```
@@ -590,46 +588,45 @@ tydumpling: for (let i = 1; i <= 10; i++) {
 遍历数组操作
 
 ```js
-let hd = [
-  { title: "第一章 走进JAVASCRIPT黑洞", lesson: 3 },
-  { title: "ubuntu19.10 配置好用的编程工作站", lesson: 5 },
-  { title: "媒体查询响应式布局", lesson: 8 }
-];
+const hd = [
+  { title: '第一章 走进JAVASCRIPT黑洞', lesson: 3 },
+  { title: 'ubuntu19.10 配置好用的编程工作站', lesson: 5 },
+  { title: '媒体查询响应式布局', lesson: 8 }
+]
 document.write(`
   <table border="1" width="100%">
   <thead><tr><th>标题</th><th>课程数</th></thead>
-`);
-for (let key in hd) {
+`)
+for (const key in hd) {
   document.write(`
   <tr>
   <td>${hd[key].title}</td>
   <td>${hd[key].lesson}</td>
   </tr>
-  `);
+  `)
 }
-document.write("</table>");
+document.write('</table>')
 ```
 
 遍历对象操作
 
 ```js
-let info = {
-  name: "tydumpling",
-  url: "tydumpling.com"
-};
+const info = {
+  name: 'tydumpling',
+  url: 'tydumpling.com'
+}
 for (const key in info) {
-  if (info.hasOwnProperty(key)) {
-    console.log(info[key]);
-  }
+  if (info.hasOwnProperty(key))
+    console.log(info[key])
+
 }
 ```
 
 遍历 window 对象的所有属性
 
 ```js
-for (name in window) {
-  console.log(window[name]);
-}
+for (name in window)
+  console.log(window[name])
 ```
 
 ### for/of
@@ -641,29 +638,26 @@ for (name in window) {
 > 后面在讲到`遍历器` 章节后大家会对 for/of 有更深的体会
 
 ```js
-let arr = [1, 2, 3];
-for (const iterator of arr) {
-    console.log(iterator); // 1  2  3
-}
+const arr = [1, 2, 3]
+for (const iterator of arr)
+  console.log(iterator) // 1  2  3
 ```
 
 遍历字符串
 
 ```js
-let str = 'tydumpling';
-for (const iterator of str) {
-    console.log(iterator); // d a o d a o
-}
+const str = 'tydumpling'
+for (const iterator of str)
+  console.log(iterator) // d a o d a o
 ```
 
 使用迭代特性遍历数组（后面章节会介绍迭代器）
 
 ```js
-const hd = ["duyidao", "tydumpling"];
+const hd = ['duyidao', 'tydumpling']
 
-for (const [key, value] of hd.entries()) {
-  console.log(key, value); //这样就可以遍历了
-}
+for (const [key, value] of hd.entries())
+  console.log(key, value) // 这样就可以遍历了
 ```
 
 使用`for/of` 也可以用来遍历 DOM 元素

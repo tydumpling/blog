@@ -55,26 +55,26 @@ Promise 在各种开源库中已经实现，现在标准化后被浏览器默认
 
 ```js
 function loadImage(file, resolve, reject) {
-  const image = new Image();
-  image.src = file;
+  const image = new Image()
+  image.src = file
   image.onload = () => {
-    resolve(image);
-  };
+    resolve(image)
+  }
   image.onerror = () => {
-    reject(new Error("load fail"));
-  };
-  document.body.appendChild(image);
+    reject(new Error('load fail'))
+  }
+  document.body.appendChild(image)
 }
 
 loadImage(
-  "images/tydumpling.png",
-  image => {
-    image.style.border = "solid 5px red";
+  'images/tydumpling.png',
+  (image) => {
+    image.style.border = 'solid 5px red'
   },
-  error => {
-    console.log(error);
+  (error) => {
+    console.log(error)
   }
-);
+)
 ```
 
 ### 加载文件
@@ -83,22 +83,22 @@ loadImage(
 
 ```js
 function load(file, resolve, reject) {
-  const script = document.createElement("script");
-  script.src = file;
-  script.onload = resolve;
-  script.onerror = reject;
-  document.body.appendChild(script);
+  const script = document.createElement('script')
+  script.src = file
+  script.onload = resolve
+  script.onerror = reject
+  document.body.appendChild(script)
 }
 load(
-  "js/fn.js",
-  script => {
-    console.log(`${script.path[0].src} 加载成功`);
-    fn();
+  'js/fn.js',
+  (script) => {
+    console.log(`${script.path[0].src} 加载成功`)
+    fn()
   },
-  error => {
-    console.log(`${error.srcElement.src} 加载失败`);
+  (error) => {
+    console.log(`${error.srcElement.src} 加载失败`)
   }
-);
+)
 ```
 
 实例中用到的 `fn.js` 与 `tydumpling.js` 内容如下
@@ -122,22 +122,22 @@ function tydumpling() {
 
 ```js
 load(
-  "js/fn.js",
-  script => {
+  'js/fn.js',
+  (script) => {
     load(
-      "js/tydumpling.js",
-      script => {
-        tydumpling();
+      'js/tydumpling.js',
+      (script) => {
+        tydumpling()
       },
-      error => {
-        console.log(`${error.srcElement.src} 加载失败`);
+      (error) => {
+        console.log(`${error.srcElement.src} 加载失败`)
       }
-    );
+    )
   },
-  error => {
-    console.log(`${error.srcElement.src} 加载失败`);
+  (error) => {
+    console.log(`${error.srcElement.src} 加载失败`)
   }
-);
+)
 ```
 
 ### 异步请求
@@ -149,26 +149,26 @@ load(
 
 ```js
 function ajax(url, resolve, reject) {
-  let xhr = new XMLHttpRequest();
-  xhr.open("GET", url);
-  xhr.send();
-  xhr.onload = function() {
-    if (this.status == 200) {
-      resolve(JSON.parse(this.response));
-    } else {
-      reject(this);
-    }
-  };
+  const xhr = new XMLHttpRequest()
+  xhr.open('GET', url)
+  xhr.send()
+  xhr.onload = function () {
+    if (this.status == 200)
+      resolve(JSON.parse(this.response))
+    else
+      reject(this)
+
+  }
 }
-ajax("接口路径", user => {
+ajax('接口路径', (user) => {
   // 此时user已经有id了
   ajax(
-    `接口路径?id=${user["id"]}`,
-    response => {
-      console.log(response[0]);
+    `接口路径?id=${user.id}`,
+    (response) => {
+      console.log(response[0])
     }
-  );
-});
+  )
+})
 ```
 
 ### 肯德基
@@ -176,58 +176,58 @@ ajax("接口路径", user => {
 下面是模拟肯德基吃饭的事情，使用 `promise` 操作异步的方式每个阶段会很清楚
 
 ```js
-let kfc = new Promise((resolve, reject) => {
-  console.log("肯德基厨房开始做饭");
-  resolve("我是肯德基，你的餐已经做好了");
-});
-let dad = kfc.then(msg => {
-  console.log(`收到肯德基消息: ${msg}`);
+const kfc = new Promise((resolve, reject) => {
+  console.log('肯德基厨房开始做饭')
+  resolve('我是肯德基，你的餐已经做好了')
+})
+const dad = kfc.then((msg) => {
+  console.log(`收到肯德基消息: ${msg}`)
   return {
     then(resolve) {
       setTimeout(() => {
-        resolve("长辈先吃");
-      }, 2000);
+        resolve('长辈先吃')
+      }, 2000)
     }
-  };
-});
-let son = dad.then(msg => {
+  }
+})
+const son = dad.then((msg) => {
   return new Promise((resolve, reject) => {
-    console.log(`收到爸爸消息: ${msg}`);
+    console.log(`收到爸爸消息: ${msg}`)
     setTimeout(() => {
-      resolve("晚辈开吃");
-    }, 2000);
-  });
-});
-let ma = son.then(msg => {
-  console.log(`吃完了: ${msg},事情结束`);
-});
+      resolve('晚辈开吃')
+    }, 2000)
+  })
+})
+const ma = son.then((msg) => {
+  console.log(`吃完了: ${msg},事情结束`)
+})
 ```
 
 而使用以往的回调方式，就会让人苦不堪言
 
 ```js
 function notice(msg, then) {
-  then(msg);
+  then(msg)
 }
 function meal() {
-  notice("肯德基厨房开始做饭", msg => {
-    console.log(msg);
-    notice("我是肯德基，你的餐已经做好", msg => {
-      console.log(`收到肯德基消息: ${msg}`);
+  notice('肯德基厨房开始做饭', (msg) => {
+    console.log(msg)
+    notice('我是肯德基，你的餐已经做好', (msg) => {
+      console.log(`收到肯德基消息: ${msg}`)
       setTimeout(() => {
-        notice("长辈先吃", msg => {
-          console.log(`收到爸爸消息: ${msg}`);
+        notice('长辈先吃', (msg) => {
+          console.log(`收到爸爸消息: ${msg}`)
           setTimeout(() => {
-            notice("晚辈开吃", msg => {
-              console.log(`吃完了: ${msg},事情结束`);
-            });
-          }, 2000);
-        });
-      }, 2000);
-    });
-  });
+            notice('晚辈开吃', (msg) => {
+              console.log(`吃完了: ${msg},事情结束`)
+            })
+          }, 2000)
+        })
+      }, 2000)
+    })
+  })
 }
-meal();
+meal()
 ```
 
 ### 总结
@@ -267,40 +267,40 @@ console.log(
 ```js
 console.log(
   new Promise((resolve, reject) => {
-    resolve("fulfilled");
+    resolve('fulfilled')
   })
-); //Promise {<resolved>: "fulfilled"}
+) // Promise {<resolved>: "fulfilled"}
 
 console.log(
   new Promise((resolve, reject) => {
-    reject("rejected");
+    reject('rejected')
   })
-); //Promise {<rejected>: "rejected"}
+) // Promise {<rejected>: "rejected"}
 ```
 
 `promise` 创建时即立即执行即同步任务，`then` 会放在异步微任务中执行，需要等同步任务执行后才执行。`promise` 操作都是在其他代码后执行，下面会先输出 `tydumpling.com` 再弹出 `success` 。
 
 ```js
-let promise = new Promise((resolve, reject) => {
-  resolve("fulfilled");
-  console.log("tydumpling");
-});
-promise.then(msg => {
-  console.log(msg);
-});
-console.log("tydumpling.com");
+const promise = new Promise((resolve, reject) => {
+  resolve('fulfilled')
+  console.log('tydumpling')
+})
+promise.then((msg) => {
+  console.log(msg)
+})
+console.log('tydumpling.com')
 ```
 
 - `promise` 的 then、catch、finally 的方法都是异步任务
 - 程序需要将主任务执行完成才会执行异步队列任务
 
 ```js
-const promise = new Promise(resolve => resolve("success"));
-promise.then(alert);
-alert("tydumpling.com");
+const promise = new Promise(resolve => resolve('success'))
+promise.then(alert)
+alert('tydumpling.com')
 promise.then(() => {
-  alert("tydumpling");
-});
+  alert('tydumpling')
+})
 ```
 
 下例在三秒后将 `Promise` 状态设置为 `fulfilled` ，然后执行 `then` 方法
@@ -308,32 +308,32 @@ promise.then(() => {
 ```js
 new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("fulfilled");
-  }, 3000);
+    resolve('fulfilled')
+  }, 3000)
 }).then(
-  msg => {
-    console.log(msg);
+  (msg) => {
+    console.log(msg)
   },
-  error => {
-    console.log(error);
+  (error) => {
+    console.log(error)
   }
-);
+)
 ```
 
 状态被改变后就不能再修改了，下面先通过`resolve` 改变为成功状态，表示`promise` 状态已经完成，就不能使用 `reject` 更改状态了
 
 ```js
 new Promise((resolve, reject) => {
-  resolve("操作成功");
-  reject(new Error("请求失败"));
+  resolve('操作成功')
+  reject(new Error('请求失败'))
 }).then(
-  msg => {
-    console.log(msg);
+  (msg) => {
+    console.log(msg)
   },
-  error => {
-    console.log(error);
+  (error) => {
+    console.log(error)
   }
-);
+)
 ```
 
 ### 动态改变
@@ -343,18 +343,18 @@ new Promise((resolve, reject) => {
 ```js
 const p1 = new Promise((resolve, reject) => {
   // resolve("fulfilled");
-  reject("rejected");
-});
-const p2 = new Promise(resolve => {
-  resolve(p1);
+  reject('rejected')
+})
+const p2 = new Promise((resolve) => {
+  resolve(p1)
 }).then(
-  value => {
-    console.log(value);
+  (value) => {
+    console.log(value)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
+)
 ```
 
 如果 `resolve` 参数是一个 `promise` ，将会改变`promise`状态。
@@ -364,14 +364,14 @@ const p2 = new Promise(resolve => {
 ```js
 const p1 = new Promise((resolve, reject) => {
   resolve(
-  	//p2
+  	// p2
     new Promise((s, e) => {
-      s("成功");
+      s('成功')
     })
-  );
-}).then(msg => {
-  console.log(msg);
-});
+  )
+}).then((msg) => {
+  console.log(msg)
+})
 ```
 
 当 promise 做为参数传递时，需要等待 promise 执行完才可以继承，下面的 p2 需要等待 p1 执行完成。
@@ -382,19 +382,19 @@ const p1 = new Promise((resolve, reject) => {
 ```js
 const p1 = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("操作成功");
-  }, 2000);
-});
+    resolve('操作成功')
+  }, 2000)
+})
 const p2 = new Promise((resolve, reject) => {
-  resolve(p1);
+  resolve(p1)
 }).then(
-  msg => {
-    console.log(msg);
+  (msg) => {
+    console.log(msg)
   },
-  error => {
-    console.log(error);
+  (error) => {
+    console.log(error)
   }
-);
+)
 ```
 
 ## then
@@ -429,90 +429,90 @@ promise.then(onFulfilled, onRejected)
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  resolve("success");
+  resolve('success')
 }).then(
-  value => {
-    console.log(`解决：${value}`);
+  (value) => {
+    console.log(`解决：${value}`)
   },
-  reason => {
-    console.log(`拒绝:${reason}`);
+  (reason) => {
+    console.log(`拒绝:${reason}`)
   }
-);
+)
 ```
 
 `then` 中第二个参数在失败状态执行
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  reject("is error");
-});
+  reject('is error')
+})
 promise.then(
-  msg => {
-    console.log(`成功：${msg}`);
+  (msg) => {
+    console.log(`成功：${msg}`)
   },
-  error => {
-    console.log(`失败:${error}`);
+  (error) => {
+    console.log(`失败:${error}`)
   }
-);
+)
 ```
 
 如果只关心成功则不需要传递 `then` 的第二个参数
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  resolve("success");
-});
-promise.then(msg => {
-  console.log(`成功：${msg}`);
-});
+  resolve('success')
+})
+promise.then((msg) => {
+  console.log(`成功：${msg}`)
+})
 ```
 
 如果只关心失败时状态，`then` 的第一个参数传递 `null`
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  reject("is error");
-});
-promise.then(null, error => {
-  console.log(`失败:${error}`);
-});
+  reject('is error')
+})
+promise.then(null, (error) => {
+  console.log(`失败:${error}`)
+})
 ```
 
 promise 传向 then 的传递值，如果 then 没有可处理函数，会一直向后传递
 
 ```js
-let p1 = new Promise((resolve, reject) => {
-	reject("rejected");
+const p1 = new Promise((resolve, reject) => {
+  reject('rejected')
 })
-.then()
-.then(
-  null,
-  f => console.log(f)
-);
+  .then()
+  .then(
+    null,
+    f => console.log(f)
+  )
 ```
 
 如果 `onFulfilled` 不是函数且 `promise` 执行成功, p2 执行成功并返回相同值
 
 ```js
-let promise = new Promise((resolve, reject) => {
-  resolve("resolve");
-});
-let p2 = promise.then();
-p2.then().then(resolve => {
-  console.log(resolve);
-});
+const promise = new Promise((resolve, reject) => {
+  resolve('resolve')
+})
+const p2 = promise.then()
+p2.then().then((resolve) => {
+  console.log(resolve)
+})
 ```
 
 如果 `onRejected` 不是函数且 `promise` 拒绝执行，p2 拒绝执行并返回相同值
 
 ```js
-let promise = new Promise((resolve, reject) => {
-  reject("reject");
-});
-let p2 = promise.then(() => {});
-p2.then(null, null).then(null, reject => {
-  console.log(reject);
-});
+const promise = new Promise((resolve, reject) => {
+  reject('reject')
+})
+const p2 = promise.then(() => {})
+p2.then(null, null).then(null, (reject) => {
+  console.log(reject)
+})
 ```
 
 ### 链式调用
@@ -520,36 +520,36 @@ p2.then(null, null).then(null, reject => {
 每次的 `then` 都是一个全新的 `promise`，默认 `then` 返回的 `promise` 状态是 `fulfilled` 。
 
 ```js
-let promise = new Promise((resolve, reject) => {
-  resolve("fulfilled");
-}).then(resolve => {
-  console.log(resolve); // fulfilled
+const promise = new Promise((resolve, reject) => {
+  resolve('fulfilled')
+}).then((resolve) => {
+  console.log(resolve) // fulfilled
 })
-.then(resolve => {
-  console.log(resolve); // undefined
-});
+  .then((resolve) => {
+    console.log(resolve) // undefined
+  })
 ```
 
 每次的 `then` 都是一个全新的 `promise`，不要认为上一个 `promise` 状态会影响以后 `then` 返回的状态
 
 ```js
-let p1 = new Promise(resolve => {
-  resolve();
-});
-let p2 = p1.then(() => {
-  console.log("tydumpling");
-});
+const p1 = new Promise((resolve) => {
+  resolve()
+})
+const p2 = p1.then(() => {
+  console.log('tydumpling')
+})
 p2.then(() => {
-  console.log("tydumpling.com");
-});
-console.log(p1); // Promise {<resolved>}
-console.log(p2); // Promise {<pending>}
+  console.log('tydumpling.com')
+})
+console.log(p1) // Promise {<resolved>}
+console.log(p2) // Promise {<pending>}
 
 // 再试试把上面两行放在 setTimeout里
 setTimeout(() => {
-  console.log(p1); // Promise {<resolved>}
-  console.log(p2); // Promise {<resolved>}
-});
+  console.log(p1) // Promise {<resolved>}
+  console.log(p2) // Promise {<resolved>}
+})
 ```
 
 `then` 是对上个 promise 的`rejected` 的处理，每个 `then` 会是一个新的 promise，默认传递 `fulfilled`状态
@@ -580,35 +580,35 @@ new Promise((resolve, reject) => {
 如果内部返回 `promise` 时将使用该 `promise`
 
 ```js
-let p1 = new Promise(resolve => {
-  resolve();
-});
-let p2 = p1.then(() => {
-  return new Promise(r => {
-    r("tydumpling.com");
-  });
-});
-p2.then(v => {
-  console.log(v); //tydumpling.com
-});
+const p1 = new Promise((resolve) => {
+  resolve()
+})
+const p2 = p1.then(() => {
+  return new Promise((r) => {
+    r('tydumpling.com')
+  })
+})
+p2.then((v) => {
+  console.log(v) // tydumpling.com
+})
 ```
 
 如果 `then` 返回`promise` 时，后面的`then` 就是对返回的 `promise` 的处理，需要等待该 promise 变更状态后执行。
 
 ```js
-let promise = new Promise(resolve => resolve());
-let p1 = promise.then(() => {
-  return new Promise(resolve => {
+const promise = new Promise(resolve => resolve())
+const p1 = promise.then(() => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      console.log(`p1`);
-      resolve();
-    }, 2000);
-  });
+      console.log('p1')
+      resolve()
+    }, 2000)
+  })
 }).then(() => {
   return new Promise((a, b) => {
-    console.log(`p2`);
-  });
-});
+    console.log('p2')
+  })
+})
 ```
 
 如果`then`返回 `promise` 时，返回的`promise` 后面的`then` 就是处理这个`promise` 的
@@ -617,39 +617,39 @@ let p1 = promise.then(() => {
 
 ```js
 new Promise((resolve, reject) => {
-  resolve();
+  resolve()
 })
-.then(v => {
-  return new Promise((resolve, reject) => {
-    resolve("第二个promise");
-  }).then(value => {
-    console.log(value);
-    return value;
-  });
-})
-.then(value => {
-  console.log(value);
-});
+  .then((v) => {
+    return new Promise((resolve, reject) => {
+      resolve('第二个promise')
+    }).then((value) => {
+      console.log(value)
+      return value
+    })
+  })
+  .then((value) => {
+    console.log(value)
+  })
 ```
 
 这是对上面代码的优化，把内部的 `then` 提取出来
 
 ```js
 new Promise((resolve, reject) => {
-  resolve();
+  resolve()
 })
-.then(v => {
-  return new Promise((resolve, reject) => {
-    resolve("第二个promise");
-  });
-})
-.then(value => {
-  console.log(value); // 第二个promise
-  return value;
-})
-.then(value => {
-  console.log(value); // 第二个promise
-});
+  .then((v) => {
+    return new Promise((resolve, reject) => {
+      resolve('第二个promise')
+    })
+  })
+  .then((value) => {
+    console.log(value) // 第二个promise
+    return value
+  })
+  .then((value) => {
+    console.log(value) // 第二个promise
+  })
 ```
 
 ### 其它类型
@@ -661,12 +661,12 @@ Promise 解决过程是一个抽象的操作，其需输入一个 `promise` 和�
 如果 `then` 返回与 `promise` 相同将禁止执行
 
 ```js
-let promise = new Promise(resolve => {
-  resolve();
-});
-let p2 = promise.then(() => {
-  return p2;
-}); // TypeError: Chaining cycle detected for promise
+const promise = new Promise((resolve) => {
+  resolve()
+})
+const p2 = promise.then(() => {
+  return p2
+}) // TypeError: Chaining cycle detected for promise
 ```
 
 #### promise
@@ -678,25 +678,25 @@ new Promise((resolve, reject) => {
   resolve(
     new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve("解决状态");
-      }, 2000);
+        resolve('解决状态')
+      }, 2000)
     })
-  );
+  )
 })
   .then(
-    v => {
-      console.log(`fulfilled: ${v}`);
+    (v) => {
+      console.log(`fulfilled: ${v}`)
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          reject("失败状态");
-        }, 2000);
-      });
+          reject('失败状态')
+        }, 2000)
+      })
     },
-    v => {
-      console.log(`rejected: ${v}`);
+    (v) => {
+      console.log(`rejected: ${v}`)
     }
   )
-  .catch(error => console.log(`rejected: ${error}`));
+  .catch(error => console.log(`rejected: ${error}`))
 ```
 
 #### Thenables
@@ -712,23 +712,23 @@ new Promise((resolve, reject) => {
 new Promise((resolve, reject) => {
   resolve({
     then(resolve, reject) {
-      resolve("解决状态");
+      resolve('解决状态')
     }
-  });
+  })
 })
-.then(v => {
-  console.log(`fulfilled: ${v}`);
-  return {
-    then(resolve, reject) {
-      setTimeout(() => {
-        reject("失败状态");
-      }, 2000);
+  .then((v) => {
+    console.log(`fulfilled: ${v}`)
+    return {
+      then(resolve, reject) {
+        setTimeout(() => {
+          reject('失败状态')
+        }, 2000)
+      }
     }
-  };
-})
-.then(null, error => {
-  console.log(`rejected: ${error}`);
-});
+  })
+  .then(null, (error) => {
+    console.log(`rejected: ${error}`)
+  })
 ```
 
 包含 `then` 方法的对象可以当作 promise 来使用
@@ -736,21 +736,22 @@ new Promise((resolve, reject) => {
 ```js
 class User {
   constructor(id) {
-    this.id = id;
+    this.id = id
   }
+
   then(resolve, reject) {
-    resolve(ajax(`http://localhost:8888/php/tydumpling.php?id=${this.id}`));
+    resolve(ajax(`http://localhost:8888/php/tydumpling.php?id=${this.id}`))
   }
 }
 new Promise((resolve, reject) => {
-  resolve(ajax(`http://localhost:8888/php/user.php?name=tydumpling`));
+  resolve(ajax('http://localhost:8888/php/user.php?name=tydumpling'))
 })
-.then(user => {
-  return new User(user.id);
-})
-.then(lessons => {
-  console.log(lessons);
-});
+  .then((user) => {
+    return new User(user.id)
+  })
+  .then((lessons) => {
+    console.log(lessons)
+  })
 ```
 
 当然也可以是类
@@ -761,35 +762,35 @@ new Promise((resolve, reject) => {
     class {
       static then(resolve, reject) {
         setTimeout(() => {
-          resolve("解决状态");
-        }, 2000);
+          resolve('解决状态')
+        }, 2000)
       }
     }
-  );
+  )
 }).then(
-  v => {
-    console.log(`fulfilled: ${v}`);
+  (v) => {
+    console.log(`fulfilled: ${v}`)
   },
-  v => {
-    console.log(`rejected: ${v}`);
+  (v) => {
+    console.log(`rejected: ${v}`)
   }
-);
+)
 ```
 
 如果对象中的 then 不是函数，则将对象做为值传递
 
 ```js
 new Promise((resolve, reject) => {
-  resolve();
+  resolve()
 })
-.then(() => {
-  return {
-    then: "tydumpling"
-  };
-})
-.then(v => {
-  console.log(v); //{then: "tydumpling"}
-});
+  .then(() => {
+    return {
+      then: 'tydumpling'
+    }
+  })
+  .then((v) => {
+    console.log(v) // {then: "tydumpling"}
+  })
 ```
 
 ## catch
@@ -797,24 +798,24 @@ new Promise((resolve, reject) => {
 下面使用未定义的变量同样会触发失败状态
 
 ```js
-let promise = new Promise((resolve, reject) => {
-  fn;
+const promise = new Promise((resolve, reject) => {
+  fn
 }).then(
   value => console.log(value),
   reason => console.log(reason)
-);
+)
 ```
 
 如果 onFulfilled 或 onRejected 抛出异常，则 p2 拒绝执行并返回拒因
 
 ```js
-let promise = new Promise((resolve, reject) => {
-  throw new Error("fail");
-});
-let p2 = promise.then();
-p2.then().then(null, resolve => {
-  console.log(resolve + ",tydumpling");
-});
+const promise = new Promise((resolve, reject) => {
+  throw new Error('fail')
+})
+const p2 = promise.then()
+p2.then().then(null, (resolve) => {
+  console.log(`${resolve},tydumpling`)
+})
 ```
 
 catch 用于失败状态的处理函数，等同于 `then(null,reject){}`
@@ -824,40 +825,40 @@ catch 用于失败状态的处理函数，等同于 `then(null,reject){}`
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  reject(new Error("Notice: Promise Exception"));
-}).catch(msg => {
-  console.error(msg);
-});
+  reject(new Error('Notice: Promise Exception'))
+}).catch((msg) => {
+  console.error(msg)
+})
 ```
 
 `catch` 可以捕获之前所有 `promise` 的错误，所以建议将 `catch` 放在最后。下例中 `catch` 也可以捕获到了第一个 `then` 返回 的 `promise` 的错误。
 
 ```js
 new Promise((resolve, reject) => {
-  resolve();
+  resolve()
 })
-.then(() => {
-  return new Promise((resolve, reject) => {
-    reject(".then ");
-  });
-})
-.then(() => {})
-.catch(msg => {
-  console.log(msg);
-});
+  .then(() => {
+    return new Promise((resolve, reject) => {
+      reject('.then ')
+    })
+  })
+  .then(() => {})
+  .catch((msg) => {
+    console.log(msg)
+  })
 ```
 
 错误是冒泡的操作的，下面没有任何一个`then` 定义第二个函数，将一直冒泡到 `catch` 处理错误
 
 ```js
 new Promise((resolve, reject) => {
-  reject(new Error("请求失败"));
+  reject(new Error('请求失败'))
 })
-.then(msg => {})
-.then(msg => {})
-.catch(error => {
-  console.log(error);
-});
+  .then((msg) => {})
+  .then((msg) => {})
+  .catch((error) => {
+    console.log(error)
+  })
 ```
 
 `catch` 也可以捕获对 `then` 抛出的错误处理
@@ -890,15 +891,15 @@ new Promise((resolve, reject) => {
 
 ```js
 new Promise((resolve, reject) => {
-  reject(new Error("请求失败"));
+  reject(new Error('请求失败'))
 }).then(
-  msg => {
-    console.log(msg);
+  (msg) => {
+    console.log(msg)
   },
-  error => {
-    console.log(error);
+  (error) => {
+    console.log(error)
   }
-);
+)
 ```
 
 ### 处理机制
@@ -907,10 +908,10 @@ new Promise((resolve, reject) => {
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  throw new Error("fail");
-}).catch(msg => {
-  console.log(msg.toString()+"tydumpling");
-});
+  throw new Error('fail')
+}).catch((msg) => {
+  console.log(`${msg.toString()}tydumpling`)
+})
 ```
 
 可以将上面的理解为如下代码，可以理解为内部自动执行 `try...catch`
@@ -918,13 +919,14 @@ const promise = new Promise((resolve, reject) => {
 ```js
 const promise = new Promise((resolve, reject) => {
   try {
-    throw new Error("fail");
-  } catch (error) {
-    reject(error);
+    throw new Error('fail')
   }
-}).catch(msg => {
-  console.log(msg.toString());
-});
+  catch (error) {
+    reject(error)
+  }
+}).catch((msg) => {
+  console.log(msg.toString())
+})
 ```
 
 但像下面的在异步中 `throw` 将不会触发 `catch`，而使用系统错误处理
@@ -932,39 +934,39 @@ const promise = new Promise((resolve, reject) => {
 ```js
 const promise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    throw new Error("fail");
-  }, 2000);
-}).catch(msg => {
-  console.log(msg + "tydumpling");
-});
+    throw new Error('fail')
+  }, 2000)
+}).catch((msg) => {
+  console.log(`${msg}tydumpling`)
+})
 ```
 
 下面在`then` 方法中使用了没有定义的`fn`函数，也会抛除到 `catch` 执行，可以理解为内部自动执行 `try...catch`
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  resolve();
+  resolve()
 })
-.then(() => {
-  fn();
-})
-.catch(msg => {
-  console.log(msg.toString());
-});
+  .then(() => {
+    fn()
+  })
+  .catch((msg) => {
+    console.log(msg.toString())
+  })
 ```
 
 在 `catch` 中发生的错误也会抛给最近的错误处理
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  reject();
+  reject()
 })
-.catch(msg => {
-  fn();
-})
-.then(null, error => {
-  console.log(error);
-});
+  .catch((msg) => {
+    fn()
+  })
+  .then(null, (error) => {
+    console.log(error)
+  })
 ```
 
 ### 定制错误
@@ -974,53 +976,55 @@ const promise = new Promise((resolve, reject) => {
 ```js
 class ParamError extends Error {
   constructor(msg) {
-    super(msg);
-    this.name = "ParamError";
+    super(msg)
+    this.name = 'ParamError'
   }
 }
 class HttpError extends Error {
   constructor(msg) {
-    super(msg);
-    this.name = "HttpError";
+    super(msg)
+    this.name = 'HttpError'
   }
 }
 function ajax(url) {
   return new Promise((resolve, reject) => {
-    if (!/^http/.test(url)) {
-      throw new ParamError("请求地址格式错误");
-    }
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.send();
-    xhr.onload = function() {
+    if (!url.startsWith('http'))
+      throw new ParamError('请求地址格式错误')
+
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+    xhr.send()
+    xhr.onload = function () {
       if (this.status == 200) {
-        resolve(JSON.parse(this.response));
-      } else if (this.status == 404) {
-        // throw new HttpError("用户不存在");
-        reject(new HttpError("用户不存在"));
-      } else {
-        reject("加载失败");
+        resolve(JSON.parse(this.response))
       }
-    };
-    xhr.onerror = function() {
-      reject(this);
-    };
-  });
+      else if (this.status == 404) {
+        // throw new HttpError("用户不存在");
+        reject(new HttpError('用户不存在'))
+      }
+      else {
+        reject('加载失败')
+      }
+    }
+    xhr.onerror = function () {
+      reject(this)
+    }
+  })
 }
 
-ajax(`http://localhost:8888/php/user.php?name=tydumpling`)
-.then(value => {
-  console.log(value);
-})
-.catch(error => {
-  if (error instanceof ParamError) {
-    console.log(error.message);
-  }
-  if (error instanceof HttpError) {
-    alert(error.message);
-  }
-  console.log(error);
-});
+ajax('http://localhost:8888/php/user.php?name=tydumpling')
+  .then((value) => {
+    console.log(value)
+  })
+  .catch((error) => {
+    if (error instanceof ParamError)
+      console.log(error.message)
+
+    if (error instanceof HttpError)
+      alert(error.message)
+
+    console.log(error)
+  })
 ```
 
 ### 事件处理
@@ -1028,16 +1032,16 @@ ajax(`http://localhost:8888/php/user.php?name=tydumpling`)
 **unhandledrejection**事件用于捕获到未处理的 Promise 错误，下面的 then 产生了错误，但没有`catch` 处理，这时就会触发事件。该事件有可能在以后被废除，处理方式是对没有处理的错误直接终止。
 
 ```js
-window.addEventListener("unhandledrejection", function(event) {
-  console.log(event.promise); // 产生错误的promise对象
-  console.log(event.reason); // Promise的reason
-});
+window.addEventListener('unhandledrejection', (event) => {
+  console.log(event.promise) // 产生错误的promise对象
+  console.log(event.reason) // Promise的reason
+})
 
 new Promise((resolve, reject) => {
-  resolve("success");
-}).then(msg => {
-  throw new Error("fail");
-});
+  resolve('success')
+}).then((msg) => {
+  throw new Error('fail')
+})
 ```
 
 ## finally
@@ -1046,17 +1050,17 @@ new Promise((resolve, reject) => {
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  reject("dd");
+  reject('dd')
 })
-.then(msg => {
-  console.log("resolve");
-})
-.catch(msg => {
-  console.log("reject");
-})
-.finally(() => {
-  console.log("resolve/reject状态都会执行");
-});
+  .then((msg) => {
+    console.log('resolve')
+  })
+  .catch((msg) => {
+    console.log('reject')
+  })
+  .finally(() => {
+    console.log('resolve/reject状态都会执行')
+  })
 ```
 
 下面使用 `finally` 处理加载状态，当请求完成时移除加载图标。请在后台 php 文件中添加 `sleep(2);` 设置延迟响应
@@ -1113,24 +1117,24 @@ ajax("http://localhost:8888/php/user.php?name=tydumpling")
 ```js
 function ajax(url) {
   return new Promise((resolve, reject) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.send();
-    xhr.onload = function() {
-      if (this.status == 200) {
-        resolve(JSON.parse(this.response));
-      } else {
-        reject(this);
-      }
-    };
-  });
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+    xhr.send()
+    xhr.onload = function () {
+      if (this.status == 200)
+        resolve(JSON.parse(this.response))
+      else
+        reject(this)
+
+    }
+  })
 }
 
-ajax("http://localhost:8888/php/user.php?name=tydumpling")
-.then(user =>ajax(`http://localhost:8888/php/tydumpling.php?id=${user["id"]}`))
-.then(lesson => {
-  console.log(lesson);
-});
+ajax('http://localhost:8888/php/user.php?name=tydumpling')
+  .then(user => ajax(`http://localhost:8888/php/tydumpling.php?id=${user.id}`))
+  .then((lesson) => {
+    console.log(lesson)
+  })
 ```
 
 ### 图片加载
@@ -1140,20 +1144,20 @@ ajax("http://localhost:8888/php/user.php?name=tydumpling")
 ```js
 function loadImage(file) {
   return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.src = file;
+    const image = new Image()
+    image.src = file
     image.onload = () => {
-      resolve(image);
-    };
-    image.onerror = reject;
-    document.body.appendChild(image);
-  });
+      resolve(image)
+    }
+    image.onerror = reject
+    document.body.appendChild(image)
+  })
 }
 
-loadImage("images/tydumpling.png").then(image => {
-  image.style.border = "solid 20px black";
-  console.log("宽度:" + window.getComputedStyle(image).width);
-});
+loadImage('images/tydumpling.png').then((image) => {
+  image.style.border = 'solid 20px black'
+  console.log(`宽度:${window.getComputedStyle(image).width}`)
+})
 ```
 
 ### 定时器
@@ -1162,19 +1166,19 @@ loadImage("images/tydumpling.png").then(image => {
 
 ```js
 function timeout(times) {
-  return new Promise(resolve => {
-    setTimeout(resolve, times);
-  });
+  return new Promise((resolve) => {
+    setTimeout(resolve, times)
+  })
 }
 
 timeout(3000)
   .then(() => {
-    console.log("3秒后执行");
-    return timeout(1000);
+    console.log('3秒后执行')
+    return timeout(1000)
   })
   .then(() => {
-    console.log("执行上一步的promise后1秒执行");
-  });
+    console.log('执行上一步的promise后1秒执行')
+  })
 ```
 
 封闭 `setInterval` 定时器并实现动画效果
@@ -1230,31 +1234,31 @@ timeout(3000)
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  resolve("tydumpling");
-});
-promise.then(fn => {
-  fn += "-dd";
-  console.log(fn); //tydumpling-dd
-});
-promise.then(fn => {
-  fn += "-tydumpling";
-  console.log(fn); //tydumpling-tydumpling
-});
+  resolve('tydumpling')
+})
+promise.then((fn) => {
+  fn += '-dd'
+  console.log(fn) // tydumpling-dd
+})
+promise.then((fn) => {
+  fn += '-tydumpling'
+  console.log(fn) // tydumpling-tydumpling
+})
 ```
 
 第一个 `then` 也是一个 promise，当没接受到结果是状态为 `pending`
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  resolve("tydumpling");
-});
+  resolve('tydumpling')
+})
 
 console.log(
-  promise.then(fn => {
-    fn += "-dd";
-    console.log(fn);
+  promise.then((fn) => {
+    fn += '-dd'
+    console.log(fn)
   })
-); //Promise {<pending>}
+) // Promise {<pending>}
 ```
 
 `promise` 中的 `then` 方法可以链接执行，`then` 方法的返回值会传递到下一个`then` 方法。
@@ -1266,36 +1270,36 @@ console.log(
 
 ```js
 new Promise((resolve, reject) => {
-  resolve("tydumpling");
+  resolve('tydumpling')
 })
-.then(fn => {
-  fn += "-dd";
-  console.log(fn); //tydumpling-dd
-  return fn;
-})
-.then(fn => {
-  fn += "-tydumpling";
-  console.log(fn); //tydumpling-dd-tydumpling
-});
+  .then((fn) => {
+    fn += '-dd'
+    console.log(fn) // tydumpling-dd
+    return fn
+  })
+  .then((fn) => {
+    fn += '-tydumpling'
+    console.log(fn) // tydumpling-dd-tydumpling
+  })
 ```
 
 `then` 方法可以返回一个`promise` 对象，等`promise` 执行结束后，才会继承执行后面的 `then`。后面的`then` 方法就是对新返回的`promise` 状态的处理
 
 ```js
 new Promise((resolve, reject) => {
-  resolve("第一个promise");
+  resolve('第一个promise')
 })
-.then(msg => {
-  console.log(msg);
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("第二个promise");
-    }, 3000);
-  });
-})
-.then(msg => {
-  console.log(msg);
-});
+  .then((msg) => {
+    console.log(msg)
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('第二个promise')
+      }, 3000)
+    })
+  })
+  .then((msg) => {
+    console.log(msg)
+  })
 ```
 
 ### 链式加载
@@ -1305,17 +1309,17 @@ new Promise((resolve, reject) => {
 ```js
 function load(file) {
   return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = file;
-    script.onload = () => resolve(script);
-    script.onerror = () => reject();
-    document.body.appendChild(script);
-  });
+    const script = document.createElement('script')
+    script.src = file
+    script.onload = () => resolve(script)
+    script.onerror = () => reject()
+    document.body.appendChild(script)
+  })
 }
 
-load("js/fn.js")
-.then(() => load("js/tydumpling.js"))
-.then(() => tydumpling());
+load('js/fn.js')
+  .then(() => load('js/tydumpling.js'))
+  .then(() => tydumpling())
 ```
 
 ### 操作元素
@@ -1365,25 +1369,25 @@ new Promise(resolve => {
 ```js
 function ajax(url) {
   return new Promise((resolve, reject) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.send();
-    xhr.onload = function() {
-      if (this.status == 200) {
-        resolve(JSON.parse(this.response));
-      } else {
-        reject(this);
-      }
-    };
-  });
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+    xhr.send()
+    xhr.onload = function () {
+      if (this.status == 200)
+        resolve(JSON.parse(this.response))
+      else
+        reject(this)
+
+    }
+  })
 }
-ajax("http://localhost:8888/php/user.php?name=tydumpling")
-.then(user => {
-  return ajax(`http://localhost:8888/php/tydumpling.php?id=${user["id"]}`);
-})
-.then(lesson => {
-  console.log(lesson);
-});
+ajax('http://localhost:8888/php/user.php?name=tydumpling')
+  .then((user) => {
+    return ajax(`http://localhost:8888/php/tydumpling.php?id=${user.id}`)
+  })
+  .then((lesson) => {
+    console.log(lesson)
+  })
 ```
 
 ## 扩展接口
@@ -1395,9 +1399,9 @@ ajax("http://localhost:8888/php/user.php?name=tydumpling")
 根据值返加 `promise`
 
 ```js
-Promise.resolve("tydumpling").then(value => {
-  console.log(value); //tydumpling
-});
+Promise.resolve('tydumpling').then((value) => {
+  console.log(value) // tydumpling
+})
 ```
 
 下面将请求结果缓存，如果再次请求时直接返回带值的 `promise`
@@ -1406,27 +1410,27 @@ Promise.resolve("tydumpling").then(value => {
 
 ```js
 function query(name) {
-  const cache = query.cache || (query.cache = new Map());
+  const cache = query.cache || (query.cache = new Map())
   if (cache.has(name)) {
-    console.log("走缓存了");
-    return Promise.resolve(cache.get(name));
+    console.log('走缓存了')
+    return Promise.resolve(cache.get(name))
   }
   return ajax(`http://localhost:8888/php/user.php?name=${name}`).then(
-    response => {
-      cache.set(name, response);
-      console.log("没走缓存");
-      return response;
+    (response) => {
+      cache.set(name, response)
+      console.log('没走缓存')
+      return response
     }
-  );
+  )
 }
-query("tydumpling").then(response => {
-  console.log(response);
-});
+query('tydumpling').then((response) => {
+  console.log(response)
+})
 setTimeout(() => {
-  query("tydumpling").then(response => {
-    console.log(response);
-  });
-}, 1000);
+  query('tydumpling').then((response) => {
+    console.log(response)
+  })
+}, 1000)
 ```
 
 如果是 `thenable` 对象，会将对象包装成 promise 处理，这与其他 promise 处理方式一样的
@@ -1434,12 +1438,12 @@ setTimeout(() => {
 ```js
 const fn = {
   then(resolve, reject) {
-    resolve("tydumpling");
+    resolve('tydumpling')
   }
-};
-Promise.resolve(fn).then(value => {
-  console.log(value);
-});
+}
+Promise.resolve(fn).then((value) => {
+  console.log(value)
+})
 ```
 
 ### reject
@@ -1447,21 +1451,22 @@ Promise.resolve(fn).then(value => {
 和 `Promise.resolve` 类似，`reject` 生成一个失败的`promise`
 
 ```js
-Promise.reject("fail").catch(error => console.log(error));
+Promise.reject('fail').catch(error => console.log(error))
 ```
 
 下面使用 `Project.reject` 设置状态
 
 ```js
-new Promise(resolve => {
-  resolve("tydumpling");
+new Promise((resolve) => {
+  resolve('tydumpling')
 })
-.then(v => {
-  if (v != "tydumpling.com") return Promise.reject(new Error("fail"));
-})
-.catch(error => {
-  console.log(error); // fail
-});
+  .then((v) => {
+    if (v != 'tydumpling.com')
+      return Promise.reject(new Error('fail'))
+  })
+  .catch((error) => {
+    console.log(error) // fail
+  })
 ```
 
 ### all
@@ -1478,21 +1483,21 @@ new Promise(resolve => {
 ```js
 const dd = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("第一个Promise");
-  }, 1000);
-});
+    resolve('第一个Promise')
+  }, 1000)
+})
 const tydumpling = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("第二个异步");
-  }, 1000);
-});
+    resolve('第二个异步')
+  }, 1000)
+})
 const fn = Promise.all([dd, tydumpling])
-  .then(results => {
-    console.log(results);  // ['第一个Promise', '第二个异步']
+  .then((results) => {
+    console.log(results) // ['第一个Promise', '第二个异步']
   })
-  .catch(msg => {
-    console.log(msg);
-  });
+  .catch((msg) => {
+    console.log(msg)
+  })
 ```
 
 根据用户名获取用户，有任何一个接口报错时 `promise.all` 状态失败，执行 `catch` 方法
@@ -1500,31 +1505,31 @@ const fn = Promise.all([dd, tydumpling])
 ```js
 function ajax(url) {
   return new Promise((resolve, reject) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.send();
-    xhr.onload = function() {
-      if (this.status == 200) {
-        resolve(JSON.parse(this.response));
-      } else {
-        reject(this);
-      }
-    };
-  });
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+    xhr.send()
+    xhr.onload = function () {
+      if (this.status == 200)
+        resolve(JSON.parse(this.response))
+      else
+        reject(this)
+
+    }
+  })
 }
 
-const api = "http://localhost:8888/php";
-const promises = ["tydumpling", "tydumpling"].map(name => {
-  return ajax(`${api}/user.php?name=${name}`);
-});
+const api = 'http://localhost:8888/php'
+const promises = ['tydumpling', 'tydumpling'].map((name) => {
+  return ajax(`${api}/user.php?name=${name}`)
+})
 
 Promise.all(promises)
-  .then(response => {
-    console.log(response);
+  .then((response) => {
+    console.log(response)
   })
-  .catch(error => {
-    console.log(error);
-  });
+  .catch((error) => {
+    console.log(error)
+  })
 ```
 
 可以将其他非`promise` 数据添加到 `all` 中，它将被处理成 `Promise.resolve`
@@ -1543,29 +1548,29 @@ const promises = [
 
 ```js
 function getFn(names) {
-    let promise = names.map(item => {
-        return ajax('http:192.168.0.18:8080/tydumpling' + item)
-    })
-    return Promise.all(promise)
+  const promise = names.map((item) => {
+    return ajax(`http:192.168.0.18:8080/tydumpling${item}`)
+  })
+  return Promise.all(promise)
 }
 
-getFn(['tydumpling', 'tydumpling', 'tydumpling']).then(res => {
-    console.log(res)
+getFn(['tydumpling', 'tydumpling', 'tydumpling']).then((res) => {
+  console.log(res)
 })
 ```
 
 如果某一个`promise`没有 catch 处理，将使用`promise.all` 的 catch 处理
 
 ```js
-let p1 = new Promise((resolve, reject) => {
-  resolve("fulfilled");
-});
-let p2 = new Promise((resolve, reject) => {
-  reject("rejected");
-});
-Promise.all([p1, p2]).catch(reason => {
-  console.log(reason); // rejected
-});
+const p1 = new Promise((resolve, reject) => {
+  resolve('fulfilled')
+})
+const p2 = new Promise((resolve, reject) => {
+  reject('rejected')
+})
+Promise.all([p1, p2]).catch((reason) => {
+  console.log(reason) // rejected
+})
 ```
 
 ### allSettled
@@ -1576,28 +1581,28 @@ Promise.all([p1, p2]).catch(reason => {
 
 ```js
 const p1 = new Promise((resolve, reject) => {
-  resolve("resolved");
-});
-const p2 = new Promise((resolve, reject) => {
-  reject("rejected");
-});
-Promise.allSettled([p1, p2])
-.then(msg => {
-  console.log(msg);
+  resolve('resolved')
 })
+const p2 = new Promise((resolve, reject) => {
+  reject('rejected')
+})
+Promise.allSettled([p1, p2])
+  .then((msg) => {
+    console.log(msg)
+  })
 ```
 
 下面是获取用户信息，但不关注某个用户是否获取不成功
 
 ```js
-const api = "http://localhost:8888/php";
+const api = 'http://localhost:8888/php'
 const promises = [
   ajax(`${api}/user.php?name=tydumpling`),
   ajax(`${api}/user.php?name=tydumpling`)
-];
-Promise.allSettled(promises).then(response => {
-  console.log(response);
-});
+]
+Promise.allSettled(promises).then((response) => {
+  console.log(response)
+})
 ```
 
 ### any
@@ -1606,14 +1611,14 @@ Promise.allSettled(promises).then(response => {
 
 ```js
 const p1 = new Promise((resolve, reject) => {
-  resolve("resolved");
-});
+  resolve('resolved')
+})
 const p2 = new Promise((resolve, reject) => {
-  reject("rejected");
-});
+  reject('rejected')
+})
 const p3 = new Promise((resolve, reject) => {
-  resolve("resolve2");
-});
+  resolve('resolve2')
+})
 Promise.any() // resolved
 Promise.any([p2, p3, p1]) // resolve2
 ```
@@ -1635,40 +1640,40 @@ Promise.any([p2, p3, p1]) // resolve2
 ```js
 const dd = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("第一个Promise");
-  }, 2000);
-});
+    resolve('第一个Promise')
+  }, 2000)
+})
 const tydumpling = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("第二个异步");
-  }, 1000);
-});
-Promise.race([dd, tydumpling])
-.then(results => {
-  console.log(results); // 第二个异步
+    resolve('第二个异步')
+  }, 1000)
 })
-.catch(msg => {
-  console.log(msg);
-});
+Promise.race([dd, tydumpling])
+  .then((results) => {
+    console.log(results) // 第二个异步
+  })
+  .catch((msg) => {
+    console.log(msg)
+  })
 ```
 
 获取用户资料，如果两秒内没有结果 `promise.race` 状态失败，执行`catch` 方法
 
 ```js
-const api = "http://localhost:8888/php";
+const api = 'http://localhost:8888/php'
 const promises = [
   ajax(`${api}/user.php?name=tydumpling`),
   new Promise((a, b) =>
-    setTimeout(() => b(new Error("request fail")), 2000)
+    setTimeout(() => b(new Error('request fail')), 2000)
   )
-];
+]
 Promise.race(promises)
-.then(response => {
-  console.log(response);
-})
-.catch(error => {
-  console.log(error); // request fail
-});
+  .then((response) => {
+    console.log(response)
+  })
+  .catch((error) => {
+    console.log(error) // request fail
+  })
 ```
 
 ## 任务队列
@@ -1678,22 +1683,22 @@ Promise.race(promises)
 如果 `then` 返回`promise` 时，后面的`then` 就是对返回的 `promise` 的处理
 
 ```js
-let promise = Promise.resolve();
-let p1 = promise.then(() => {
-  return new Promise(resolve => {
+const promise = Promise.resolve()
+const p1 = promise.then(() => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      console.log(`p1`);
-      resolve();
-    }, 1000);
-  });
-});
+      console.log('p1')
+      resolve()
+    }, 1000)
+  })
+})
 p1.then(() => {
   return new Promise((a, b) => {
     setTimeout(() => {
-      console.log(`p2`);
-    }, 1000);
-  });
-});
+      console.log('p2')
+    }, 1000)
+  })
+})
 ```
 
 下面使用 `map` 构建的队列，有以下几点需要说明
@@ -1703,18 +1708,18 @@ p1.then(() => {
 
 ```js
 function queue(nums) {
-  let promise = Promise.resolve();
-  nums.map(n => {
-    promise = promise.then(v => {
-      return new Promise(resolve => {
-        console.log(n);
-        resolve();
-      });
-    });
-  });
+  let promise = Promise.resolve()
+  nums.map((n) => {
+    promise = promise.then((v) => {
+      return new Promise((resolve) => {
+        console.log(n)
+        resolve()
+      })
+    })
+  })
 }
 
-queue([1, 2, 3, 4, 5]);
+queue([1, 2, 3, 4, 5])
 ```
 
 下面再来通过 `reduce` 来实现队列
@@ -1723,15 +1728,15 @@ queue([1, 2, 3, 4, 5]);
 function queue(nums) {
   return nums.reduce((promise, n) => {
     return promise.then(() => {
-      return new Promise(resolve => {
-        console.log(n);
-        resolve();
-      });
-    });
-  }, Promise.resolve());
+      return new Promise((resolve) => {
+        console.log(n)
+        resolve()
+      })
+    })
+  }, Promise.resolve())
 }
 
-queue([1, 2, 3, 4, 5]);
+queue([1, 2, 3, 4, 5])
 ```
 
 ### 队列请求
@@ -1743,45 +1748,47 @@ queue([1, 2, 3, 4, 5]);
 
 ```js
 class User {
-	//加载用户
+  // 加载用户
   ajax(user) {
-    let url = `http://localhost:8888/php/user.php?name=${user}`;
-    return new Promise(resolve => {
-      let xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      xhr.send();
-      xhr.onload = function() {
-        if (this.status == 200) {
-          resolve(JSON.parse(this.response));
-        } else {
-          reject(this);
-        }
-      };
-    });
+    const url = `http://localhost:8888/php/user.php?name=${user}`
+    return new Promise((resolve) => {
+      const xhr = new XMLHttpRequest()
+      xhr.open('GET', url)
+      xhr.send()
+      xhr.onload = function () {
+        if (this.status == 200)
+          resolve(JSON.parse(this.response))
+        else
+          reject(this)
+
+      }
+    })
   }
-  //启动
+
+  // 启动
   render(users) {
     users.reduce((promise, user) => {
       return promise
         .then(() => {
-          return this.ajax(user);
+          return this.ajax(user)
         })
-        .then(user => {
-          return this.view(user);
-        });
-    }, Promise.resolve());
+        .then((user) => {
+          return this.view(user)
+        })
+    }, Promise.resolve())
   }
-  //宣染视图
+
+  // 宣染视图
   view(user) {
-    return new Promise(resolve => {
-      let h1 = document.createElement("h1");
-      h1.innerHTML = user.name;
-      document.body.appendChild(h1);
-      resolve();
-    });
+    return new Promise((resolve) => {
+      const h1 = document.createElement('h1')
+      h1.innerHTML = user.name
+      document.body.appendChild(h1)
+      resolve()
+    })
   }
 }
-new User().render(["tydumpling", "tydumpling"]);
+new User().render(['tydumpling', 'tydumpling'])
 ```
 
 ### 高可用封装
@@ -1791,17 +1798,17 @@ new User().render(["tydumpling", "tydumpling"]);
 **后台请求处理类**
 
 ```js
-export default function(url) {
+export default function (url) {
   return new Promise((resolve, reject) => {
-    let xhr = new XMLHttpRequest()
+    const xhr = new XMLHttpRequest()
     xhr.open('GET', url)
     xhr.send()
-    xhr.onload = function() {
-      if (this.status === 200) {
+    xhr.onload = function () {
+      if (this.status === 200)
         resolve(this.response)
-      } else {
+      else
         reject(this)
-      }
+
     }
   })
 }
@@ -1810,7 +1817,7 @@ export default function(url) {
 **队列处理类**
 
 ```js
-export default function(promises) {
+export default function (promises) {
   promises.reduce((promise, next) => promise.then(next), Promise.resolve())
 }
 ```
@@ -1855,31 +1862,31 @@ echo $users[$_GET['id']];
 
 ```js
 async function fn() {
-  return "tydumpling.com";
+  return 'tydumpling.com'
 }
-console.log(fn());
-fn().then(value => {
-  console.log(value);
-});
+console.log(fn())
+fn().then((value) => {
+  console.log(value)
+})
 ```
 
 如果有多个 await 需要排队执行完成，我们可以很方便的处理多个异步队列
 
 ```js
 async function fn(message) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(message);
-    }, 2000);
-  });
+      resolve(message)
+    }, 2000)
+  })
 }
 async function run() {
-  let h1 = await fn("tydumpling");
-  console.log(h1);
-  let h2 = await fn("tydumpling.com");
-  console.log(h2);
+  const h1 = await fn('tydumpling')
+  console.log(h1)
+  const h2 = await fn('tydumpling.com')
+  console.log(h2)
 }
-run();
+run()
 ```
 
 ### await
@@ -1896,11 +1903,11 @@ run();
 async function fn() {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve("tydumpling.com");
-    }, 2000);
-  });
-  let result = await promise;
-  console.log(result);
+      resolve('tydumpling.com')
+    }, 2000)
+  })
+  const result = await promise
+  console.log(result)
 }
 fn()
 ```
@@ -1909,29 +1916,29 @@ fn()
 
 ```js
 async function fn() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      resolve("fulfilled");
-    }, 2000);
-  });
+      resolve('fulfilled')
+    }, 2000)
+  })
 }
 async function run() {
-  let value = await fn();
-  console.log("tydumpling.com");
-  console.log(value);
+  const value = await fn()
+  console.log('tydumpling.com')
+  console.log(value)
 }
-run();
+run()
 ```
 
 下面是请求后台获取用户课程成绩的示例
 
 ```js
 async function user() {
-  let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
-  let lessons = await ajax(
+  const user = await ajax('http://localhost:8888/php/user.php?name=tydumpling')
+  const lessons = await ajax(
     `http://localhost:8888/php/tydumpling.php?id=${user.id}`
-  );
-  console.log(lessons);
+  )
+  console.log(lessons)
 }
 ```
 
@@ -1939,29 +1946,29 @@ async function user() {
 
 ```js
 (async () => {
-  let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
-  let lessons = await ajax(
+  const user = await ajax('http://localhost:8888/php/user.php?name=tydumpling')
+  const lessons = await ajax(
     `http://localhost:8888/php/tydumpling.php?id=${user.id}`
-  );
-  console.log(lessons);
-})();
+  )
+  console.log(lessons)
+})()
 ```
 
 下面是使用 async 设置定时器，并间隔时间来输出内容
 
 ```js
 async function sleep(ms = 2000) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
 }
 async function run() {
-  for (const value of ["tydumpling", "tydumpling"]) {
-    await sleep();
-    console.log(value);
+  for (const value of ['tydumpling', 'tydumpling']) {
+    await sleep()
+    console.log(value)
   }
 }
-run();
+run()
 ```
 
 ### 加载进度
@@ -2002,18 +2009,19 @@ run();
 ```js
 class User {
   constructor(name) {
-    this.name = name;
+    this.name = name
   }
+
   then(resolve, reject) {
-    let user = ajax(`http://localhost:8888/php/user.php?name=${this.name}`);
-    resolve(user);
+    const user = ajax(`http://localhost:8888/php/user.php?name=${this.name}`)
+    resolve(user)
   }
 }
 async function get() {
-  let user = await new User("tydumpling");
-  console.log(user);
+  const user = await new User('tydumpling')
+  console.log(user)
 }
-get();
+get()
 ```
 
 类方法也可以通过 `async` 与 `await` 来操作 promise
@@ -2022,16 +2030,16 @@ get();
 class User {
   constructor() {}
   async get(name) {
-    let user = await ajax(
+    const user = await ajax(
       `http://localhost:8888/php/user.php?name=${name}`
-    );
-    user.name += "-tydumpling.com"; // 如果前面不加await，这里拿不到user，会undefined，因为异步操作再同步操作之后
-    return user;
+    )
+    user.name += '-tydumpling.com' // 如果前面不加await，这里拿不到user，会undefined，因为异步操作再同步操作之后
+    return user
   }
 }
-new User().get("tydumpling").then(resolve => {
-  console.log(resolve);
-});
+new User().get('tydumpling').then((resolve) => {
+  console.log(resolve)
+})
 ```
 
 ### 其他声明
@@ -2040,48 +2048,48 @@ new User().get("tydumpling").then(resolve => {
 
 ```js
 async function get(name) {
-  return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
+  return await ajax(`http://localhost:8888/php/user.php?name=${name}`)
 }
-get("tydumpling").then(user => {
-  console.log(user);
-});
+get('tydumpling').then((user) => {
+  console.log(user)
+})
 ```
 
 函数表达式
 
 ```js
-let get = async function(name) {
-  return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
-};
-get("tydumpling").then(user => {
-  console.log(user);
-});
+const get = async function (name) {
+  return await ajax(`http://localhost:8888/php/user.php?name=${name}`)
+}
+get('tydumpling').then((user) => {
+  console.log(user)
+})
 ```
 
 对象方法声明
 
 ```js
-let fn = {
+const fn = {
   async get(name) {
-    return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
+    return await ajax(`http://localhost:8888/php/user.php?name=${name}`)
   }
-};
+}
 
-fn.get("tydumpling").then(user => {
-  console.log(user);
-});
+fn.get('tydumpling').then((user) => {
+  console.log(user)
+})
 ```
 
 立即执行函数
 
 ```js
 (async () => {
-  let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
-  let lessons = await ajax(
+  const user = await ajax('http://localhost:8888/php/user.php?name=tydumpling')
+  const lessons = await ajax(
     `http://localhost:8888/php/tydumpling.php?id=${user.id}`
-  );
-  console.log(lessons);
-})();
+  )
+  console.log(lessons)
+})()
 ```
 
 类方法中的使用
@@ -2089,12 +2097,12 @@ fn.get("tydumpling").then(user => {
 ```js
 class User {
   async get(name) {
-    return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
+    return await ajax(`http://localhost:8888/php/user.php?name=${name}`)
   }
 }
-let user = new User().get("tydumpling").then(user => {
-  console.log(user);
-});
+const user = new User().get('tydumpling').then((user) => {
+  console.log(user)
+})
 ```
 
 ### 错误处理
@@ -2103,23 +2111,23 @@ async 内部发生的错误，会将必变 promise 对象为 rejected 状态，�
 
 ```js
 async function fn() {
-  console.log(tydumpling);
+  console.log(tydumpling)
 }
-fn().catch(error => {
-  throw new Error(error);
-});
+fn().catch((error) => {
+  throw new Error(error)
+})
 ```
 
 下面是异步请求数据不存在时的错误处理
 
 ```js
 async function get(name) {
-  return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
+  return await ajax(`http://localhost:8888/php/user.php?name=${name}`)
 }
 
-get("tydumpling").catch(error => {
-  alert("用户不存在");
-});
+get('tydumpling').catch((error) => {
+  alert('用户不存在')
+})
 ```
 
 如果`promise` 被拒绝将抛出异常，可以使用 `try...catch` 处理错误
@@ -2127,39 +2135,40 @@ get("tydumpling").catch(error => {
 ```js
 async function get(name) {
   try {
-    let user = await ajax(
+    const user = await ajax(
       `http://localhost:8888/php/user.php?name=${name}`
-    );
-    console.log(user);
-  } catch (error) {
-    alert("用户不存在");
+    )
+    console.log(user)
+  }
+  catch (error) {
+    alert('用户不存在')
   }
 }
-get("tydumpling");
+get('tydumpling')
 ```
 
 多个 await 时当前面的出现失败，后面的将不可以执行
 
 ```js
 async function fn() {
-  await Promise.reject("fail");
-  await Promise.resolve("success").then(value => {
-    console.log(value);
-  });
+  await Promise.reject('fail')
+  await Promise.resolve('success').then((value) => {
+    console.log(value)
+  })
 }
-fn();
+fn()
 ```
 
 如果对前一个错误进行了处理，后面的 await 可以继续执行
 
 ```js
 async function fn() {
-  await Promise.reject("fail").catch(e => console.log(e));
-  await Promise.resolve("success").then(value => {
-    console.log(value);
-  });
+  await Promise.reject('fail').catch(e => console.log(e))
+  await Promise.resolve('success').then((value) => {
+    console.log(value)
+  })
 }
-fn();
+fn()
 ```
 
 也可以使用 `try...catch` 特性忽略不必要的错误
@@ -2167,29 +2176,31 @@ fn();
 ```js
 async function fn() {
   try {
-    await Promise.reject("fail");
-  } catch (error) {}
-  await Promise.resolve("success").then(value => {
-    console.log(value);
-  });
+    await Promise.reject('fail')
+  }
+  catch (error) {}
+  await Promise.resolve('success').then((value) => {
+    console.log(value)
+  })
 }
-fn();
+fn()
 ```
 
 也可以将多个 await 放在 try...catch 中统一处理错误
 
 ```js
 async function fn(name) {
-  const host = "http://localhost:8888/php";
+  const host = 'http://localhost:8888/php'
   try {
-    const user = await ajax(`${host}/user.php?name=${name}`);
-    const lessons = await ajax(`${host}/user.php?id=${user.id}`);
-    console.log(lessons);
-  } catch (error) {
-    console.log("用户不存在");
+    const user = await ajax(`${host}/user.php?name=${name}`)
+    const lessons = await ajax(`${host}/user.php?id=${user.id}`)
+    console.log(lessons)
+  }
+  catch (error) {
+    console.log('用户不存在')
   }
 }
-fn("tydumpling教程");
+fn('tydumpling教程')
 ```
 
 ### 并发执行
@@ -2198,35 +2209,35 @@ fn("tydumpling教程");
 
 ```js
 async function p1() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      console.log("tydumpling");
-      resolve();
-    }, 2000);
-  });
+      console.log('tydumpling')
+      resolve()
+    }, 2000)
+  })
 }
 async function p2() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      console.log("dd");
-      resolve();
-    }, 2000);
-  });
+      console.log('dd')
+      resolve()
+    }, 2000)
+  })
 }
 async function fn() {
-  await p1();
-  await p2();
+  await p1()
+  await p2()
 }
-fn();
+fn()
 ```
 
 使用 `Promise.all()` 处理多个 promise 并行执行
 
 ```js
 async function fn() {
-  await Promise.all([p1(), p2()]);
+  await Promise.all([p1(), p2()])
 }
-fn();
+fn()
 ```
 
 让 promise 先执行后再使用 await 处理结果

@@ -27,17 +27,17 @@ console.log(pages)
 import cssImg from '@/assets/img/filter.jpg'
 
 export default {
-    title: '视觉效果',
-    info: 'filter属性实现更丰富的图形效果',
-    img: cssImg,
-    menuOrder: 2,
+  title: '视觉效果',
+  info: 'filter属性实现更丰富的图形效果',
+  img: cssImg,
+  menuOrder: 2,
 }
 ```
 
 ```js
 const pages = import.meta.glob('../views/**/page.js', { // [!code ++]
-    eager: true, // [!code ++] // 只获取导出结果
-    import: 'default', // [!code ++] // 获取默认导出
+  eager: true, // [!code ++] // 只获取导出结果
+  import: 'default', // [!code ++] // 获取默认导出
 }) // [!code ++]
 
 console.log(pages)

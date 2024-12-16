@@ -6,21 +6,21 @@
 
 ```js
 const app = Vue.createApp({
-    data() {
-        return {
-            name: 'vue创建'
-        }
-    },
-    template: `<div>{{name}}</div>`
+  data() {
+    return {
+      name: 'vue创建'
+    }
+  },
+  template: '<div>{{name}}</div>'
 })
 
-app.component('child', {
-    data() {
-        return {
-            name: '子组件'
-        }
-    },
-    template: `<p>{{name}}</p>`
+app.component('Child', {
+  data() {
+    return {
+      name: '子组件'
+    }
+  },
+  template: '<p>{{name}}</p>'
 })
 
 const vm = app.mount('#app')
@@ -75,8 +75,12 @@ npm init vue@latest
 ## 入口文件详解
 
 ```js
-import {createApp} from 'vue' // 类似于vue2的new Vue()
-import App from './App.vue' // 引入根组件
+import { createApp } from 'vue'
+
+// 类似于vue2的new Vue()
+import App from './App.vue'
+
+// 引入根组件
 createApp(App).mount('#app') // 把项目挂载到id为app的标签上
 ```
 
@@ -102,18 +106,18 @@ App.js文件
 
 ```js
 const app = Vue.createApp({
-    data() {
-        return{
-            list: [{
-                name: 'tydumpling',
-                age: 20
-            }, {
-                name: 'xiaodao',
-                age: 21
-            }]
-        }
-    },
-    template:`<div>tydumpling</div>`
+  data() {
+    return {
+      list: [{
+        name: 'tydumpling',
+        age: 20
+      }, {
+        name: 'xiaodao',
+        age: 21
+      }]
+    }
+  },
+  template: '<div>tydumpling</div>'
 })
 
 app.mount('#app')
@@ -138,12 +142,12 @@ html文件引入
 
 ```js
 export default [{
-                name: 'tydumpling',
-                age: 20
-            }, {
-                name: 'xiaodao',
-                age: 21
-            }]
+  name: 'tydumpling',
+  age: 20
+}, {
+  name: 'xiaodao',
+  age: 21
+}]
 ```
 
 App.js文件引入
@@ -152,12 +156,12 @@ App.js文件引入
 import data from 'data/db'
 
 const app = Vue.createApp({
-    data() {
-        return{
-            data
-        }
-    },
-    template:`<div>tydumpling</div>`
+  data() {
+    return {
+      data
+    }
+  },
+  template: '<div>tydumpling</div>'
 })
 
 app.mount('#app')
@@ -171,10 +175,10 @@ export default app
 
 ```js
 export default {
-    data() {
-        return {}
-    },
-    template: `<div style="color: skyblue">123</div>`
+  data() {
+    return {}
+  },
+  template: '<div style="color: skyblue">123</div>'
 }
 ```
 
@@ -185,13 +189,13 @@ import data from 'data/db'
 import child from 'components/child.js'
 
 const app = Vue.createApp({
-    data() {
-        return{
-            data
-        }
-    },
-    components: { child },
-    template:`<div>tydumpling</div>`
+  data() {
+    return {
+      data
+    }
+  },
+  components: { child },
+  template: '<div>tydumpling</div>'
 })
 
 app.mount('#app')
@@ -252,13 +256,13 @@ App.js文件中只需要引入模块并导出即可
 import data from 'data/db'
 import child from 'components/child.js'
 
-export default{
-    data() {
-        return{
-            data
-        }
-    },
-    components: { child },
+export default {
+  data() {
+    return {
+      data
+    }
+  },
+  components: { child },
 }
 ```
 
@@ -364,8 +368,8 @@ export default defineConfig({
   
   <script setup>
   const classList = {
-      active: true,
-      hide: false
+    active: true,
+    hide: false
   }
   </script>
   ```
@@ -385,8 +389,8 @@ export default defineConfig({
   
   <script setup>
   const classList = {
-      color: 'red',
-      width: '100vw'
+    color: 'red',
+    width: '100vw'
   }
   </script>
   ```

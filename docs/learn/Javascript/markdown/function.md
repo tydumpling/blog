@@ -9,58 +9,58 @@
 在 JS 中函数也是对象函数是`Function`类的创建的实例，下面的例子可以方便理解函数是对象。
 
 ```js
-let hd = new Function("title", "console.log(title)"); // 参数1：函数名称；参数2：函数体
-hd('tydumpling'); // tydumpling
+const hd = new Function('title', 'console.log(title)') // 参数1：函数名称；参数2：函数体
+hd('tydumpling') // tydumpling
 ```
 
 标准语法是使用函数声明来定义函数
 
 ```js
 function hd(num) {
-	return ++num;
+  return ++num
 }
-console.log(hd(3)); // 4
+console.log(hd(3)) // 4
 ```
 
 对象字面量属性函数简写
 
 ```js
-let user = {
+const user = {
   name: null,
-  getName: function (name) {
-  	return this.name;
+  getName(name) {
+  	return this.name
   },
-  //简写形式
+  // 简写形式
   setName(value) {
-  	this.name = value;
+  	this.name = value
   }
 }
-user.setName('tydumpling');
-console.log(user.getName()); // tydumpling
+user.setName('tydumpling')
+console.log(user.getName()) // tydumpling
 ```
 
 全局函数会声明在 `window` 对象中，这不正确建议使用后面章节的模块处理
 
 ```js
-console.log(window.screenX); //2200
+console.log(window.screenX) // 2200
 ```
 
 当我们定义了 `screenX` 函数后就覆盖了 `window.screenX` 方法
 
 ```js
 function screenX() {
-  return "tydumpling";
+  return 'tydumpling'
 }
-console.log(window.screenX); //tydumpling
+console.log(window.screenX) // tydumpling
 ```
 
 使用`let/const`时不会压入 `window`
 
 ```js
-let hd = function() {
-  console.log("tydumpling");
-};
-window.hd(); //window.hd is not a function
+const hd = function () {
+  console.log('tydumpling')
+}
+window.hd() // window.hd is not a function
 ```
 
 ### 匿名函数
@@ -68,48 +68,48 @@ window.hd(); //window.hd is not a function
 函数是对象所以可以通过赋值来指向到函数对象的指针，当然指针也可以传递给其他变量，注意后面要以`;`结束。下面使用函数表达式将 `匿名函数` 赋值给变量
 
 ```js
-let hd = function(num) {
-  return ++num;
-};
+const hd = function (num) {
+  return ++num
+}
 
-console.log(hd instanceof Object); //true
+console.log(hd instanceof Object) // true
 
-let cms = hd;
-console.log(cms(3)); // 4
+const cms = hd
+console.log(cms(3)) // 4
 ```
 
 标准声明的函数优先级更高，解析器会优先提取函数并放在代码树顶端，所以标准声明函数位置不限制，所以下面的代码可以正常执行。
 
 ```js
-console.log(hd(3));
+console.log(hd(3))
 function hd(num) {
-	return ++num;
+  return ++num
 };
 ```
 
 标准声明优先级高于赋值声明
 
 ```js
-console.log(hd(3)); //4
+console.log(hd(3)) // 4
 
 function hd(num) {
-  return ++num;
+  return ++num
 }
 
-var hd = function(num) {
-  return "hd" + num;
-};
+var hd = function (num) {
+  return `hd${num}`
+}
 // 后面使用会覆盖前一个
-console.log(hd(3)); // hd3
+console.log(hd(3)) // hd3
 ```
 
 程序中使用匿名函数的情况非常普遍
 
 ```js
 function sum(...args) {
-  return args.reduce((a, b) => a + b);
+  return args.reduce((a, b) => a + b)
 }
-console.log(sum(1, 2, 3));
+console.log(sum(1, 2, 3))
 ```
 
 ### 立即执行
@@ -119,40 +119,40 @@ console.log(sum(1, 2, 3));
 - 可以用来定义私有作用域防止污染全局作用域
 
   ```js
-  "use strict";
+  'use strict';
   (function () {
-      var web = 'duyidao';
-  })();
-  console.log(web); //web is not defined
+    const web = 'duyidao'
+  })()
+  console.log(web) // web is not defined
   ```
 
   通过 `window` 把参数传递出去。
 
   ```js
   (function (window) {
-      var web = 'duyidao';
-      window.webout = web
-  })(window);
-  console.log(webout); // duyidao
+    const web = 'duyidao'
+    window.webout = web
+  })(window)
+  console.log(webout) // duyidao
   ```
 
 - 使用 `let/const` 有块作用域特性，所以使用以下方式也可以产生私有作用域
 
   ```js
   {
-  	let web = 'duyidao';
+    const web = 'duyidao'
   }
-  console.log(web); //web is not defined
+  console.log(web) // web is not defined
   ```
 
   同理可使用 `window` 。
 
   ```js
   {
-  	let web = 'duyidao';
-       window.webout = web
+    const web = 'duyidao'
+    window.webout = web
   }
-  console.log(webout); // duyidao
+  console.log(webout) // duyidao
   ```
 
   
@@ -162,28 +162,28 @@ console.log(sum(1, 2, 3));
 函数也会提升到前面，优先级行于`var`变量提高
 
 ```js
-console.log(hd()); //tydumpling
+console.log(hd()) // tydumpling
 function hd() {
-	return 'tydumpling';
+  return 'tydumpling'
 }
 ```
 
 变量函数定义不会被提升
 
 ```js
-console.log(fn()); // 报错fn is not a function
+console.log(fn()) // 报错fn is not a function
 
 var fn = function () {
-	return 'tydumpling.com';
+  return 'tydumpling.com'
 }
 
-console.log(hd()); //tydumpling
+console.log(hd()) // tydumpling
 
 function hd() {
-	return 'tydumpling';
+  return 'tydumpling'
 }
 var hd = function () {
-	return 'tydumpling.com';
+  return 'tydumpling.com'
 }
 ```
 
@@ -197,19 +197,19 @@ var hd = function () {
 ```js
 // n1,n2 为形参
 function sum(n1, n2) {
-	return n1+n2;
+  return n1 + n2
 }
 // 参数 2,3 为实参
-console.log(sum(2, 3)); //5
+console.log(sum(2, 3)) // 5
 ```
 
 当没传递参数时值为 `undefined`
 
 ```js
 function sum(n1, n2) {
-  return n1 + n2;
+  return n1 + n2
 }
-console.log(sum(2)); // NaN
+console.log(sum(2)) // NaN
 ```
 
 ### 默认参数
@@ -217,40 +217,40 @@ console.log(sum(2)); // NaN
 下面通过计算年平均销售额来体验以往默认参数的处理方式
 
 ```js
-//total:总价 year:年数
+// total:总价 year:年数
 function avg(total, year) {
-  year = year || 1;
-  return Math.round(total / year);
+  year = year || 1
+  return Math.round(total / year)
 }
-console.log(avg(2000, 3));
+console.log(avg(2000, 3))
 ```
 
 使用新版本默认参数方式如下
 
 ```js
 function avg(total, year = 1) {
-  return Math.round(total / year);
+  return Math.round(total / year)
 }
-console.log(avg(2000, 3));
+console.log(avg(2000, 3))
 ```
 
 下面通过排序来体验新版默认参数的处理方式，下例中当不传递 type 参数时使用默认值 asc。
 
 ```js
 function sortArray(arr, type = 'asc') {
-	return arr.sort((a, b) => type == 'asc' ? a - b : b - a);
+  return arr.sort((a, b) => type == 'asc' ? a - b : b - a)
 }
-console.log(sortArray([1, 3, 2, 6], 'desc'));
+console.log(sortArray([1, 3, 2, 6], 'desc'))
 ```
 
 默认参数要放在最后面
 
 ```js
-//total:价格,discount:折扣,dis:折后折
+// total:价格,discount:折扣,dis:折后折
 function sum(total, discount = 0, dis = 0) {
-  return total * (1 - discount) * (1 - dis);
+  return total * (1 - discount) * (1 - dis)
 }
-console.log(sum(2000, undefined, 0.3));
+console.log(sum(2000, undefined, 0.3))
 ```
 
 ### 函数参数
@@ -272,13 +272,13 @@ console.log(sum(2000, undefined, 0.3));
 
 ```js
 function filterFun(item) {
-	return item <= 3;
+  return item <= 3
 }
-let hd = [1, 2, 3, 4, 5].filter(filterFun);
-console.log(hd); //[1,2,3]
+const hd = [1, 2, 3, 4, 5].filter(filterFun)
+console.log(hd) // [1,2,3]
 
 function times(i = 1) {
-    console.log(i++)
+  console.log(i++)
 }
 setTimeInterval(times, 1000)
 ```
@@ -291,20 +291,20 @@ setTimeInterval(times, 1000)
 function sum() {
   console.log(arguments) // 2, 3, 4, 2, 6
   return [...arguments].reduce((total, num) => {
-    return (total += num);
-  }, 0);
+    return (total += num)
+  }, 0)
 }
-console.log(sum(2, 3, 4, 2, 6)); //17
+console.log(sum(2, 3, 4, 2, 6)) // 17
 ```
 
 更建议使用展示语法
 
 ```js
 function sum(...args) {
- console.log(args) // [2, 3, 4, 2, 6]
- return args.reduce((a, b) => a + b);
+  console.log(args) // [2, 3, 4, 2, 6]
+  return args.reduce((a, b) => a + b)
 }
-console.log(sum(2, 3, 4, 2, 6)); //17
+console.log(sum(2, 3, 4, 2, 6)) // 17
 ```
 
 存储了传递的所有实参，展示形式是一个伪数组。
@@ -317,8 +317,8 @@ console.log(sum(2, 3, 4, 2, 6)); //17
 
 ```js
 function getSum() {
-   console.log(arguments);  // Arguments(3) [1, 2, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
-   arguments.push(4)
+  console.log(arguments) // Arguments(3) [1, 2, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+  arguments.push(4)
 }
 getSum(1, 2, 3)
 ```
@@ -332,33 +332,33 @@ getSum(1, 2, 3)
 无参数时使用空扩号即可
 
 ```js
-let sum = () => {
-	return 1 + 3;
+function sum() {
+  return 1 + 3
 }
-console.log(sum()); //4
+console.log(sum()) // 4
 ```
 
 函数体为单一表达式时不需要 `return` 返回处理，系统会自动返回表达式计算结果。
 
 ```js
-let sum = () => 1 + 3;
-console.log(sum()); //4
+const sum = () => 1 + 3
+console.log(sum()) // 4
 ```
 
 多参数传递与普通声明函数一样使用逗号分隔
 
 ```js
-let hd = [1, 8, 3, 5].filter((item, index) => {
-	return item <= 3;
-});
-console.log(hd);
+const hd = [1, 8, 3, 5].filter((item, index) => {
+  return item <= 3
+})
+console.log(hd)
 ```
 
 只有一个参数时可以省略括号
 
 ```js
-let hd = [1, 8, 3, 5].filter(item => item <= 3);
-console.log(hd);
+const hd = [1, 8, 3, 5].filter(item => item <= 3)
+console.log(hd)
 ```
 
 ### 递归调用
@@ -372,18 +372,18 @@ console.log(hd);
 
 ```js
 function factorial(num = 3) {
-	return num == 1 ? num : num * factorial(--num);
+  return num == 1 ? num : num * factorial(--num)
 }
-console.log(factorial(5)); //120
+console.log(factorial(5)) // 120
 ```
 
 累加计算方法
 
 ```js
 function sum(...num) {
-	return num.length == 0 ? 0 : num.pop() + sum(...num);
+  return num.length == 0 ? 0 : num.pop() + sum(...num)
 }
-console.log(sum(1, 2, 3, 4, 5, 7, 9)); //31
+console.log(sum(1, 2, 3, 4, 5, 7, 9)) // 31
 ```
 
 递归打印倒三角
@@ -406,32 +406,32 @@ function star(row = 5) {
 使用递归修改课程点击数
 
 ```js
-let lessons = [
+const lessons = [
   {
-    title: "媒体查询响应式布局",
+    title: '媒体查询响应式布局',
     click: 89
   },
   {
-    title: "FLEX 弹性盒模型",
+    title: 'FLEX 弹性盒模型',
     click: 45
   },
   {
-    title: "GRID 栅格系统",
+    title: 'GRID 栅格系统',
     click: 19
   },
   {
-    title: "盒子模型详解",
+    title: '盒子模型详解',
     click: 29
   }
-];
+]
 function change(lessons, num, i = 0) {
-  if (i == lessons.length) {
-    return lessons;
-  }
-  lessons[i].click += num;
-  return change(lessons, num, ++i);
+  if (i == lessons.length)
+    return lessons
+
+  lessons[i].click += num
+  return change(lessons, num, ++i)
 }
-console.table(change(lessons, 100));
+console.table(change(lessons, 100))
 ```
 
 ### 回调函数
@@ -448,7 +448,7 @@ console.table(change(lessons, 100));
 使用回调函数递增计算
 
 ```js
-let hd = ([1, 2, 3]).map(item => item + 10);
+const hd = ([1, 2, 3]).map(item => item + 10)
 console.log(hd)
 ```
 
@@ -457,51 +457,51 @@ console.log(hd)
 展示语法或称点语法体现的就是`收/放`特性，做为值时是`放`，做为接收变量时是`收`。
 
 ```js
-let hd = [1, 2, 3];
-let [a, b, c] = [...hd];
-console.log(a); //1
-console.log(b); //2
-console.log(c); //3
-[...hd] = [1, 2, 3];
-console.log(hd); //[1, 2, 3]
+let hd = [1, 2, 3]
+const [a, b, c] = [...hd]
+console.log(a) // 1
+console.log(b) // 2
+console.log(c); // 3
+[...hd] = [1, 2, 3]
+console.log(hd) // [1, 2, 3]
 ```
 
 使用展示语法可以替代 `arguments` 来接收任意数量的参数
 
 ```js
 function hd(...args) {
-  console.log(args);
+  console.log(args)
 }
-hd(1, 2, 3, "tydumpling"); //[1, 2, 3, "tydumpling"]
+hd(1, 2, 3, 'tydumpling') // [1, 2, 3, "tydumpling"]
 ```
 
 也可以用于接收部分参数
 
 ```js
 function hd(site, ...args) {
-  console.log(site, args); //tydumpling (3) [1, 2, 3]
+  console.log(site, args) // tydumpling (3) [1, 2, 3]
 }
-hd("tydumpling", 1, 2, 3);
+hd('tydumpling', 1, 2, 3)
 ```
 
 使用 `...` 可以接受传入的多个参数合并为数组，下面是使用点语法进行求合计算。
 
 ```js
 function sum(...params) {
-	console.log(params);
-	return params.reduce((pre, cur) => pre + cur);
+  console.log(params)
+  return params.reduce((pre, cur) => pre + cur)
 }
-console.log(sum(1, 3, 2, 4));
+console.log(sum(1, 3, 2, 4))
 ```
 
 多个参数时`...参数`必须放后面，下面计算购物车商品折扣
 
 ```js
 function sum(discount = 0, ...prices) {
-  let total = prices.reduce((pre, cur) => pre + cur);
-  return total * (1 - discount);
+  const total = prices.reduce((pre, cur) => pre + cur)
+  return total * (1 - discount)
 }
-console.log(sum(0.1, 100, 300, 299));
+console.log(sum(0.1, 100, 300, 299))
 ```
 
 ### 标签函数
@@ -510,11 +510,11 @@ console.log(sum(0.1, 100, 300, 299));
 
 ```js
 function hd(str, ...values) {
-  console.log(str); //["站点", "-", "", raw: Array(3)]
-  console.log(values); //["tydumpling", "duyidao.com"]
+  console.log(str) // ["站点", "-", "", raw: Array(3)]
+  console.log(values) // ["tydumpling", "duyidao.com"]
 }
-let name = 'tydumpling',url = 'duyidao.com';
-hd `站点${name}-${url}`;
+const name = 'tydumpling'; const url = 'duyidao.com'
+hd`站点${name}-${url}`
 ```
 
 ## this
@@ -534,13 +534,13 @@ hd `站点${name}-${url}`;
 使用严格模式时在全局函数内`this`为`undefined`
 
 ```js
-var hd = 'tydumpling';
+const hd = 'tydumpling'
 function get() {
-  "use strict"
-  return this.hd;
+  'use strict'
+  return this.hd
 }
-console.log(get());
-//严格模式将产生错误 Cannot read property 'name' of undefined
+console.log(get())
+// 严格模式将产生错误 Cannot read property 'name' of undefined
 ```
 
 ### 方法调用
@@ -557,14 +557,14 @@ console.log(get());
 
 ```js
 function User() {
-  this.name = "tydumpling";
-  this.say = function() {
-    console.log(this); //User {name: "tydumpling", say: ƒ}
-    return this.name;
-  };
+  this.name = 'tydumpling'
+  this.say = function () {
+    console.log(this) // User {name: "tydumpling", say: ƒ}
+    return this.name
+  }
 }
-let hd = new User();
-console.log(hd.say()); //tydumpling
+const hd = new User()
+console.log(hd.say()) // tydumpling
 ```
 
 **对象字面量**
@@ -573,50 +573,50 @@ console.log(hd.say()); //tydumpling
 - show 属于对象方法执向 `obj`对象
 
 ```js
-let obj = {
-  site: "tydumpling",
+const obj = {
+  site: 'tydumpling',
   show() {
-    console.log(this.site); //tydumpling
-    console.log(`this in show method: ${this}`); //this in show method: [object Object]
+    console.log(this.site) // tydumpling
+    console.log(`this in show method: ${this}`) // this in show method: [object Object]
     function hd() {
-      console.log(typeof this.site); //undefined
-      console.log(`this in hd function: ${this}`); //this in hd function: [object Window]
+      console.log(typeof this.site) // undefined
+      console.log(`this in hd function: ${this}`) // this in hd function: [object Window]
     }
-    hd();
+    hd()
   }
-};
-obj.show();
+}
+obj.show()
 ```
 
 在方法中使用函数时有些函数可以改变 this 如`forEach`，当然也可以使用后面介绍的`apply/call/bind`
 
 ```js
-let Lesson = {
-  site: "tydumpling",
-  lists: ["js", "css", "mysql"],
+const Lesson = {
+  site: 'tydumpling',
+  lists: ['js', 'css', 'mysql'],
   show() {
-    return this.lists.map(function(title) {
-      return `${this.site}-${title}`;
-    }, this);
+    return this.lists.map(function (title) {
+      return `${this.site}-${title}`
+    }, this)
   }
-};
-console.log(Lesson.show());
+}
+console.log(Lesson.show())
 ```
 
 也可以在父作用域中定义引用`this`的变量
 
 ```js
-let Lesson = {
-    site: "tydumpling",
-    lists: ["js", "css", "mysql"],
-    show() {
-      const self = this;
-      return this.lists.map(function(title) {
-        return `${self.site}-${title}`;
-      });
-    }
-  };
-  console.log(Lesson.show());
+const Lesson = {
+  site: 'tydumpling',
+  lists: ['js', 'css', 'mysql'],
+  show() {
+    const self = this
+    return this.lists.map((title) => {
+      return `${self.site}-${title}`
+    })
+  }
+}
+console.log(Lesson.show())
 ```
 
 ### 箭头函数
@@ -628,47 +628,47 @@ let Lesson = {
 下例中的匿名函数的执行环境为全局所以 `this` 指向 `window`。
 
 ```js
-var name = 'tydumpling';
-var obj = {
+const name = 'tydumpling'
+const obj = {
   name: 'tydumpling',
-  getName: function () {
+  getName() {
     return function () {
-    	return this.name;
+    	return this.name
     }
   }
 }
-console.log(obj.getName()()); //返回window.name的值tydumpling
+console.log(obj.getName()()) // 返回window.name的值tydumpling
 ```
 
 以往解决办法会匿名函数调用处理定义变量，然后在匿名函数中使用。
 
 ```js
-var name = 'tydumpling';
-var obj = {
+const name = 'tydumpling'
+const obj = {
   name: 'tydumpling',
-  getName: function () {
-    var self = this;
-		return () => {
-    	return this.name;
+  getName() {
+    const self = this
+    return () => {
+    	return this.name
     }
   }
 }
-console.log(obj.getName()()); //返回window.name的值tydumpling
+console.log(obj.getName()()) // 返回window.name的值tydumpling
 ```
 
 使用箭头函数后 `this` 为定义该函数的上下文，也可以理解为定义时父作用域中的`this`
 
 ```js
-var name = 'tydumpling';
-var obj = {
+const name = 'tydumpling'
+const obj = {
   name: 'tydumpling',
-  getName: function () {
+  getName() {
     return () => {
-    	return this.name;
+    	return this.name
     }
   }
 }
-console.log(obj.getName()()); //tydumpling
+console.log(obj.getName()()) // tydumpling
 ```
 
 事件中使用箭头函数结果不是我们想要的
@@ -757,9 +757,9 @@ console.log(obj.getName()()); //tydumpling
 
 ```js
 function User(name) {
-  this.name = name;
+  this.name = name
 }
-let hd = new User("tydumpling");
+const hd = new User('tydumpling')
 console.log(hd) // User {name: 'tydumpling'}
 ```
 
@@ -767,12 +767,12 @@ console.log(hd) // User {name: 'tydumpling'}
 
 ```js
 function User(name) {
-  this.name = name;
+  this.name = name
 }
 
-let tydumpling = {age: 20};
-User.call(tydumpling, "tydumpling");
-console.log(tydumpling); // User {name: 'tydumpling', age: 20}
+const tydumpling = { age: 20 }
+User.call(tydumpling, 'tydumpling')
+console.log(tydumpling) // User {name: 'tydumpling', age: 20}
 ```
 
 ### apply/call
@@ -787,16 +787,16 @@ console.log(tydumpling); // User {name: 'tydumpling', age: 20}
 
 ```js
 function show(title) {
-    alert(`${title+this.name}`);
+  alert(`${title + this.name}`)
 }
-let lisi = {
-    name: '李四'
-};
-let wangwu = {
-    name: '王五'
-};
-show.call(lisi, 'tydumpling'); // tydumpling李四
-show.apply(wangwu, ['tydumpling']); // tydumpling王五
+const lisi = {
+  name: '李四'
+}
+const wangwu = {
+  name: '王五'
+}
+show.call(lisi, 'tydumpling') // tydumpling李四
+show.apply(wangwu, ['tydumpling']) // tydumpling王五
 ```
 
 使用 `call` 设置函数上下文
@@ -820,10 +820,10 @@ show.apply(wangwu, ['tydumpling']); // tydumpling王五
 找数组中的数值最大值
 
 ```js
-let arr = [1, 3, 2, 8];
-console.log(Math.max(arr)); //NaN
-console.log(Math.max.apply(Math, arr)); //8
- console.log(Math.max(...arr)); //8
+const arr = [1, 3, 2, 8]
+console.log(Math.max(arr)) // NaN
+console.log(Math.max.apply(Math, arr)) // 8
+console.log(Math.max(...arr)) // 8
 ```
 
 #### 练习
@@ -842,9 +842,9 @@ function Product(params) {
 }
 
 function Request() {
-  this.axios = function(params) {
+  this.axios = function (params) {
     // 获取对象key值并遍历赋值等号
-    let arr = Object.keys(params).map(k => {
+    const arr = Object.keys(params).map((k) => {
       return `${k}=${params[k]}`
     })
     // 此时的this指向各自的构造函数
@@ -852,11 +852,11 @@ function Request() {
   }
 }
 
-let learn = new Learn()
-console.log(learn.axios({id: 1, name: 'tydumpling'})); // /learn/js?id=1&name=tydumpling
+const learn = new Learn()
+console.log(learn.axios({ id: 1, name: 'tydumpling' })) // /learn/js?id=1&name=tydumpling
 
-let product = new Product()
-console.log(product.axios({id: 2, name: 'duyidao'})) // /product/music?id=2&name=duyidao
+const product = new Product()
+console.log(product.axios({ id: 2, name: 'duyidao' })) // /product/music?id=2&name=duyidao
 ```
 
 制作显示隐藏面板
@@ -931,26 +931,26 @@ console.log(product.axios({id: 2, name: 'duyidao'})) // /product/music?id=2&name
 `bind` 是复制函数行为，赋值后得到的是新函数的地址
 
 ```js
-let a = function() {};
-let b = a;
-console.log(a === b); //true
-//bind是新复制函数
-let c = a.bind();
-console.log(a == c); //false
+const a = function () {}
+const b = a
+console.log(a === b) // true
+// bind是新复制函数
+const c = a.bind()
+console.log(a == c) // false
 ```
 
 由于它不立即执行，返回一个新函数，因此有两次传参的机会，一次在bind，一次在调用新函数。
 
 ```js
 function hd(a, b) {
-  return this.f + a + b;
+  return this.f + a + b
 }
 
-//使用bind会生成新函数
-let newFunc = hd.bind({ f: 1 }, 3);
+// 使用bind会生成新函数
+const newFunc = hd.bind({ f: 1 }, 3)
 
-//1+3+2 参数2赋值给b即 a=3,b=2
-console.log(newFunc(2));
+// 1+3+2 参数2赋值给b即 a=3,b=2
+console.log(newFunc(2))
 ```
 
 在事件中使用`bind`

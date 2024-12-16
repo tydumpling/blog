@@ -21,9 +21,9 @@ npm i rollup rollup-plugin-babel @babel/core @babel/preset-env --save
 ```json
 {
   "scripts": {
-    "dev":"rollup -cw",
+    "dev": "rollup -cw",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  }
   // ...
 }
 ```
@@ -40,24 +40,24 @@ export const a = 100
 
 ```js
 // rollup默认可以导出一个对象，作为打包的配置文件
-import babel from "rollup-plugin-babel";
+import babel from 'rollup-plugin-babel'
 
 export default {
-  input: "./src/index.js", // 入口
+  input: './src/index.js', // 入口
   output: {
-    file: "./dist/vue.js", // 出口
-    name: "Vue", // 打包全局挂载Vue实例。打包后会生成一个 golbal.vue
-    format: "umd", // 打包格式。常见格式有 esm es6模块 commonjs模块 iife自执行函数 umd(commonjs amd)
+    file: './dist/vue.js', // 出口
+    name: 'Vue', // 打包全局挂载Vue实例。打包后会生成一个 golbal.vue
+    format: 'umd', // 打包格式。常见格式有 esm es6模块 commonjs模块 iife自执行函数 umd(commonjs amd)
     sourcemap: true, // 希望可以调试源代码
   },
   // 插件配置。所有插件都是函数，执行即可
   plugins: [
     // 一般babel都会配置一个babel文件
     babel({
-      exclude: "node_modules/**", // 排除node_modules下所有文件
+      exclude: 'node_modules/**', // 排除node_modules下所有文件
     }),
   ],
-};
+}
 ```
 
 > 题外话
@@ -154,35 +154,35 @@ export default Vue
 代码中用 `vm` 代表 `this` ，后续都通过 `vm` 获取方法变量。代码如下：
 
 ```js
-import { initState } from "./state";
+import { initState } from './state'
 
 // 给Vue增加init方法
 export function initMixin(Vue) {
   // 初始化操作
   Vue.prototype._init = function (options) {
     // 在vue中，vm.$options就是获取用户配置的。使用Vue时，$开头都是Vue自身的方法
-    const vm = this;
-    vm.$options = options;
+    const vm = this
+    vm.$options = options
 
     // 初始化状态处理函数（状态初始化章节详讲）
-    initState(vm);
-  };
+    initState(vm)
+  }
 }
 ```
 
 `index.js` 使用原型上的 `_init` 函数，传递数据参数。代码如下：
 
 ```js
-import { initMixin } from "./init";
+import { initMixin } from './init'
 
 // options就是用户的选项
 function Vue(options) {
-  this._init(options);
+  this._init(options)
 }
 
-initMixin(Vue); // 扩展init的方法
+initMixin(Vue) // 扩展init的方法
 
-export default Vue;
+export default Vue
 ```
 
 当 `index.html` 文件使用 `new Vue()` 创建构造函数后，就会触发 `_init()` 方法，并把 `new Vue()` 括号内的对象参数传递给 `options` 。
@@ -198,21 +198,21 @@ export default Vue;
 ```js
 export function initState(vm) {
   // 获取所有选项
-  const opts = vm.$options;
+  const opts = vm.$options
 
   // 如果有data数据，则初始化data数据
-  if (opts.data) {
-    initData(vm);
-  }
+  if (opts.data)
+    initData(vm)
+
 }
 
 function initData(vm) {
   // 获取所有data数据
-  let data = vm.$options.data;
-  debugger;
+  let data = vm.$options.data
+  debugger
   // Vue2中data可以是对象也可以是函数（Vue3统一函数），因此需要先判断
-  data = typeof data === "function" ? data.call(vm) : data;
-  console.log(data);
+  data = typeof data === 'function' ? data.call(vm) : data
+  console.log(data)
 }
 ```
 
@@ -231,23 +231,23 @@ function initData(vm) {
 ```js
 export function initState(vm) {
   // 获取所有选项
-  const opts = vm.$options;
+  const opts = vm.$options
 
   // 如果有data数据，则初始化data数据
-  if (opts.data) {
-    initData(vm);
-  }
+  if (opts.data)
+    initData(vm)
+
 }
 
 function initData(vm) {
   // 获取所有data数据
-  let data = vm.$options.data;
+  let data = vm.$options.data
 
   // Vue2中data可以是对象也可以是函数（Vue3统一函数），因此需要先判断
-  data = typeof data === "function" ? data.call(vm) : data;
-  
+  data = typeof data === 'function' ? data.call(vm) : data
+
   // 劫持数据 defindProperty
-  observe(data);
+  observe(data)
 }
 ```
 
@@ -256,14 +256,13 @@ function initData(vm) {
 ```js
 export function observe(data) {
   // 判断是否为对象，是则劫持该对象数据
-  if (typeof data !== "object" || data == null) {
-    return; // 只能对对象进行劫持
-  }
+  if (typeof data !== 'object' || data == null)
+    return // 只能对对象进行劫持
 
   // 如果对象被劫持过了，那就不需要再被劫持了（要判断一个对象是否被劫持过，可以添加一个实例，用实例来判断是否被劫持过）
   // todo...
-  
-  return new Observe(data);
+
+  return new Observe(data)
 }
 ```
 
@@ -275,13 +274,13 @@ export function observe(data) {
 class Observe {
   constructor(data) {
     // Object.defineProperty只能劫持已经存在的属性（vue里会为此单独写一些api，如$set、$delete)
-    this.walk(data);
+    this.walk(data)
   }
 
   // 循环对象 对属性依次劫持
   walk(data) {
     // “重新定义” 属性（性能比vue3差的原因）
-    Object.keys(data).forEach((key) => defineReactive(data, key, data[key]));
+    Object.keys(data).forEach(key => defineReactive(data, key, data[key]))
   }
 }
 ```
@@ -291,20 +290,21 @@ class Observe {
 ```js
 export function defineReactive(target, key, value) {
   // 递归思想，如果value值的类型不是对象，则return；如果是对象，则继续劫持
-  observe(value);
+  observe(value)
 
   // 此处value存放在闭包中，不会销毁
   Object.defineProperty(target, key, {
     // 取值执行get
     get() {
-      return value;
+      return value
     },
     // 修改值执行set
     set(newValue) {
-      if (newValue === value) return;
-      value = newValue;
+      if (newValue === value)
+        return
+      value = newValue
     },
-  });
+  })
 }
 ```
 
@@ -317,16 +317,16 @@ export function defineReactive(target, key, value) {
 
 function initData(vm) {
   // 获取所有data数据
-  let data = vm.$options.data;
+  let data = vm.$options.data
 
   // Vue2中data可以是对象也可以是函数（Vue3统一函数），因此需要先判断。这里的data是用户的数据
-  data = typeof data === "function" ? data.call(vm) : data;
+  data = typeof data === 'function' ? data.call(vm) : data
 
   // 此时vm只有用户的数据，没有我们劫持后的数据。把劫持后的数据放到原型上供用户使用。这里的_data是劫持后的对象
-  vm._data = data;
+  vm._data = data
 
   // 劫持数据 defindProperty
-  observe(data);
+  observe(data)
 }
 ```
 
@@ -339,31 +339,31 @@ function initData(vm) {
 function proxy(vm, target, key) {
   Object.defineProperty(vm, key, {
     get() {
-      return vm[target][key]; // vm._data.xxx
+      return vm[target][key] // vm._data.xxx
     },
     set(newValue) {
-      vm[target][key] = newValue;
+      vm[target][key] = newValue
     },
-  });
+  })
 }
 
 function initData(vm) {
   // 获取所有data数据
-  let data = vm.$options.data;
+  let data = vm.$options.data
 
   // Vue2中data可以是对象也可以是函数（Vue3统一函数），因此需要先判断。这里的data是用户的数据
-  data = typeof data === "function" ? data.call(vm) : data;
+  data = typeof data === 'function' ? data.call(vm) : data
 
   // 此时vm只有用户的数据，没有我们劫持后的数据。把劫持后的数据放到原型上供用户使用。这里的_data是劫持后的对象
-  vm._data = data;
+  vm._data = data
 
   // 劫持数据 defindProperty
-  observe(data);
+  observe(data)
 
   // 此时用户想要获取或者修改数据，必须通过 vm._data.xxx 的写法，不够人性化。把 vm._data 用 vm 来代理
-  for (const key in data) {
-    proxy(vm, "_data", key);
-  }
+  for (const key in data)
+    proxy(vm, '_data', key)
+
 }
 ```
 
@@ -376,18 +376,19 @@ function initData(vm) {
 该方法遍历数组后，每一项数据都调用一次 `observe` 方法劫持数据。代码如下所示：
 
 ```js
-import { newArrayProto } from "./array";
+import { newArrayProto } from './array'
 
 class Observe {
   constructor(data) {
     // Object.defineProperty只能劫持已经存在的属性（vue里会为此单独写一些api，如$set、$delete)
     if (Array.isArray(data)) {
       // 重写数组7个变异方法方法，但也要保留数组原有的特性
-      data.__proto__ = newArrayProto;
+      data.__proto__ = newArrayProto
 
-      this.observeArray(data);
-    } else {
-      this.walk(data);
+      this.observeArray(data)
+    }
+    else {
+      this.walk(data)
     }
   }
 
@@ -397,7 +398,7 @@ class Observe {
 
   observeArray(data) {
     // 如果数组中放了对象，对象可以被监控到
-    data.forEach((item) => observe(item));
+    data.forEach(item => observe(item))
   }
 }
 
@@ -417,46 +418,46 @@ class Observe {
 // 重写数组部分方法
 
 // 获取数组原型
-let oldArrayProto = Array.prototype;
+const oldArrayProto = Array.prototype
 
 // 先拷贝一份，不影响之前的。newArrayProto.__proto__ = oldArrayProto
-export let newArrayProto = Object.create(oldArrayProto);
+export const newArrayProto = Object.create(oldArrayProto)
 
 // 找到数组变异方法
-let methods = ["push", "pop", "shift", "unshift", "reverse", "sort", "splice"]; // concat、slice都不会改变原数组
+const methods = ['push', 'pop', 'shift', 'unshift', 'reverse', 'sort', 'splice'] // concat、slice都不会改变原数组
 
 methods.forEach((method) => {
   newArrayProto[method] = function (...args) {
     // 内部调用原来的方法，函数的劫持，切片编程
     // 这里的this谁调用指向谁。如一个数组arr.push()，则this指向arr
-    const result = oldArrayProto[method].call(this, ...args);
+    const result = oldArrayProto[method].call(this, ...args)
 
     // 新增的数据也需要劫持
-    let inserted;
-    let ob = this.__ob__;
+    let inserted
+    const ob = this.__ob__
 
     switch (method) {
-      case "push":
-      case "unshift":
+      case 'push':
+      case 'unshift':
         // 新增数据，获取全部新增的数据
-        inserted = args;
-        break;
-      case "splice":
+        inserted = args
+        break
+      case 'splice':
         // 数据替换，splice第三个参数（索引为2）为新增的数据
-        inserted = args.slice(2);
-        break;
+        inserted = args.slice(2)
+        break
       default:
-        break;
+        break
     }
 
     if (inserted) {
       // 对新增的内容再次观测
-      ob.observeArray(inserted);
+      ob.observeArray(inserted)
     }
 
-    return result;
-  };
-});
+    return result
+  }
+})
 ```
 
 由于需要调用 `observeArray` 方法，而该方法在同级目录下的 `index.js` 中。因此需要把它当前的 `this` 指向挂载到数据 `__ob__` 上，该文件通过 `this.__ob__` 获取。
@@ -515,10 +516,10 @@ export function observe(data) {
 class Observe {
   constructor(data) {
     // 把this放到data对象中。如果数据对象上有__ob__，说明他被观测过了
-    Object.defineProperty(data, "__ob__", {
+    Object.defineProperty(data, '__ob__', {
       value: this,
       enumerable: false, // 把__ob__ 变得不可枚举，无法监测
-    });
+    })
     // data.__ob__ = this;
 
     // ...
@@ -550,8 +551,8 @@ class Observe {
 代码如下：
 
 ```js
-import { compileToFunction } from "./compiler/index";
-import { initState } from "./state";
+import { compileToFunction } from './compiler/index'
+import { initState } from './state'
 
 // 给Vue增加init方法
 export function initMixin(Vue) {
@@ -559,40 +560,42 @@ export function initMixin(Vue) {
   Vue.prototype._init = function (options) {
     // ...
 
-    if (options.el) {
-      vm.$mount(options.el);
-    }
-  };
+    if (options.el)
+      vm.$mount(options.el)
+
+  }
 
   // 由于把$mount方法挂载到原型上，因此除了传el外，可直接new Vue().$mount也可以
   Vue.prototype.$mount = function (el) {
-    const vm = this;
-    el = document.querySelector(el);
-    let ops = vm.$options;
+    const vm = this
+    el = document.querySelector(el)
+    const ops = vm.$options
 
     // 查看是否写render函数
     if (ops.render) {
-      ops.render;
-    } else {
+      ops.render
+    }
+    else {
       // 没有render看一下是否写template，没写采用外部的template
-      let template;
+      let template
       // 如果没有写模板但是写了el
       if (!ops.template && el) {
-        template = el.outerHTML;
-      } else {
+        template = el.outerHTML
+      }
+      else {
         if (el) {
           // 如果有el，采用模板的内容
-          template = ops.template;
+          template = ops.template
         }
       }
 
       // 写了template，就采用写了的template
       if (template) {
-        const render = compileToFunction(template);
-        ops.render = render;
+        const render = compileToFunction(template)
+        ops.render = render
       }
     }
-  };
+  }
 }
 ```
 
@@ -609,24 +612,24 @@ HTML 主要解析标签、文本、属性、表达式，首先在 `src` 文件�
 接着创建正则，通过正则匹配开始标签、属性、闭合标签和表达式或文本内容，代码如下：
 
 ```js
-const ncname = `[a-zA-Z_][\\-\\.0-9_a-zA-Z]*`;
-const qnameCapture = `((?:${ncname}\\:)?${ncname})`;
+const ncname = '[a-zA-Z_][\\-\\.0-9_a-zA-Z]*'
+const qnameCapture = `((?:${ncname}\\:)?${ncname})`
 
 // 匹配到的是<xxx 或 <div:xxx 自定义标签名 即匹配到开始标签
-const startTagOpen = new RegExp(`^<${qnameCapture}`);
+const startTagOpen = new RegExp(`^<${qnameCapture}`)
 
 // 匹配的是 </xxx> 即匹配到结束标签
-const endTag = new RegExp(`^<\\/${qnameCapture}[^>]*>`);
+const endTag = new RegExp(`^<\\/${qnameCapture}[^>]*>`)
 
 // 匹配的是属性，如 xxx = "xxx" 或 xxx = 'xxx'
-const attribute =
-  /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
+const attribute
+  = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
 
 // 匹配的是开始闭合标签，如<div> 或 <br />
-const startTagClose = /^\s*(\/?)>/;
+const startTagClose = /^\s*(\/?)>/
 
 // 匹配到是表达式变量，如{{name}}
-const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
+const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g
 ```
 
 然后声明 `compileToFunction` 函数并导出供上方 解析模板参数 步骤代码时使用，该函数主要做以下两个操作：
@@ -637,12 +640,12 @@ const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
 代码如下：
 
 ```js
-export const compileToFunction = (template) => {
+export function compileToFunction(template) {
   // 1.将template转为ast语法树
-  const ast = parseHTML(template);
+  const ast = parseHTML(template)
 
   // 2.生成render方法（render方法执行后返回的结果就是虚拟 DOM）
-};
+}
 ```
 
 紧接着创建 `parseHTML` 函数，用于通过正则 `.match()` 方法解析 html，文本解析规则如下：
@@ -661,65 +664,65 @@ export const compileToFunction = (template) => {
 function parseHTML(html) {
   // 处理开始标签
   function start(tag, attrs) {
-    console.log(tag, attrs, "开始");
+    console.log(tag, attrs, '开始')
   }
   // 处理文本内容标签
   function chars(text) {
-    console.log(text, "文本");
+    console.log(text, '文本')
   }
   // 处理结束标签
   function end(tag) {
-    console.log(tag, "结束");
+    console.log(tag, '结束')
   }
 
   // 裁剪html
   function advance(n) {
-    html = html.substring(n);
+    html = html.substring(n)
   }
 
   // 寻找开启标签
   function parseStartTag() {
-    const start = html.match(startTagOpen);
+    const start = html.match(startTagOpen)
     if (start) {
       const match = {
         tagName: start[1], // 标签名
         attrs: [], // 属性数组对象，保存id、class等
-      };
+      }
       // 先把 <div 开始标签截取掉
-      advance(start[0].length);
+      advance(start[0].length)
 
       // 如果不是开始标签的结束，则一直匹配
-      let attr, end;
+      let attr, end
       while (
-        !(end = html.match(startTagClose)) &&
-        (attr = html.match(attribute))
+        !(end = html.match(startTagClose))
+        && (attr = html.match(attribute))
       ) {
         // 此时 id="xxx" class="xxx" 都被删除，只剩 >
-        advance(attr[0].length);
+        advance(attr[0].length)
         match.attrs.push({
           name: attr[1],
           value: attr[3] || attr[4] || attr[5],
-        });
+        })
       }
       // 此时把 > 删除
-      if (end) {
-        advance(end[0].length);
-      }
-      return match;
+      if (end)
+        advance(end[0].length)
+
+      return match
     }
 
     // 不是开始标签，返回假
-    return false;
+    return false
   }
 
   // 每解析一段，就删除一段，直到最后解析完毕。因此可以写一个while循环
   while (html) {
     // html最开始肯定是一个 < (vue2要求单个根目录的原因)
-    let textEnd = html.indexOf("<");
+    const textEnd = html.indexOf('<')
 
     // 如果索引是0，则说明是个开始标签；不为0则说明是结束标签
     if (textEnd === 0) {
-      const startTagMatch = parseStartTag();
+      const startTagMatch = parseStartTag()
 
       if (startTagMatch) {
         // startTagMatch :{
@@ -727,25 +730,25 @@ function parseHTML(html) {
         //   tagName: "div"
         // }
         // 解析到开始标签
-        start(startTagMatch.tagName, startTagMatch.attrs);
-        continue;
+        start(startTagMatch.tagName, startTagMatch.attrs)
+        continue
       }
 
-      let endTagMatch = html.match(endTag);
+      const endTagMatch = html.match(endTag)
       if (endTagMatch) {
-        end(endTagMatch[0]);
-        advance(endTagMatch[0].length);
-        continue;
+        end(endTagMatch[0])
+        advance(endTagMatch[0].length)
+        continue
       }
     }
 
     // 截取文本内容
     if (textEnd > 0) {
-      let text = html.substring(0, textEnd);
+      const text = html.substring(0, textEnd)
       if (text) {
         // 解析到文本
-        chars(text);
-        advance(text.length);
+        chars(text)
+        advance(text.length)
       }
     }
   }
@@ -785,11 +788,11 @@ AST 树结构为一个对象，包含以下属性：
 ```js
 // 解析html
 function parseHTML(html) {
-  const ELEMENT_TYPE = 1;
-  const TEXT_TYPE = 3;
-  const stack = []; // 存放元素的数组
-  let currentParent; // 指向栈中的最后一个
-  let root; // 是否是根节点
+  const ELEMENT_TYPE = 1
+  const TEXT_TYPE = 3
+  const stack = [] // 存放元素的数组
+  let currentParent // 指向栈中的最后一个
+  let root // 是否是根节点
 
   // 转为抽象语法树
   function createASTElement(tag, attrs) {
@@ -799,48 +802,48 @@ function parseHTML(html) {
       children: [],
       attrs,
       parent: null,
-    };
+    }
   }
 
   // 处理开始标签
   function start(tag, attrs) {
-    let node = createASTElement(tag, attrs); // 创建一个ast树节点
+    const node = createASTElement(tag, attrs) // 创建一个ast树节点
     // 判断是否是空树
-    if (!root) {
-      root = node; // 空树则是当前树的根节点
-    }
+    if (!root)
+      root = node // 空树则是当前树的根节点
+
     // 如果栈中最后一个有内容，则把当前节点的父亲节点赋值为栈的最后一个
     if (currentParent) {
-      node.parent = currentParent; // 子节点记住了父节点
-      currentParent.children.push(node); // 父节点的子节点数组也需要保存值
+      node.parent = currentParent // 子节点记住了父节点
+      currentParent.children.push(node) // 父节点的子节点数组也需要保存值
     }
     // currentParent为栈中最后一个
-    stack.push(node);
-    currentParent = node;
+    stack.push(node)
+    currentParent = node
   }
   // 处理文本内容标签
   function chars(text) {
     // 去除空
-    text = text.replace(/\s/g, "");
+    text = text.replace(/\s/g, '')
     // 文本直接放到当前指向节点中
-    text &&
-      currentParent.children.push({
+    text
+      && currentParent.children.push({
         type: TEXT_TYPE,
         text,
         parent: currentParent,
-      });
+      })
   }
   // 处理结束标签
   function end(tag) {
     // 弹出最后一个节点，该节点已结束，不能作为父节点的判断
-    let node = stack.pop();
-    currentParent = stack[stack.length - 1];
+    const node = stack.pop()
+    currentParent = stack[stack.length - 1]
   }
 
   // ...
 
-  console.log("currentParent", currentParent);
-  console.log("rot", root);
+  console.log('currentParent', currentParent)
+  console.log('rot', root)
 }
 ```
 
@@ -987,38 +990,40 @@ _v(_s(name)+'hello'+_s(age))
 function gen(child) {
   if (child.type === 1) {
     // 节点
-    return codegen(child);
-  } else {
+    return codegen(child)
+  }
+  else {
     // 文本
-    let text = child.text;
+    const text = child.text
     if (!defaultTagRE.test(text)) {
-      return `_v(${JSON.stringify(text)})`;
-    } else {
+      return `_v(${JSON.stringify(text)})`
+    }
+    else {
       // c创建元素
       // v创建文本
       // s创建变量
       // _v(_s(name)+'hello+_s(name))
-      let tokens = [];
-      let match;
-      let lastIndex = 0;
-      defaultTagRE.lastIndex = 0; // 每次捕获后先把索引重置
+      const tokens = []
+      let match
+      let lastIndex = 0
+      defaultTagRE.lastIndex = 0 // 每次捕获后先把索引重置
       while ((match = defaultTagRE.exec(text))) {
-        let index = match.index;
+        const index = match.index
 
         // 不能单纯放 {{xxx}} 的结果，也要放文本。如{{name}} hello {{age}}，第一次匹配到{{name}}，第二次匹配到{{age}}。则hello的索引位置是最后一次匹配到的内容长度（即{{age}}）加上其索引，即为整个文本长度
         // 注意要添加 JSON.stringify 转为字符串的形式
-        if (index > lastIndex) {
-          tokens.push(JSON.stringify(text.slice(lastIndex, index)));
-        }
-        tokens.push(`_s(${match[1].trim()})`);
-        lastIndex = index + match[0].length;
+        if (index > lastIndex)
+          tokens.push(JSON.stringify(text.slice(lastIndex, index)))
+
+        tokens.push(`_s(${match[1].trim()})`)
+        lastIndex = index + match[0].length
       }
 
       // 如果匹配结束索引比整体长度要小，说明模板字符串在前内容在后，如{{name}} hello，此时把后面所有文本放进去即可
-      if (lastIndex < text.length) {
-        tokens.push(JSON.stringify(text.slice(lastIndex)));
-      }
-      return `_v(${tokens.join("+")})`;
+      if (lastIndex < text.length)
+        tokens.push(JSON.stringify(text.slice(lastIndex)))
+
+      return `_v(${tokens.join('+')})`
     }
   }
 }
@@ -1033,20 +1038,20 @@ function gen(child) {
 返回 `compileToFunction` 函数，此时已经能获取到虚拟 DOM 了，返回一个 `with` 函数。代码如下：
 
 ```js
-export const compileToFunction = (template) => {
+export function compileToFunction(template) {
   // 1.将template转为ast语法树
-  const ast = parseHTML(template);
+  const ast = parseHTML(template)
 
   // 2.生成render方法（render方法执行后返回的结果就是虚拟 DOM）
   // render() {
   //   return _c('div', {id: 'app'}, _c('div', {style: {color: 'red'}}, _v(_s(name)+'hello'))), _c('span', undefined, _v(_s(age)))
   // }
-  let code = codegen(ast);
-  code = `with(this){return ${code}}`;
-  let render = new Function(code);
+  let code = codegen(ast)
+  code = `with(this){return ${code}}`
+  const render = new Function(code)
 
-  return render;
-};
+  return render
+}
 ```
 
 ## 虚拟DOM生成真实DOM
@@ -1067,51 +1072,52 @@ render会产生虚拟节点（响应式数据）。根据生成的虚拟节点�
 代码如下：
 
 ```js
-import { createElementVNode, createTextVNode } from "./vdom/index";
+import { createElementVNode, createTextVNode } from './vdom/index'
 
-export const initLifeCycle = (Vue) => {
-  Vue.prototype._update = function (vnode) {};
+export function initLifeCycle(Vue) {
+  Vue.prototype._update = function (vnode) {}
 
   Vue.prototype._c = function () {
-    return createElementVNode(this, ...arguments);
-  };
+    return createElementVNode(this, ...arguments)
+  }
   Vue.prototype._v = function () {
-    return createTextVNode(this, ...arguments);
-  };
+    return createTextVNode(this, ...arguments)
+  }
 
   Vue.prototype._s = function (value) {
-    if (typeof value === "object") return;
-    return JSON.stringify(value);
-  };
+    if (typeof value === 'object')
+      return
+    return JSON.stringify(value)
+  }
 
   Vue.prototype._render = function () {
-    const vm = this;
+    const vm = this
 
     // 让with中的this指向vm
-    return vm.$options.render.call(vm); // 通过ast语法转义后的render方法
-  };
-};
+    return vm.$options.render.call(vm) // 通过ast语法转义后的render方法
+  }
+}
 
-export const mountComponent = (vm, el) => {
+export function mountComponent(vm, el) {
   // 1.调用render方法产生虚拟节点 虚拟dom
-  vm._update(vm._render());
+  vm._update(vm._render())
 
   // 2.根据虚拟DOM产生真实dom
 
   // 3.插入到el元素中
-};
+}
 ```
 
 返回 `src/index.js` 文件扩展方法，代码如下：
 
 ```js
-import { initMixin } from "./init";
-import { initLifeCycle } from "./lifecycle";
+import { initMixin } from './init'
+import { initLifeCycle } from './lifecycle'
 
 // ...
-initLifeCycle(Vue);
+initLifeCycle(Vue)
 
-export default Vue;
+export default Vue
 ```
 
 新建 `ndom/index.js` 文件，用于创建虚拟DOM 节点，代码如下：
@@ -1120,19 +1126,19 @@ export default Vue;
 // h() _c()
 export function createElementVNode(vm, tag, data, ...children) {
   // 避免data为null报错
-  if (data == null) data = {};
+  if (data == null)
+    data = {}
 
-  let key = data.key;
-  if (key) {
-    delete data.key;
-  }
+  const key = data.key
+  if (key)
+    delete data.key
 
-  return vnode(vm, tag, key, data, children);
+  return vnode(vm, tag, key, data, children)
 }
 
 // _v()
 export function createTextVNode(vm, text) {
-  return vnode(vm, undefined, undefined, undefined, undefined, text);
+  return vnode(vm, undefined, undefined, undefined, undefined, text)
 }
 
 // ast做的是语法层面的转换，描述的是语法本身（可以描述js、css、html）
@@ -1145,14 +1151,15 @@ function vnode(vm, tag, key, data, children, text) {
     data,
     children,
     text,
-  };
+  }
 }
 ```
 
 最后返回 `src/init.js` 文件，挂载 `mountComponent ` 方法。
 
 ```js
-import { mountComponent } from "./lifecycle.js";
+import { mountComponent } from './lifecycle.js'
+
 // ...
 
 // 给Vue增加init方法
@@ -1163,10 +1170,10 @@ export function initMixin(Vue) {
   Vue.prototype.$mount = function (el) {
     // ...
 
-    mountComponent(vm, el); // 组件挂载到实例上
+    mountComponent(vm, el) // 组件挂载到实例上
 
     // 获取到render方法
-  };
+  }
 }
 ```
 
@@ -1181,12 +1188,12 @@ export function initMixin(Vue) {
 ```js
 Vue.prototype._update = function (vnode) {
   // 将vnode转换为真实dom
-  const vm = this;
-  const el = vm.$el;
+  const vm = this
+  const el = vm.$el
 
   // patch既有初始化功能，又有更新的功能
-  vm.$el = patch(el, vnode);
-};
+  vm.$el = patch(el, vnode)
+}
 ```
 
 `patch` 方法主要用于判断是真实 DOM 还是虚拟 DOM，真实 DOM 则创建新的 DOM，替换掉旧的 DOM。
@@ -1194,23 +1201,24 @@ Vue.prototype._update = function (vnode) {
 ```js
 function patch(oldVnode, vnode) {
   // 写的是初渲染流程
-  const isRealElement = oldVnode.nodeType;
+  const isRealElement = oldVnode.nodeType
 
   if (isRealElement) {
     // 是真实dom节点
-    const elm = oldVnode; // 获取真实元素
-    const parentElm = elm.parentNode; // 拿到父元素
+    const elm = oldVnode // 获取真实元素
+    const parentElm = elm.parentNode // 拿到父元素
 
-    let newElm = createElm(vnode);
-    console.log(newElm);
+    const newElm = createElm(vnode)
+    console.log(newElm)
 
     // 先把新的放到老旧节点下面，然后再删除老旧节点
-    parentElm.insertBefore(newElm, elm.nextSibling);
-    parentElm.removeChild(elm);
-    
+    parentElm.insertBefore(newElm, elm.nextSibling)
+    parentElm.removeChild(elm)
+
     // 返回新的dom节点
-    return newElm;
-  } else {
+    return newElm
+  }
+  else {
     // 是虚拟dom元素
   }
 }
@@ -1220,35 +1228,37 @@ function patch(oldVnode, vnode) {
 
 ```js
 function createElm(vnode) {
-  let { tag, data, children, text } = vnode;
+  const { tag, data, children, text } = vnode
 
-  if (typeof tag === "string") {
+  if (typeof tag === 'string') {
     // 是字符串，创建的是标签。将真实节点和虚拟节点对应起来，后续如果修改属性了，可通过虚拟节点找到真实节点
-    vnode.el = document.createElement(tag);
+    vnode.el = document.createElement(tag)
 
     // 处理元素的属性
-    patchProps(vnode.el, data);
+    patchProps(vnode.el, data)
 
     // 处理儿子，通过递归的方式；递归创建完后要把它塞到该元素内部
     children.forEach((element) => {
-      vnode.el.appendChild(createElm(element));
-    });
-  } else {
+      vnode.el.appendChild(createElm(element))
+    })
+  }
+  else {
     // 不是字符串，创建的是文本
-    vnode.el = document.createTextNode(text);
+    vnode.el = document.createTextNode(text)
   }
 
-  return vnode.el;
+  return vnode.el
 }
 
 function patchProps(el, props) {
   for (const key in props) {
-    if (key === "style") {
-      for (const styleName in props.style) {
-        el.style[styleName] = props.style[styleName];
-      }
-    } else {
-      el.setAttribute(key, props[key]);
+    if (key === 'style') {
+      for (const styleName in props.style)
+        el.style[styleName] = props.style[styleName]
+
+    }
+    else {
+      el.setAttribute(key, props[key])
     }
   }
 }
@@ -1316,9 +1326,9 @@ function patchProps(el, props) {
 在 `observe` 文件夹下新建一个 `watcher.js` 文件，该文件用于设置侦听器
 
 ```js
-import Dep from "./dep";
+import Dep from './dep'
 
-let id = 0;
+let id = 0
 
 // 当创建渲染watcher的时候，会把当前渲染的watcher放到 Dep。target上
 // 调用_render() 会取值，走到get上
@@ -1326,138 +1336,138 @@ let id = 0;
 class Watcher {
   // 不同组件有不同的watcher 目前只有一个 渲染根实例的
   constructor(vm, fn, options) {
-    this.id = id++;
+    this.id = id++
 
     // 渲染一个watcher
-    this.renderWatcher = options;
+    this.renderWatcher = options
 
     // getter意味着调用这个函数可以发生取值操作
-    this.getter = fn;
+    this.getter = fn
 
     // 后续实现计算属性，和一些清理工作需要用到
-    this.deps = [];
+    this.deps = []
 
-    this.depsId = new Set();
+    this.depsId = new Set()
 
-    this.get();
+    this.get()
   }
 
   get() {
     // 静态属性只有一份
-    Dep.target = this;
+    Dep.target = this
     // 会去vm上取值
-    this.getter();
+    this.getter()
     // 渲染完毕后清空
-    Dep.target = null;
+    Dep.target = null
   }
 
   addDep(dep) {
-    let id = dep.id;
+    const id = dep.id
 
     if (!this.depsId.has(id)) {
-      this.deps.push(dep);
-      this.depsId.add(id);
-      dep.addSub(this); // watcher已经记住dep而且去重了，此时让dep也记住watcher
+      this.deps.push(dep)
+      this.depsId.add(id)
+      dep.addSub(this) // watcher已经记住dep而且去重了，此时让dep也记住watcher
     }
   }
 
   update() {
-    console.log("update");
+    console.log('update')
     // 重新渲染
-    this.get();
+    this.get()
   }
 }
 
 // 需要给每个属性添加一个dep，目的就是收集watcher
 // 一个视图有多个属性，也就是n个dep对应一个watcher。同样的，一个属性在多个视图都有，因此1个dep对应多个watcher
 
-export default Watcher;
+export default Watcher
 ```
 
 回到 `lifecycle.js` 文件中引入该类方法，在调用 `render` 方法产生虚拟 DOM 之前调用该类方法，配置监听器。
 
 ```js
-import Watcher from "./observe/watcher";
+import Watcher from './observe/watcher'
 
 // ...
 
-export const mountComponent = (vm, el) => {
+export function mountComponent(vm, el) {
   // 这里的el是通过 querySelector处理过的
-  vm.$el = el;
+  vm.$el = el
 
   const updateComponent = () => {
-    vm._update(vm._render());
-  };
-  const a = new Watcher(vm, updateComponent, true);
-  console.log(a);
+    vm._update(vm._render())
+  }
+  const a = new Watcher(vm, updateComponent, true)
+  console.log(a)
 
   // 1.调用render方法产生虚拟节点 虚拟dom
-  vm._update(vm._render());
-};
+  vm._update(vm._render())
+}
 ```
 
 在 `src/observe` 文件夹下新建 `dep.js` 文件，用于为每一个属性绑定，且要与监听器建立联系，代码如下：
 
 ```js
-let id = 0;
+let id = 0
 
 class Dep {
   constructor() {
     // 属性的dep要收集watcher
-    this.id = id++;
+    this.id = id++
 
     // 存放当前属性对应的watcher
-    this.subs = [];
+    this.subs = []
   }
 
   depend() {
     // this.subs.push(Dep.target); 这样写会重复
     // 让watcher记住dep。既要watcher不重复，又要单向关系dep->watcher
-    Dep.target.addDep(this);
+    Dep.target.addDep(this)
 
     // dep和watcher是一个多对多的关系（一个属性可以在多个组件中的加入，一个组件中由多个属性组成）
   }
 
   addSub(watcher) {
-    this.subs.push(watcher);
+    this.subs.push(watcher)
   }
 
   notify() {
     // 告诉watcher要更新了
-    this.subs.forEach((watcher) => watcher.update());
+    this.subs.forEach(watcher => watcher.update())
   }
 }
 
-Dep.target = null;
+Dep.target = null
 
-export default Dep;
+export default Dep
 ```
 
 在 `observe/index.js` 文件的 `defineReactive` 函数方法代理对象时先调用 `Dep` 类中的 `depend` 方法记住当前 `watcher` ，在修改完毕后触发更新。代码如下：
 
 ```js
-import { newArrayProto } from "./array";
-import Dep from "./dep";
+import { newArrayProto } from './array'
+import Dep from './dep'
 
 // ...
 
 export function defineReactive(target, key, value) {
   // 递归思想，如果value值的类型不是对象，则return；如果是对象，则继续劫持
-  observe(value);
+  observe(value)
 
-  let dep = new Dep();
+  const dep = new Dep()
 
   // 此处value存放在闭包中，不会销毁
   Object.defineProperty(target, key, {
     // 取值执行get
     get() {
-      if (Dep.target) {
-        dep.depend(); // 让这个属性收集器记住当前的watcher
-      }
-      return value;
+      if (Dep.target)
+        dep.depend() // 让这个属性收集器记住当前的watcher
+
+      return value
     },
     // ...
-  });
+  })
 }
 ```
 
@@ -1478,24 +1488,24 @@ class Watcher {
   // ...
 
   update() {
-    queueWatcher(this);
+    queueWatcher(this)
     // 重新渲染
     // this.get();
   }
 }
 
-let queue = [];
-let has = {};
+const queue = []
+const has = {}
 function queueWatcher(watcher) {
-  const id = watcher.id;
+  const id = watcher.id
   if (!has[id]) {
-    queue.push(watcher);
-    has[id] = true;
-    console.log(queue, has);
+    queue.push(watcher)
+    has[id] = true
+    console.log(queue, has)
   }
 }
 
-export default Watcher;
+export default Watcher
 ```
 
 现在有效果了。但是如果多个组件更新，则 `update()` 操作也会多次调用。
@@ -1509,43 +1519,43 @@ class Watcher {
   // ...
 
   update() {
-    queueWatcher(this);
+    queueWatcher(this)
     // 重新渲染
     // this.get();
   }
 
   run() {
-    this.get();
+    this.get()
   }
 }
 
-let queue = [];
-let has = {};
-let pending = false;
+let queue = []
+let has = {}
+let pending = false
 
 function flushSchedulerQueue() {
-  let flushQueue = queue.slice(0);
-  queue = [];
-  has = {};
-  pending = false;
-  flushQueue.forEach((q) => q.run());
+  const flushQueue = queue.slice(0)
+  queue = []
+  has = {}
+  pending = false
+  flushQueue.forEach(q => q.run())
 }
 
 function queueWatcher(watcher) {
-  const id = watcher.id;
+  const id = watcher.id
   if (!has[id]) {
-    queue.push(watcher);
-    has[id] = true;
-    console.log(queue, has);
+    queue.push(watcher)
+    has[id] = true
+    console.log(queue, has)
 
     if (!pending) {
-      setTimeout(flushSchedulerQueue, 0);
-      pending = true;
+      setTimeout(flushSchedulerQueue, 0)
+      pending = true
     }
   }
 }
 
-export default Watcher;
+export default Watcher
 ```
 
 现在效果能够实现在所有属性都更新完毕后再统一更新的操作了。接下来通过 `debugger` 来帮助加深理解。
@@ -1596,61 +1606,64 @@ export default Watcher;
 
 ```js
 function queueWatcher(watcher) {
-  const id = watcher.id;
+  const id = watcher.id
   if (!has[id]) {
-    queue.push(watcher);
-    has[id] = true;
-    console.log(queue, has);
+    queue.push(watcher)
+    has[id] = true
+    console.log(queue, has)
 
     if (!pending) {
-      nextTick(flushSchedulerQueue, 0);
-      pending = true;
+      nextTick(flushSchedulerQueue, 0)
+      pending = true
     }
   }
 }
 
-let callbacks = [];
-let waiting = false;
+let callbacks = []
+let waiting = false
 
 function flushCallbacks() {
-  waiting = false;
-  let cbs = callbacks.slice(0);
-  callbacks = [];
+  waiting = false
+  const cbs = callbacks.slice(0)
+  callbacks = []
   // 按照顺序执行nextTick内容方法函数
-  cbs.forEach((cb) => cb());
+  cbs.forEach(cb => cb())
 }
 
-let timeFn;
+let timeFn
 if (Promise) {
   timeFn = () => {
-    Promise.resolve().then(flushCallbacks);
-  };
-} else if (MutationObserver) {
+    Promise.resolve().then(flushCallbacks)
+  }
+}
+else if (MutationObserver) {
   // 这里传入的回调是异步执行的
-  let observe = new MutationObserver(flushCallbacks);
-  let textNode = document.createTextNode(1);
+  const observe = new MutationObserver(flushCallbacks)
+  const textNode = document.createTextNode(1)
   observe.observe(textNode, {
     characterData: true,
-  });
+  })
   timeFn = () => {
-    textNode.textContent = 2;
-  };
-} else if (setImmediate) {
+    textNode.textContent = 2
+  }
+}
+else if (setImmediate) {
   timeFn = () => {
-    setImmediate(flushCallbacks);
-  };
-} else {
+    setImmediate(flushCallbacks)
+  }
+}
+else {
   timeFn = () => {
-    setTimeout(flushCallbacks);
-  };
+    setTimeout(flushCallbacks)
+  }
 }
 
 export function nextTick(cb) {
   // 先内部还是先用户？先用户。维护nextTick中的callback方法
-  callbacks.push(cb);
+  callbacks.push(cb)
   if (!waiting) {
-    timeFn();
-    waiting = true;
+    timeFn()
+    waiting = true
   }
 }
 ```
@@ -1658,14 +1671,13 @@ export function nextTick(cb) {
 再 `src/index.js` 文件中挂载该方法到原型上：
 
 ```js
-import { nextTick } from "./observe/watcher";
+import { nextTick } from './observe/watcher'
 
 // ...
 
-Vue.prototype.$nextTick = nextTick;
+Vue.prototype.$nextTick = nextTick
 
-
-export default Vue;
+export default Vue
 ```
 
 最后测试一下，效果实现：
@@ -1712,40 +1724,40 @@ export default Vue;
 去到 `observe/dep.js` 文件，之前 `dep` 是直接把 `watcher` 赋值上去，现在要把其作为一个队列，然后依次放入栈中；取出则把栈最后一个去除。代码如下：
 
 ```js
-let stack = [];
+const stack = []
 // 渲染时入栈
 export function pushTarget(watcher) {
-  stack.push(watcher);
-  Dep.target = watcher;
+  stack.push(watcher)
+  Dep.target = watcher
 }
 // 渲染完后出栈
 export function popTarget() {
-  stack.pop();
-  Dep.target = stack[stack.length - 1];
+  stack.pop()
+  Dep.target = stack[stack.length - 1]
 }
 ```
 
 `observe/watcher.js` 文件引入使用：
 
 ```js
-import Dep, { popTarget, pushTarget } from "./dep";
+import Dep, { popTarget, pushTarget } from './dep'
 
 class Watcher {
   // ...
 
   get() {
     // 静态属性只有一份
-    pushTarget(this);
+    pushTarget(this)
     // 会去vm上取值
-    this.getter();
+    this.getter()
     // 渲染完毕后清空
-    popTarget();
+    popTarget()
   }
 }
 
 // ...
 
-export default Watcher;
+export default Watcher
 ```
 
 在 Vue2 ，计算属性有两种写法：
@@ -1780,39 +1792,38 @@ computed: {
 ```js
 export function initState(vm) {
   // 获取所有选项
-  const opts = vm.$options;
+  const opts = vm.$options
 
   // 如果有data数据，则初始化data数据
-  if (opts.data) {
-    initData(vm);
-  }
+  if (opts.data)
+    initData(vm)
 
   // 如果有计算属性，则初始化计算属性
-  if (opts.computed) {
-    initComputed(vm);
-  }
+  if (opts.computed)
+    initComputed(vm)
+
 }
 
 function initComputed(vm) {
-  const computed = vm.$options.computed;
+  const computed = vm.$options.computed
 
   // 循环computed对象，拿到每一个计算属性
   for (const key in computed) {
-    let userDef = computed[key];
+    const userDef = computed[key]
 
-    defineComputed(vm, key, userDef);
+    defineComputed(vm, key, userDef)
   }
 }
 
 function defineComputed(target, key, userDef) {
-  const getter = typeof userDef === "function" ? userDef : userDef.get;
-  const setter = userDef.set || (() => {});
+  const getter = typeof userDef === 'function' ? userDef : userDef.get
+  const setter = userDef.set || (() => {})
 
   // 通过实例拿到对应的属性
   Object.defineProperty(target, key, {
     get: getter,
     set: setter,
-  });
+  })
 }
 ```
 
@@ -1835,33 +1846,33 @@ computed: {
 
 ```js
 function initComputed(vm) {
-  const computed = vm.$options.computed;
+  const computed = vm.$options.computed
   // 吧计算属性watcher保存到vm上
-  const watchers = (vm._computedWatchers = {});
+  const watchers = (vm._computedWatchers = {})
 
   // 循环computed对象，拿到每一个计算属性
   for (const key in computed) {
-    let userDef = computed[key];
+    const userDef = computed[key]
 
     // 监控计算属性get的变化
-    let fn = typeof userDef === "function" ? userDef : userDef.get;
+    const fn = typeof userDef === 'function' ? userDef : userDef.get
 
     // 如果直接 new Watcher，就会直接执行fn，但是我们不希望他立即执行，而是懒执行
-    watchers[key] = new Watcher(vm, fn, { lazy: true });
+    watchers[key] = new Watcher(vm, fn, { lazy: true })
 
-    defineComputed(vm, key, userDef);
+    defineComputed(vm, key, userDef)
   }
 }
 
 function defineComputed(target, key, userDef) {
   // const getter = typeof userDef === "function" ? userDef : userDef.get;
-  const setter = userDef.set || (() => {});
+  const setter = userDef.set || (() => {})
 
   // 通过实例拿到对应的属性
   Object.defineProperty(target, key, {
     get: createComputedGetter(key),
     set: setter,
-  });
+  })
 }
 
 // 计算属性根本不会收集依赖，只会让自己的依赖属性去收集依赖
@@ -1869,17 +1880,17 @@ function createComputedGetter(key) {
   // 检测是否要执行这个getter
   return function () {
     // 获取到对应属性的watcher
-    const watcher = this._computedWatchers[key];
+    const watcher = this._computedWatchers[key]
     if (watcher.dirty) {
       // 如果是脏的就去执行用户传入的函数。求值后dirty变为false，下次就不求值了
-      watcher.evaluate();
+      watcher.evaluate()
     }
     if (Dep.target) {
       // 计算属性出栈后 还要渲染watcher 应该让计算属性watcher里的属性也收集上一层watcher
-      watcher.depend();
+      watcher.depend()
     }
-    return watcher.value;
-  };
+    return watcher.value
+  }
 }
 ```
 
@@ -1901,50 +1912,50 @@ function createComputedGetter(key) {
 class Watcher {
   // 不同组件有不同的watcher 目前只有一个 渲染根实例的
   constructor(vm, fn, options) {
-    this.id = id++;
+    this.id = id++
 
     // 渲染一个watcher
-    this.renderWatcher = options;
+    this.renderWatcher = options
 
     // getter意味着调用这个函数可以发生取值操作
-    this.getter = fn;
+    this.getter = fn
 
     // 后续实现计算属性，和一些清理工作需要用到
-    this.deps = [];
+    this.deps = []
 
-    this.depsId = new Set();
+    this.depsId = new Set()
 
     // 获取是否需要懒加载的布尔值
-    this.lazy = options.lazy;
-    this.dirty = this.lazy;
-    this.vm = vm;
+    this.lazy = options.lazy
+    this.dirty = this.lazy
+    this.vm = vm
     // 如果为真则不执行，为假才执行
-    this.lazy ? undefined : this.get();
+    this.lazy ? undefined : this.get()
   }
 
   evaluate() {
     // 获取用户的返回值，并且标识为脏
-    this.value = this.get();
-    this.dirty = false;
+    this.value = this.get()
+    this.dirty = false
   }
 
   get() {
     // 静态属性只有一份
-    pushTarget(this);
+    pushTarget(this)
     // 会去vm上取值
-    let value = this.getter.call(this.vm);
+    const value = this.getter.call(this.vm)
     // 渲染完毕后清空
-    popTarget();
+    popTarget()
     // 返回给evaluate函数使用
-    return value;
+    return value
   }
 
   depend() {
-    let i = this.deps.length;
+    let i = this.deps.length
 
     while (i--) {
       // 让计算属性watcher也收集渲染watcher
-      this.deps[i].depend();
+      this.deps[i].depend()
     }
   }
 }
@@ -1993,7 +2004,7 @@ class Watcher {
 
   ```js
   vm.$watch((newVal, oldVal) => {
-    //...
+    // ...
   })
   ```
 
@@ -2004,7 +2015,7 @@ class Watcher {
 ```js
 // 侦听器最终调用的都是这个方法
 Vue.prototype.$watch = function (exprOrFn, cb) {
-};
+}
 ```
 
 `exprOrFn` 可能是一个函数，如 `()=>vm.nam` ；也可能是字符串，如 `name` 。
@@ -2023,42 +2034,43 @@ Vue.prototype.$watch = function (exprOrFn, cb) {
 ```js
 export function initState(vm) {
   // 获取所有选项
-  const opts = vm.$options;
+  const opts = vm.$options
 
   // ...
 
   // 如果有侦听器，则初始化侦听器
-  if (opts.watch) {
-    initWatch(vm);
-  }
+  if (opts.watch)
+    initWatch(vm)
+
 }
 
 function initWatch(vm) {
-  let watch = vm.$options.watch;
+  const watch = vm.$options.watch
 
   for (const key in watch) {
     // 拿到值来判断是哪种情况：字符串、数组、函数
-    const handler = watch[key];
+    const handler = watch[key]
 
     if (Array.isArray(handler)) {
-      for (let i = 0; i < handler.length; i++) {
-        createWatcher(vm, key, handler[i]);
-      }
-    } else {
-      createWatcher(vm, key, handler);
+      for (let i = 0; i < handler.length; i++)
+        createWatcher(vm, key, handler[i])
+
+    }
+    else {
+      createWatcher(vm, key, handler)
     }
   }
 }
 
 // 侦听器处理
 function createWatcher(vm, key, handler) {
-  if (typeof handler === "string") {
+  if (typeof handler === 'string') {
     // 如果是字符串，写法为 watch: {name: 'fn'} 此时函数在methods内，直接拿过来用
-    handler = vm[handler];
+    handler = vm[handler]
   }
 
   // 最后都是走$watch方法
-  return vm.$watch(key, handler);
+  return vm.$watch(key, handler)
 }
 ```
 
@@ -2067,14 +2079,14 @@ function createWatcher(vm, key, handler) {
 ```js
 // 侦听器最终调用的都是这个方法
 Vue.prototype.$watch = function (exprOrFn, cb) {
-  console.log(exprOrFn, cb);
+  console.log(exprOrFn, cb)
   // exprOrFn可能是一个函数，如()=>vm.nam；也可能是字符串，如name
 
   // {user：true} 表示这是用户写的
 
   // 调用Watcher类表示值发生了变化，调用cb函数即可
-  new Watcher(this, exprOrFn, { user: true }, cb);
-};
+  new Watcher(this, exprOrFn, { user: true }, cb)
+}
 ```
 
 `Watcher` 类现在需要修改调整。第二个参数之前传的必定是函数，因此直接使用。现在可能是字符串，就需要做额外的处理。
@@ -2089,35 +2101,36 @@ Vue.prototype.$watch = function (exprOrFn, cb) {
 class Watcher {
   // 不同组件有不同的watcher 目前只有一个 渲染根实例的
   constructor(vm, exprOrFn, options, cb) {
-    this.id = id++;
+    this.id = id++
 
     // 渲染一个watcher
-    this.renderWatcher = options;
+    this.renderWatcher = options
 
     // getter意味着调用这个函数可以发生取值操作
-    if (typeof exprOrFn === "string") {
+    if (typeof exprOrFn === 'string') {
       // 去实例上取相对应的函数
       this.getter = function () {
-        return vm[exprOrFn];
-      };
-    } else {
-      this.getter = exprOrFn;
+        return vm[exprOrFn]
+      }
+    }
+    else {
+      this.getter = exprOrFn
     }
 
     // ...
 
-    this.cb = cb;
-    this.user = options.user; // 标识是否是用户自己的watcher
+    this.cb = cb
+    this.user = options.user // 标识是否是用户自己的watcher
   }
 
   // ...
 
   run() {
-    let oldValue = this.value;
-    let newValue = this.get();
+    const oldValue = this.value
+    const newValue = this.get()
     if (this.user) {
       // 用户自己的watcher
-      this.cb.call(this.vm, newValue, oldValue);
+      this.cb.call(this.vm, newValue, oldValue)
     }
   }
 }
@@ -2152,37 +2165,38 @@ diff 算法是一个平级比较的过程，父亲和父亲对比，儿子和儿
 
 ```js
 export function isSameVnode(vnode1, vnode2) {
-  return vnode1.tag === vnode2.tag && vnode1.key === vnode2.key;
+  return vnode1.tag === vnode2.tag && vnode1.key === vnode2.key
 }
 
 function patch(oldVnode, vnode) {
   if (isRealElement) {
     // ...
-  } else {
+  }
+  else {
     // 是虚拟dom元素，考虑几种情况
     // 1.两个节点不是同一个节点，直接删除老的换上新的（没有比对）
     // 2.同一个节点（判断节点的tag和key）比较两个几点是否有差异（复用老节点）
     // 3.节点比较完毕后比较两人的孩子
     if (isSameVnode(oldVnode, vnode)) {
       // 用老父亲的节点进行替换
-      let el = createElm(vnode);
-      oldVnode.el.parentNode.replaceChild(el, oldVnode.el);
-      return el;
+      const el = createElm(vnode)
+      oldVnode.el.parentNode.replaceChild(el, oldVnode.el)
+      return el
     }
 
     // 文本的情况，文本我们期望比较一下内容
-    let el = (vnode.el = oldVnode.el); // 复用老节点的元素
+    const el = (vnode.el = oldVnode.el) // 复用老节点的元素
     if (!oldVnode.tag) {
-      if (oldVnode.text !== vnode.text) {
-        el.textContent = vnode.text; // 新文本覆盖老文本
-      }
+      if (oldVnode.text !== vnode.text)
+        el.textContent = vnode.text // 新文本覆盖老文本
+
     }
 
     // 标签的情况，比对标签属性
-    patchProps(el, oldVnode.data, vnode.data);
+    patchProps(el, oldVnode.data, vnode.data)
   }
 
-  return el;
+  return el
 }
 ```
 
@@ -2197,20 +2211,20 @@ function patch(oldVnode, vnode) {
 ```js
 function patchProps(el, oldProps, props) {
   // 老的属性中有新的没有，要删除老的
-  let oldStyles = oldProps.style || {};
-  let newStyles = props.style || {};
+  const oldStyles = oldProps.style || {}
+  const newStyles = props.style || {}
   // 老的样式中有新的吗？没有则删除
   for (const key in oldStyles) {
-    if (!newStyles[key]) {
-      el.style[key] = "";
-    }
+    if (!newStyles[key])
+      el.style[key] = ''
+
   }
 
   // 老的属性中有新的吗？没有则删除
   for (const key in oldProps) {
-    if (!props[key]) {
-      el.removeAttribute(key);
-    }
+    if (!props[key])
+      el.removeAttribute(key)
+
   }
 
   // 用新的覆盖老的
@@ -2231,42 +2245,44 @@ function patch(oldVnode, vnode) {
   // ...
 
   // 比较儿子节点，比较的时候需要判断双方是否有儿子
-  let oldChildren = oldVnode.children || [];
-  let newChildren = vnode.children || [];
+  const oldChildren = oldVnode.children || []
+  const newChildren = vnode.children || []
   if (oldChildren.length > 0 && newChildren.length > 0) {
     // 完整的diff算法，需要比较二个人的儿子
-    updateChildren(el, oldChildren, newChildren);
-  } else if (newChildren.length > 0) {
+    updateChildren(el, oldChildren, newChildren)
+  }
+  else if (newChildren.length > 0) {
     // 没有老的，有新的
-    mountChildren(el, newChildren);
-  } else if (oldChildren.length > 0) {
+    mountChildren(el, newChildren)
+  }
+  else if (oldChildren.length > 0) {
     // 没有新的，有老的，直接删除即可
-    el.innerHTML = "";
+    el.innerHTML = ''
   }
 
-  return el;
+  return el
 }
 
 // 把新的儿子节点给老的父节点
 function mountChildren(el, newChildren) {
   for (let i = 0; i < newChildren.length; i++) {
-    const child = newChildren[i];
-    el.appendChild(createElm(child));
+    const child = newChildren[i]
+    el.appendChild(createElm(child))
   }
 }
 
 function updateChildren(el, oldChildren, newChildren) {
   // 针对数组的方法（push、pop、sort、unshift、shift）做优化。Vue2采取双指针，比较两个节点
-  let oldStartIndex = 0;
-  let newStartIndex = 0;
-  let oldEndIndex = oldChildren.length - 1;
-  let newEndIndex = newChildren.length - 1;
+  const oldStartIndex = 0
+  const newStartIndex = 0
+  const oldEndIndex = oldChildren.length - 1
+  const newEndIndex = newChildren.length - 1
 
-  let oldStartVnode = oldChildren[0];
-  let newStartVnode = newChildren[0];
+  const oldStartVnode = oldChildren[0]
+  const newStartVnode = newChildren[0]
 
-  let oldEndVnode = oldChildren[oldEndIndex];
-  let newEndVnode = newChildren[newEndIndex];
+  const oldEndVnode = oldChildren[oldEndIndex]
+  const newEndVnode = newChildren[newEndIndex]
 
   while (oldStartIndex <= oldEndIndex && newStartIndex <= newEndIndex) {
     // 双方有一方头指针大于尾部指针，则停止循环（有一方不满足则停止，|| 有一方满足则为true，继续执行）
@@ -2289,73 +2305,76 @@ function updateChildren(el, oldChildren, newChildren) {
 ```js
 function updateChildren(el, oldChildren, newChildren) {
   // 针对数组的方法（push、pop、sort、unshift、shift）做优化。Vue2采取双指针，比较两个节点
-  let oldStartIndex = 0;
-  let newStartIndex = 0;
-  let oldEndIndex = oldChildren.length - 1;
-  let newEndIndex = newChildren.length - 1;
+  let oldStartIndex = 0
+  let newStartIndex = 0
+  let oldEndIndex = oldChildren.length - 1
+  let newEndIndex = newChildren.length - 1
 
-  let oldStartVnode = oldChildren[0];
-  let newStartVnode = newChildren[0];
+  let oldStartVnode = oldChildren[0]
+  let newStartVnode = newChildren[0]
 
-  let oldEndVnode = oldChildren[oldEndIndex];
-  let newEndVnode = newChildren[newEndIndex];
+  let oldEndVnode = oldChildren[oldEndIndex]
+  let newEndVnode = newChildren[newEndIndex]
 
   while (oldStartIndex <= oldEndIndex && newStartIndex <= newEndIndex) {
     // 双方有一方头指针大于尾部指针，则停止循环（有一方不满足则停止，|| 有一方满足则为true，继续执行）
     if (isSameVnode(oldStartVnode, newStartVnode)) {
       // 相同节点，递归比较子节点
-      patchVnode(oldStartVnode, newStartVnode);
-      oldStartVnode = oldChildren[++oldStartIndex];
-      newStartVnode = newChildren[++newStartIndex];
+      patchVnode(oldStartVnode, newStartVnode)
+      oldStartVnode = oldChildren[++oldStartIndex]
+      newStartVnode = newChildren[++newStartIndex]
 
       // 比较开头节点
-    } else if (isSameVnode(oldEndVnode, newEndVnode)) {
+    }
+    else if (isSameVnode(oldEndVnode, newEndVnode)) {
       // 相同节点，递归比较子节点
-      patchVnode(oldEndVnode, newEndVnode);
-      oldEndVnode = oldChildren[--oldEndIndex];
-      newEndVnode = newChildren[--newEndIndex];
+      patchVnode(oldEndVnode, newEndVnode)
+      oldEndVnode = oldChildren[--oldEndIndex]
+      newEndVnode = newChildren[--newEndIndex]
 
       // 比较开头节点
-    } else if (isSameVnode(oldEndVnode, newStartVnode)) {
+    }
+    else if (isSameVnode(oldEndVnode, newStartVnode)) {
       // 交叉对比 abcd -> dabc
-      patchVnode(oldEndVnode, newStartVnode);
+      patchVnode(oldEndVnode, newStartVnode)
       // 将旧的尾部节点移动到旧的头部去。insertBefore具有移动性，会将原来的元素移动走
-      el.insertBefore(oldEndVnode.el, oldStartVnode.el);
+      el.insertBefore(oldEndVnode.el, oldStartVnode.el)
 
-      oldEndVnode = oldChildren[--oldEndIndex];
-      newStartVnode = newChildren[++newStartIndex];
-    } else if (isSameVnode(oldStartVnode, newEndVnode)) {
+      oldEndVnode = oldChildren[--oldEndIndex]
+      newStartVnode = newChildren[++newStartIndex]
+    }
+    else if (isSameVnode(oldStartVnode, newEndVnode)) {
       // 交叉对比 abcd -> dabc
-      patchVnode(oldStartVnode, newEndVnode);
+      patchVnode(oldStartVnode, newEndVnode)
       // 将旧的尾部节点移动到旧的头部去。insertBefore具有移动性，会将原来的元素移动走
       // nextSibling如果没写，则会插入错误，如 abcd -> dcba 时，a会插到d前面
-      el.insertBefore(oldStartVnode.el, oldEndVnode.el.nextSibling);
+      el.insertBefore(oldStartVnode.el, oldEndVnode.el.nextSibling)
 
-      oldStartVnode = oldChildren[++oldStartIndex];
-      newEndVnode = newChildren[--newEndIndex];
+      oldStartVnode = oldChildren[++oldStartIndex]
+      newEndVnode = newChildren[--newEndIndex]
     }
   }
 
   if (newStartIndex <= newEndIndex) {
     // 新的多了，多余的插入进去
     for (let i = newStartIndex; i < newEndIndex; i++) {
-      let childEl = createElm(newChildren[i]);
+      const childEl = createElm(newChildren[i])
 
       // 这里可能向后追加，也有可能是向前添加
-      let anchor = newChildren[newEndIndex + 1]
+      const anchor = newChildren[newEndIndex + 1]
         ? newChildren[newEndIndex + 1].el
-        : null;
+        : null
       // el.appendChild(childEl);
-      anchor为null是会被认为是appendChild;
-      el.insertBefore(childEl, anchor);
+      anchor为null是会被认为是appendChild
+      el.insertBefore(childEl, anchor)
     }
   }
 
   if (oldStartIndex <= oldEndIndex) {
     // 老的多了，需要删除老的
     for (let i = oldStartIndex; i < oldEndIndex; i++) {
-      let childEl = oldChildren[i].el;
-      el.removeChild(childEl);
+      const childEl = oldChildren[i].el
+      el.removeChild(childEl)
     }
   }
 }
@@ -2369,15 +2388,15 @@ function updateChildren(el, oldChildren, newChildren) {
 
 ```js
 // 创建构造器
-var Profile = Vue.extend({
-  template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
-  data: function () {
+const Profile = Vue.extend({
+  data() {
     return {
       firstName: 'Walter',
       lastName: 'White',
       alias: 'Heisenberg'
     }
-  }
+  },
+  template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>'
 })
 // 创建 Profile 实例，并挂载到一个元素上。
 new Profile().$mount('#mount-point')
@@ -2391,7 +2410,7 @@ new Profile().$mount('#mount-point')
 
 ```js
 export function initGloablAPI(Vue) {
-  Vue.options = {};
+  Vue.options = {}
   Vue.extend = function (options) {
     function Sub(options = {}) {
       // 最终使用一个组件 就是new一个实例
@@ -2399,12 +2418,12 @@ export function initGloablAPI(Vue) {
     }
 
     // 原型复用，方法独立 Sub.prototype.__proto__ === Vue.prototype
-    Sub.prototype = Object.create(Vue.prototype);
-    Sub.prototype.constructor = Sub;
-    Sub.options = options; // 保存用户传递的选项
+    Sub.prototype = Object.create(Vue.prototype)
+    Sub.prototype.constructor = Sub
+    Sub.options = options // 保存用户传递的选项
 
-    return Sub;
-  };
+    return Sub
+  }
 }
 ```
 
@@ -2417,12 +2436,12 @@ export function initGloablAPI(Vue) {
 在 Vue 中有一个全局 `component` 方法，用于创建组件，因此收集对应的 `id` 和 `definition` ，代码如下：
 
 ```js
-Vue.options.components = {}; // 全局指令 Vue.options.directives
+Vue.options.components = {} // 全局指令 Vue.options.directives
 Vue.component = function (id, definition) {
   // 如果definition是一个函数，说明用户调用了 Vue.extend
   definition = typeof definition === 'function' ? definition : Vue.extend(definition)
-  Vue.options.components[id] = definition;
-};
+  Vue.options.components[id] = definition
+}
 ```
 
 接着创建子类的构造函数时，会将全局的组件和自己身上定义的组件进行合并（组件的合并，会先查找自己在查找全局）

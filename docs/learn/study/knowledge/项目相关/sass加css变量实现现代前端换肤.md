@@ -21,13 +21,13 @@
 自定义组件代码如下所示：
 
 ```vue
+<script setup></script>
+
 <template>
-	<button class="button button-primary">
+  <button class="button button-primary">
     按钮
   </button>
 </template>
-
-<script setup></script>
 ```
 
 组件的样式则在 `tydumpling_ui/css/index.scss` 文件内。
@@ -41,15 +41,15 @@
 ```js
 import tydumplingbutton from './tydumplingbutton.vue'
 
-let obj = {
+const obj = {
   tydumplingbutton
 }
 
 export default {
   install(vue) {
-    for(let item in obj) {
+    for (const item in obj)
       vue.component(item, obj[item])
-    }
+
   }
 }
 ```
@@ -246,29 +246,29 @@ $themes:(
 现在只需要修改样式变量类名即可，代码如下：
 
 ```vue
-<template>
-	<button @click="changeSkin('default-theme')">
-    默认样式
-  </button>
-	<button @click="changeSkin('error-theme')">
-    错误样式
-  </button>
-	<button class="button-primary">
-    按钮
-  </button>
-</template>
-
 <script setup>
 // 初始化默认样式
 onMounted(() => {
   window.document.documentElement.setAttribute('data-skin', 'default-theme')
 })
-  
+
 // 点击换肤按钮
-const changeSkin = (type) => {
+function changeSkin(type) {
   window.document.documentElement.setAttribute('data-skin', type)
 }
 </script>
+
+<template>
+  <button @click="changeSkin('default-theme')">
+    默认样式
+  </button>
+  <button @click="changeSkin('error-theme')">
+    错误样式
+  </button>
+  <button class="button-primary">
+    按钮
+  </button>
+</template>
 ```
 
 ## 修改某个属性样式
@@ -297,10 +297,10 @@ $themes:(
 
 ```vue
 <template>
-	<config-provider :theme="{'theme-color': 'pink'}">
-  	<button class="button-primary">
+  <config-provider :theme="{ 'theme-color': 'pink' }">
+    <button class="button-primary">
       按钮
-  	</button>
+    </button>
   </config-provider>
 </template>
 ```
@@ -308,22 +308,22 @@ $themes:(
 子组件代码如下：
 
 ```vue
-<template>
-	<slot></slot>
-</template>
-
 <script setup>
 defineProps({
   theme
 })
-  
-for(let item in themr) {
-	let _name = '--data' + item
+
+for (const item in themr) {
+  const _name = `--data${item}`
   document
   	.querySelector(':root')
   	.style.setProperty(_name, theme[item])
 }
 </script>
+
+<template>
+  <slot />
+</template>
 ```
 
 上方代码表示在根节点 `"root"` 内通过为 DOM 元素绑定 `--data-xxxx` 的样式类名的方式，做到修改某个属性样式功能。

@@ -14,7 +14,7 @@ Vue3 新特性官方指路：[新特性](https://blog.vuejs.org/posts/vue-3-3#sc
 
    ```ts
    export interface type {
-       msg: string
+     msg: string
    }
    ```
 
@@ -108,8 +108,8 @@ defineProps<Props & { age: number }>()
    ```jsx
    import { defineComponents } from 'vue'
    
-   export default defineComponents (<T,> (props: {msg}) => {
-               return () => <div>{ props.msg }</div>
+   export default defineComponents (<T,> (props: { msg }) => {
+     return () => <div>{ props.msg }</div>
    })
    ```
 
@@ -121,13 +121,13 @@ defineProps<Props & { age: number }>()
    >
    >    ```js
    >    export default defineConfig({
-   >        plugins: [
-   >            vue({
-   >                script: {
-   >                    propsDestructure: true
-   >                }
-   >            })
-   >        ]
+   >      plugins: [
+   >        vue({
+   >          script: {
+   >            propsDestructure: true
+   >          }
+   >        })
+   >      ]
    >    })
    >    ```
 
@@ -170,8 +170,8 @@ defineProps<Props & { age: number }>()
    </button>
    
    <script setup lang="ts">
-   const handleClickFn = () => {
-       emit('foo', 1)
+   function handleClickFn() {
+     emit('foo', 1)
    }
    </script>
    ```
@@ -212,10 +212,10 @@ defineProps<Props & { age: number }>()
 
    ```vue
    <template>
-   	<div>
-           <slot msg="nnnn"></slot>
-           <slot name="tydumpling" :bar="1"></slot>
-       </div>
+     <div>
+       <slot msg="nnnn" />
+       <slot name="tydumpling" :bar="1" />
+     </div>
    </template>
    ```
 
@@ -246,7 +246,7 @@ defineProps<Props & { age: number }>()
 const { msg } = defineProps()
 
 watchEffect(() => {
-    console.log(msg)
+  console.log(msg)
 })
 ```
 
@@ -261,8 +261,8 @@ watchEffect(() => {
 >    
 >    useXxx(msg)
 >    
->    const useXxx = (msg) => {
->        console.log(msg)
+>    function useXxx(msg) {
+>      console.log(msg)
 >    }
 >    ```
 
@@ -287,7 +287,7 @@ function onInput(e) {
 </script>
 
 <template>
-  <input :value="modelValue" @input="onInput" />
+  <input :value="modelValue" @input="onInput">
 </template>
 ```
 
@@ -300,7 +300,7 @@ console.log(bar.value)
 </script>
 
 <template>
-  <input v-model="bar" />
+  <input v-model="bar">
 </template>
 ```
 
@@ -320,14 +320,14 @@ const bar = ref('tydumpling')
 
 ```js
 export default defineConfig({
-    plugins: [
-        vue({
-            script: {
-                //...
-                defineModel: true
-            }
-        })
-    ]
+  plugins: [
+    vue({
+      script: {
+        // ...
+        defineModel: true
+      }
+    })
+  ]
 })
 ```
 
@@ -339,9 +339,9 @@ export default defineConfig({
 
 ```vue
 <script setup>
-defineOptions({ 
-    inheritAttrs: false,
-    name: 'tydumpling'
+defineOptions({
+  name: 'Tydumpling',
+  inheritAttrs: false
 })
 </script>
 ```
@@ -350,9 +350,10 @@ defineOptions({
 
 ```vue
 <script setup></script>
+
 <script>
 export default {
-    name: 'tydumpling'
+  name: 'Tydumpling'
 }
 </script>
 ```

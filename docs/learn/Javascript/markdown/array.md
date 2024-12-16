@@ -9,60 +9,60 @@
 使用对象方式创建数组
 
 ```js
-console.log(new Array(1, 'tydumpling', 'tydumpling')); //[1, "tydumpling", "tydumpling"]
+console.log([1, 'tydumpling', 'tydumpling']) // [1, "tydumpling", "tydumpling"]
 ```
 
 使用字面量创建是推荐的简单作法
 
 ```js
-const array = ["duyidao", "tydumpling"];
+const array = ['duyidao', 'tydumpling']
 ```
 
 多维数组定义
 
 ```js
-const array = [["duyidao"], ["tydumpling"]];
-console.log(array[1][0]); // tydumpling
+const array = [['duyidao'], ['tydumpling']]
+console.log(array[1][0]) // tydumpling
 ```
 
 数组是引用类型可以使用`const`声明并修改它的值
 
 ```js
-const array = ["duyidao", "tydumpling"];
-array.push("xiaodao");
-console.log(array); // ["duyidao", "tydumpling", "xiaodao"]
+const array = ['duyidao', 'tydumpling']
+array.push('xiaodao')
+console.log(array) // ["duyidao", "tydumpling", "xiaodao"]
 ```
 
 使用原型的 `length`属性可以获取数组元素数量
 
 ```js
-let hd = ["tydumpling", "tydumpling"];
-console.log(hd.length); //2
+const hd = ['tydumpling', 'tydumpling']
+console.log(hd.length) // 2
 ```
 
 数组可以设置任何值，下面是使用索引添加数组
 
 ```js
-let hd = ["tydumpling"];
-hd[1] = "tydumpling";
-console.log(hd); // ["tydumpling", "tydumpling"]
+const hd = ['tydumpling']
+hd[1] = 'tydumpling'
+console.log(hd) // ["tydumpling", "tydumpling"]
 ```
 
 下面直接设置 3 号数组，会将 1/2 索引的数组定义为空值
 
 ```js
-let hd = ["tydumpling"];
-hd[3] = "tydumpling";
-console.log(hd); // ["tydumpling", empty * 2, "tydumpling"]
-console.log(hd.length); // 4
+const hd = ['tydumpling']
+hd[3] = 'tydumpling'
+console.log(hd) // ["tydumpling", empty * 2, "tydumpling"]
+console.log(hd.length) // 4
 ```
 
 声明多个空元素的数组
 
 ```js
-let hd = new Array(3);
-console.log(hd.length); // 3
-console.log(hd); // [empty * 3]
+const hd = Array.from({ length: 3 })
+console.log(hd.length) // 3
+console.log(hd) // [empty * 3]
 ```
 
 ### Array.of
@@ -70,11 +70,11 @@ console.log(hd); // [empty * 3]
 使用`Array.of` 与 `new Array` 不同是设置一个参数时不会创建空元素数组
 
 ```js
-let hd = Array.of(3);
-console.log(hd); //[3]
+let hd = Array.of(3)
+console.log(hd) // [3]
 
-hd = Array.of(1, 2, 3);
-console.log(hd); //[1, 2, 3]
+hd = Array.of(1, 2, 3)
+console.log(hd) // [1, 2, 3]
 ```
 
 ### 类型检测
@@ -82,8 +82,8 @@ console.log(hd); //[1, 2, 3]
 检测变量是否为数组类型
 
 ```js
-console.log(Array.isArray([1, "tydumpling", "tydumpling"])); //true
-console.log(Array.isArray(9)); //false
+console.log(Array.isArray([1, 'tydumpling', 'tydumpling'])) // true
+console.log(Array.isArray(9)) // false
 ```
 
 ## 类型转换
@@ -95,19 +95,19 @@ console.log(Array.isArray(9)); //false
 大部分数据类型都可以使用`.toString()` 函数转换为字符串。
 
 ```js
-console.log(([1, 2, 3]).toString()); // 1,2,3
+console.log(([1, 2, 3]).toString()) // 1,2,3
 ```
 
 也可以使用函数 `String` 转换为字符串。
 
 ```js
-console.log(String([1, 2, 3])); // 1,2,3
+console.log(String([1, 2, 3])) // 1,2,3
 ```
 
 或使用`join`连接为字符串
 
 ```js
-console.log([1, 2, 3].join("-"));//1-2-3
+console.log([1, 2, 3].join('-'))// 1-2-3
 ```
 
 ### Array.from
@@ -118,19 +118,19 @@ console.log([1, 2, 3].join("-"));//1-2-3
 - 第二个参数为类似于`map` 函数的回调方法
 
 ```js
-let str = 'tydumpling';
-console.log(Array.from(str)); //["d", "a", "o", "d", "a", "o"]
+const str = 'tydumpling'
+console.log(Array.from(str)) // ["d", "a", "o", "d", "a", "o"]
 ```
 
 为对象设置`length`属性后也可以转换为数组，但要下标为数值或数值字符串
 
 ```js
-let user = {
+const user = {
   0: 'tydumpling',
-  '1': 18,
+  1: 18,
   length: 2
-};
-console.log(Array.from(user)); //["tydumpling", 18]
+}
+console.log(Array.from(user)) // ["tydumpling", 18]
 ```
 
 DOM 元素转换为数组后来使用数组函数，第二个参数类似于`map` 函数的方法，可对数组元素执行函数处理。
@@ -157,9 +157,9 @@ DOM 元素转换为数组后来使用数组函数，第二个参数类似于`map
 使用展开语法来合并数组相比 `concat` 要更简单，使用`...` 可将数组展开为多个值。
 
 ```js
-let a = [1, 2, 3];
-let b = ['a', 'tydumpling', ...a];
-console.log(b); //["a", "tydumpling", 1, 2, 3]
+const a = [1, 2, 3]
+const b = ['a', 'tydumpling', ...a]
+console.log(b) // ["a", "tydumpling", 1, 2, 3]
 ```
 
 ### 函数参数
@@ -168,18 +168,18 @@ console.log(b); //["a", "tydumpling", 1, 2, 3]
 
 ```js
 function hd(...args) {
-  console.log(args);
+  console.log(args)
 }
-hd(1, 2, 3, "tydumpling"); //[1, 2, 3, "tydumpling"]
+hd(1, 2, 3, 'tydumpling') // [1, 2, 3, "tydumpling"]
 ```
 
 也可以用于接收部分参数
 
 ```js
 function hd(site, ...args) {
-  console.log(site, args); //tydumpling (3) [1, 2, 3]
+  console.log(site, args) // tydumpling (3) [1, 2, 3]
 }
-hd("tydumpling", 1, 2, 3);
+hd('tydumpling', 1, 2, 3)
 ```
 
 ### 节点转换
@@ -245,42 +245,42 @@ hd("tydumpling", 1, 2, 3);
 下面是基本使用语法
 
 ```js
-//数组使用
-let [name, url] = ['tydumpling', 'tydumpling.com'];
-console.log(name); // tydumpling
+// 数组使用
+const [name, url] = ['tydumpling', 'tydumpling.com']
+console.log(name) // tydumpling
 ```
 
 解构赋值数组
 
 ```js
 function hd() {
-	return ['tydumpling', 'duyidao'];
+  return ['tydumpling', 'duyidao']
 }
-let [a, b] = hd();
-console.log(a); // tydumpling
+const [a, b] = hd()
+console.log(a) // tydumpling
 ```
 
 剩余解构指用一个变量来接收剩余参数
 
 ```js
-let [a, ...b] = ['tydumpling', 'duyidao', 'xiaodao'];
-console.log(b); // ['duyidao', 'xiaodao']
+const [a, ...b] = ['tydumpling', 'duyidao', 'xiaodao']
+console.log(b) // ['duyidao', 'xiaodao']
 ```
 
 如果变量已经初始化过，就要使用`()` 定义赋值表达式，严格模式会报错所以不建议使用。
 
 ```js
-let web = "tydumpling";
-[web, url] = ["duyidao.com", "tydumpling.com"];
-console.log(web);
+let web = 'tydumpling';
+[web, url] = ['duyidao.com', 'tydumpling.com']
+console.log(web)
 ```
 
 字符串解构
 
 ```js
-"use strict";
-const [...a] = "tydumpling.com";
-console.log(a); //Array(10)
+'use strict'
+const [...a] = 'tydumpling.com'
+console.log(a) // Array(10)
 ```
 
 ### 严格模式
@@ -288,10 +288,10 @@ console.log(a); //Array(10)
 非严格模式可以不使用声明指令，严格模式下必须使用声明。所以建议使用 let 等声明。
 
 ```js
-"use strict";
+'use strict';
 
-[web, url] = ["tydumpling.com", "houdunren.com"]; // 报错
-console.log(web);
+[web, url] = ['tydumpling.com', 'houdunren.com'] // 报错
+console.log(web)
 ```
 
 ### 简洁定义
@@ -299,15 +299,15 @@ console.log(web);
 只赋值部分变量
 
 ```js
-let [,url]=['tydumpling','tydumpling.com'];
-console.log(url);// tydumpling.com
+const [,url] = ['tydumpling', 'tydumpling.com']
+console.log(url)// tydumpling.com
 ```
 
 使用展开语法获取多个值
 
 ```js
-let [name, ...arr] = ['tydumpling', 'tydumpling', 'tydumpling.com'];
-console.log(name, arr); //tydumpling (2) ["tydumpling", "tydumpling.com"]
+const [name, ...arr] = ['tydumpling', 'tydumpling', 'tydumpling.com']
+console.log(name, arr) // tydumpling (2) ["tydumpling", "tydumpling.com"]
 ```
 
 ### 默认值
@@ -315,8 +315,8 @@ console.log(name, arr); //tydumpling (2) ["tydumpling", "tydumpling.com"]
 为变量设置默认值
 
 ```js
-let [name, site = 'tydumpling'] = ['tydumpling'];
-console.log(site); //tydumpling
+const [name, site = 'tydumpling'] = ['tydumpling']
+console.log(site) // tydumpling
 ```
 
 ### 函数参数
@@ -325,9 +325,9 @@ console.log(site); //tydumpling
 
 ```js
 function hd([a, b]) {
-	console.log(a, b); // tydumpling, tydumpling
+  console.log(a, b) // tydumpling, tydumpling
 }
-hd(['tydumpling', 'tydumpling']);
+hd(['tydumpling', 'tydumpling'])
 ```
 
 ## 管理元素
@@ -337,17 +337,17 @@ hd(['tydumpling', 'tydumpling']);
 使用从 0 开始的索引来改变数组
 
 ```js
-let arr = [1, "tydumpling", "tydumpling"];
-arr[1] = 'tydumpling博客';
-console.log(arr); //[1, "tydumpling博客", "tydumpling"]
+const arr = [1, 'tydumpling', 'tydumpling']
+arr[1] = 'tydumpling博客'
+console.log(arr) // [1, "tydumpling博客", "tydumpling"]
 ```
 
 向数组追回元素
 
 ```js
-let arr = [1, "tydumpling", "tydumpling"];
-arr[arr.length] = 'tydumpling.com';
-console.log(arr); //[1, "tydumpling", "tydumpling", "tydumpling.com"]
+const arr = [1, 'tydumpling', 'tydumpling']
+arr[arr.length] = 'tydumpling.com'
+console.log(arr) // [1, "tydumpling", "tydumpling", "tydumpling.com"]
 ```
 
 ### 扩展语法
@@ -355,10 +355,10 @@ console.log(arr); //[1, "tydumpling", "tydumpling", "tydumpling.com"]
 使用展示语法批量添加元素
 
 ```js
-let arr = ["tydumpling", "tydumpling"];
-let hd = ["duyidao"];
-hd.push(...arr);
-console.log(hd); // ["duyidao", "tydumpling", "tydumpling"]
+const arr = ['tydumpling', 'tydumpling']
+const hd = ['duyidao']
+hd.push(...arr)
+console.log(hd) // ["duyidao", "tydumpling", "tydumpling"]
 ```
 
 ### push
@@ -366,22 +366,22 @@ console.log(hd); // ["duyidao", "tydumpling", "tydumpling"]
 压入元素，直接改变元数组，返回值为数组元素数量
 
 ```js
-let arr = ["tydumpling", "tydumpling"];
-console.log(arr.push('tydumpling', 'duyidao')); // 4
-console.log(arr); // ["tydumpling", "tydumpling", "tydumpling", "duyidao"]
+const arr = ['tydumpling', 'tydumpling']
+console.log(arr.push('tydumpling', 'duyidao')) // 4
+console.log(arr) // ["tydumpling", "tydumpling", "tydumpling", "duyidao"]
 ```
 
 根据区间创建新数组
 
 ```js
 function rangeArray(begin, end) {
-  const array = [];
-  for (let i = begin; i <= end; i++) {
-    array.push(i);
-  }
-  return array;
+  const array = []
+  for (let i = begin; i <= end; i++)
+    array.push(i)
+
+  return array
 }
-console.log(rangeArray(1, 6));
+console.log(rangeArray(1, 6))
 ```
 
 ### pop
@@ -389,9 +389,9 @@ console.log(rangeArray(1, 6));
 从末尾弹出元素，直接改变元数组，返回值为弹出的元素
 
 ```js
-let arr = ["tydumpling", "tydumpling"];
-console.log(arr.pop()); // tydumpling
-console.log(arr); // ["tydumpling"]
+const arr = ['tydumpling', 'tydumpling']
+console.log(arr.pop()) // tydumpling
+console.log(arr) // ["tydumpling"]
 ```
 
 ### shift
@@ -399,9 +399,9 @@ console.log(arr); // ["tydumpling"]
 从数组前面取出一个元素
 
 ```js
-let arr = ["tydumpling", "tydumpling"];
-console.log(arr.shift()); // tydumpling
-console.log(arr); // ["tydumpling"]
+const arr = ['tydumpling', 'tydumpling']
+console.log(arr.shift()) // tydumpling
+console.log(arr) // ["tydumpling"]
 ```
 
 ### unshift
@@ -409,9 +409,9 @@ console.log(arr); // ["tydumpling"]
 从数组前面添加元素
 
 ```js
-let arr = ["tydumpling", "tydumpling"];
-console.log(arr.unshift('tydumpling', 'duyidao')); // 4
-console.log(arr); //["tydumpling", "duyidao", "tydumpling", "tydumpling"]
+const arr = ['tydumpling', 'tydumpling']
+console.log(arr.unshift('tydumpling', 'duyidao')) // 4
+console.log(arr) // ["tydumpling", "duyidao", "tydumpling", "tydumpling"]
 ```
 
 ### fill
@@ -419,7 +419,7 @@ console.log(arr); //["tydumpling", "duyidao", "tydumpling", "tydumpling"]
 使用`fill` 填充数组元素
 
 ```js
-console.dir(Array(4).fill("tydumpling")); // ["tydumpling", "tydumpling", "tydumpling", "tydumpling"]
+console.dir(Array(4).fill('tydumpling')) // ["tydumpling", "tydumpling", "tydumpling", "tydumpling"]
 ```
 
 指定填充位置
@@ -428,7 +428,7 @@ console.dir(Array(4).fill("tydumpling")); // ["tydumpling", "tydumpling", "tydum
 - 参数3：结束位置前一项
 
 ```js
-console.log([1, 2, 3, 4].fill("tydumpling", 1, 2)); //[1, "tydumpling", 3, 4]
+console.log([1, 2, 3, 4].fill('tydumpling', 1, 2)) // [1, "tydumpling", 3, 4]
 ```
 
 ### slice
@@ -436,16 +436,16 @@ console.log([1, 2, 3, 4].fill("tydumpling", 1, 2)); //[1, "tydumpling", 3, 4]
 使用 `slice` 方法从数组中截取部分元素组合成新数组（并不会改变原数组），不传第二个参数时截取到数组的最后元素。
 
 ```js
-let arr = [0, 1, 2, 3, 4, 5, 6];
-console.log(arr.slice(1, 3)); // [1,2]
-console.log(arr); // [0, 1, 2, 3, 4, 5, 6]
+const arr = [0, 1, 2, 3, 4, 5, 6]
+console.log(arr.slice(1, 3)) // [1,2]
+console.log(arr) // [0, 1, 2, 3, 4, 5, 6]
 ```
 
 不设置参数是为获取所有元素
 
 ```js
-let arr = [0, 1, 2, 3, 4, 5, 6];
-console.log(arr.slice()); // [0, 1, 2, 3, 4, 5, 6]
+const arr = [0, 1, 2, 3, 4, 5, 6]
+console.log(arr.slice()) // [0, 1, 2, 3, 4, 5, 6]
 ```
 
 ### splice
@@ -457,41 +457,41 @@ console.log(arr.slice()); // [0, 1, 2, 3, 4, 5, 6]
 - 参数3：可选，如果有参数3则把删除的内容替换为参数3
 
 ```js
-let arr = [0, 1, 2, 3, 4, 5, 6];
-console.log(arr.splice(1, 3)); // 返回删除的元素 [1, 2, 3]
-console.log(arr); // 删除数据后的原数组 [0, 4, 5, 6]
+const arr = [0, 1, 2, 3, 4, 5, 6]
+console.log(arr.splice(1, 3)) // 返回删除的元素 [1, 2, 3]
+console.log(arr) // 删除数据后的原数组 [0, 4, 5, 6]
 ```
 
 通过修改`length`删除最后一个元素
 
 ```js
-let arr = ["tydumpling", "tydumpling"];
-arr.length = arr.length - 1;
-console.log(arr); // ["tydumpling"]
+const arr = ['tydumpling', 'tydumpling']
+arr.length = arr.length - 1
+console.log(arr) // ["tydumpling"]
 ```
 
 通过指定第三个参数来设置在删除位置添加的元素
 
 ```js
-let arr = [0, 1, 2, 3, 4, 5, 6];
-console.log(arr.splice(1, 3, 'tydumpling', 'tydumpling')); //[1, 2, 3]
-console.log(arr); //[0, "tydumpling", "tydumpling", 4, 5, 6]
+const arr = [0, 1, 2, 3, 4, 5, 6]
+console.log(arr.splice(1, 3, 'tydumpling', 'tydumpling')) // [1, 2, 3]
+console.log(arr) // [0, "tydumpling", "tydumpling", 4, 5, 6]
 ```
 
 向末尾添加元素
 
 ```js
-let arr = [0, 1, 2, 3, 4, 5, 6];
-console.log(arr.splice(arr.length, 0, 'tydumpling', 'tydumpling')); //[]
-console.log(arr); // [0, 1, 2, 3, 4, 5, 6, "tydumpling", "tydumpling"]
+const arr = [0, 1, 2, 3, 4, 5, 6]
+console.log(arr.splice(arr.length, 0, 'tydumpling', 'tydumpling')) // []
+console.log(arr) // [0, 1, 2, 3, 4, 5, 6, "tydumpling", "tydumpling"]
 ```
 
 向数组前添加元素
 
 ```js
-let arr = [0, 1, 2, 3, 4, 5, 6];
-console.log(arr.splice(0, 0, 'tydumpling', 'tydumpling')); //[]
-console.log(arr); //["tydumpling", "tydumpling", 0, 1, 2, 3, 4, 5, 6]
+const arr = [0, 1, 2, 3, 4, 5, 6]
+console.log(arr.splice(0, 0, 'tydumpling', 'tydumpling')) // []
+console.log(arr) // ["tydumpling", "tydumpling", 0, 1, 2, 3, 4, 5, 6]
 ```
 
 数组元素位置调整函数
@@ -499,16 +499,16 @@ console.log(arr); //["tydumpling", "tydumpling", 0, 1, 2, 3, 4, 5, 6]
 ```js
 function move(array, before, to) {
   if (before < 0 || to >= array.length) {
-    console.error("指定位置错误");
-    return;
+    console.error('指定位置错误')
+    return
   }
-  const newArray = [...array];
-  const elem = newArray.splice(before, 1);
-  newArray.splice(to, 0, ...elem);
-  return newArray;
+  const newArray = [...array]
+  const elem = newArray.splice(before, 1)
+  newArray.splice(to, 0, ...elem)
+  return newArray
 }
-const array = [1, 2, 3, 4];
-console.table(move(array, 0, 3));
+const array = [1, 2, 3, 4]
+console.table(move(array, 0, 3))
 ```
 
 ### 清空数组
@@ -516,35 +516,35 @@ console.table(move(array, 0, 3));
 将数组值修改为`[]`可以清空数组，如果有多个引用时数组在内存中存在被其他变量引用。该方法为开辟一个新空间存放一个空数组，而原本的数组还在。
 
 ```js
-let user = [{ name: "tydumpling" }, { name: "tydumpling" }];
-let cms = user;
-user = [];
-console.log(user); // []
-console.log(cms); // []
+let user = [{ name: 'tydumpling' }, { name: 'tydumpling' }]
+const cms = user
+user = []
+console.log(user) // []
+console.log(cms) // []
 ```
 
 将数组`length`设置为 0 也可以清空数组
 
 ```js
-let user = [{ name: "tydumpling" }, { name: "tydumpling" }];
-user.length = 0;
-console.log(user); // []
+const user = [{ name: 'tydumpling' }, { name: 'tydumpling' }]
+user.length = 0
+console.log(user) // []
 ```
 
 使用`splice`方法删除所有数组元素
 
 ```js
-let user = [{ name: "tydumpling" }, { name: "tydumpling" }];
-user.splice(0, user.length);
-console.log(user); // []
+const user = [{ name: 'tydumpling' }, { name: 'tydumpling' }]
+user.splice(0, user.length)
+console.log(user) // []
 ```
 
 使用`pop/shift`删除所有元素，来清空数组
 
 ```js
-let user = [{ name: "tydumpling" }, { name: "tydumpling" }];
+const user = [{ name: 'tydumpling' }, { name: 'tydumpling' }]
 while (user.pop()) {}
-console.log(user); // []
+console.log(user) // []
 ```
 
 ## 合并拆分
@@ -554,8 +554,8 @@ console.log(user); // []
 使用`join`连接成字符串
 
 ```js
-let arr = [1, "tydumpling", "tydumpling"];
-console.log(arr.join('-')); //1-tydumpling-tydumpling 使用join可以指定转换的连接方式
+const arr = [1, 'tydumpling', 'tydumpling']
+console.log(arr.join('-')) // 1-tydumpling-tydumpling 使用join可以指定转换的连接方式
 ```
 
 ### split
@@ -563,8 +563,8 @@ console.log(arr.join('-')); //1-tydumpling-tydumpling 使用join可以指定转�
 `split` 方法用于将字符串分割成数组，类似`join`方法的反函数。
 
 ```js
-let price = "99,78,68";
-console.log(price.split(",")); //["99", "78", "68"]
+const price = '99,78,68'
+console.log(price.split(',')) // ["99", "78", "68"]
 ```
 
 ### concat
@@ -572,16 +572,16 @@ console.log(price.split(",")); //["99", "78", "68"]
 `concat`方法用于连接两个或多个数组，元素是值类型的是复制操作，如果是引用类型还是指向同一对象
 
 ```js
-let array = ["tydumpling", "tydumpling"];
-let hd = [1, 2];
-let cms = [3, 4];
-console.log(array.concat(hd, cms)); //["tydumpling", "tydumpling", 1, 2, 3, 4]
+const array = ['tydumpling', 'tydumpling']
+const hd = [1, 2]
+const cms = [3, 4]
+console.log(array.concat(hd, cms)) // ["tydumpling", "tydumpling", 1, 2, 3, 4]
 ```
 
 也可以使用扩展语法实现连接
 
 ```js
-console.log([...array, ...hd, ...cms]);
+console.log([...array, ...hd, ...cms])
 ```
 
 ### copyWithin
@@ -603,8 +603,8 @@ array.copyWithin(target, start, end)
 | *end*    | 可选。停止复制的索引位置 (默认为 *array*.length)。如果为负值，表示倒数。 |
 
 ```js
-const arr = [1, 2, 3, 4];
-console.log(arr.copyWithin(2, 0, 2)); //[1, 2, 1, 2]
+const arr = [1, 2, 3, 4]
+console.log(arr.copyWithin(2, 0, 2)) // [1, 2, 1, 2]
 ```
 
 ## 查找元素
@@ -616,23 +616,23 @@ console.log(arr.copyWithin(2, 0, 2)); //[1, 2, 1, 2]
 使用 `indexOf` 从前向后查找元素出现的位置，如果找不到返回 `-1`。
 
 ```js
-let arr = [7, 3, 2, 8, 2, 6];
-console.log(arr.indexOf(2)); // 2 从前面查找2出现的位置
+const arr = [7, 3, 2, 8, 2, 6]
+console.log(arr.indexOf(2)) // 2 从前面查找2出现的位置
 ```
 
 如下面代码一下，使用 `indexOf` 查找字符串将找不到，因为`indexOf` 类似于`===`是严格类型约束。
 
 ```js
-let arr = [7, 3, 2, '8', 2, 6];
-console.log(arr.indexOf(8)); // -1
+const arr = [7, 3, 2, '8', 2, 6]
+console.log(arr.indexOf(8)) // -1
 ```
 
 第二个参数用于指定查找开始位置
 
 ```js
-let arr = [7, 3, 2, 8, 2, 6];
-//从第二个元素开始向后查找
-console.log(arr.indexOf(2, 3)); //4
+const arr = [7, 3, 2, 8, 2, 6]
+// 从第二个元素开始向后查找
+console.log(arr.indexOf(2, 3)) // 4
 ```
 
 ### lastIndexOf
@@ -640,19 +640,19 @@ console.log(arr.indexOf(2, 3)); //4
 使用 `lastIndexOf` 从后向前查找元素出现的位置，如果找不到返回 `-1`。
 
 ```js
-let arr = [7, 3, 2, 8, 2, 6];
-console.log(arr.lastIndexOf(2)); // 4 从后查找2出现的位置
+const arr = [7, 3, 2, 8, 2, 6]
+console.log(arr.lastIndexOf(2)) // 4 从后查找2出现的位置
 ```
 
 第二个参数用于指定查找开始位置
 
 ```js
-let arr = [7, 3, 2, 8, 2, 6];
-//从第五个元素向前查找
-console.log(arr.lastIndexOf(2, 5));
+const arr = [7, 3, 2, 8, 2, 6]
+// 从第五个元素向前查找
+console.log(arr.lastIndexOf(2, 5))
 
-//从最后一个字符向前查找
-console.log(arr.lastIndexOf(2, -2));
+// 从最后一个字符向前查找
+console.log(arr.lastIndexOf(2, -2))
 ```
 
 ### includes
@@ -660,20 +660,22 @@ console.log(arr.lastIndexOf(2, -2));
 使用 `includes` 查找字符串返回值是布尔类型更方便判断
 
 ```js
-let arr = [7, 3, 2, 6];
-console.log(arr.includes(6)); //true
+const arr = [7, 3, 2, 6]
+console.log(arr.includes(6)) // true
 ```
 
 我们来实现一个自已经的`includes`函数，来加深对`includes`方法的了解
 
 ```js
 function includes(array, item) {
-  for (const value of array)
-    if (item === value) return true;
-  return false;
+  for (const value of array) {
+    if (item === value)
+      return true
+  }
+  return false
 }
 
-console.log(includes([1, 2, 3, 4], 3)); //true
+console.log(includes([1, 2, 3, 4], 3)) // true
 ```
 
 ### find
@@ -685,29 +687,29 @@ find 方法找到后会把值返回出来
 返回第一次找到的值，不继续查找
 
 ```js
-let arr = ["tydumpling", "duyidao", "xiaodao"];
+const arr = ['tydumpling', 'duyidao', 'xiaodao']
 
-let find = arr.find(function(item) {
-  return item == "tydumpling";
-});
+const find = arr.find((item) => {
+  return item == 'tydumpling'
+})
 
-console.log(find); // tydumpling
+console.log(find) // tydumpling
 ```
 
 使用`includes`等不能查找引用类型，因为它们的内存地址是不相等的
 
 ```js
-const user = [{ name: "李四" }, { name: "张三" }, { name: "tydumpling" }];
-const find = user.includes({ name: "tydumpling" });
-console.log(find); // false
+const user = [{ name: '李四' }, { name: '张三' }, { name: 'tydumpling' }]
+const find = user.includes({ name: 'tydumpling' })
+console.log(find) // false
 ```
 
 `find` 可以方便的查找引用类型
 
 ```js
-const user = [{ name: "李四" }, { name: "张三" }, { name: "tydumpling" }];
-const find = user.find(user => (user.name = "tydumpling"));
-console.log(find); // { name: "tydumpling" }
+const user = [{ name: '李四' }, { name: '张三' }, { name: 'tydumpling' }]
+const find = user.find(user => (user.name = 'tydumpling'))
+console.log(find) // { name: "tydumpling" }
 ```
 
 ### findIndex
@@ -717,11 +719,11 @@ console.log(find); // { name: "tydumpling" }
 > 查找不到时返回 `-1`
 
 ```js
-let arr = [7, 3, 2, '8', 2, 6];
+const arr = [7, 3, 2, '8', 2, 6]
 
-console.log(arr.findIndex(function (v) {
-	return v == 8;
-})); // 3
+console.log(arr.findIndex((v) => {
+  return v == 8
+})) // 3
 ```
 
 ### find 原理
@@ -729,33 +731,37 @@ console.log(arr.findIndex(function (v) {
 下面使用自定义函数
 
 ```js
-let arr = [1, 2, 3, 4, 5];
+const arr = [1, 2, 3, 4, 5]
 function find(array, callback) {
   for (const value of array) {
-    if (callback(value) === true) return value;
+    if (callback(value) === true)
+      return value
   }
-  return undefined;
+
+  return undefined
 }
-let res = find(arr, function(item) {
-  return item == 23;
-});
-console.log(res);
+const res = find(arr, (item) => {
+  return item == 23
+})
+console.log(res)
 ```
 
 下面添加原型方法实现
 
 ```js
-Array.prototype.findValue = function(callback) {
+Array.prototype.findValue = function (callback) {
   for (const value of this) {
-    if (callback(value) === true) return value;
+    if (callback(value) === true)
+      return value
   }
-  return undefined;
-};
 
-let re = arr.findValue(function(item) {
-  return item == 2;
-});
-console.log(re);
+  return undefined
+}
+
+const re = arr.findValue((item) => {
+  return item == 2
+})
+console.log(re)
 ```
 
 ## 数组排序
@@ -765,8 +771,8 @@ console.log(re);
 反转数组顺序
 
 ```js
-let arr = [1, 4, 2, 9];
-console.log(arr.reverse()); //[9, 2, 4, 1]
+const arr = [1, 4, 2, 9]
+console.log(arr.reverse()) // [9, 2, 4, 1]
 ```
 
 ### sort
@@ -782,53 +788,53 @@ sort`每次使用两个值进行比较 `Array.sort((a,b)=>a-b
 默认从小于大排序数组元素
 
 ```js
-let arr = [1, 4, 2, 9];
-console.log(arr.sort()); //[1, 2, 4, 9]
+const arr = [1, 4, 2, 9]
+console.log(arr.sort()) // [1, 2, 4, 9]
 ```
 
 使用排序函数从大到小排序，参数一与参数二比较，返回正数为降序负数为升序
 
 ```js
-let arr = [1, 4, 2, 9];
+const arr = [1, 4, 2, 9]
 
-console.log(arr.sort(function (v1, v2) {
-	return v2 - v1;
-})); //[9, 4, 2, 1]
+console.log(arr.sort((v1, v2) => {
+  return v2 - v1
+})) // [9, 4, 2, 1]
 ```
 
 下面是按课程点击数由高到低排序
 
 ```js
-let lessons = [
-  { title: "媒体查询响应式布局", click: 78 },
-  { title: "FLEX 弹性盒模型", click: 12 },
-  { title: "MYSQL多表查询随意操作", click: 99 }
-];
+const lessons = [
+  { title: '媒体查询响应式布局', click: 78 },
+  { title: 'FLEX 弹性盒模型', click: 12 },
+  { title: 'MYSQL多表查询随意操作', click: 99 }
+]
 
-let sortLessons = lessons.sort((v1, v2) => v2.click - v1.click);
-console.log(sortLessons);
+const sortLessons = lessons.sort((v1, v2) => v2.click - v1.click)
+console.log(sortLessons)
 ```
 
 ### 排序原理
 
 ```js
-let arr = [1, 5, 3, 9, 7];
+let arr = [1, 5, 3, 9, 7]
 function sort(array, callback) {
   for (const n in array) {
     for (const m in array) {
       if (callback(array[n], array[m]) < 0) {
-        let temp = array[n];
-        array[n] = array[m];
-        array[m] = temp;
+        const temp = array[n]
+        array[n] = array[m]
+        array[m] = temp
       }
     }
   }
-  return array;
+  return array
 }
-arr = sort(arr, function(a, b) {
-  return a - b;
-});
-console.table(arr);
+arr = sort(arr, (a, b) => {
+  return a - b
+})
+console.table(arr)
 ```
 
 ## 循环遍历
@@ -838,16 +844,16 @@ console.table(arr);
 根据数组长度结合`for` 循环来遍历数组
 
 ```js
-let lessons = [
-	{title: 'path',category: 'node'},
- 	{title: 'flex',category: 'css'},
-	{title: 'array',category: 'JavaScript'}
-];
+const lessons = [
+  { title: 'path', category: 'node' },
+ 	{ title: 'flex', category: 'css' },
+  { title: 'array', category: 'JavaScript' }
+]
 
-for (let i = 0; i < lessons.length; i++) {
-  lessons[i] = `tydumpling博客: ${lessons[i].title}`;
-}
-console.log(lessons);
+for (let i = 0; i < lessons.length; i++)
+  lessons[i] = `tydumpling博客: ${lessons[i].title}`
+
+console.log(lessons)
 ```
 
 ### forEach
@@ -857,16 +863,16 @@ console.log(lessons);
 下面例子是截取标签的五个字符。
 
 ```js
-let lessons = [
-	{title: 'path',category: 'node'}, // pa
- 	{title: 'flex',category: 'css'}, // fl
-	{title: 'array',category: 'JavaScript'} // ar
-];
+const lessons = [
+  { title: 'path', category: 'node' }, // pa
+ 	{ title: 'flex', category: 'css' }, // fl
+  { title: 'array', category: 'JavaScript' } // ar
+]
 
 lessons.forEach((item, index, array) => {
-    item.title = item.title.substr(0, 2);
-});
-console.log(lessons);
+  item.title = item.title.substr(0, 2)
+})
+console.log(lessons)
 ```
 
 ### for/in
@@ -874,15 +880,14 @@ console.log(lessons);
 遍历时的 key 值为数组的索引
 
 ```js
-let lessons = [
-	{title: 'path',category: 'node'},
- 	{title: 'flex',category: 'css'},
-	{title: 'array',category: 'JavaScript'}
-];
+const lessons = [
+  { title: 'path', category: 'node' },
+ 	{ title: 'flex', category: 'css' },
+  { title: 'array', category: 'JavaScript' }
+]
 
-for (const key in lessons) {
-    console.log(`tydumpling博客: ${lessons[key].title}`);
-}
+for (const key in lessons)
+  console.log(`tydumpling博客: ${lessons[key].title}`)
 ```
 
 ### for/of
@@ -890,51 +895,50 @@ for (const key in lessons) {
 与 `for/in` 不同的是 `for/of` 每次循环取其中的值而不是索引。
 
 ```js
-let lessons = [
-	{title: 'path',category: 'node'},
- 	{title: 'flex',category: 'css'},
-	{title: 'array',category: 'JavaScript'}
-];
+const lessons = [
+  { title: 'path', category: 'node' },
+ 	{ title: 'flex', category: 'css' },
+  { title: 'array', category: 'JavaScript' }
+]
 
 for (const item of lessons) {
   console.log(`
     标题: ${item.title}
-  `);
+  `)
 }
 ```
 
 使用数组的迭代对象遍历获取索引与值
 
 ```js
-const hd = ['tydumpling', 'tydumpling'];
-const iterator = hd.entries();
-const keys = hd.keys();
-console.log(iterator.next()); //value:{0:0,1:'tydumpling'}
-console.log(iterator.next()); //value:{0:1,1:'tydumpling'}
+const hd = ['tydumpling', 'tydumpling']
+const iterator = hd.entries()
+const keys = hd.keys()
+console.log(iterator.next()) // value:{0:0,1:'tydumpling'}
+console.log(iterator.next()) // value:{0:1,1:'tydumpling'}
 ```
 
 这样就可以使用解构特性与 `for/of` 遍历并获取索引与值了
 
 ```js
-const hd = ["tydumpling", "tydumpling"];
+const hd = ['tydumpling', 'tydumpling']
 
-for (const [key, value] of hd.entries()) {
-  console.log(key, value); //这样就可以遍历了
-}
+for (const [key, value] of hd.entries())
+  console.log(key, value) // 这样就可以遍历了
 ```
 
 取数组中的最大值
 
 ```js
 function arrayMax(array) {
-  let max = array[0];
-  for (const elem of array) {
-    max = max > elem ? max : elem;
-  }
-  return max;
+  let max = array[0]
+  for (const elem of array)
+    max = max > elem ? max : elem
+
+  return max
 }
 
-console.log(arrayMax([1, 3, 2, 9]));
+console.log(arrayMax([1, 3, 2, 9]))
 ```
 
 ## 迭代器方法
@@ -946,30 +950,28 @@ console.log(arrayMax([1, 3, 2, 9]));
 通过迭代对象获取索引
 
 ```js
-const hd = ["tydumpling", "tydumpling"];
-const keys = hd.keys();
-console.log(keys.next()); // 0
-console.log(keys.next()); // 1
+const hd = ['tydumpling', 'tydumpling']
+const keys = hd.keys()
+console.log(keys.next()) // 0
+console.log(keys.next()) // 1
 ```
 
 获取数组所有键
 
 ```js
-"use strict";
-const arr = ["a", "b", "c", "tydumpling"];
+'use strict'
+const arr = ['a', 'b', 'c', 'tydumpling']
 
-for (const key of arr.keys()) {
-  console.log(key);
-}
+for (const key of arr.keys())
+  console.log(key)
 ```
 
 使用 while 遍历
 
 ```js
-let arr = ["tydumpling", "duyidao"];
-while (({ value, done } = values.keys()) && done === false) {
-	console.log(value);
-}
+const arr = ['tydumpling', 'duyidao']
+while (({ value, done } = values.keys()) && done === false)
+  console.log(value)
 ```
 
 ## values
@@ -977,22 +979,21 @@ while (({ value, done } = values.keys()) && done === false) {
 通过迭代对象获取值
 
 ```js
-const hd = ["tydumpling", "duyidao"];
-const values = hd.values();
-console.log(values.next());
-console.log(values.next());
-console.log(values.next());
+const hd = ['tydumpling', 'duyidao']
+const values = hd.values()
+console.log(values.next())
+console.log(values.next())
+console.log(values.next())
 ```
 
 获取数组的所有值
 
 ```js
-"use strict";
-const arr = ["a", "b", "c", "tydumpling"];
+'use strict'
+const arr = ['a', 'b', 'c', 'tydumpling']
 
-for (const value of arr.values()) {
-  console.log(value);
-}
+for (const value of arr.values())
+  console.log(value)
 ```
 
 ### entries
@@ -1000,21 +1001,20 @@ for (const value of arr.values()) {
 返回数组所有键值对，下面使用解构语法循环
 
 ```js
-const arr = ["a", "b", "c", "tydumpling"];
-for (const [key, value] of arr.entries()) {
-  console.log(key, value);
-}
+const arr = ['a', 'b', 'c', 'tydumpling']
+for (const [key, value] of arr.entries())
+  console.log(key, value)
 ```
 
 解构获取内容
 
 ```js
-const hd = ["tydumpling", "duyidao"];
-const iterator = hd.entries();
+const hd = ['tydumpling', 'duyidao']
+const iterator = hd.entries()
 
-let {done,value: [k, v]} = iterator.next();
+const { done, value: [k, v] } = iterator.next()
 
-console.log(v);
+console.log(v)
 ```
 
 ## 扩展方法
@@ -1027,25 +1027,26 @@ console.log(v);
 
 ```js
 const user = [
-  { name: "李四", js: 89 },
-  { name: "马六", js: 55 },
-  { name: "张三", js: 78 }
-];
-const resust = user.every(user => user.js >= 60);
-console.log(resust); // false
+  { name: '李四', js: 89 },
+  { name: '马六', js: 55 },
+  { name: '张三', js: 78 }
+]
+const resust = user.every(user => user.js >= 60)
+console.log(resust) // false
 ```
 
 标题的关键词检查
 
 ```js
-let words = ['tydumpling', 'tydumpling', 'tydumpling'];
-let title = '欢迎来到tydumpling博客';
+const words = ['tydumpling', 'tydumpling', 'tydumpling']
+const title = '欢迎来到tydumpling博客'
 
-let state = words.every(function (item, index, array) {
-  return title.indexOf(item) >= 0;
-});
+const state = words.every((item, index, array) => {
+  return title.includes(item)
+})
 
-if (state == false) console.log('标题必须包含所有关键词');
+if (state == false)
+  console.log('标题必须包含所有关键词')
 ```
 
 ### some
@@ -1055,14 +1056,15 @@ if (state == false) console.log('标题必须包含所有关键词');
 下面是使用 `some` 检测规则关键词的示例，如果匹配到一个词就提示违规。
 
 ```js
-let words = ['tydumpling', '北京', '武汉'];
-let title = '欢迎来到tydumpling博客'
+const words = ['tydumpling', '北京', '武汉']
+const title = '欢迎来到tydumpling博客'
 
-let state = words.some(function (item, index, array) {
-	return title.indexOf(item) >= 0;
-});
+const state = words.some((item, index, array) => {
+  return title.includes(item)
+})
 
-if (state) console.log('标题含有违规关键词');
+if (state)
+  console.log('标题含有违规关键词')
 ```
 
 ### filter
@@ -1070,43 +1072,43 @@ if (state) console.log('标题含有违规关键词');
 使用 `filter` 可以过滤数据中元素，下面是获取所有包含风属性的元素。
 
 ```js
-let person = [
-  {name: '万叶',type: '风'},
-  {name: '艾尔海森',type: '草'},
-  {name: '魈',type: '风'}
-];
+const person = [
+  { name: '万叶', type: '风' },
+  { name: '艾尔海森', type: '草' },
+  { name: '魈', type: '风' }
+]
 
-let windyPerson = person.filter(function (item, index, array) {
-  if (item.type == '风') {
-    return true;
-  }
-});
+const windyPerson = person.filter((item, index, array) => {
+  if (item.type == '风')
+    return true
 
-console.log(windyPerson);
+})
+
+console.log(windyPerson)
 ```
 
 我们来写一个过滤元素的方法来加深些技术
 
 ```js
-const arr = [1,2,3,4,5]
+const arr = [1, 2, 3, 4, 5]
 
 function filter(arr, callback) {
   // 定义新数组
-  let array = []
+  const array = []
 
   // 遍历参数获取每一项
   for (const value of arr) {
     // 如果为真则把该元素塞到数组内
-    if(callback(value)) {
+    if (callback(value))
       array.push(value)
-    }
+
   }
   return array
 }
 
 console.log(filter(arr, (v) => {
   return v >= 3
-})); // [3, 4, 5]
+})) // [3, 4, 5]
 ```
 
 ### map
@@ -1116,13 +1118,13 @@ console.log(filter(arr, (v) => {
 获取数组所有角色名称的新数组
 
 ```js
-let person = [
-  {name: '万叶',type: '风'},
-  {name: '艾尔海森',type: '草'},
-  {name: '魈',type: '风'}
-];
+const person = [
+  { name: '万叶', type: '风' },
+  { name: '艾尔海森', type: '草' },
+  { name: '魈', type: '风' }
+]
 
-console.log(person.map(item => item.name)); // ['万叶', '艾尔海森', '魈']
+console.log(person.map(item => item.name)) // ['万叶', '艾尔海森', '魈']
 ```
 
 ### reduce
@@ -1147,11 +1149,11 @@ console.log(person.map(item => item.name)); // ['万叶', '艾尔海森', '魈']
 
 ```js
 function countArrayELem(array, elem) {
-  return array.reduce((total, cur) => (total += cur == elem ? 1 : 0), 0);
+  return array.reduce((total, cur) => (total += cur == elem ? 1 : 0), 0)
 }
 
-let numbers = [1, 2, 3, 1, 5];
-console.log(countArrayELem(numbers, 1)); //2
+const numbers = [1, 2, 3, 1, 5]
+console.log(countArrayELem(numbers, 1)) // 2
 ```
 
 取数组中的最大值
@@ -1160,87 +1162,88 @@ console.log(countArrayELem(numbers, 1)); //2
 function arrayMax(array) {
   return array.reduce(
   	(max, elem) => (max > elem ? max : elem), array[0]
-  );
+  )
 }
 
-console.log(arrayMax([1, 3, 2, 9]));
+console.log(arrayMax([1, 3, 2, 9]))
 ```
 
 取价格最高的商品
 
 ```js
-let cart = [
-  { name: "iphone", price: 12000 },
-  { name: "imac", price: 25000 },
-  { name: "ipad", price: 3600 }
-];
+const cart = [
+  { name: 'iphone', price: 12000 },
+  { name: 'imac', price: 25000 },
+  { name: 'ipad', price: 3600 }
+]
 
 function maxPrice(array) {
   return array.reduce(
     (goods, elem) => (goods.price > elem.price ? goods : elem),
     array[0]
-  );
+  )
 }
-console.log(maxPrice(cart));
+console.log(maxPrice(cart))
 ```
 
 计算购物车中的商品总价
 
 ```js
-let cart = [
-  { name: "iphone", price: 12000 },
-  { name: "imac", price: 25000 },
-  { name: "ipad", price: 3600 }
-];
+const cart = [
+  { name: 'iphone', price: 12000 },
+  { name: 'imac', price: 25000 },
+  { name: 'ipad', price: 3600 }
+]
 
 const total = cart.reduce(
-	(total, goods) => total += goods.price, 0
-);
-console.log(total); //40600
+  (total, goods) => total += goods.price, 0
+)
+console.log(total) // 40600
 ```
 
 获取价格超过 1 万的商品名称
 
 ```js
-let goods = [
-  { name: "iphone", price: 12000 },
-  { name: "imac", price: 25000 },
-  { name: "ipad", price: 3600 }
-];
+const goods = [
+  { name: 'iphone', price: 12000 },
+  { name: 'imac', price: 25000 },
+  { name: 'ipad', price: 3600 }
+]
 
 function getNameByPrice(array, price) {
   return array.reduce((goods, elem) => {
-    if (elem.price > price) {
-      goods.push(elem);
-    }
-    return goods;
-  }, []).map(elem => elem.name);
+    if (elem.price > price)
+      goods.push(elem)
+
+    return goods
+  }, []).map(elem => elem.name)
 }
-console.table(getNameByPrice(goods, 10000));
+console.table(getNameByPrice(goods, 10000))
 ```
 
 使用 `reduce` 实现数组去重
 
 ```js
-let cart = [
-  {name: "iphone", price: 12000},
-  {name: "iphone", price: 12000},
-  {name: "iphone", price: 12000},
-  {name: "imac", price: 25000},
-  {name: "imac", price: 25000},
-  {name: "imac", price: 25000},
-  {name: "ipad", price: 3600}
-];
+const cart = [
+  { name: 'iphone', price: 12000 },
+  { name: 'iphone', price: 12000 },
+  { name: 'iphone', price: 12000 },
+  { name: 'imac', price: 25000 },
+  { name: 'imac', price: 25000 },
+  { name: 'imac', price: 25000 },
+  { name: 'ipad', price: 3600 }
+]
 
 function filterGoods(arr) {
   return arr.reduce((pre, cur) => {
-    let find = pre.find(v => v.name === cur.name)
-    if (!find) pre.push(cur)
+    const find = pre.find(v => v.name === cur.name)
+    if (!find)
+      pre.push(cur)
     return pre
   }, [])
 }
 
-console.log(filterGoods(cart));
+console.log(filterGoods(cart))
 ```
 
 ## 动画案例

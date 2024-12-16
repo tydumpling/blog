@@ -10,47 +10,47 @@ Map是一组键值对的结构，用于解决以往不能用对象做为键的�
 可以接受一个数组作为参数，该数组的成员是一个表示键值对的数组。
 
 ```js
-let m = new Map([
+const m = new Map([
   ['tydumpling', 'tydumpling'],
   ['duyidao', 'tydumpling小窝']
-]);
+])
 
-console.log(m.get('tydumpling')); // tydumpling
+console.log(m.get('tydumpling')) // tydumpling
 ```
 
 使用`set` 方法添加元素，支持链式操作
 
 ```js
-let map = new Map();
-let obj = {
-    name: "tydumpling"
-};
+const map = new Map()
+const obj = {
+  name: 'tydumpling'
+}
 
-map.set(obj, "tydumpling.com").set("name", "duyidao");
+map.set(obj, 'tydumpling.com').set('name', 'duyidao')
 
-console.log(map.entries()); //MapIterator {{…} => "tydumpling.com", "name" => "duyidao"}
+console.log(map.entries()) // MapIterator {{…} => "tydumpling.com", "name" => "duyidao"}
 ```
 
 使用构造函数`new Map`创建的原理如下
 
 ```js
-const hd = new Map();
-const arr = [["tydumpling", "tydumpling"], ["duyidao", "tydumpling小窝"]];
+const hd = new Map()
+const arr = [['tydumpling', 'tydumpling'], ['duyidao', 'tydumpling小窝']]
 
 arr.forEach(([key, value]) => {
-    hd.set(key, value);
-});
-console.log(hd); // Map(2) {'tydumpling' => 'tydumpling', 'duyidao' => 'tydumpling小窝'}
+  hd.set(key, value)
+})
+console.log(hd) // Map(2) {'tydumpling' => 'tydumpling', 'duyidao' => 'tydumpling小窝'}
 ```
 
 对于键是对象的`Map`， 键保存的是内存地址，值相同但内存地址不同的视为两个键。
 
 ```js
-let arr = ["tydumpling"];
-const hd = new Map();
-hd.set(arr, "tydumpling.com");
-console.log(hd.get(arr)); // tydumpling.com
-console.log(hd.get(["tydumpling"])); // undefined
+const arr = ['tydumpling']
+const hd = new Map()
+hd.set(arr, 'tydumpling.com')
+console.log(hd.get(arr)) // tydumpling.com
+console.log(hd.get(['tydumpling'])) // undefined
 ```
 
 ### 获取数量
@@ -58,7 +58,7 @@ console.log(hd.get(["tydumpling"])); // undefined
 获取数据数量
 
 ```js
-console.log(map.size);
+console.log(map.size)
 ```
 
 ### 元素检测
@@ -66,20 +66,20 @@ console.log(map.size);
 检测元素是否存在
 
 ```js
-console.log(map.has(obj));
+console.log(map.has(obj))
 ```
 
 ### 读取元素
 
 ```js
-let map = new Map();
+const map = new Map()
 
-let obj = {
-	name: 'tydumpling'
+const obj = {
+  name: 'tydumpling'
 }
 
-map.set(obj, 'tydumpling.com');
-console.log(map.get(obj)); // tydumpling.com
+map.set(obj, 'tydumpling.com')
+console.log(map.get(obj)) // tydumpling.com
 ```
 
 ### 删除元素
@@ -87,41 +87,41 @@ console.log(map.get(obj)); // tydumpling.com
 使用 `delete()` 方法删除单个元素
 
 ```js
-let map = new Map();
-let obj = {
-	name: 'tydumpling'
+const map = new Map()
+const obj = {
+  name: 'tydumpling'
 }
 
-map.set(obj, 'tydumpling.com');
-console.log(map.get(obj)); // tydumpling.com
+map.set(obj, 'tydumpling.com')
+console.log(map.get(obj)) // tydumpling.com
 
-map.delete(obj);
-console.log(map.get(obj)); // Map(0) {}
+map.delete(obj)
+console.log(map.get(obj)) // Map(0) {}
 ```
 
 使用`clear`方法清除Map所有元素
 
 ```js
-let map = new Map();
-let obj1 = {
-	name: 'tydumpling.com'
+const map = new Map()
+const obj1 = {
+  name: 'tydumpling.com'
 }
 
-let obj2 = {
-	name: 'duyidao'
+const obj2 = {
+  name: 'duyidao'
 }
 
 map.set(obj1, {
-	title: 'tydumpling小窝'
-});
+  title: 'tydumpling小窝'
+})
 
 map.set(obj2, {
-	title: 'tydumpling'
-});
+  title: 'tydumpling'
+})
 
-console.log(map.size); // 2
-console.log(map.clear());
-console.log(map.size); // 2
+console.log(map.size) // 2
+console.log(map.clear())
+console.log(map.size) // 2
 ```
 
 ### 遍历数据
@@ -129,40 +129,38 @@ console.log(map.size); // 2
 使用 `keys()/values()/entries()` 都可以返回可遍历的迭代对象。
 
 ```js
-let hd = new Map([["tydumpling", "tydumpling"], ["duyidao", "tydumpling小窝"]]);
-console.log(hd.keys()); //MapIterator {"tydumpling", "duyidao"}
-console.log(hd.values()); //MapIterator {"tydumpling", "tydumpling小窝"}
-console.log(hd.entries()); //MapIterator {"tydumpling" => "tydumpling", "duyidao" => "tydumpling小窝"}
+const hd = new Map([['tydumpling', 'tydumpling'], ['duyidao', 'tydumpling小窝']])
+console.log(hd.keys()) // MapIterator {"tydumpling", "duyidao"}
+console.log(hd.values()) // MapIterator {"tydumpling", "tydumpling小窝"}
+console.log(hd.entries()) // MapIterator {"tydumpling" => "tydumpling", "duyidao" => "tydumpling小窝"}
 ```
 
 可以使用`keys/values` 函数遍历键与值
 
 ```js
-let hd = new Map([["tydumpling", "tydumpling"], ["duyidao", "tydumpling小窝"]]);
-for (const key of hd.keys()) {
-  console.log(key);
-}
-for (const value of hd.values()) {
-  console.log(value);
-}
+const hd = new Map([['tydumpling', 'tydumpling'], ['duyidao', 'tydumpling小窝']])
+for (const key of hd.keys())
+  console.log(key)
+
+for (const value of hd.values())
+  console.log(value)
 ```
 
 使用`for/of`遍历操作，直播遍历Map 等同于使用`entries()` 函数
 
 ```js
-let hd = new Map([["tydumpling", "tydumpling"], ["duyidao", "tydumpling小窝"]]);
-for (const [key, value] of hd) {
-  console.log(`${key}=>${value}`);
-}
+const hd = new Map([['tydumpling', 'tydumpling'], ['duyidao', 'tydumpling小窝']])
+for (const [key, value] of hd)
+  console.log(`${key}=>${value}`)
 ```
 
 使用`forEach`遍历操作
 
 ```js
-let hd = new Map([["tydumpling", "tydumpling"], ["duyidao", "tydumpling小窝"]]);
+const hd = new Map([['tydumpling', 'tydumpling'], ['duyidao', 'tydumpling小窝']])
 hd.forEach((value, key) => {
-  console.log(`${key}=>${value}`);
-});
+  console.log(`${key}=>${value}`)
+})
 ```
 
 ### 数组转换
@@ -170,25 +168,25 @@ hd.forEach((value, key) => {
 可以使用`展开语法` 或 `Array.form` 静态方法将Set类型转为数组，这样就可以使用数组处理函数了
 
 ```js
-let hd = new Map([["tydumpling", "tydumpling"], ["duyidao", "tydumpling小窝"]]);
+const hd = new Map([['tydumpling', 'tydumpling'], ['duyidao', 'tydumpling小窝']])
 
-console.log(...hd); //(2) ["tydumpling", "tydumpling"] (2) ["duyidao", "tydumpling小窝"]
-console.log(...hd.entries()); // (2) ['tydumpling', 'tydumpling'] (2) ['duyidao', 'tydumpling小窝']
-console.log(...hd.values()); // tydumpling tydumpling小窝 
-console.log(...hd.keys()); // tydumpling duyidao
+console.log(...hd) // (2) ["tydumpling", "tydumpling"] (2) ["duyidao", "tydumpling小窝"]
+console.log(...hd.entries()) // (2) ['tydumpling', 'tydumpling'] (2) ['duyidao', 'tydumpling小窝']
+console.log(...hd.values()) // tydumpling tydumpling小窝
+console.log(...hd.keys()) // tydumpling duyidao
 ```
 
 检索包含`tydumpling`的值组成新Map
 
 ```js
-let hd = new Map([["tydumpling", "tydumpling"], ["duyidao", "tydumpling小窝"]]);
+let hd = new Map([['tydumpling', 'tydumpling'], ['duyidao', 'tydumpling小窝']])
 
-let newArr = [...hd].filter(function(item) {
-  return item[1].includes("tydumpling");
-});
+const newArr = [...hd].filter((item) => {
+  return item[1].includes('tydumpling')
+})
 
-hd = new Map(newArr);
-console.log(...hd.keys()); // tydumpling
+hd = new Map(newArr)
+console.log(...hd.keys()) // tydumpling
 ```
 
 ### 节点集合
@@ -271,7 +269,7 @@ map的key可以为任意类型，下面使用DOM节点做为键来记录数据�
 以下操作由于键不是对象类型将产生错误
 
 ```js
-new WeakSet("duyidao"); //TypeError: Invalid value used in weak set
+new WeakSet('duyidao') // TypeError: Invalid value used in weak set
 ```
 
 将DOM节点保存到`WeakSet`
@@ -295,17 +293,17 @@ new WeakSet("duyidao"); //TypeError: Invalid value used in weak set
 下面是WeakSet的常用指令
 
 ```js
-const hd = new WeakMap();
-const arr = ["duyidao"];
-//添加操作
-hd.set(arr, "tydumpling");
-console.log(hd.has(arr)); //true
+const hd = new WeakMap()
+const arr = ['duyidao']
+// 添加操作
+hd.set(arr, 'tydumpling')
+console.log(hd.has(arr)) // true
 
-//删除操作
-hd.delete(arr);
+// 删除操作
+hd.delete(arr)
 
-//检索判断
-console.log(hd.has(arr)); //false
+// 检索判断
+console.log(hd.has(arr)) // false
 ```
 
 ### 垃圾回收
@@ -316,15 +314,15 @@ WakeMap的键名对象不会增加引用计数器，如果一个对象不被引�
 - 当垃圾回收时因为对象被删除，这时WakeMap也就没有记录了
 
 ```js
-let map = new WeakMap();
-let hd = {};
-map.set(hd, "tydumpling");
-hd = null;
-console.log(map);
+const map = new WeakMap()
+let hd = {}
+map.set(hd, 'tydumpling')
+hd = null
+console.log(map)
 
 setTimeout(() => {
-  console.log(map);
-}, 1000);
+  console.log(map)
+}, 1000)
 ```
 
 ### 选课案例

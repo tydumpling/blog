@@ -17,18 +17,18 @@ JavaScript 处理任务是在等待任务、执行任务 、休眠等待新任�
 下面通过一个例子来详细分析宏任务与微任务
 
 ```js
-console.log("tydumpling");
-setTimeout(function() {
-  console.log("定时器");
-}, 0);
+console.log('tydumpling')
+setTimeout(() => {
+  console.log('定时器')
+}, 0)
 Promise.resolve()
-  .then(function() {
-    console.log("promise1");
+  .then(() => {
+    console.log('promise1')
   })
-  .then(function() {
-    console.log("promise2");
-  });
-console.log("tydumpling.com");
+  .then(() => {
+    console.log('promise2')
+  })
+console.log('tydumpling.com')
 
 #输出结果为
 tydumpling
@@ -93,16 +93,16 @@ promise2
 HTML 标准规定最小时间不能低于 4 毫秒，有些异步操作如 DOM 操作最低是 16 毫秒，总之把时间设置大些对性能更好。
 
 ```js
-setTimeout(func,6);
+setTimeout(func, 6)
 ```
 
 下面的代码会先输出 `tydumpling.com` 之后输出 `tydumpling`
 
 ```js
 setTimeout(() => {
-  console.log("tydumpling");
-}, 0);
-console.log("tydumpling.com");
+  console.log('tydumpling')
+}, 0)
+console.log('tydumpling.com')
 ```
 
 > 其他的异步操作如事件、XMLHTTPREQUEST 等逻辑是一样的
@@ -114,40 +114,40 @@ console.log("tydumpling.com");
 任务的执行顺序是同步任务、微任务、宏任务所以下面执行结果是 `1、2、3、4`
 
 ```js
-setTimeout(() => console.log(4));
+setTimeout(() => console.log(4))
 
-new Promise(resolve => {
-  resolve();
-  console.log(1);
-}).then(_ => {
-  console.log(3);
-});
+new Promise((resolve) => {
+  resolve()
+  console.log(1)
+}).then((_) => {
+  console.log(3)
+})
 
-console.log(2);
+console.log(2)
 ```
 
 我们再来看下面稍复杂的任务代码
 
 ```js
 setTimeout(() => {
-  console.log("定时器");
+  console.log('定时器')
   setTimeout(() => {
-    console.log("timeout timeout");
-  }, 0);
-  new Promise(resolve => {
-    console.log("settimeout Promise");
-    resolve();
+    console.log('timeout timeout')
+  }, 0)
+  new Promise((resolve) => {
+    console.log('settimeout Promise')
+    resolve()
   }).then(() => {
-    console.log("settimeout then");
-  });
-}, 0);
-new Promise(resolve => {
-  console.log("Promise");
-  resolve();
+    console.log('settimeout then')
+  })
+}, 0)
+new Promise((resolve) => {
+  console.log('Promise')
+  resolve()
 }).then(() => {
-  console.log("then");
-});
-console.log("tydumpling");
+  console.log('then')
+})
+console.log('tydumpling')
 ```
 
 以上代码执行结果为
@@ -169,14 +169,14 @@ timeout timeout
 下面的定时器虽然都定时了一秒钟，但也是按先进行出原则，依次执行
 
 ```js
-let i = 0;
+let i = 0
 setTimeout(() => {
-  console.log(++i);  // 1
-}, 1000);
+  console.log(++i) // 1
+}, 1000)
 
 setTimeout(() => {
-  console.log(++i); // 2
-}, 1000);
+  console.log(++i) // 2
+}, 1000)
 ```
 
 下面是一个进度条的示例，将每个数字放在一个任务中执行
@@ -219,58 +219,60 @@ setTimeout(() => {
 一个比较耗时的任务可能造成游览器卡死现象，所以可以将任务拆分为多小小异步小任务执行。下面是一个数字统计的函数，我们会发现运行时间特别长
 
 ```js
-console.time("runtime");
+console.time('runtime')
 function fn(num) {
-  let count = 0;
-  for (let i = 0; i <= num; i++) {
-    count += i;
-  }
-  console.log(count);
-  console.timeEnd("runtime");
+  let count = 0
+  for (let i = 0; i <= num; i++)
+    count += i
+
+  console.log(count)
+  console.timeEnd('runtime')
 }
-let num=987654321;
-fn(num);
-console.log("tydumpling.com"); //需要等待上面执行完才会执行
+const num = 987654321
+fn(num)
+console.log('tydumpling.com') // 需要等待上面执行完才会执行
 ```
 
 现在把任务分解成小块放入任务队列，游览器就不会出现卡死的现象了，也不会影响后续代码的执行
 
 ```js
-console.time("runtime");
-let count = 0;
-let num = 987654321;
+console.time('runtime')
+let count = 0
+let num = 987654321
 function fn() {
   for (let i = 0; i < 100000000; i++) {
-    if (num <= 0) break;
-    count += num--;
+    if (num <= 0)
+      break
+    count += num--
   }
   if (num > 0) {
-    console.log(num);
-    setTimeout(fn);
-  } else {
-    console.log(num);
-    console.log(count);
+    console.log(num)
+    setTimeout(fn)
+  }
+  else {
+    console.log(num)
+    console.log(count)
   }
 }
-fn();
-console.log("tydumpling.com"); //立刻显示出来
+fn()
+console.log('tydumpling.com') // 立刻显示出来
 ```
 
 交给微任务处理是更好的选择
 
 ```js
 async function fn(num) {
-  let res = await Promise.resolve().then(_ => {
-    let count = 0;
-    for (let i = 0; i < num; i++) {
-      count += num--;
-    }
-    return count;
-  });
-  console.log(res);
+  const res = await Promise.resolve().then((_) => {
+    let count = 0
+    for (let i = 0; i < num; i++)
+      count += num--
+
+    return count
+  })
+  console.log(res)
 }
-fn(987654321);
-console.log("tydumpling");
+fn(987654321)
+console.log('tydumpling')
 ```
 
 # Promise核心
@@ -289,28 +291,31 @@ console.log("tydumpling");
 
 ```js
 class fn {
-  static PENDING = "pending";
-  static FULFILLED = "fulfilled";
-  static REJECTED = "rejected";
+  static PENDING = 'pending'
+  static FULFILLED = 'fulfilled'
+  static REJECTED = 'rejected'
   constructor(executor) {
-    this.status = fn.PENDING;
-    this.value = null;
+    this.status = fn.PENDING
+    this.value = null
     try {
-      executor(this.resolve.bind(this), this.reject.bind(this));
-    } catch (error) {
-      this.reject(error);
+      executor(this.resolve.bind(this), this.reject.bind(this))
+    }
+    catch (error) {
+      this.reject(error)
     }
   }
+
   resolve(value) {
     if (this.status == fn.PENDING) {
-      this.status = fn.FULFILLED;
-      this.value = value;
+      this.status = fn.FULFILLED
+      this.value = value
     }
   }
+
   reject(value) {
     if (this.status == fn.PENDING) {
-      this.status = fn.REJECTED;
-      this.value = value;
+      this.status = fn.REJECTED
+      this.value = value
     }
   }
 }
@@ -366,17 +371,17 @@ then(onFulfilled, onRejected) {
 下面来测试 then 方法的，结果正常输出`tydumpling`
 
 ```js
-let p = new fn((resolve, reject) => {
-  resolve("tydumpling");
+const p = new fn((resolve, reject) => {
+  resolve('tydumpling')
 }).then(
-  value => {
-    console.log(value);
+  (value) => {
+    console.log(value)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
-console.log("tydumpling.com");
+)
+console.log('tydumpling.com')
 ```
 
 ### 异步任务
@@ -415,17 +420,17 @@ then(onFulfilled, onRejected) {
 现在再执行代码，已经有异步效果了，先输出了`tydumpling.com`
 
 ```js
-let p = new fn((resolve, reject) => {
-  resolve("tydumpling");
+const p = new fn((resolve, reject) => {
+  resolve('tydumpling')
 }).then(
-  value => {
-    console.log(value);
+  (value) => {
+    console.log(value)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
-console.log("tydumpling.com");
+)
+console.log('tydumpling.com')
 ```
 
 ### PENDING 状态
@@ -514,19 +519,19 @@ let p = new fn((resolve, reject) => {
 执行以下代码发现并不是异步操作，应该先输出 `大叔视频` 然后是`tydumpling
 
 ```js
-let p = new fn((resolve, reject) => {
+const p = new fn((resolve, reject) => {
   setTimeout(() => {
-    resolve("tydumpling");
-    console.log("大叔视频");
-  });
+    resolve('tydumpling')
+    console.log('大叔视频')
+  })
 }).then(
-  value => {
-    console.log(value);
+  (value) => {
+    console.log(value)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
+)
 ```
 
 解决以上问题，只需要将 resolve 与 reject 执行通过 setTimeout 定义为异步任务
@@ -619,28 +624,28 @@ then(onFulfilled, onRejected) {
 下面执行测试后，链式操作已经有效了
 
 ```js
-let p = new fn((resolve, reject) => {
-  resolve("tydumpling");
-  console.log("fncms.com");
+const p = new fn((resolve, reject) => {
+  resolve('tydumpling')
+  console.log('fncms.com')
 })
-.then(
-  value => {
-    console.log(value);
-    return "大叔视频";
-  },
-  reason => {
-    console.log(reason);
-  }
-)
-.then(
-  value => {
-    console.log(value);
-  },
-  reason => {
-    console.log(reason);
-  }
-);
-console.log("tydumpling.com");
+  .then(
+    (value) => {
+      console.log(value)
+      return '大叔视频'
+    },
+    (reason) => {
+      console.log(reason)
+    }
+  )
+  .then(
+    (value) => {
+      console.log(value)
+    },
+    (reason) => {
+      console.log(reason)
+    }
+  )
+console.log('tydumpling.com')
 ```
 
 ## 返回类型
@@ -773,14 +778,14 @@ parse(result, resolve, reject) {
 then 的返回的 promise 不能是 then 相同的 Promise，下面是原生 Promise 的示例将产生错误
 
 ```js
-let promise = new Promise(resolve => {
+const promise = new Promise((resolve) => {
   setTimeout(() => {
-    resolve("tydumpling");
-  });
-});
-let p = promise.then(value => {
-  return p;
-});
+    resolve('tydumpling')
+  })
+})
+const p = promise.then((value) => {
+  return p
+})
 ```
 
 解决上面的问题来完善代码，添加当前 promise 做为 parse 的第一个参数与函数结果比对
@@ -837,11 +842,11 @@ parse(promise, result, resolve, reject) {
 
 ```js
 let p = new fn((resolve, reject) => {
-  resolve("tydumpling");
-});
-p = p.then(value => {
-  return p;
-});
+  resolve('tydumpling')
+})
+p = p.then((value) => {
+  return p
+})
 ```
 
 ## RESOLVE
@@ -863,21 +868,21 @@ static resolve(value) {
 使用普通值的测试
 
 ```js
-fn.resolve("tydumpling").then(value => {
-  console.log(value);
-});
+fn.resolve('tydumpling').then((value) => {
+  console.log(value)
+})
 ```
 
 使用状态为 fulfilled 的 promise 值测试
 
 ```js
 fn.resolve(
-  new fn(resolve => {
-    resolve("tydumpling.com");
+  new fn((resolve) => {
+    resolve('tydumpling.com')
   })
-).then(value => {
-  console.log(value);
-});
+).then((value) => {
+  console.log(value)
+})
 ```
 
 使用状态为 rejected 的 Promise 测试
@@ -885,16 +890,16 @@ fn.resolve(
 ```js
 fn.resolve(
   new fn((_, reject) => {
-    reject("reacted");
+    reject('reacted')
   })
 ).then(
-  value => {
-    console.log(value);
+  (value) => {
+    console.log(value)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
+)
 ```
 
 ## REJEDCT
@@ -912,9 +917,9 @@ static reject(reason) {
 使用测试
 
 ```js
-fn.reject("rejected").then(null, reason => {
-  console.log(reason);
-});
+fn.reject('rejected').then(null, (reason) => {
+  console.log(reason)
+})
 ```
 
 ## ALL
@@ -945,50 +950,50 @@ static all(promises) {
 来对所有 Promise 状态为 fulfilled 的测试
 
 ```js
-let p1 = new fn((resolve, reject) => {
-  resolve("tydumpling");
-});
-let p2 = new fn((resolve, reject) => {
-  reject("tydumpling");
-});
-let promises = fn.all([p1, p2]).then(
-  promises => {
-    console.log(promises);
+const p1 = new fn((resolve, reject) => {
+  resolve('tydumpling')
+})
+const p2 = new fn((resolve, reject) => {
+  reject('tydumpling')
+})
+const promises = fn.all([p1, p2]).then(
+  (promises) => {
+    console.log(promises)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
+)
 ```
 
 使用我们写的 resolve 进行测试
 
 ```js
-let p1 = fn.resolve("tydumpling");
-let p2 = fn.resolve("tydumpling.com");
-let promises = fn.all([p1, p2]).then(
-  promises => {
-    console.log(promises);
+const p1 = fn.resolve('tydumpling')
+const p2 = fn.resolve('tydumpling.com')
+const promises = fn.all([p1, p2]).then(
+  (promises) => {
+    console.log(promises)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
+)
 ```
 
 其中一个 Promise 为 rejected 时的效果
 
 ```js
-let p1 = fn.resolve("tydumpling");
-let p2 = fn.reject("rejected");
-let promises = fn.all([p1, p2]).then(
-  promises => {
-    console.log(promises);
+const p1 = fn.resolve('tydumpling')
+const p2 = fn.reject('rejected')
+const promises = fn.all([p1, p2]).then(
+  (promises) => {
+    console.log(promises)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
+)
 ```
 
 ## RACE
@@ -1010,37 +1015,37 @@ static race(promises) {
 我们来进行测试
 
 ```js
-let p1 = fn.resolve("tydumpling");
-let p2 = fn.resolve("tydumpling.com");
-let promises = fn.race([p1, p2]).then(
-  promises => {
-    console.log(promises);
+const p1 = fn.resolve('tydumpling')
+const p2 = fn.resolve('tydumpling.com')
+const promises = fn.race([p1, p2]).then(
+  (promises) => {
+    console.log(promises)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
+)
 ```
 
 使用延迟 Promise 后的效果
 
 ```js
-let p1 = new fn(resolve => {
+const p1 = new fn((resolve) => {
   setInterval(() => {
-    resolve("tydumpling");
-  }, 2000);
-});
-let p2 = new fn(resolve => {
+    resolve('tydumpling')
+  }, 2000)
+})
+const p2 = new fn((resolve) => {
   setInterval(() => {
-    resolve("tydumpling.com");
-  }, 1000);
-});
-let promises = fn.race([p1, p2]).then(
-  promises => {
-    console.log(promises);
+    resolve('tydumpling.com')
+  }, 1000)
+})
+const promises = fn.race([p1, p2]).then(
+  (promises) => {
+    console.log(promises)
   },
-  reason => {
-    console.log(reason);
+  (reason) => {
+    console.log(reason)
   }
-);
+)
 ```

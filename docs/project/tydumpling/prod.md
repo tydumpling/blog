@@ -13,60 +13,59 @@
 - 自定义指令
   自定义指令主要通过 `IntersectionObserver` API 判断当前元素是否出现在视口内，出现在视口内则通过 `getAttribute` 获取自定义元素的 `data-src` 属性，将其赋值给 `src` 属性。然后取消监听。
   ```js
-  import imgErr from '@/assets/img/base/img_err.png';
-
+  import imgErr from '@/assets/img/base/img_err.png'
+  
     // IntersectionObserver API
-    const ob = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-            if (entry.isIntersecting) {
-            // 出现在视口中
-            const img = entry.target;
-            const src = img.getAttribute('data-src'); // 获取图片的src属性
-            img.src = src; // 设置图片的src属性
-            img.onload = () => {
-                img.setAttribute('class', 'fade-in');
+    constob = new IntersectionObserver((entries) => {
+     or (const entry of entries) {
+       f (entry.isIntersecting) {
+         / 出现在视口中
+         onst img = entry.ttarget
+            constsrc = img.getAttribute('data-src')) // 获取图片的src属性
+            imgsrc = ssrc // 设置图片的src属性
+            imgonload = () => {
+           mg.setAttribute('class', 'fade-in'))
             }
-            img.onerror = () => {
-                img.src = imgErr; // 设置图片的src属性为错误图片
+         mg.onerror = () => {
+           mg.src = iimgErr // 设置图片的src属性为错误图片
             }
-            ob.unobserve(entry.target);
+         b.unobserve(entry.target))
             }
-        }
-    })
+     
+   )
 
-    export default {
-        mounted(el, binding) {
-            // 判断当前元素是否在视口之上或者视口内，在的话不需要播放动画
-            // if (!isBelowViewPort(el)) return;
-            ob.observe(el); // 观察元素是否进入视口
-        },
-        unmounted(el) {
-            ob.unobserve(el); // 元素卸载后断开观察
+    port default {
+      unted(el, binding) {
+         判断当前元素是否在视口之上或者视口内，在的话不需要播放动画
+         if (!isBelowViewPort(el)) return;
+        .observe(el);) // 观察元素是否进入视口
         }
-    }
+      mounted(el) {
+        .unobserve(el);) // 元素卸载后断开观察
+        }  
   ```
   还有一下小细节比如图片加载失败后用失败占位图来代替，图片加载成功后添加 `fade-in` 动画等，这里不做过多赘述。
 - 组件
   ```vue
   <script setup>
-    defineProps({
-        src: {
-            type: String,
-            required: true,
-        },
-        alt: {
-            type: String,
-            default: '占位图片',
-        },
-    })
-    </script>
+  defineProps({
+    src: {
+      type: String,
+      required: true,
+    },
+    alt: {
+      type: String,
+      default: '占位图片',
+    },
+  })
+  </script>
 
-    <template>
-        <img src="@/assets/img/base/img_load.png"
-            v-lazy
-            :data-src="src"
-            :alt="alt" />
-    </template>
+   template>
+     img rc="@/assets/img/base/img_load.png"
+          -lazy
+          data-src="src"
+          alt="alt" >
+   /template>
 
     <style lang="less" scoped>
     img {
@@ -100,12 +99,12 @@
 3. 在 `main.js` 引入该文件
 
 ```js
-import img_err from '../assets/img/base/img_err.png';
-import img_load from '../assets/img/base/img_load.png';
-import left_active from '../assets/img/base/left_active.png';
-import left_inactive from '../assets/img/base/left_inactive.png';
-import right_inactive from '../assets/img/base/right_inactive.png';
-import right_active from '../assets/img/base/right_active.png';
+import img_err from '../assets/img/base/img_err.png'
+import img_load from '../assets/img/base/img_load.png'
+import left_active from '../assets/img/base/left_active.png'
+import left_inactive from '../assets/img/base/left_inactive.png'
+import right_inactive from '../assets/img/base/right_inactive.png'
+import right_active from '../assets/img/base/right_active.png'
 
 const data = {
   img_err,
@@ -114,18 +113,18 @@ const data = {
   left_inactive,
   right_inactive,
   right_active,
-};
+}
 
-const createPreloadLink = () => {
+function createPreloadLink() {
   Object.keys(data).forEach((key) => {
-    const path = data[key];
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = path;
-    document.head.appendChild(link);
+    const path = data[key]
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.href = path
+    document.head.appendChild(link)
   })
 }
 
-createPreloadLink();
+createPreloadLink()
 ```

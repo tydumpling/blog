@@ -37,7 +37,7 @@ const express = require('express')
 const app = express()
 
 app.listen(80, () => {
-  console.log('runing');
+  console.log('runing')
 })
 ```
 
@@ -46,7 +46,7 @@ app.listen(80, () => {
 通过 `app.get()` 方法，可以监听客户端的 `GET` 请求，具体的语法格式如下：
 
 ```js
-app.get('请求url', function(req,res) {})
+app.get('请求url', (req, res) => {})
 ```
 
 - 参数1：客户端请求的url地址
@@ -66,11 +66,11 @@ app.post('请求url', function(req,res) {})
 
 ```js
 app.get('/user', (req, res) => {
-	res.send({username: 'tydumpling', age: 23})
+  res.send({ username: 'tydumpling', age: 23 })
 })
 
 app.post('/add', (req, res) => {
-	res.send('添加成功')
+  res.send('添加成功')
 })
 ```
 
@@ -84,7 +84,7 @@ app.post('/add', (req, res) => {
 
   ```js
   app.get('/user', (req, res) => {
-    console.log(req.query); // { a: '1', b: '2' }
+    console.log(req.query) // { a: '1', b: '2' }
   })
   ```
 
@@ -96,7 +96,7 @@ app.post('/add', (req, res) => {
 
   ```js
   app.get('/user/:id', (req, res) => {
-    console.log(req.params); // { id: '814' }
+    console.log(req.params) // { id: '814' }
   })
   ```
 
@@ -185,6 +185,7 @@ app.post('/add', (req, res) => {
 
    ```js
    const express = require('express')
+   
    const router = express.Router()
    ```
 
@@ -194,11 +195,11 @@ app.post('/add', (req, res) => {
 
    ```js
    router.get('/user', (req, res) => {
-   	res.send('获取列表')
+     res.send('获取列表')
    })
    
    router.post('/add', (req, res) => {
-   	res.send('添加成功')
+     res.send('添加成功')
    })
    ```
 
@@ -217,6 +218,7 @@ app.post('/add', (req, res) => {
    ```js
    // 导入路由
    const router = require('./route')
+   
    // 注册路由
    app.use(router)
    ```
@@ -238,11 +240,12 @@ const app = express()
 
 // 导入路由
 const router = require('./route')
+
 // 注册路由
 app.use(router)
 
 app.listen(80, () => {
-  console.log('running');
+  console.log('running')
 })
 ```
 
@@ -250,14 +253,15 @@ app.listen(80, () => {
 
 ```js
 const express = require('express')
+
 const router = express.Router()
 
 router.get('/user', (req, res) => {
-	res.send('获取列表')
+  res.send('获取列表')
 })
 
 router.post('/add', (req, res) => {
-	res.send('添加成功')
+  res.send('添加成功')
 })
 
 // 向外导出
@@ -285,8 +289,8 @@ module.exports = router
 定义一个最简单的中间件函数：
 
 ```js
-const mv = (req, res, next) => {
-  console.log('我是最基础的中间件');
+function mv(req, res, next) {
+  console.log('我是最基础的中间件')
   // 中间件必须next把流转关系转交给下一个
   next()
 }
@@ -295,8 +299,8 @@ const mv = (req, res, next) => {
 客户端发起的任何请求，到达服务器之后，都会触发的中间件，叫做全局生效的中间件。通过调用 `app.use(中间件函数)` ，即可定义一个全局生效的中间件，示例代码如下：
 
 ```js
-const mv = (req, res, next) => {
-  console.log('我是最基础的中间件');
+function mv(req, res, next) {
+  console.log('我是最基础的中间件')
   // 中间件必须next把流转关系转交给下一个
   next()
 }
@@ -309,8 +313,8 @@ app.use(mv)
 
 ```js
 app.use((req, res, next) => {
-	console.log('这是一个中间件')
-	next()
+  console.log('这是一个中间件')
+  next()
 })
 ```
 
@@ -318,30 +322,30 @@ app.use((req, res, next) => {
 
 ```js
 app.use((req, res, next) => {
-	console.log('这是第一个中间件')
-	next()
+  console.log('这是第一个中间件')
+  next()
 })
 
 app.use((req, res, next) => {
-	console.log('这是第二个中间件')
-	next()
+  console.log('这是第二个中间件')
+  next()
 })
 
 app.use((req, res, next) => {
-	res.send('结束')
+  res.send('结束')
 })
 ```
 
 不使用 `app.use()` 定义的中间件，叫做局部生效的中间件，示例代码如下：
 
 ```js
-const mv = (req, res, next) => {
-  console.log('我是中间件');
+function mv(req, res, next) {
+  console.log('我是中间件')
   next()
 }
 
 app.get('/', mv, (req, res) => {
-    res.send('我使用了局部中间件')
+  res.send('我使用了局部中间件')
 })
 ```
 
@@ -370,11 +374,11 @@ app.get('/', [mv1, mv2], (req, res) => { res.send('我使用了两个局部中�
 
 ```js
 app.use((req, res, next) => {
-	next()
+  next()
 })
 
 app.get('/', mv, (req, res) => {
-	res.send('home')
+  res.send('home')
 })
 ```
 
@@ -388,8 +392,8 @@ app.get('/', mv, (req, res) => {
 const app = express()
 const router = express.Router()
 
-router.use((req, res,next) => {
-    next()
+router.use((req, res, next) => {
+  next()
 })
 
 app.use('/', router)
@@ -405,13 +409,13 @@ app.use('/', router)
 
 ```js
 app.get('/', (req, res) => {
-    throw new Error('人为制造服务器错误')
-    res.send('前面有错误，这里执行不了')
+  throw new Error('人为制造服务器错误')
+  res.send('前面有错误，这里执行不了')
 })
 
 app.use((err, req, res, next) => {
-    console.log('发生错误' + err.message)
-    res.send('Error!' + err.message)
+  console.log(`发生错误${err.message}`)
+  res.send(`Error!${err.message}`)
 })
 ```
 
@@ -433,16 +437,16 @@ app.use((err, req, res, next) => {
 
    ```js
    app.post('/add', (req, res) => {
-       console.log(req.body) // 没配置json中间件，打印出来是undefined
-       res.send('ok')
+     console.log(req.body) // 没配置json中间件，打印出来是undefined
+     res.send('ok')
    })
    
    // ----------------------分割线------------------------
    app.use(express.json())
    
    app.post('/add', (req, res) => {
-       console.log(req.body) // 配置了json中间件，打印出来是{ name: 'tydumpling', age: '20' }
-       res.send('ok')
+     console.log(req.body) // 配置了json中间件，打印出来是{ name: 'tydumpling', age: '20' }
+     res.send('ok')
    })
    ```
 
@@ -450,16 +454,16 @@ app.use((err, req, res, next) => {
 
    ```js
    app.post('/book', (req, res) => {
-       console.log(req.body) // 没配置urlencoded中间件，打印出来是{}
-       res.send('ok')
+     console.log(req.body) // 没配置urlencoded中间件，打印出来是{}
+     res.send('ok')
    })
    
    // ----------------------分割线------------------------
-   app.use(express.urlencoded( { extended: false } ))
+   app.use(express.urlencoded({ extended: false }))
    
    app.post('/book', (req, res) => {
-       console.log(req.body) // 配置了urlencoded中间件，打印出来是[Object: null prototype] { num: '20', name: 'tydumpling博客' }
-       res.send('ok')
+     console.log(req.body) // 配置了urlencoded中间件，打印出来是[Object: null prototype] { num: '20', name: 'tydumpling博客' }
+     res.send('ok')
    })
    ```
 
@@ -481,10 +485,11 @@ app.use((err, req, res, next) => {
 
 ```js
 const express = require('express')
+
 const app = express()
 
 app.listen(80, () => {
-  console.log('running');
+  console.log('running')
 })
 ```
 
@@ -494,6 +499,7 @@ app.listen(80, () => {
 
 ````js
 const express = require('express')
+
 const router = express.Router()
 
 // 向外导出
@@ -513,7 +519,7 @@ app.use('/api', route)
 ```js
 router.get('/', (req, res) => {
   const query = req.query
-  console.log(query);
+  console.log(query)
 
   res.send({
     code: 200,
@@ -528,7 +534,7 @@ router.get('/', (req, res) => {
 ```js
 router.post('/add', (req, res) => {
   const body = req.body
-  console.log(body);
+  console.log(body)
 
   res.send({
     code: 200,

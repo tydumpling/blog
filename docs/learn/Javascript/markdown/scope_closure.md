@@ -38,68 +38,68 @@
 
 ```js
 function count() {
-  let total = 0;
+  const total = 0
 }
-count();
+count()
 ```
 
 函数每次调用都会创建一个新作用域
 
 ```js
-let site = 'tydumpling';
+const site = 'tydumpling'
 
 function a() {
-  let hd = 'tydumpling.com';
+  const hd = 'tydumpling.com'
 
   function b() {
-      let cms = 'duyidao.com';
-      console.log(hd);
-      console.log(site);
+    const cms = 'duyidao.com'
+    console.log(hd)
+    console.log(site)
   }
-  b();
+  b()
 }
-a();
+a()
 ```
 
 如果子函数被使用时父级环境将被保留
 
 ```js
 function hd() {
-  let n = 1;
-  return function() {
-    let b = 1;
-    return function() {
-      console.log(++n);
-      console.log(++b);
-    };
-  };
+  let n = 1
+  return function () {
+    let b = 1
+    return function () {
+      console.log(++n)
+      console.log(++b)
+    }
+  }
 }
-let a = hd()();
-a(); //2,2
-a(); //3,3
-let b = hd()();
-b(); //2,2
-b(); //3,3
+const a = hd()()
+a() // 2,2
+a() // 3,3
+const b = hd()()
+b() // 2,2
+b() // 3,3
 ```
 
 构造函数也是很好的环境例子，子可以调用父级的变量，把show返回出去之后 因为show函数可能会存在调用a变量的代码所以 a会被保留，子函数被外部使用父级环境将被保留
 
 ```js
 function User() {
-  let a = 1;
-  this.show = function() {
-    console.log(a++);
-  };
+  let a = 1
+  this.show = function () {
+    console.log(a++)
+  }
   // 相当于下面的写法
   // return {
   //   show: show
   // }
 }
-let a = new User(); // 这里的new 相当于 闭包函数里面的return 用了new 就不用手动return了
-a.show(); //1
-a.show(); //2
-let b = new User();
-b.show(); //1
+const a = new User() // 这里的new 相当于 闭包函数里面的return 用了new 就不用手动return了
+a.show() // 1
+a.show() // 2
+const b = new User()
+b.show() // 1
 ```
 
 ### let/const
@@ -108,14 +108,14 @@ b.show(); //1
 
 ```js
 {
-	let a = 9;
+  const a = 9
 }
-console.log(a); //ReferenceError: a is not defined
-if (true) {
-	var i = 1;
-}
-console.log(i);//1
-console.log(window.i);//1
+console.log(a) // ReferenceError: a is not defined
+if (true)
+  var i = 1
+
+console.log(i)// 1
+console.log(window.i)// 1
 ```
 
 也可以通过下面的定时器函数来体验。
@@ -126,30 +126,30 @@ console.log(window.i);//1
 ```js
 for (var i = 0; i <= 3; i++) {
   setTimeout(() => {
-    console.log(i); // 4,4,4
-  }, 500);
+    console.log(i) // 4,4,4
+  }, 500)
 }
 
 // -------------------------------
 
 for (let i = 0; i <= 3; i++) {
   setTimeout(() => {
-    console.log(i); // 1,2,3
-  }, 500);
+    console.log(i) // 1,2,3
+  }, 500)
 }
 ```
 
 在没有`let/const` 的历史中使用以下方式产生作用域
 
 ```js
-//自行构建闭包
-var arr = [];
-for (var i = 0; i < 10; i++) {
+// 自行构建闭包
+const arr = []
+for (let i = 0; i < 10; i++) {
   (function (i) {
-      setTimeout(() => {
-    	console.log(i); // 1,2,3
-  	  }, 500);
-  })(i);
+    setTimeout(() => {
+    	console.log(i) // 1,2,3
+  	  }, 500)
+  })(i)
 }
 ```
 
@@ -166,25 +166,25 @@ for (var i = 0; i < 10; i++) {
 
 ```js
 function hd() {
-  let name = 'tydumpling';
+  const name = 'tydumpling'
   return function () {
-  	return name;
+  	return name
   }
 }
-let duyidao = hd();
-console.log(duyidao()); //tydumpling
+const duyidao = hd()
+console.log(duyidao()) // tydumpling
 ```
 
 使用闭包返回数组区间元素
 
 ```js
-let arr = [3, 2, 4, 1, 5, 6];
+const arr = [3, 2, 4, 1, 5, 6]
 function between(a, b) {
-  return function(v) {
-    return v >= a && v <= b;
-  };
+  return function (v) {
+    return v >= a && v <= b
+  }
 }
-console.log(arr.filter(between(3, 5))); // 相当于 arr.filter(gunction(v) { return v>=a && v <= b })
+console.log(arr.filter(between(3, 5))) // 相当于 arr.filter(gunction(v) { return v>=a && v <= b })
 ```
 
 下面是在回调函数中使用闭包，当点击按钮时显示当前点击的是第几个按钮。
@@ -242,32 +242,32 @@ console.log(arr.filter(between(3, 5))); // 相当于 arr.filter(gunction(v) { re
 下例使用闭包按指定字段排序
 
 ```js
-let lessons = [
+const lessons = [
   {
-    title: "媒体查询响应式布局",
+    title: '媒体查询响应式布局',
     click: 89,
     price: 12
   },
   {
-    title: "FLEX 弹性盒模型",
+    title: 'FLEX 弹性盒模型',
     click: 45,
     price: 120
   },
   {
-    title: "GRID 栅格系统",
+    title: 'GRID 栅格系统',
     click: 19,
     price: 67
   },
   {
-    title: "盒子模型详解",
+    title: '盒子模型详解',
     click: 29,
     price: 300
   }
-];
+]
 function order(params, type = 'asc') {
-  return (a,b) => type === 'asc' ? a[params] - b[params] : b[params] - a[params] // 闭包原理，返回一个函数
+  return (a, b) => type === 'asc' ? a[params] - b[params] : b[params] - a[params] // 闭包原理，返回一个函数
 }
-console.table(lessons.sort(order("price")));
+console.table(lessons.sort(order('price')))
 ```
 
 ### 闭包问题
@@ -294,14 +294,14 @@ console.table(lessons.sort(order("price")));
 下面通过清除不需要的数据解决内存泄漏问题
 
 ```js
-let divs = document.querySelectorAll("div");
-divs.forEach(function(item) {
-  let desc = item.getAttribute("desc");
-  item.addEventListener("click", function() {
-    console.log(desc);
-  });
-  item = null;
-});
+const divs = document.querySelectorAll('div')
+divs.forEach((item) => {
+  const desc = item.getAttribute('desc')
+  item.addEventListener('click', () => {
+    console.log(desc)
+  })
+  item = null
+})
 ```
 
 **this 指向**
@@ -311,25 +311,25 @@ this 总是指向调用该函数的对象，即函数在搜索 this 时只会搜
 下面是函数因为是在全局环境下调用的，所以 this 指向 window，这不是我们想要的。
 
 ```js
-let hd = {
-  user: "tydumpling",
-  get: function() {
-    return function() {
-      return this.user;
-    };
+const hd = {
+  user: 'tydumpling',
+  get() {
+    return function () {
+      return this.user
+    }
   }
-};
-console.log(hd.get()()); //undefined
+}
+console.log(hd.get()()) // undefined
 ```
 
 使用箭头函数解决这个问题
 
 ```js
-let hd = {
-  user: "tydumpling",
-  get: function() {
-    return () => this.user;
+const hd = {
+  user: 'tydumpling',
+  get() {
+    return () => this.user
   }
-};
-console.log(hd.get()()); //undefined
+}
+console.log(hd.get()()) // undefined
 ```

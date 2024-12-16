@@ -71,9 +71,5 @@
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },
-  "lint-staged": {
-    "*.{js,ts,tsx,vue,md}": [
-      "eslint --cache --fix"
-    ]
-  }
+
 }

@@ -8,16 +8,16 @@
 **面向过程编程**
 
 ```js
-let name = "tydumpling";
-let grade = [
-  { lesson: "js", score: 99 },
-  { lesson: "mysql", score: 85 }
-];
+const name = 'tydumpling'
+const grade = [
+  { lesson: 'js', score: 99 },
+  { lesson: 'mysql', score: 85 }
+]
 function average(grade, name) {
-  const total = grade.reduce((t, a) => t + a.score, 0);
-  return name + ":" + total / grade.length + "分";
+  const total = grade.reduce((t, a) => t + a.score, 0)
+  return `${name}:${total / grade.length}分`
 }
-console.log(average(grade, name));
+console.log(average(grade, name))
 ```
 
 **面向对象编程**
@@ -25,18 +25,18 @@ console.log(average(grade, name));
 下面使用对象编程的代码结构清晰，也减少了函数的参数传递，也不用担心函数名的覆盖
 
 ```js
-let user = {
+const user = {
   name: 'tydumpling',
   grade: [
-    {title: 'vue', score: 80},
-    {title: 'axios', score: 85}
+    { title: 'vue', score: 80 },
+    { title: 'axios', score: 85 }
   ],
   average() {
     return `${this.name}'s grade is ${this.grade.reduce((total, obj) => total += obj.score, 0) / this.grade.length}`
   }
 }
 
-console.log(user.average());
+console.log(user.average())
 ```
 
 ### OOP
@@ -51,36 +51,36 @@ console.log(user.average());
 使用字面量形式声明对象是最简单的方式
 
 ```js
-let obj = {
+const obj = {
   name: 'tydumpling',
-  get:function() {
-  	return this.name;
+  get() {
+  	return this.name
   }
 }
-console.log(obj.get()); //tydumpling
+console.log(obj.get()) // tydumpling
 ```
 
 属性与方法简写
 
 ```js
-let name = "tydumpling";
-let obj = {
+const name = 'tydumpling'
+const obj = {
   name,
   get() {
-    return this.name;
+    return this.name
   }
-};
-console.log(obj.get()); //tydumpling
+}
+console.log(obj.get()) // tydumpling
 ```
 
 其实字面量形式在系统内部也是使用构造函数 `new Object`创建的，后面会详细介绍构造函数。
 
 ```js
-let hd = {};
-let tydumpling = new Object();
-console.log(hd, tydumpling);
-console.log(hd.constructor);
-console.log(tydumpling.constructor);
+const hd = {}
+const tydumpling = new Object()
+console.log(hd, tydumpling)
+console.log(hd.constructor)
+console.log(tydumpling.constructor)
 ```
 
 ### 操作属性
@@ -88,54 +88,54 @@ console.log(tydumpling.constructor);
 使用点语法获取
 
 ```js
-let user = {
-  name: "tydumpling"
-};
-console.log(user.name);
+const user = {
+  name: 'tydumpling'
+}
+console.log(user.name)
 ```
 
 使用`[]` 获取
 
 ```js
-console.log(user["name"]);
+console.log(user.name)
 ```
 
 可以看出使用`.`操作属性更简洁，`[]`主要用于通过变量定义属性的场景
 
 ```js
-let user = {
-  name: "tydumpling"
-};
-let property = "name";
-console.log(user[property]);
+const user = {
+  name: 'tydumpling'
+}
+const property = 'name'
+console.log(user[property])
 ```
 
 如果属性名不是合法变量名就必须使用扩号的形式了
 
 ```js
-let user = {};
-user["my-age"] = 28;
-console.log(user["my-age"]);
+const user = {}
+user['my-age'] = 28
+console.log(user['my-age'])
 ```
 
 对象和方法的属性可以动态的添加或删除。
 
 ```js
 const hd = {
-  name: "tydumpling"
-};
-hd.age = "10";
-hd.show = function() {
-  return `${this.name}已经${this.age}岁了`;
-};
-console.log(hd.show());
-console.log(hd); // {name: "tydumpling", age: "10", show: f}
+  name: 'tydumpling'
+}
+hd.age = '10'
+hd.show = function () {
+  return `${this.name}已经${this.age}岁了`
+}
+console.log(hd.show())
+console.log(hd) // {name: "tydumpling", age: "10", show: f}
 
-delete hd.show;
-delete hd.age;
+delete hd.show
+delete hd.age
 
-console.log(hd); // {name: "tydumpling"}
-console.log(hd.age); //undefined
+console.log(hd) // {name: "tydumpling"}
+console.log(hd.age) // undefined
 ```
 
 ### 对象方法
@@ -143,29 +143,29 @@ console.log(hd.age); //undefined
 定义在对象中的函数我们称为方法，下面定义了学生对象，并提供了计算平均成绩的方法
 
 ```js
-let lisi = {
-  name: "李四",
+const lisi = {
+  name: '李四',
   age: 22,
   grade: {
     math: 99,
     english: 67
   },
-  //平均成绩
-  avgGrade: function() {
-    let total = 0;
-    for (const key in this.grade) {
-      total += this.grade[key];
-    }
-    return total / this.propertyCount("grade");
+  // 平均成绩
+  avgGrade() {
+    let total = 0
+    for (const key in this.grade)
+      total += this.grade[key]
+
+    return total / this.propertyCount('grade')
   },
-  //获取属性数量
-  propertyCount: function(property) {
-    let count = 0;
-    for (const key in this[property]) count++;
-    return count;
+  // 获取属性数量
+  propertyCount(property) {
+    let count = 0
+    for (const key in this[property]) count++
+    return count
   }
-};
-console.log(lisi.avgGrade());
+}
+console.log(lisi.avgGrade())
 ```
 
 > 一个学生需要手动创建一个对象，这显然不实际的，下面的构造函数就可以解决这个问题
@@ -175,32 +175,32 @@ console.log(lisi.avgGrade());
 对象和函数、数组一样是引用类型，即复制只会复制引用地址。
 
 ```js
-let hd = { name: "tydumpling" };
-let cms = hd;
-cms.name = "xiaodao";
-console.log(hd.name); //xiaodao
+const hd = { name: 'tydumpling' }
+const cms = hd
+cms.name = 'xiaodao'
+console.log(hd.name) // xiaodao
 ```
 
 对象做为函数参数使用时也不会产生完全赋值，内外共用一个对象
 
 ```js
-let user = { age: 22 };
+const user = { age: 22 }
 function hd(user) {
-  user.age += 10;
+  user.age += 10
 }
-hd(user);
-console.log(user.age); //32
+hd(user)
+console.log(user.age) // 32
 ```
 
 对多的比较是对内存地址的比较所以使用 `==` 或 `===` 一样
 
 ```js
-let hd = {};
-let xj = hd;
-let cms = {};
-console.log(hd == xj); //true
-console.log(hd === xj); //true
-console.log(hd === cms); //false
+const hd = {}
+const xj = hd
+const cms = {}
+console.log(hd == xj) // true
+console.log(hd === xj) // true
+console.log(hd === cms) // false
 ```
 
 ### this
@@ -214,28 +214,28 @@ console.log(hd === cms); //false
 
 ```js
 let xj = {
-  name: "tydumpling",
+  name: 'tydumpling',
   show() {
-    return xj.name;
+    return xj.name
   }
-};
-let hd = xj;
-xj = null;
-console.log(hd.show()); //Error
+}
+const hd = xj
+xj = null
+console.log(hd.show()) // Error
 ```
 
 改用`this` 后一切正常
 
 ```js
 let xj = {
-  name: "tydumpling",
+  name: 'tydumpling',
   show() {
-    return this.name;
+    return this.name
   }
-};
-let hd = xj;
-xj = null;
-console.log(hd.show()); //Error
+}
+const hd = xj
+xj = null
+console.log(hd.show()) // Error
 ```
 
 ### 展开语法
@@ -243,23 +243,23 @@ console.log(hd.show()); //Error
 使用`...`可以展示对象的结构，下面是实现对象合并的示例
 
 ```js
-let hd = { name: "tydumpling", web: "houdurnen.com" };
-let info = { ...hd, site: "xiaodao" };
-console.log(info);
+const hd = { name: 'tydumpling', web: 'houdurnen.com' }
+const info = { ...hd, site: 'xiaodao' }
+console.log(info)
 ```
 
 下面是函数参数合并的示例
 
 ```js
 function upload(params) {
-  let config = {
-    type: "*.jpeg,*.png",
+  const config = {
+    type: '*.jpeg,*.png',
     size: 10000
-  };
-  params = { ...config, ...params };
-  console.log(params);
+  }
+  params = { ...config, ...params }
+  console.log(params)
 }
-upload({ size: 999 });
+upload({ size: 999 })
 ```
 
 ## 对象转换
@@ -275,22 +275,22 @@ upload({ size: 999 });
 下面的数值对象会在数学运算时转换为 `number`
 
 ```js
-let tydumpling = new Number(1);
-console.log(tydumpling + 3); //4
+const tydumpling = new Number(1)
+console.log(tydumpling + 3) // 4
 ```
 
 如果参数字符串运长时会转换为 `string`
 
 ```js
-let tydumpling = new Number(1);
-console.log(tydumpling + "3"); //13
+const tydumpling = new Number(1)
+console.log(`${tydumpling}3`) // 13
 ```
 
 下面当不确定转换声明时使用 `default` ，大部分`default`转换使用 `number` 转换。
 
 ```js
-let tydumpling = new Number(1);
-console.log(tydumpling == "1"); //true
+const tydumpling = new Number(1)
+console.log(tydumpling == '1') // true
 ```
 
 ### Symbol.toPrimitive
@@ -298,13 +298,13 @@ console.log(tydumpling == "1"); //true
 内部自定义`Symbol.toPrimitive`方法用来处理所有的转换场景
 
 ```js
-let hd = {
+const hd = {
   num: 1,
-  [Symbol.toPrimitive]: function() {
-    return this.num;
+  [Symbol.toPrimitive]() {
+    return this.num
   }
-};
-console.log(hd + 3); //4
+}
+console.log(hd + 3) // 4
 ```
 
 ### valueOf/toString
@@ -312,20 +312,20 @@ console.log(hd + 3); //4
 可以自定义`valueOf` 与 `toString` 方法用来转换，转换并不限制返回类型。
 
 ```js
-let hd = {
-  name: "tydumpling",
+const hd = {
+  name: 'tydumpling',
   num: 1,
-  valueOf: function() {
-    console.log("valueOf");
-    return this.num;
+  valueOf() {
+    console.log('valueOf')
+    return this.num
   },
-  toString: function() {
-    console.log("toString");
-    return this.name;
+  toString() {
+    console.log('toString')
+    return this.name
   }
-};
-console.log(hd + 3); //valueOf 4
-console.log(`${hd}tydumpling`); //toString tydumplingtydumpling
+}
+console.log(hd + 3) // valueOf 4
+console.log(`${hd}tydumpling`) // toString tydumplingtydumpling
 ```
 
 ## 解构赋值
@@ -339,14 +339,14 @@ console.log(`${hd}tydumpling`); //toString tydumplingtydumpling
 下面是基本使用语法
 
 ```js
-//对象使用
-let info = {name:'tydumpling',url:'tydumpling.com'};
-let {name:n,url:u} = info
-console.log(n); // tydumpling
+// 对象使用
+const info = { name: 'tydumpling', url: 'tydumpling.com' }
+const { name: n, url: u } = info
+console.log(n) // tydumpling
 
-//如果属性名与变量相同可以省略属性定义
-let {name,url} = {name:'tydumpling',url:'tydumpling.com'};
-console.log(name); // tydumpling
+// 如果属性名与变量相同可以省略属性定义
+const { name, url } = { name: 'tydumpling', url: 'tydumpling.com' }
+console.log(name) // tydumpling
 ```
 
 函数返回值直接解构到变量
@@ -356,27 +356,27 @@ function hd() {
   return {
     name: 'tydumpling',
     url: 'tydumpling.com'
-  };
+  }
 }
-let {name: n,url: u} = hd();
-console.log(n);
+const { name: n, url: u } = hd()
+console.log(n)
 ```
 
 函数传参
 
 ```js
-"use strict";
+'use strict'
 function hd({ name, age }) {
-  console.log(name, age); //tydumpling 18
+  console.log(name, age) // tydumpling 18
 }
-hd({ name: "tydumpling", age: 18 });
+hd({ name: 'tydumpling', age: 18 })
 ```
 
 系统函数解构练习，这没有什么意义只是加深解构印象
 
 ```js
-const {random} =Math;
-console.log(random());
+const { random } = Math
+console.log(random())
 ```
 
 ### 严格模式
@@ -385,16 +385,16 @@ console.log(random());
 
 ```js
 // "use strict";
-({name,url} = {name:'tydumpling',url:'tydumpling.com'});
-console.log(name, url);
+({ name, url } = { name: 'tydumpling', url: 'tydumpling.com' })
+console.log(name, url)
 ```
 
 还是建议使用`let`等赋值声明
 
 ```js
-"use strict";
-let { name, url } = { name: "tydumpling", url: "tydumpling.com" };
-console.log(name, url);
+'use strict'
+const { name, url } = { name: 'tydumpling', url: 'tydumpling.com' }
+console.log(name, url)
 ```
 
 ### 简洁定义
@@ -402,32 +402,32 @@ console.log(name, url);
 如果属性名与赋值的变量名相同可以更简洁
 
 ```js
-let web = { name: "tydumpling",url: "tydumpling.com" };
-let { name, url } = web;
-console.log(name); //tydumpling
+const web = { name: 'tydumpling', url: 'tydumpling.com' }
+const { name, url } = web
+console.log(name) // tydumpling
 ```
 
 只赋值部分变量
 
 ```js
-let [,url]=['tydumpling','tydumpling.com'];
-console.log(url);//tydumpling.com
+const [,url] = ['tydumpling', 'tydumpling.com']
+console.log(url)// tydumpling.com
 
-let {name}= {name:'tydumpling',url:'tydumpling.com'};
-console.log(name); //tydumpling
+const { name } = { name: 'tydumpling', url: 'tydumpling.com' }
+console.log(name) // tydumpling
 ```
 
 可以直接使用变量赋值对象属性
 
 ```js
-let name = "tydumpling",url = "tydumpling.com";
-//标准写法如下
-let hd = { name: name, url: url };
-console.log(hd);  //{name: "tydumpling", url: "tydumpling.com"}
+const name = 'tydumpling'; const url = 'tydumpling.com'
+// 标准写法如下
+const hd = { name, url }
+console.log(hd) // {name: "tydumpling", url: "tydumpling.com"}
 
-//如果属性和值变量同名可以写成以下简写形式
-let opt = { name, url };
-console.log(opt); //{name: "tydumpling", url: "tydumpling.com"}
+// 如果属性和值变量同名可以写成以下简写形式
+const opt = { name, url }
+console.log(opt) // {name: "tydumpling", url: "tydumpling.com"}
 ```
 
 ### 嵌套解构
@@ -436,14 +436,14 @@ console.log(opt); //{name: "tydumpling", url: "tydumpling.com"}
 
 ```js
 const hd = {
-  name:'tydumpling',
-  lessons:{
-    title:'JS'
+  name: 'tydumpling',
+  lessons: {
+    title: 'JS'
   }
 }
-const {name,lessons:{title}}  = hd;
-console.log(name,title); // tydumpling JS
-console.log(lessons); // lessons is not defined
+const { name, lessons: { title } } = hd
+console.log(name, title) // tydumpling JS
+console.log(lessons) // lessons is not defined
 ```
 
 ### 默认值
@@ -451,32 +451,32 @@ console.log(lessons); // lessons is not defined
 为变量设置默认值
 
 ```js
-let [name, site = 'xiaodao'] = ['tydumpling'];
-console.log(site); //xiaodao
+let [name, site = 'xiaodao'] = ['tydumpling']
+console.log(site) // xiaodao
 
-let {name,url,user='tydumpling'}= {name:'tydumpling',url:'tydumpling.com'};
-console.log(name,user); // tydumpling, tydumpling
+let { name, url, user = 'tydumpling' } = { name: 'tydumpling', url: 'tydumpling.com' }
+console.log(name, user) // tydumpling, tydumpling
 ```
 
 使用默认值特性可以方便的对参数预设
 
 ```js
 function createElement(options) {
-  let {
+  const {
     width = '200px',
     height = '100px',
     backgroundColor = 'red'
-  } = options;
+  } = options
 
-  const h2 = document.createElement('h2');
-  h2.style.width = width;
-  h2.style.height = height;
-  h2.style.backgroundColor = backgroundColor;
-  document.body.appendChild(h2);
+  const h2 = document.createElement('h2')
+  h2.style.width = width
+  h2.style.height = height
+  h2.style.backgroundColor = backgroundColor
+  document.body.appendChild(h2)
 }
 createElement({
-	backgroundColor: 'green'
-});
+  backgroundColor: 'green'
+})
 ```
 
 ### 函数参数
@@ -485,27 +485,27 @@ createElement({
 
 ```js
 function hd([a, b]) {
-	console.log(a, b);
+  console.log(a, b)
 }
-hd(['tydumpling', 'duyidao']);
+hd(['tydumpling', 'duyidao'])
 ```
 
 对象参数使用方法
 
 ```js
-function hd({name,url,user='tydumpling'}) {
-	console.log(name,url,user); //tydumpling tydumpling.com tydumpling
+function hd({ name, url, user = 'tydumpling' }) {
+  console.log(name, url, user) // tydumpling tydumpling.com tydumpling
 }
-hd({name:'tydumpling', url:'tydumpling.com'});
+hd({ name: 'tydumpling', url: 'tydumpling.com' })
 ```
 
 对象解构传参
 
 ```js
 function user(name, { sex, age } = {}) {
-  console.log(name, sex, age); //tydumpling 男 18
+  console.log(name, sex, age) // tydumpling 男 18
 }
-user("tydumpling", { sex: "男", age: 18 });
+user('tydumpling', { sex: '男', age: 18 })
 ```
 
 ## 属性管理
@@ -515,9 +515,9 @@ user("tydumpling", { sex: "男", age: 18 });
 可以为对象添加属性
 
 ```js
-let obj = {name: "tydumpling"};
-obj.site = "tydumpling.com";
-console.log(obj);
+const obj = { name: 'tydumpling' }
+obj.site = 'tydumpling.com'
+console.log(obj)
 ```
 
 ### 删除属性
@@ -525,9 +525,9 @@ console.log(obj);
 使用`delete` 可以删除属性（后面介绍的属性特性章节可以保护属性不被删除）
 
 ```js
-let obj = { name: "tydumpling" };
-delete obj.name;
-console.log(obj.name); //undefined
+const obj = { name: 'tydumpling' }
+delete obj.name
+console.log(obj.name) // undefined
 ```
 
 ### 检测属性
@@ -535,34 +535,34 @@ console.log(obj.name); //undefined
 `hasOwnProperty`检测对象自身是否包含指定的属性，不检测原型链上继承的属性。
 
 ```js
-let obj = { name: 'tydumpling'};
-console.log(obj.hasOwnProperty('name')); //true
+const obj = { name: 'tydumpling' }
+console.log(obj.hasOwnProperty('name')) // true
 ```
 
 下面通过数组查看
 
 ```js
-let arr = ["tydumpling"];
-console.log(arr);
-console.log(arr.hasOwnProperty("length")); //true
-console.log(arr.hasOwnProperty("concat")); //false
-console.log("concat" in arr); //true
+const arr = ['tydumpling']
+console.log(arr)
+console.log(arr.hasOwnProperty('length')) // true
+console.log(arr.hasOwnProperty('concat')) // false
+console.log('concat' in arr) // true
 ```
 
 使用 `in` 可以在原型对象上检测
 
 ```js
-let obj = {name: "tydumpling"};
-let hd = {
-  web: "tydumpling.com"
-};
+const obj = { name: 'tydumpling' }
+const hd = {
+  web: 'tydumpling.com'
+}
 
-//设置hd为obj的新原型
-Object.setPrototypeOf(obj, hd);
-console.log(obj);
+// 设置hd为obj的新原型
+Object.setPrototypeOf(obj, hd)
+console.log(obj)
 
-console.log("web" in obj); //true
-console.log(obj.hasOwnProperty("web")); //false
+console.log('web' in obj) // true
+console.log(obj.hasOwnProperty('web')) // false
 ```
 
 ### 获取属性名
@@ -570,7 +570,7 @@ console.log(obj.hasOwnProperty("web")); //false
 使用 `Object.getOwnPropertyNames` 可以获取对象的属性名集合
 
 ```js
-let hd = { name: 'tydumpling', year: 2010 }
+const hd = { name: 'tydumpling', year: 2010 }
 const names = Object.getOwnPropertyNames(hd)
 console.log(names)
 // ["name", "year"]
@@ -583,10 +583,10 @@ console.log(names)
 从一个或多个对象复制属性
 
 ```js
-"use strict";
-let hd = { a: 1, b: 2 };
-hd = Object.assign(hd, { f: 1 }, { m: 9 });
-console.log(hd); //{a: 1, b: 2, f: 1, m: 9}
+'use strict'
+let hd = { a: 1, b: 2 }
+hd = Object.assign(hd, { f: 1 }, { m: 9 })
+console.log(hd) // {a: 1, b: 2, f: 1, m: 9}
 ```
 
 ### 计算属性
@@ -594,13 +594,13 @@ console.log(hd); //{a: 1, b: 2, f: 1, m: 9}
 对象属性可以通过表达式计算定义，这在动态设置属性或执行属性方法时很好用。
 
 ```js
-let id = 0;
+let id = 0
 const user = {
   [`id-${id++}`]: id,
   [`id-${id++}`]: id,
   [`id-${id++}`]: id
-};
-console.log(user);
+}
+console.log(user)
 ```
 
 使用计算属性为文章定义键名
@@ -608,24 +608,24 @@ console.log(user);
 ```js
 const lessons = [
   {
-    title: "媒体查询响应式布局",
-    category: "css"
+    title: '媒体查询响应式布局',
+    category: 'css'
   },
   {
-    title: "FLEX 弹性盒模型",
-    category: "css"
+    title: 'FLEX 弹性盒模型',
+    category: 'css'
   },
   {
-    title: "MYSQL多表查询随意操作",
-    category: "mysql"
+    title: 'MYSQL多表查询随意操作',
+    category: 'mysql'
   }
-];
-let lessonObj = lessons.reduce((obj, cur, index) => {
-  obj[`${cur["category"]}-${index}`] = cur;
-  return obj;
-}, {});
-console.log(lessonObj); //{css-0: {…}, css-1: {…}, mysql-2: {…}}
-console.log(lessonObj["css-0"]); //{title: "媒体查询响应式布局", category: "css"}
+]
+const lessonObj = lessons.reduce((obj, cur, index) => {
+  obj[`${cur.category}-${index}`] = cur
+  return obj
+}, {})
+console.log(lessonObj) // {css-0: {…}, css-1: {…}, mysql-2: {…}}
+console.log(lessonObj['css-0']) // {title: "媒体查询响应式布局", category: "css"}
 ```
 
 ### 传值操作
@@ -633,15 +633,15 @@ console.log(lessonObj["css-0"]); //{title: "媒体查询响应式布局", catego
 对象是引用类型赋值是传址操作，后面会介绍对象的深、浅拷贝操作
 
 ```js
-let user = {
-	name: 'tydumpling'
-};
-let hd = {
-	stu: user
-};
-hd.stu.name = 'tydumpling';
-console.log(user); // {name: 'tydumpling'}
-console.log(user.name); // xiaodao
+const user = {
+  name: 'tydumpling'
+}
+const hd = {
+  stu: user
+}
+hd.stu.name = 'tydumpling'
+console.log(user) // {name: 'tydumpling'}
+console.log(user.name) // xiaodao
 ```
 
 ## 遍历对象
@@ -652,12 +652,12 @@ console.log(user.name); // xiaodao
 
 ```js
 const hd = {
-  name: "tydumpling",
+  name: 'tydumpling',
   age: 10
-};
-console.log(Object.keys(hd)); //["name", "age"]
-console.log(Object.values(hd)); //["tydumpling", 10]
-console.table(Object.entries(hd)); //[["name","tydumpling"],["age",10]]
+}
+console.log(Object.keys(hd)) // ["name", "age"]
+console.log(Object.values(hd)) // ["tydumpling", 10]
+console.table(Object.entries(hd)) // [["name","tydumpling"],["age",10]]
 ```
 
 ### for/in
@@ -666,12 +666,11 @@ console.table(Object.entries(hd)); //[["name","tydumpling"],["age",10]]
 
 ```js
 const hd = {
-  name: "tydumpling",
+  name: 'tydumpling',
   age: 10
-};
-for (let key in hd) {
-  console.log(key, hd[key]); // name tydumpling  ;  age 10
 }
+for (const key in hd)
+  console.log(key, hd[key]) // name tydumpling  ;  age 10
 ```
 
 ### for/of
@@ -680,61 +679,56 @@ for (let key in hd) {
 
 ```js
 const hd = {
-  name: "tydumpling",
+  name: 'tydumpling',
   age: 10
-};
-
-for (const key of hd) {
-  console.log(key); // hd is not iterable
 }
 
-for (const key of Object.keys(hd)) {
-  console.log(key); // name  ;  age
-}
+for (const key of hd)
+  console.log(key) // hd is not iterable
+
+for (const key of Object.keys(hd))
+  console.log(key) // name  ;  age
 ```
 
 获取所有对象属性
 
 ```js
 const hd = {
-  name: "tydumpling",
+  name: 'tydumpling',
   age: 10
-};
-for (const key of Object.values(hd)) {
-  console.log(key); // tydumpling  ;  10
 }
+for (const key of Object.values(hd))
+  console.log(key) // tydumpling  ;  10
 ```
 
 同时获取属性名与值
 
 ```js
-for (const array of Object.entries(hd)) {
-  console.log(array); // (2) ['name', 'tydumpling']  ;  (2) ['age', 10]
-}
+for (const array of Object.entries(hd))
+  console.log(array) // (2) ['name', 'tydumpling']  ;  (2) ['age', 10]
 ```
 
 使用扩展语法同时获取属性名与值
 
 ```js
-for (const [key, value] of Object.entries(hd)) {
-  console.log(key, value); // name tydumpling  ;  age 10
-}
+for (const [key, value] of Object.entries(hd))
+  console.log(key, value) // name tydumpling  ;  age 10
 ```
 
 添加元素 DOM 练习
 
 ```js
-let lessons = [
-  { name: "js", click: 23 },
-  { name: "node", click: 192 }
-];
-let ul = document.createElement("ul");
+const lessons = [
+  { name: 'js', click: 23 },
+  { name: 'node', click: 192 }
+]
+const ul = document.createElement('ul')
 for (const val of lessons) {
-  let li = document.createElement("li");
-  li.innerHTML = `课程:${val.name},点击数:${val.click}`;
-  ul.appendChild(li);
+  const li = document.createElement('li')
+  li.innerHTML = `课程:${val.name},点击数:${val.click}`
+  ul.appendChild(li)
 }
-document.body.appendChild(ul);
+document.body.appendChild(ul)
 ```
 
 ## 对象拷贝
@@ -742,16 +736,16 @@ document.body.appendChild(ul);
 对象赋值时复制的内存地址，所以一个对象的改变直接影响另一个
 
 ```js
-let obj = {
+const obj = {
   name: 'tydumpling',
   user: {
   	name: 'xiaodao'
   }
 }
-let a = obj;
-let b = obj;
-a.name = 'lisi';
-console.log(b.name); //lisi
+const a = obj
+const b = obj
+a.name = 'lisi'
+console.log(b.name) // lisi
 ```
 
 ### 浅拷贝
@@ -759,41 +753,40 @@ console.log(b.name); //lisi
 使用`for/in`执行对象拷贝
 
 ```js
-let obj = {name: "tydumpling"};
+const obj = { name: 'tydumpling' }
 
-let hd = {};
-for (const key in obj) {
-  hd[key] = obj[key];
-}
+const hd = {}
+for (const key in obj)
+  hd[key] = obj[key]
 
-hd.name = "tydumpling";
-console.log(hd); // {name: 'tydumpling'}
-console.log(obj); // {name: 'tydumpling'}
+hd.name = 'tydumpling'
+console.log(hd) // {name: 'tydumpling'}
+console.log(obj) // {name: 'tydumpling'}
 ```
 
 `Object.assign` 函数可简单的实现浅拷贝，它是将两个对象的属性叠加后面对象属性会覆盖前面对象同名属性。
 
 ```js
-let user = {
-	name: 'tydumpling'
-};
-let hd = {
-	stu: Object.assign({}, user)
-};
-hd.stu.name = 'tydumpling';
-console.log(user.name);//tydumpling
+const user = {
+  name: 'tydumpling'
+}
+const hd = {
+  stu: Object.assign({}, user)
+}
+hd.stu.name = 'tydumpling'
+console.log(user.name)// tydumpling
 ```
 
 使用展示语法也可以实现浅拷贝
 
 ```js
-let obj = {
-  name: "tydumpling"
-};
-let hd = { ...obj };
-hd.name = "tydumpling";
-console.log(hd); //  {name: 'tydumpling'}
-console.log(obj); //  {name: 'tydumpling'}
+const obj = {
+  name: 'tydumpling'
+}
+const hd = { ...obj }
+hd.name = 'tydumpling'
+console.log(hd) //  {name: 'tydumpling'}
+console.log(obj) //  {name: 'tydumpling'}
 ```
 
 ### 深拷贝
@@ -801,33 +794,33 @@ console.log(obj); //  {name: 'tydumpling'}
 浅拷贝不会将深层的数据复制
 
 ```js
-let obj = {
-    name: 'tydumpling',
-    user: {
-        name: 'xiaodao'
-    }
+const obj = {
+  name: 'tydumpling',
+  user: {
+    name: 'xiaodao'
+  }
 }
-let a = obj;
-let b = obj;
+const a = obj
+const b = obj
 
 function copy(object) {
-    let obj = {}
-    for (const key in object) {
-        obj[key] = object[key];
-    }
-    return obj;
+  const obj = {}
+  for (const key in object)
+    obj[key] = object[key]
+
+  return obj
 }
-let newObj = copy(obj);
-newObj.name = 'xiaodao';
-newObj.user.name = 'tydumpling.com';
-console.log(newObj);
-console.log(obj);
+const newObj = copy(obj)
+newObj.name = 'xiaodao'
+newObj.user.name = 'tydumpling.com'
+console.log(newObj)
+console.log(obj)
 ```
 
 是完全的复制一个对象，两个对象是完全独立的对象
 
 ```js
-let data = {
+const data = {
   user: 'name',
   can: {
     eat: 'good',
@@ -837,8 +830,8 @@ let data = {
 }
 
 function copy(params) {
-  let res = params instanceof Object ? {} : [] // 判断当前是数组还是对象
-  
+  const res = params instanceof Object ? {} : [] // 判断当前是数组还是对象
+
   for (const [key, value] of Object.entries(params)) {
     // key为键，value为值。如果值是对象或数组，则递归，再一次执行拷贝函数
     res[key] = typeof value === 'object' ? copy(value) : value
@@ -851,7 +844,7 @@ const fn = copy(data)
 
 data.learn[1] = 'react'
 
-console.log(JSON.stringify(fn, null, 2));
+console.log(JSON.stringify(fn, null, 2))
 // result:
 // {
 //   "user": "name",
@@ -865,7 +858,7 @@ console.log(JSON.stringify(fn, null, 2));
 //     "2": "axios"
 //   }
 // }
-console.log(JSON.stringify(data, null, 2));
+console.log(JSON.stringify(data, null, 2))
 // result:
 // {
 //   "user": "name",
@@ -896,17 +889,17 @@ console.log(JSON.stringify(data, null, 2));
 
 ```js
 const xj = {
-  name: "tydumpling",
+  name: 'tydumpling',
   show() {
-    console.log(this.name);
+    console.log(this.name)
   }
-};
+}
 const hd = {
-  name: "tydumpling",
+  name: 'tydumpling',
   show() {
-    console.log(this.name);
+    console.log(this.name)
   }
-};
+}
 ```
 
 使用工厂函数可以简化这个过程
@@ -916,14 +909,14 @@ function stu(name) {
   return {
     name,
     show() {
-      console.log(this.name);
+      console.log(this.name)
     }
-  };
+  }
 }
-const lisi = stu("李四");
-lisi.show();
-const xj = stu("tydumpling");
-dd.show();
+const lisi = stu('李四')
+lisi.show()
+const xj = stu('tydumpling')
+dd.show()
 ```
 
 ### 构造函数
@@ -937,33 +930,33 @@ dd.show();
 
 ```js
 function Student(name) {
-  this.name = name;
-  this.show = function() {
-    console.log(this.name);
-  };
-  //不需要返回，系统会自动返回
+  this.name = name
+  this.show = function () {
+    console.log(this.name)
+  }
+  // 不需要返回，系统会自动返回
   // return this;
 }
-const lisi = new Student("李四");
-lisi.show();
-const xj = new Student("tydumpling");
-xj.show();
+const lisi = new Student('李四')
+lisi.show()
+const xj = new Student('tydumpling')
+xj.show()
 ```
 
 如果构造函数返回对象，实例化后的对象将是此对象
 
 ```js
 function ArrayObject(...values) {
-  const arr = new Array();
-  arr.push.apply(arr, values);
-  arr.string = function(sym = "|") {
-    return this.join(sym);
-  };
-  return arr;
+  const arr = []
+  arr.push.apply(arr, values)
+  arr.string = function (sym = '|') {
+    return this.join(sym)
+  }
+  return arr
 }
-const array = new ArrayObject(1, 2, 3);
-console.log(array);
-console.log(array.string("-"));
+const array = new ArrayObject(1, 2, 3)
+console.log(array)
+console.log(array.string('-'))
 ```
 
 ### 严格模式
@@ -971,17 +964,17 @@ console.log(array.string("-"));
 在严格模式下方法中的`this`值为 undefined，这是为了防止无意的修改 window 对象
 
 ```js
-"use strict";
+'use strict'
 function User() {
-  this.show = function() {
-    console.log(this);
-  };
+  this.show = function () {
+    console.log(this)
+  }
 }
-let hd = new User();
-hd.show(); //User
+const hd = new User()
+hd.show() // User
 
-let xj = hd.show;
-xj(); //undefined
+const xj = hd.show
+xj() // undefined
 ```
 
 ### 内置构造
@@ -989,38 +982,38 @@ xj(); //undefined
 JS 中大部分数据类型都是通过构造函数创建的。
 
 ```js
-const num = new Number(99);
-console.log(num.valueOf());
+const num = new Number(99)
+console.log(num.valueOf())
 
-const string = new String("tydumpling");
-console.log(string.valueOf());
+const string = new String('tydumpling')
+console.log(string.valueOf())
 
-const boolean = new Boolean(true);
-console.log(boolean.valueOf());
+const boolean = new Boolean(true)
+console.log(boolean.valueOf())
 
-const date = new Date();
-console.log(date.valueOf() * 1);
+const date = new Date()
+console.log(date.valueOf() * 1)
 
-const regexp = new RegExp("\\d+");
-console.log(regexp.test(99));
+const regexp = new RegExp('\\d+')
+console.log(regexp.test(99))
 
-let hd = new Object();
-hd.name = "tydumpling";
-console.log(hd);
+const hd = new Object()
+hd.name = 'tydumpling'
+console.log(hd)
 ```
 
 字面量创建的对象，内部也是调用了`Object`构造函数
 
 ```js
 const hd = {
-  name: "tydumpling"
-};
-console.log(hd.constructor); //ƒ Object() { [native code] }
+  name: 'tydumpling'
+}
+console.log(hd.constructor) // ƒ Object() { [native code] }
 
-//下面是使用构造函数创建对象
-const xiaodao = new Object();
-xiaodao.title = "开源内容管理系统";
-console.log(xiaodao);
+// 下面是使用构造函数创建对象
+const xiaodao = new Object()
+xiaodao.title = '开源内容管理系统'
+console.log(xiaodao)
 ```
 
 ### 对象函数
@@ -1030,8 +1023,8 @@ console.log(xiaodao);
 ```js
 function hd(name) {}
 
-console.log(hd.toString());
-console.log(hd.length);
+console.log(hd.toString())
+console.log(hd.length)
 ```
 
 函数是由系统内置的 `Function` 构造函数创建的
@@ -1039,22 +1032,22 @@ console.log(hd.length);
 ```js
 function hd(name) {}
 
-console.log(hd.constructor);
+console.log(hd.constructor)
 ```
 
 下面是使用内置构造函数创建的函数
 
 ```js
-const User = new Function(`name`,`
+const User = new Function('name', `
   this.name = name;
   this.show = function() {
     return this.name;
   };
 `
-);
+)
 
-const lisi = new User("李四");
-console.log(lisi.show());
+const lisi = new User('李四')
+console.log(lisi.show())
 ```
 
 ## 抽象特性
@@ -1069,22 +1062,22 @@ console.log(lisi.show());
 
 ```js
 function User(name, age) {
-  this.name = name;
-  this.age = age;
-  this.info = function() {
-    return this.age > 50 ? "中年人" : "年轻人";
-  };
-  this.about = function() {
-    return `${this.name}是${this.info()}`;
-  };
+  this.name = name
+  this.age = age
+  this.info = function () {
+    return this.age > 50 ? '中年人' : '年轻人'
+  }
+  this.about = function () {
+    return `${this.name}是${this.info()}`
+  }
 }
-let lisi = new User("李四", 22);
-console.log(lisi.about()); // 李四是年轻人
+const lisi = new User('李四', 22)
+console.log(lisi.about()) // 李四是年轻人
 
-lisi.about = function() {
-    return '我要污染这个函数'
+lisi.about = function () {
+  return '我要污染这个函数'
 }
-console.log(lisi.about()); // 我要污染这个函数
+console.log(lisi.about()) // 我要污染这个函数
 ```
 
 ### 抽象封装
@@ -1095,21 +1088,21 @@ console.log(lisi.about()); // 我要污染这个函数
 
 ```js
 function User(name, age) {
-  let data = { name, age };
-  let about = function() {
-    return data.age > 50 ? "中年人" : "年轻人";
-  };
-  this.message = function() {
-    return `${data.name}是${about()}`;
-  };
+  const data = { name, age }
+  const about = function () {
+    return data.age > 50 ? '中年人' : '年轻人'
+  }
+  this.message = function () {
+    return `${data.name}是${about()}`
+  }
 }
-let lisi = new User("tydumpling", 22);
-console.log(lisi.message()); // tydumpling是年轻人
+const lisi = new User('tydumpling', 22)
+console.log(lisi.message()) // tydumpling是年轻人
 
-lisi.about = function() {
-    return '我要污染这个函数'
+lisi.about = function () {
+  return '我要污染这个函数'
 }
-console.log(lisi.message()); // tydumpling是年轻人
+console.log(lisi.message()) // tydumpling是年轻人
 ```
 
 ## 属性特征
@@ -1133,13 +1126,13 @@ console.log(JSON.stringify(desc, null, 2));
 使用 `Object.getOwnPropertyDescriptors`查看对象所有属性的描述
 
 ```js
-"use strict";
+'use strict'
 const user = {
-  name: "tydumpling",
+  name: 'tydumpling',
   age: 18
-};
-let desc = Object.getOwnPropertyDescriptors(user);
-console.log(JSON.stringify(desc, null, 2));
+}
+const desc = Object.getOwnPropertyDescriptors(user)
+console.log(JSON.stringify(desc, null, 2))
 ```
 
 属性包括以下四种特性
@@ -1156,16 +1149,16 @@ console.log(JSON.stringify(desc, null, 2));
 使用`Object.defineProperty` 方法修改属性特性，通过下面的设置属性 name 将不能被遍历、删除、修改。
 
 ```js
-"use strict";
+'use strict'
 const user = {
-  name: "tydumpling"
-};
-Object.defineProperty(user, "name", {
-  value: "tydumpling",
+  name: 'tydumpling'
+}
+Object.defineProperty(user, 'name', {
+  value: 'tydumpling',
   writable: false,
   enumerable: false,
   configurable: false
-});
+})
 ```
 
 通过执行以下代码对上面配置进行测试，请分别打开注释进行测试
@@ -1177,11 +1170,11 @@ Object.defineProperty(user, "name", {
 // 不能遍历
 // console.log(Object.keys(user));
 
-//不允许删除
+// 不允许删除
 // delete user.name;
 // console.log(user);
 
-//不允许配置
+// 不允许配置
 // Object.defineProperty(user, "name", {
 //   value: "tydumpling",
 //   writable: true,
@@ -1193,14 +1186,14 @@ Object.defineProperty(user, "name", {
 使用 `Object.defineProperties` 可以一次设置多个属性，具体参数和上面介绍的一样。
 
 ```js
-"use strict";
-let user = {};
+'use strict'
+const user = {}
 Object.defineProperties(user, {
-  name: { value: "tydumpling", writable: false },
+  name: { value: 'tydumpling', writable: false },
   age: { value: 18 }
-});
-console.log(user);
-user.name = "tydumpling"; //TypeError
+})
+console.log(user)
+user.name = 'tydumpling' // TypeError
 ```
 
 ### 禁止添加
@@ -1208,23 +1201,23 @@ user.name = "tydumpling"; //TypeError
 `Object.prevenjsensions` 禁止向对象添加属性
 
 ```js
-"use strict";
+'use strict'
 const user = {
-  name: "tydumpling"
-};
-Object.prevenjsensions(user);
-user.age = 18; //Error
+  name: 'tydumpling'
+}
+Object.prevenjsensions(user)
+user.age = 18 // Error
 ```
 
 `Object.isExtensible` 判断是否能向对象中添加属性
 
 ```js
-"use strict";
+'use strict'
 const user = {
-  name: "tydumpling"
-};
-Object.prevenjsensions(user);
-console.log(Object.isExtensible(user)); //false
+  name: 'tydumpling'
+}
+Object.prevenjsensions(user)
+console.log(Object.isExtensible(user)) // false
 ```
 
 ### 封闭对象
@@ -1232,30 +1225,30 @@ console.log(Object.isExtensible(user)); //false
 `Object.seal()` 方法封闭一个对象，阻止添加新属性并将所有现有属性标记为 `configurable: false` 。
 
 ```js
-"use strict";
+'use strict'
 const user = {
-  name: "tydumpling",
+  name: 'tydumpling',
   age: 18
-};
+}
 
 console.log(
   JSON.stringify(Object.getOwnPropertyDescriptors(user), null, 2)
-);
+)
 
-Object.seal(user);
-console.log(Object.isSealed(user));
-delete user.name; //Error
+Object.seal(user)
+console.log(Object.isSealed(user))
+delete user.name // Error
 ```
 
 `Object.isSealed` 如果对象是密封的则返回 `true`，属性都具有 `configurable: false`。
 
 ```js
-"use strict";
+'use strict'
 const user = {
-  name: "tydumpling"
-};
-Object.seal(user);
-console.log(Object.isSealed(user)); //true
+  name: 'tydumpling'
+}
+Object.seal(user)
+console.log(Object.isSealed(user)) // true
 ```
 
 ### 冻结对象
@@ -1263,23 +1256,23 @@ console.log(Object.isSealed(user)); //true
 `Object.freeze`  冻结对象后不允许添加、删除、修改属性，`writable`、`configurable` 都标记为`false` 。
 
 ```js
-"use strict";
+'use strict'
 const user = {
-  name: "tydumpling"
-};
-Object.freeze(user);
-user.name = "tydumpling"; //Error
+  name: 'tydumpling'
+}
+Object.freeze(user)
+user.name = 'tydumpling' // Error
 ```
 
 `Object.isFrozen()`方法判断一个对象是否被冻结
 
 ```js
-"use strict";
+'use strict'
 const user = {
-  name: "tydumpling"
-};
-Object.freeze(user);
-console.log(Object.isFrozen(user));
+  name: 'tydumpling'
+}
+Object.freeze(user)
+console.log(Object.isFrozen(user))
 ```
 
 ## 属性访问器
@@ -1295,95 +1288,95 @@ console.log(Object.isFrozen(user));
 向对是地用户的年龄数据使用访问器监控控制
 
 ```js
-"use strict";
+'use strict'
 const user = {
   data: { name: 'tydumpling', age: null },
   set age(value) {
-    if (typeof value != "number" || value > 100 || value < 10) {
-      throw new Error("年龄格式错误");
-    }
-    this.data.age = value;
+    if (typeof value != 'number' || value > 100 || value < 10)
+      throw new Error('年龄格式错误')
+
+    this.data.age = value
   },
   get age() {
-    return `年龄是: ${this.data.age}`;
+    return `年龄是: ${this.data.age}`
   }
-};
-user.age = 99;
-console.log(user.age);
+}
+user.age = 99
+console.log(user.age)
 ```
 
 下面使用 getter 设置只读的课程总价
 
 ```js
-let Lesson = {
+const Lesson = {
   lists: [
-    { name: "js", price: 100 },
-    { name: "mysql", price: 212 },
-    { name: "vue.js", price: 98 }
+    { name: 'js', price: 100 },
+    { name: 'mysql', price: 212 },
+    { name: 'vue.js', price: 98 }
   ],
   get total() {
-    return this.lists.reduce((t, b) => t + b.price, 0);
+    return this.lists.reduce((t, b) => t + b.price, 0)
   }
-};
-console.log(Lesson.total); //410
-Lesson.total = 30; //无效
-console.log(Lesson.total); //410
+}
+console.log(Lesson.total) // 410
+Lesson.total = 30 // 无效
+console.log(Lesson.total) // 410
 ```
 
 下面通过设置站网站名称与网址体验`getter/setter`批量设置属性的使用
 
 ```js
 const web = {
-  name: "tydumpling",
-  url: "tydumpling.com",
+  name: 'tydumpling',
+  url: 'tydumpling.com',
   get site() {
-    return `${this.name} ${this.url}`;
+    return `${this.name} ${this.url}`
   },
   set site(value) {
-    [this.name, this.url] = value.split(",");
+    [this.name, this.url] = value.split(',')
   }
-};
-web.site = "tydumpling,xiaodao.com";
-console.log(web.site);
+}
+web.site = 'tydumpling,xiaodao.com'
+console.log(web.site)
 ```
 
 下面是设置 token 储取的示例，将业务逻辑使用`getter/setter`处理更方便，也方便其他业务的复用。
 
 ```js
-let Request = {
+const Request = {
   get token() {
-    let con = localStorage.getItem('token');
-    if (!con) {
+    const con = localStorage.getItem('token')
+    if (!con)
     	alert('请登录后获取token')
-    } else {
-    	return con;
-    }
+    else
+    	return con
+
   },
   set token(con) {
-  	localStorage.setItem('token', con);
+  	localStorage.setItem('token', con)
   }
-};
+}
 // Request.token = 'tydumpling'
-console.log(Request.token);
+console.log(Request.token)
 ```
 
 定义内部私有属性
 
 ```js
-"use strict";
+'use strict'
 const user = {
   get name() {
-    return this._name;
+    return this._name
   },
   set name(value) {
-    if (value.length <= 3) {
-      throw new Error("用户名不能小于三位");
-    }
-    this._name = value;
+    if (value.length <= 3)
+      throw new Error('用户名不能小于三位')
+
+    this._name = value
   }
-};
-user.name = "tydumpling";
-console.log(user.name);
+}
+user.name = 'tydumpling'
+console.log(user.name)
 ```
 
 ### 访问器描述符
@@ -1392,63 +1385,71 @@ console.log(user.name);
 
 ```js
 function User(name, age) {
-  let data = { name, age };
+  const data = { name, age }
   Object.defineProperties(this, {
     name: {
       get() {
-        return data.name;
+        return data.name
       },
       set(value) {
-        if (value.trim() == "") throw new Error("无效的用户名");
-        data.name = value;
+        if (value.trim() == '')
+          throw new Error('无效的用户名')
+        data.name = value
       }
     },
     age: {
       get() {
-        return data.name;
+        return data.name
       },
       set(value) {
-        if (value.trim() == "") throw new Error("无效的用户名");
-        data.name = value;
+        if (value.trim() == '')
+          throw new Error('无效的用户名')
+        data.name = value
       }
     }
-  });
+  })
 }
-let hd = new User("tydumpling", 33);
-console.log(hd.name);
-hd.name = "tydumpling";
-console.log(hd.name);
+const hd = new User('tydumpling', 33)
+console.log(hd.name)
+hd.name = 'tydumpling'
+console.log(hd.name)
 ```
 
 上面的代码也可以使用语法糖 `class`定义
 
 ```js
-"use strict";
-const DATA = Symbol();
+'use strict'
+const DATA = Symbol()
 class User {
   constructor(name, age) {
-    this[DATA] = { name, age };
+    this[DATA] = { name, age }
   }
+
   get name() {
-    return this[DATA].name;
+    return this[DATA].name
   }
+
   set name(value) {
-    if (value.trim() == "") throw new Error("无效的用户名");
-    this[DATA].name = value;
+    if (value.trim() == '')
+      throw new Error('无效的用户名')
+    this[DATA].name = value
   }
+
   get age() {
-    return this[DATA].name;
+    return this[DATA].name
   }
+
   set age(value) {
-    if (value.trim() == "") throw new Error("无效的用户名");
-    this[DATA].name = value;
+    if (value.trim() == '')
+      throw new Error('无效的用户名')
+    this[DATA].name = value
   }
 }
-let hd = new User("tydumpling", 33);
-console.log(hd.name);
-hd.name = "tydumpling1";
-console.log(hd.name);
-console.log(hd);
+const hd = new User('tydumpling', 33)
+console.log(hd.name)
+hd.name = 'tydumpling1'
+console.log(hd.name)
+console.log(hd)
 ```
 
 ### 闭包访问器
@@ -1460,12 +1461,11 @@ console.log(hd);
 - 在 set() 中修改了 v，这会影响 get()访问的闭包数据 v
 
 ```js
-let data = {
+const data = {
   name: 'tydumpling.com',
 }
-for (const [key, value] of Object.entries(data)) {
+for (const [key, value] of Object.entries(data))
   observer(data, key, value)
-}
 
 function observer(data, key, v) {
   Object.defineProperty(data, key, {
@@ -1478,7 +1478,7 @@ function observer(data, key, v) {
   })
 }
 data.name = 'tydumpling'
-console.dir(data.name) //tydumpling
+console.dir(data.name) // tydumpling
 ```
 
 ## 代理拦截
@@ -1498,19 +1498,19 @@ console.dir(data.name) //tydumpling
 - 参数三：传递过来的值
 
 ```js
-"use strict";
-const hd = { name: "tydumpling" };
+'use strict'
+const hd = { name: 'tydumpling' }
 const proxy = new Proxy(hd, {
   get(obj, property) {
-    return obj[property];
+    return obj[property]
   },
   set(obj, property, value) {
-    obj[property] = value;
-    return true;
+    obj[property] = value
+    return true
   }
-});
-proxy.age = 10;
-console.log(hd);
+})
+proxy.age = 10
+console.log(hd)
 ```
 
 ### 代理函数
@@ -1523,16 +1523,16 @@ console.log(hd);
 
 ```js
 function factorial(num) {
-  return num == 1 ? 1 : num * factorial(num - 1);
+  return num == 1 ? 1 : num * factorial(num - 1)
 }
-let proxy = new Proxy(factorial, {
+const proxy = new Proxy(factorial, {
   apply(func, obj, args) {
-    console.time("run");
-    func.apply(obj, args);
-    console.timeEnd("run");
+    console.time('run')
+    func.apply(obj, args)
+    console.timeEnd('run')
   }
-});
-proxy.apply(this, [1, 2, 3]);
+})
+proxy.apply(this, [1, 2, 3])
 ```
 
 ### 代理数组
@@ -1547,29 +1547,29 @@ proxy.apply(this, [1, 2, 3]);
 ```js
 const stringDot = {
   get(target, key) {
-    const title = target[key].title;
-    const len = 5;
+    const title = target[key].title
+    const len = 5
     return title.length > len
-      ? title.substr(0, len) + ".".repeat(3)
-      : title;
+      ? title.substr(0, len) + '.'.repeat(3)
+      : title
   }
-};
+}
 const lessons = [
   {
-    title: "媒体查询响应式布局",
-    category: "css"
+    title: '媒体查询响应式布局',
+    category: 'css'
   },
   {
-    title: "FLEX 弹性盒模型",
-    category: "css"
+    title: 'FLEX 弹性盒模型',
+    category: 'css'
   },
   {
-    title: "MYSQL多表查询随意操作",
-    category: "mysql"
+    title: 'MYSQL多表查询随意操作',
+    category: 'mysql'
   }
-];
-const stringDotProxy = new Proxy(lessons, stringDot);
-console.log(stringDotProxy[0]);
+]
+const stringDotProxy = new Proxy(lessons, stringDot)
+console.log(stringDotProxy[0])
 ```
 
 ### 双向绑定
@@ -1691,38 +1691,38 @@ let view = new View().run();
 **基本结构**
 
 ```js
-let hd = {
-  "title": "tydumpling",
-  "url": "tydumpling.com",
-  "teacher": {
-  	"name": "tydumpling",
+const hd = {
+  title: 'tydumpling',
+  url: 'tydumpling.com',
+  teacher: {
+  	name: 'tydumpling',
   }
 }
-console.log(hd.teacher.name);
+console.log(hd.teacher.name)
 ```
 
 **数组结构**
 
 ```js
-let lessons = [
+const lessons = [
   {
-    "title": '媒体查询响应式布局',
-    "category": 'css',
-    "click": 199
+    title: '媒体查询响应式布局',
+    category: 'css',
+    click: 199
   },
   {
-    "title": 'FLEX 弹性盒模型',
-    "category": 'css',
-    "click": 12
+    title: 'FLEX 弹性盒模型',
+    category: 'css',
+    click: 12
   },
   {
-    "title": 'MYSQL多表查询随意操作',
-    "category": 'mysql',
-    "click": 89
+    title: 'MYSQL多表查询随意操作',
+    category: 'mysql',
+    click: 89
   }
-];
+]
 
-console.log(lessons[0].title);
+console.log(lessons[0].title)
 ```
 
 ### 序列化
@@ -1734,54 +1734,54 @@ console.log(lessons[0].title);
 序列化是将 `json` 转换为字符串，一般用来向其他语言传输使用。
 
 ```js
-let hd = {
-  "title": "tydumpling",
-  "url": "tydumpling.com",
-  "teacher": {
-  	"name": "tydumpling",
+const hd = {
+  title: 'tydumpling',
+  url: 'tydumpling.com',
+  teacher: {
+  	name: 'tydumpling',
   }
 }
-console.log(JSON.stringify(hd));
-//{"title":"tydumpling","url":"tydumpling.com","teacher":{"name":"tydumpling"}}
+console.log(JSON.stringify(hd))
+// {"title":"tydumpling","url":"tydumpling.com","teacher":{"name":"tydumpling"}}
 ```
 
 根据第二个参数指定保存的属性
 
 ```js
-console.log(JSON.stringify(hd, ['title', 'url']));
-//{"title":"tydumpling","url":"tydumpling.com"}
+console.log(JSON.stringify(hd, ['title', 'url']))
+// {"title":"tydumpling","url":"tydumpling.com"}
 ```
 
 第三个是参数用来控制 TAB 数量，如果字符串则为前导字符。
 
 ```js
-let hd = {
-  "title": "tydumpling",
-  "url": "tydumpling.com",
-  "teacher": {
-  	"name": "tydumpling",
+const hd = {
+  title: 'tydumpling',
+  url: 'tydumpling.com',
+  teacher: {
+  	name: 'tydumpling',
   }
 }
-console.log(JSON.stringify(hd, null, 4));
+console.log(JSON.stringify(hd, null, 4))
 ```
 
 为数据添加 `toJSON` 方法来自定义返回格式
 
 ```js
-let hd = {
-    "title": "tydumpling",
-    "url": "tydumpling.com",
-    "teacher": {
-        "name": "tydumpling",
-    },
-    "toJSON": function () {
-        return {
-            "title": this.url,
-            "name": this.teacher.name
-        };
+const hd = {
+  title: 'tydumpling',
+  url: 'tydumpling.com',
+  teacher: {
+    name: 'tydumpling',
+  },
+  toJSON() {
+    return {
+      title: this.url,
+      name: this.teacher.name
     }
+  }
 }
-console.log(JSON.stringify(hd)); //{"title":"tydumpling.com","name":"tydumpling"}
+console.log(JSON.stringify(hd)) // {"title":"tydumpling.com","name":"tydumpling"}
 ```
 
 ### 反序列化
@@ -1789,36 +1789,36 @@ console.log(JSON.stringify(hd)); //{"title":"tydumpling.com","name":"tydumpling"
 使用 `JSON.parse` 将字符串 `json` 解析成对象
 
 ```js
-let hd = {
-  "title": "tydumpling",
-  "url": "tydumpling.com",
-  "teacher": {
-  	"name": "tydumpling",
+const hd = {
+  title: 'tydumpling',
+  url: 'tydumpling.com',
+  teacher: {
+  	name: 'tydumpling',
   }
 }
-let jsonStr = JSON.stringify(hd);
-console.log(JSON.parse(jsonStr));
+const jsonStr = JSON.stringify(hd)
+console.log(JSON.parse(jsonStr))
 ```
 
 使用第二个参数函数来对返回的数据二次处理
 
 ```js
-let hd = {
-  title: "tydumpling",
-  url: "tydumpling.com",
+const hd = {
+  title: 'tydumpling',
+  url: 'tydumpling.com',
   teacher: {
-    name: "tydumpling"
+    name: 'tydumpling'
   }
-};
-let jsonStr = JSON.stringify(hd);
+}
+const jsonStr = JSON.stringify(hd)
 console.log(
   JSON.parse(jsonStr, (key, value) => {
-    if (key == "title") {
-      return `[推荐] ${value}`;
-    }
-    return value;
+    if (key == 'title')
+      return `[推荐] ${value}`
+
+    return value
   })
-);
+)
 ```
 
 ## Reflect

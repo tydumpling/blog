@@ -23,28 +23,23 @@
 **代码**
 
 ```vue
-<template>
-  <div id="app">
-    <div class="excel-content" v-html="excelHTML"></div>
-  </div>
-</template>
-
 <script>
-import { read, utils } from "xlsx";
+import { read, utils } from 'xlsx'
+
 export default {
   data() {
     return {
       excelHTML: ''
-    };
+    }
   },
   methods: {
     change(e) {
-      let file = e.target.files[0] // 读取文件数据
+      const file = e.target.files[0] // 读取文件数据
       file.arrayBuffer().then((res) => {
         const wb = read(res) // 读取数据
 
         const sheet1 = wb.Sheets.Sheet1 // 取表，为一个对象
-      
+
         const data = utils.sheet_to_json(sheet1) // utils的方法，可以把获取到的混乱的数据转为数组的形式
         const html = utils.sheet_to_html(sheet1) // utils的方法，可以把获取到的混乱的数据转为html
 
@@ -52,8 +47,14 @@ export default {
       })
     }
   },
-};
+}
 </script>
+
+<template>
+  <div id="app">
+    <div class="excel-content" v-html="excelHTML" />
+  </div>
+</template>
 ```
 
 > 注意：
@@ -75,43 +76,44 @@ export default {
 **代码**
 
 ```vue
-<template>
-  <div id="app">
-    <div class="excel-content" v-html="excelHTML"></div>
-  </div>
-</template>
-
 <script>
-import { writeFile, utils } from "xlsx";
+import { utils, writeFile } from 'xlsx'
+
 export default {
   data() {
     return {
       excelHTML: ''
-    };
+    }
   },
   methods: {
     createExcel() {
       // 转换data数组数据
-      let data = [
-          {name: 'tydumpling', age: 18},
-          {name: 'xiaodao', age: 20},
-          {name: 'duyidao', age: 23},
+      const data = [
+        { name: 'tydumpling', age: 18 },
+        { name: 'xiaodao', age: 20 },
+        { name: 'duyidao', age: 23 },
       ]
       const ws = utils.json_to_sheet(data)
       const wb = utils.book_new()
-      utils.book_append_sheet(wb,ws, 'sheet1')
+      utils.book_append_sheet(wb, ws, 'sheet1')
       wirteFile(wb, 'test.xlsx')
 
       // 转换table dom
       const tableDom = this.$refs.table // 获取节点
       const tableWs = utils.table_to_sheet(tableDom)
       const wb2 = utils.book_new()
-      utils.book_append_sheet(wb2,tableWs, 'sheet1')
+      utils.book_append_sheet(wb2, tableWs, 'sheet1')
       wirteFile(wb2, 'tableTest.xlsx')
     }
   },
-};
+}
 </script>
+
+<template>
+  <div id="app">
+    <div class="excel-content" v-html="excelHTML" />
+  </div>
+</template>
 ```
 
 ### 第三方库实现在线预览
@@ -144,7 +146,7 @@ export default {
     const fr = file.FileReader()
     fr.readAsDataURL(file)
     fr.onload = (e) => {
-        this.excelSrc = e.target.result
+      this.excelSrc = e.target.result
     }
     ```
   3. 本地资源，放在public内直接通过路径传递即可
@@ -182,12 +184,12 @@ export default {
 - 获取 `input` 框上传的文件，转为 `dataurl` 格式即可
 
   ```js
-  const changeFn = e => {
+  function changeFn(e) {
     const file = e.data.files[0]
     const fr = new FileReader()
     fr.readAsDataURL(file)
     fr.onload = (e) => {
-        this.wordSrc = e.target.result
+      this.wordSrc = e.target.result
     }
   }
   ```

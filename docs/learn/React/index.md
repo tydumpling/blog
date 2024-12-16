@@ -122,7 +122,7 @@ jsx 全称:  `JavaScript XML`，是 react 定义的一种类似于 XML 的 JS �
 用来简化创建虚拟 DOM，写法如下：
 
 ```jsx
-var ele = <h1> Hello JSX!</h1>
+const ele = <h1> Hello JSX!</h1>
 ```
 
 > 注意
@@ -174,7 +174,7 @@ var ele = <h1> Hello JSX!</h1>
    // 1.创建虚拟DOM
    const vDOM = (
      <h1 className="title" id={myId.toLowerCase()}>
-       <span style={{color: '#eee', fontSize: '14px'}}>{myContent.toLowerCase()}</span>
+       <span style={{ color: '#eee', fontSize: '14px' }}>{myContent.toLowerCase()}</span>
      </h1>
    )
    ```
@@ -186,10 +186,10 @@ var ele = <h1> Hello JSX!</h1>
    const vDOM = (
      <div>
          <h1 className="title" id={myId.toLowerCase()}>
-           <span style={{color: '#eee', fontSize: '14px'}}>{myContent.toLowerCase()}</span>
+           <span style={{ color: '#eee', fontSize: '14px' }}>{myContent.toLowerCase()}</span>
          </h1>
        <h2 className="title" id={myId.toUpperCase()}>
-           <span style={{color: '#eee', fontSize: '14px'}}>{myContent.toLowerCase()}</span>
+           <span style={{ color: '#eee', fontSize: '14px' }}>{myContent.toLowerCase()}</span>
          </h2>
      </div>
    )
@@ -260,7 +260,7 @@ const vDom = (
 发现 jsx 自动帮我们循环遍历数组获取数据渲染页面上了，如果换成对象又会有什么效果呢？尝试一下
 
 ```jsx
-const data1 = {a:'vue', b:'react', c:'uniapp'}
+const data1 = { a: 'vue', b: 'react', c: 'uniapp' }
 // 创建虚拟DOM
 const vDom = (
   <div>
@@ -303,7 +303,7 @@ const vDom = (
     <h1>tydumpling学前端</h1>
     <ul>
       {
-        data.map(item => {
+        data.map((item) => {
           return <li>{item}</li>
         })
       }
@@ -326,7 +326,7 @@ const vDom = (
     <h1>tydumpling学前端</h1>
     <ul>
       {
-        data.map(item => {
+        data.map((item) => {
           return <li key={index}>{item}</li>
         })
       }
@@ -574,11 +574,11 @@ class A {
 
 ```jsx
 <div onclick="clickFn()">
-  今天天气很{this.state.isHot ? '炎热':'凉爽'}
+  今天天气很{this.state.isHot ? '炎热' : '凉爽'}
 </div>
 
 function clickFn(params) {
-   console.log('click')
+  console.log('click')
 }
 ```
 
@@ -600,19 +600,20 @@ Warning: Expected `onClick` listener to be a function, instead got a value of `s
 class Weather extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {isHot: true}
+    this.state = { isHot: true }
   }
+
   render() {
     return (
       <div onClick={clickFn}>
-        今天天气很{this.state.isHot ? '炎热':'凉爽'}
+        今天天气很{this.state.isHot ? '炎热' : '凉爽'}
       </div>
     )
   }
 }
 
 function clickFn() {
-   console.log('click')
+  console.log('click')
 }
 ```
 
@@ -628,19 +629,20 @@ class Weather extends React.Component {
   constructor(props) {
     super(props)
     that = this
-    this.state = {isHot: true}
+    this.state = { isHot: true }
   }
+
   render() {
     return (
       <div onClick={clickFn}>
-        今天天气很{this.state.isHot ? '炎热':'凉爽'}
+        今天天气很{this.state.isHot ? '炎热' : '凉爽'}
       </div>
     )
   }
 }
 
 function clickFn() {
-   console.log(that)
+  console.log(that)
 }
 ```
 
@@ -652,8 +654,9 @@ function clickFn() {
 class Weather extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {isHot: true}
+    this.state = { isHot: true }
   }
+
   render() {
     return (
       <div onClick={this.clickFn}>
@@ -661,6 +664,7 @@ class Weather extends React.Component {
       </div>
     )
   }
+
   clickFn() {
     console.log(this)
   }
@@ -740,9 +744,10 @@ demo1()
 class Weather extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {isHot: true}
+    this.state = { isHot: true }
     this.my_clickFn = this.clickFn.bind(this) // 类本身没有clickFn函数，往原型上找，找到了，修改this指向为类自身（原函数this指向是调用者），赋值给新函数
   }
+
   render() {
     return (
       <div onClick={this.my_clickFn}>
@@ -750,6 +755,7 @@ class Weather extends React.Component {
       </div>
     )
   }
+
   clickFn() {
     console.log(this)
   }
@@ -765,8 +771,8 @@ class Weather extends React.Component {
 写法如下所示：
 
 ```jsx
-const {isHot} = this.state
-this.setState({isHot: !isHot})
+const { isHot } = this.state
+this.setState({ isHot: !isHot })
 ```
 
 现在点击后页面数据能够切换了。
@@ -840,7 +846,7 @@ my_clickFn = () => {
 ```jsx
 class Person extends React.Component {
   render() {
-    const {name, age, sex} = this.props
+    const { name, age, sex } = this.props
     return (
       <ul>
         <li>{name}</li>
@@ -881,7 +887,7 @@ ReactDOM.render(<Person name="tydumpling" age="23" sex="男"/>, document.querySe
 在 `react` 中，通过 `react` 和 `babel` 处理，让我们也能在组件上使用该语法批量传参，代码如下所示：
 
 ```jsx
-const p = {name: 'tydumpling', age: 18, sex: '🚹'}
+const p = { name: 'tydumpling', age: 18, sex: '🚹' }
 ReactDOM.render(<Person {...p}/>, document.querySelector('#test1'))
 ```
 
@@ -1000,11 +1006,11 @@ class A extends React.Component {
 
 ```jsx
 function Person(props) {
-    return (
+  return (
         <ul>
             <li>{props}</li>
         </ul>
-    )
+  )
 }
 
 Person.propType = {
@@ -1040,17 +1046,18 @@ class A extends React.Component {
     const { input1 } = this.refs
     alert(input1.value)
   }
-  
+
   showDataFn = () => {
     const { input2 } = this.refs
     alert(input2.value)
   }
+
   render() {
     return (
       <div>
         <input ref="input1" id="input1" type="text" />
-        <button onClick={this.showFn}>点我</button>  
-        <input ref="input2" id="input2" type="text" onBlur={showDataFn} />  
+        <button onClick={this.showFn}>点我</button>
+        <input ref="input2" id="input2" type="text" onBlur={showDataFn} />
       </div>
     )
   }
@@ -1066,7 +1073,7 @@ class A extends React.Component {
 通过一个回调函数，形参获取到 `ref` ，代码如下：
 
 ```jsx
-<input ref={(a) => {console.log(a);}} id="input1" type="text" />
+<input ref={(a) => { console.log(a) }} id="input1" type="text" />
 ```
 
 查看打印， `a` 为当前 DOM 节点。因此可以把获取到的值保存下来。
@@ -1074,15 +1081,16 @@ class A extends React.Component {
 ```jsx
 class A extends React.Component {
   showFn = () => {
-    const {input1} = this
+    const { input1 } = this
     alert(input1.value)
   }
+
   render() {
     return (
       <div>
         <input ref={a => this.input1 = a} id="input1" type="text" />
-        <button onClick={this.showFn}>点我</button>  
-        <input ref="input2" id="input2" type="text" />  
+        <button onClick={this.showFn}>点我</button>
+        <input ref="input2" id="input2" type="text" />
       </div>
     )
   }
@@ -1098,19 +1106,20 @@ class A extends React.Component {
 > ```jsx
 > class A extends React.Component {
 >   showFn = () => {
->     const {input1} = this
+>     const { input1 } = this
 >     alert(input1.value)
 >   }
->   
->   myInput = e => {
->       this.input1 = e
+> 
+>   myInput = (e) => {
+>     this.input1 = e
 >   }
+> 
 >   render() {
 >     return (
 >       <div>
 >         <input ref={this.myInput} id="input1" type="text" />
->         <button onClick={this.showFn}>点我</button>  
->         <input ref="input2" id="input2" type="text" />  
+>         <button onClick={this.showFn}>点我</button>
+>         <input ref="input2" id="input2" type="text" />
 >       </div>
 >     )
 >   }
@@ -1126,10 +1135,10 @@ class A extends React.Component {
 ```jsx
 class A extends React.Component {
   showFn = () => {
-    const {myInput} = this
+    const { myInput } = this
     alert(myInput.current.value)
   }
-  
+
   myInput = React.createRef()
   render() {
     return (
@@ -1178,7 +1187,7 @@ class A extends React.Component {
 3. 使用则通过其 `current` 获取
    ```jsx
    showFn = () => {
-       console.log(this.myRef.current.value)
+     console.log(this.myRef.current.value)
    }
    ```
 
@@ -1202,12 +1211,12 @@ class A extends React.Component {
 ```jsx
 // 初始化state
 state = {
-    username: ''
+  username: ''
 }
 
 // 保存用户名
-demo = e => {
-    this.setState({username: e.target.value})
+demo = (e) => {
+  this.setState({ username: e.target.value })
 }
 
 <input onChange={this.demo} />
@@ -1220,9 +1229,9 @@ demo = e => {
 现用现取，直接从自身的 DOM 元素绑定的 `ref` 获取值。
 
 ```jsx
-handleSubmit = e => {
-    e.preventDefault()
-    const {username} = this
+handleSubmit = (e) => {
+  e.preventDefault()
+  const { username } = this
 }
 
 <form onSubmit={this.handleSubmit}>
@@ -1275,37 +1284,37 @@ handleSubmit = e => {
 
 ```jsx
 class A extends React.Component {
-    state = {
-        carName = '奔驰'
-    }
+  state = {
+    carName = '奔驰'
+  }
 
-changeCarFn = () => {
-    this.setState({carName: '迈巴赫'})
-}
+  changeCarFn = () => {
+    this.setState({ carName: '迈巴赫' })
+  }
 
-    render() {
-          return (
+  render() {
+    return (
             <div>
                 A
                 <B carName={this.state.carName} />
                 <button onClick={this.changeCarFn}>点我换车</button>
             </div>
-          )
-    }
+    )
+  }
 }
 
 class B extends React.Component {
-    componentWillReceiveProps() {
-        console.log('componentWillReceiveProps')
-    }
-    
-    render() {
-          return (
+  componentWillReceiveProps() {
+    console.log('componentWillReceiveProps')
+  }
+
+  render() {
+    return (
             <div>
                 B：this.props.carName
             </div>
-          )
-    }
+    )
+  }
 }
 ```
 
@@ -1342,15 +1351,15 @@ class B extends React.Component {
 
 ```jsx
 class A extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    
-    getDerivedStateFromProp() {
-        console.log('getDerivedStateFromProp')
-    }
-    
-    // ...
+  constructor(props) {
+    super(props)
+  }
+
+  getDerivedStateFromProp() {
+    console.log('getDerivedStateFromProp')
+  }
+
+  // ...
 }
 ```
 
@@ -1362,15 +1371,15 @@ class A extends React.Component {
 
 ```jsx
 class A extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    
-    static getDerivedStateFromProp() {
-        console.log('getDerivedStateFromProp')
-    }
-    
-    // ...
+  constructor(props) {
+    super(props)
+  }
+
+  static getDerivedStateFromProp() {
+    console.log('getDerivedStateFromProp')
+  }
+
+  // ...
 }
 ```
 
@@ -1388,15 +1397,15 @@ class A extends React.Component {
 
 ```jsx
 class A extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    
-    getSnapshotBeforeUpdate() {
-        console.log('getSnapshotBeforeUpdate')
-    }
-    
-    // ...
+  constructor(props) {
+    super(props)
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log('getSnapshotBeforeUpdate')
+  }
+
+  // ...
 }
 ```
 

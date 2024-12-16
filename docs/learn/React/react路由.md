@@ -247,7 +247,7 @@ ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.querySelector('
   ```jsx
   export class Son extends Component {
     render() {
-      const {id, title} = this.props.match.params
+      const { id, title } = this.props.match.params
     }
   }
   ```
@@ -269,23 +269,23 @@ ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.querySelector('
   
   引入 `querystring` 后转换格式，示例代码如下：
   ```jsx
-  import qs from 'querystring'
+  import qs from 'node:querystring'
   
   const url = this.props.location.search.slice(0, 1)
-  const {id, title} = qs.parse(url)
+  const { id, title } = qs.parse(url)
   ```
 - state传参
   
   在 `<Link />` 组件中为 `to` 设置对象，其中 `pathname` 对应路由路径，`state` 对应参数，代码如下所示：
   ```jsx
-  <Link to={{pathname: '/home/news', state: {id: item.id, title: item.title}}}></Link>
+  <Link to={{ pathname: '/home/news', state: { id: item.id, title: item.title } }}></Link>
   ```
   
   组件中通过 `location` 对象下的 `state` 参数获取，前面传了一个对象，这里获取到的就是那个对象。代码如下所示：
   ```jsx
   export class Son extends Component {
     render() {
-      const {id, title} = this.props.location.state || {}
+      const { id, title } = this.props.location.state || {}
     }
   }
   ```
@@ -500,7 +500,7 @@ class A extends Component {
 - state
   1. 路由链接(携带参数)：
      ```jsx
-     <Link to={{pathname:'/demo/test',state:{name:'tom',age:18}}}>详情</Link>
+     <Link to={{ pathname: '/demo/test', state: { name: 'tom', age: 18 } }}>详情</Link>
      ```
   2. 注册路由(无需声明，正常注册即可)：
      ```jsx

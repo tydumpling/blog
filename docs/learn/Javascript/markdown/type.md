@@ -14,24 +14,24 @@
 可以使用 typeof 用于判断数据的类型
 
 ```js
-let a = 1;
-console.log(typeof a); //number
+const a = 1
+console.log(typeof a) // number
 
-let b = "1";
-console.log(typeof b); //string
+const b = '1'
+console.log(typeof b) // string
 
-//未赋值或不存在的变量返回undefined
-var hd;
-console.log(typeof hd);
+// 未赋值或不存在的变量返回undefined
+let hd
+console.log(typeof hd)
 
 function run() {}
-console.log(typeof run); //function
+console.log(typeof run) // function
 
-let c = [1, 2, 3];
-console.log(typeof c); //object
+const c = [1, 2, 3]
+console.log(typeof c) // object
 
-let d = { name: "tydumpling.com" };
-console.log(typeof d); //object
+const d = { name: 'tydumpling.com' }
+console.log(typeof d) // object
 ```
 
 ### instanceof
@@ -41,20 +41,20 @@ console.log(typeof d); //object
 也可以理解为是否为某个对象的实例，`typeof`不能区分数组，但`instanceof`则可以。
 
 ```js
-let hd = [];
-let tydumpling = {};
-console.log(hd instanceof Array); //true
-console.log(tydumpling instanceof Array); //false
+let hd = []
+const tydumpling = {}
+console.log(Array.isArray(hd)) // true
+console.log(Array.isArray(tydumpling)) // false
 
-let c = [1, 2, 3];
-console.log(c instanceof Array); //true
+const c = [1, 2, 3]
+console.log(Array.isArray(c)) // true
 
-let d = { name: "tydumpling.com" };
-console.log(d instanceof Object); //true
+const d = { name: 'tydumpling.com' }
+console.log(d instanceof Object) // true
 
 function User() {}
-let hd = new User();
-console.log(hd instanceof User); //true
+let hd = new User()
+console.log(hd instanceof User) // true
 ```
 
 ### 值类型与对象
@@ -62,18 +62,18 @@ console.log(hd instanceof User); //true
 下面是使用字面量与对象方法创建字符串，返回的是不同类型。
 
 ```js
-let hd = "tydumpling";
-let cms = new String("duyidao");
-console.log(typeof hd, typeof cms); //string object
+const hd = 'tydumpling'
+const cms = new String('duyidao')
+console.log(typeof hd, typeof cms) // string object
 ```
 
 只有对象才有方法使用，但在`JS`中也可以使用值类型调用方法，因为它会在执行时将值类型转为对象。
 
 ```js
-let hd = "tydumpling";
-let cms = new String("duyidao");
-console.log(hd.length); //9
-console.log(cms.length); //5
+const hd = 'tydumpling'
+const cms = new String('duyidao')
+console.log(hd.length) // 9
+console.log(cms.length) // 5
 ```
 
 ## 基本数据类型
@@ -87,18 +87,18 @@ console.log(cms.length); //5
 使用对象形式创建字符串
 
 ```js
-let hd = new String('tydumpling');
+const hd = new String('tydumpling')
 // 获取字符串长度
-console.log(hd.length);
+console.log(hd.length)
 // 获取字符串
-console.log(hd.toString());
+console.log(hd.toString())
 ```
 
 字符串使用单、双引号包裹，单、双引号使用结果没有区别。
 
 ```js
-let content = 'tydumpling';
-console.log(content);
+const content = 'tydumpling'
+console.log(content)
 ```
 
 #### 转义符号
@@ -106,8 +106,8 @@ console.log(content);
 有些字符有双层含义，需要使用 `\` 转义符号进行含义转换。下例中引号为字符串边界符，如果输出引号时需要使用转义符号。
 
 ```js
-let content = 'tydumpling \'xiaodao.com\'';
-console.log(content);
+const content = 'tydumpling \'xiaodao.com\''
+console.log(content)
 ```
 
 常用转义符号列表如下
@@ -125,17 +125,17 @@ console.log(content);
 使用 `+` 可以连接多个内容组合成字符串，经常用于组合输出内容使用。
 
 ```js
-let year = 2010,
-name = 'tydumpling';
-console.log(name + '成立于' + year + '年');
+const year = 2010
+const name = 'tydumpling'
+console.log(`${name}成立于${year}年`)
 ```
 
 使用 `+=` 在字符串上追回字符内容
 
 ```js
-let web = 'tydumpling';
-web += '网址：duyidao.com';
-console.log(web); //tydumpling网址：duyidao.com
+let web = 'tydumpling'
+web += '网址：duyidao.com'
+console.log(web) // tydumpling网址：duyidao.com
 ```
 
 #### 模板字面量
@@ -143,23 +143,23 @@ console.log(web); //tydumpling网址：duyidao.com
 使用反引号符号包裹的字符串中可以写入引入变量与表达式，引入方式为 `${}` 。
 
 ```js
-let url = 'tydumpling.com';
-console.log(`tydumpling网址是${url}`); //tydumpling网址是duyidao.com
+const url = 'tydumpling.com'
+console.log(`tydumpling网址是${url}`) // tydumpling网址是duyidao.com
 ```
 
 支持换行操作不会产生错误
 
 ```js
-let url = 'tydumpling.com';
+const url = 'tydumpling.com'
 document.write(`tydumpling网址是${url}
-大家可以在网站上学习到很多技术知识`);
+大家可以在网站上学习到很多技术知识`)
 ```
 
 使用表达式
 
 ```js
 function show(title) {
-	return `tydumpling`;
+  return 'tydumpling'
 }
 console.log(`${show()}`)
 ```
@@ -169,18 +169,18 @@ console.log(`${show()}`)
 ![image-20191011025107379](https://doc.tydumpling.com/assets/img/image-20191011025107379.418bb650.png)
 
 ```js
-let lessons = [
-	{title: '媒体查询响应式布局'},{title: 'FLEX 弹性盒模型'},{title: 'GRID 栅格系统'}
-];
+const lessons = [
+  { title: '媒体查询响应式布局' }, { title: 'FLEX 弹性盒模型' }, { title: 'GRID 栅格系统' }
+]
 
 function template() {
   return `<ul>
-      ${lessons.map((item)=>`
+      ${lessons.map(item => `
           <li>${item.title}</li>
       `).join('')}
-  </ul>`;
+  </ul>`
 }
-document.body.innerHTML = template();
+document.body.innerHTML = template()
 ```
 
 #### 标签模板
@@ -188,49 +188,49 @@ document.body.innerHTML = template();
 标签模板是提取出普通字符串与变量，交由标签函数处理
 
 ```js
-let lesson = 'css';
-let web = 'tydumpling';
-tag `访问${web}学习${lesson}前端知识`;
+const lesson = 'css'
+const web = 'tydumpling'
+tag`访问${web}学习${lesson}前端知识`
 
 function tag(strings, ...values) {
-    console.log(strings); //["访问", "学习", "前端知识"]
-    console.log(values); // ["tydumpling", "css"]
+  console.log(strings) // ["访问", "学习", "前端知识"]
+  console.log(values) // ["tydumpling", "css"]
 }
 ```
 
 下面例子将标题中有tydumpling的使用标签模板加上链接
 
 ```js
-let lessons = [
-  { title: "tydumpling媒体查询响应式布局", author: "tydumpling向军" },
-  { title: "FLEX 弹性盒模型", author: "tydumpling" },
-  { title: "GRID 栅格系统tydumpling教程", author: "古老师" }
-];
+const lessons = [
+  { title: 'tydumpling媒体查询响应式布局', author: 'tydumpling向军' },
+  { title: 'FLEX 弹性盒模型', author: 'tydumpling' },
+  { title: 'GRID 栅格系统tydumpling教程', author: '古老师' }
+]
 
 function links(strings, ...vars) {
   return strings
     .map((str, key) => {
       return (
-        str +
-        (vars[key]
+        str
+        + (vars[key]
           ? vars[key].replace(
-              "tydumpling",
-              `<a href="https://www.tydumpling.com">tydumpling</a>`
-            )
-          : "")
-      );
+            'tydumpling',
+            '<a href="https://www.tydumpling.com">tydumpling</a>'
+          )
+          : '')
+      )
     })
-    .join("");
+    .join('')
 }
 
 function template() {
   return `<ul>
     ${lessons
       .map(item => links`<li>${item.author}:${item.title}</li>`)
-      .join("")}
-</ul>`;
+      .join('')}
+</ul>`
 }
-document.body.innerHTML += template();
+document.body.innerHTML += template()
 ```
 
 #### 字符串方法
@@ -240,7 +240,7 @@ document.body.innerHTML += template();
 使用`length`属性可以获取字符串长度
 
 ```js
-console.log("tydumpling.com".length)
+console.log('tydumpling.com'.length)
 ```
 
 ##### 大小写转换
@@ -248,13 +248,13 @@ console.log("tydumpling.com".length)
 将字符转换成大写格式
 
 ```js
-console.log('tydumpling.com'.toUpperCase()); //duyidao.COM
+console.log('tydumpling.com'.toUpperCase()) // duyidao.COM
 ```
 
 转字符为小写格式
 
 ```js
-console.log('tydumpling.com'.toLowerCase()); //tydumpling.com
+console.log('tydumpling.com'.toLowerCase()) // tydumpling.com
 ```
 
 ##### 移除空白
@@ -262,18 +262,18 @@ console.log('tydumpling.com'.toLowerCase()); //tydumpling.com
 使用`trim`删除字符串左右的空白字符
 
 ```js
-let str = '   tydumpling.com  ';
-console.log(str.length);
-console.log(str.trim().length);
+const str = '   tydumpling.com  '
+console.log(str.length)
+console.log(str.trim().length)
 ```
 
 使用`trimLeft`删除左边空白，使用`trimRight`删除右边空白
 
 ```js
-let name = " tydumpling ";
-console.log(name); // " tydumpling "
-console.log(name.trimLeft()); // "tydumpling "
-console.log(name.trimRight()); // " tydumpling"
+const name = ' tydumpling '
+console.log(name) // " tydumpling "
+console.log(name.trimLeft()) // "tydumpling "
+console.log(name.trimRight()) // " tydumpling"
 ```
 
 ##### 获取单字符
@@ -298,23 +298,23 @@ console.log('tydumpling'[3]) // d
 - `slice`、`substr` 仅有一个参数且该参数为负数，则从后面找起，`substring` 无法读取负数，会默认为0，抓取全部
 
 ```js
-let hd = 'tydumpling.com';
-console.log(hd.slice(3)); //dao.com
-console.log(hd.substr(3)); //dao.com
-console.log(hd.substring(3)); //dao.com
+const hd = 'tydumpling.com'
+console.log(hd.slice(3)) // dao.com
+console.log(hd.substr(3)) // dao.com
+console.log(hd.substring(3)) // dao.com
 
-console.log(hd.slice(3, 6)); //dao
-console.log(hd.substring(3, 6)); //dao
-console.log(hd.substring(3, 0)); //dao 较小的做为起始位置
-console.log(hd.substr(3, 6)); //dao.
+console.log(hd.slice(3, 6)) // dao
+console.log(hd.substring(3, 6)) // dao
+console.log(hd.substring(3, 0)) // dao 较小的做为起始位置
+console.log(hd.substr(3, 6)) // dao.
 
-console.log(hd.slice(-2));//om 从末尾取
-console.log(hd.substr(-2));//om 从末尾取
-console.log(hd.substring(-2));//tydumpling.com 获取全部
+console.log(hd.slice(-2))// om 从末尾取
+console.log(hd.substr(-2))// om 从末尾取
+console.log(hd.substring(-2))// tydumpling.com 获取全部
 
-console.log(hd.slice(3, -1)); //dao.co 第二个为负数表示从后面算的字符
-console.log(hd.substring(3, -9)); //dao 负数转为0
-console.log(hd.substr(-3, 2)); //co 从后面第三个开始取两个
+console.log(hd.slice(3, -1)) // dao.co 第二个为负数表示从后面算的字符
+console.log(hd.substring(3, -9)) // dao 负数转为0
+console.log(hd.substr(-3, 2)) // co 从后面第三个开始取两个
 ```
 
 ##### 查找字符串
@@ -322,56 +322,56 @@ console.log(hd.substr(-3, 2)); //co 从后面第三个开始取两个
 从开始获取字符串位置，检测不到时返回 `-1`
 
 ```js
-console.log('tydumpling.com'.indexOf('o')); //2
-console.log('tydumpling.com'.indexOf('o', 3)); //5 从第3个字符向后搜索
+console.log('tydumpling.com'.indexOf('o')) // 2
+console.log('tydumpling.com'.indexOf('o', 3)) // 5 从第3个字符向后搜索
 ```
 
 从结尾来搜索字符串位置
 
 ```js
-console.log('tydumpling.com'.lastIndexOf('o')); //8
-console.log('tydumpling.com'.lastIndexOf('o', 7)); //3 从第7个字符向前搜索
+console.log('tydumpling.com'.lastIndexOf('o')) // 8
+console.log('tydumpling.com'.lastIndexOf('o', 7)) // 3 从第7个字符向前搜索
 ```
 
 `search()` 方法用于检索字符串中指定的子字符串，也可以使用正则表达式搜索
 
 ```js
-let str = "tydumpling.com";
-console.log(str.search("com")); // 7
-console.log(str.search(/\.com/i)); // 6
+const str = 'tydumpling.com'
+console.log(str.search('com')) // 7
+console.log(str.search(/\.com/i)) // 6
 ```
 
 `includes` 字符串中是否包含指定的值，第二个参数指查找开始位置
 
 ```js
-console.log('tydumpling.com'.includes('o')); //true
-console.log('tydumpling.com'.includes('h', 11)); //true
+console.log('tydumpling.com'.includes('o')) // true
+console.log('tydumpling.com'.includes('h', 11)) // true
 ```
 
 `startsWith` 是否是指定位置开始，第二个参数为查找的开始位置。
 
 ```js
-console.log('tydumpling.com'.startsWith('d')); //true
-console.log('tydumpling.com'.startsWith('a')); //false
-console.log('tydumpling.com'.startsWith('o', 1)); //true
+console.log('tydumpling.com'.startsWith('d')) // true
+console.log('tydumpling.com'.startsWith('a')) // false
+console.log('tydumpling.com'.startsWith('o', 1)) // true
 ```
 
 `endsWith` 是否是指定位置结束，第二个参数为查找的结束位置。
 
 ```js
-console.log('tydumpling.com'.endsWith('com')); //true
-console.log('tydumpling.com'.endsWith('o', 2)); //true
+console.log('tydumpling.com'.endsWith('com')) // true
+console.log('tydumpling.com'.endsWith('o', 2)) // true
 ```
 
 下面是查找关键词的示例
 
 ```js
-const words = ["vite", "project"];
-const title = "欢迎查看tydumpling博客vite与project模块";
-const status = words.some(word => {
-  return title.includes(word);
-});
-console.log(status);
+const words = ['vite', 'project']
+const title = '欢迎查看tydumpling博客vite与project模块'
+const status = words.some((word) => {
+  return title.includes(word)
+})
+console.log(status)
 ```
 
 ##### 替换字符串
@@ -379,36 +379,36 @@ console.log(status);
 `replace` 方法用于字符串的替换操作
 
 ```js
-let name = "tydumpling.com";
-web = name.replace("tydumpling", "duyidao");
-console.log(web); // duyidao.com
+const name = 'tydumpling.com'
+web = name.replace('tydumpling', 'duyidao')
+console.log(web) // duyidao.com
 ```
 
 默认只替换一次，如果全局替换需要使用正则（更强大的使用会在正则表达式章节介绍）
 
 ```js
-let str = "2023/02/12";
-console.log(str.replace(/\//g, "-")); // 2023-02-12
+const str = '2023/02/12'
+console.log(str.replace(/\//g, '-')) // 2023-02-12
 ```
 
 使用字符串替换来生成关键词链接
 
 ```js
-const word = ["vite", "learn"];
-const string = "tydumpling博客vite与learn模块";
+const word = ['vite', 'learn']
+const string = 'tydumpling博客vite与learn模块'
 const title = word.reduce((pre, word) => {
-  return pre.replace(word, `<a href="?w=${word}">${word}</a>`);
-}, string);
-document.body.innerHTML += title;
+  return pre.replace(word, `<a href="?w=${word}">${word}</a>`)
+}, string)
+document.body.innerHTML += title
 ```
 
 使用正则表达式完成替换
 
 ```js
-let res = "tydumpling.com".replace(/u/g, str => {
-  return "@";
-});
-console.log(res);
+const res = 'tydumpling.com'.replace(/u/g, (str) => {
+  return '@'
+})
+console.log(res)
 ```
 
 ##### 重复生成
@@ -417,16 +417,16 @@ console.log(res);
 
 ```js
 function star(num = 3) {
-	return '*'.repeat(num);
+  return '*'.repeat(num)
 }
-console.log(star()); // ***
+console.log(star()) // ***
 ```
 
 下面是模糊后三位电话号码
 
 ```js
-let phone = "98765432101";
-console.log(phone.slice(0, -3) + "*".repeat(3)); // 98765432***
+const phone = '98765432101'
+console.log(phone.slice(0, -3) + '*'.repeat(3)) // 98765432***
 ```
 
 ##### 类型转换
@@ -434,38 +434,38 @@ console.log(phone.slice(0, -3) + "*".repeat(3)); // 98765432***
 分隔字母
 
 ```js
-let name = "duyidao";
-console.log(name.split(""));
+const name = 'duyidao'
+console.log(name.split(''))
 ```
 
 将字符串转换为数组
 
 ```js
-console.log("1,2,3".split(",")); //[1,2,3]
+console.log('1,2,3'.split(',')) // [1,2,3]
 ```
 
 隐式类型转换会根据类型自动转换类型
 
 ```js
-let hd = 99 + '';
-console.log(typeof hd); //string
+const hd = `${99}`
+console.log(typeof hd) // string
 ```
 
 使用 `String` 构造函数可以显示转换字符串类型
 
 ```js
-let hd = 99;
-console.log(typeof String(hd));
+const hd = 99
+console.log(typeof String(hd))
 ```
 
 js 中大部分类型都是对象，可以使用类方法 `toString`转化为字符串
 
 ```js
-let hd = 99;
-console.log(typeof hd.toString()); //string
+const hd = 99
+console.log(typeof hd.toString()) // string
 
-let arr = ['duyidao', 'tydumpling'];
-console.log(typeof arr.toString()); //string
+const arr = ['duyidao', 'tydumpling']
+console.log(typeof arr.toString()) // string
 ```
 
 ### Boolean
@@ -477,14 +477,14 @@ console.log(typeof arr.toString()); //string
 使用对象形式创建布尔类型
 
 ```js
-console.log(new Boolean(true)); //true
-console.log(new Boolean(false)); //false
+console.log(new Boolean(true)) // true
+console.log(new Boolean(false)) // false
 ```
 
 但建议使用字面量创建布尔类型
 
 ```js
-let hd =true;
+const hd = true
 ```
 
 #### 隐式转换
@@ -506,37 +506,39 @@ let hd =true;
 如果使用 Boolean 与数值比较时，会进行隐式类型转换 true 转为 1，false 转为 0。
 
 ```js
-console.log(3 == true); //false
-console.log(0 == false); //true
+console.log(3 == true) // false
+console.log(0 == false) // true
 ```
 
 下面是一个典型的例子，字符串在与 Boolean 比较时，两边都为转换为数值类型后再进行比较。
 
 ```js
-console.log(Number("tydumpling")); //NaN
-console.log(Boolean("tydumpling")); //true
-console.log("tydumpling" == true); //false
-console.log("1" == true); //true
+console.log(Number('tydumpling')) // NaN
+console.log(Boolean('tydumpling')) // true
+console.log('tydumpling' == true) // false
+console.log('1' == true) // true
 ```
 
 数组的表现与字符串原理一样，会先转换为数值
 
 ```js
-console.log(Number([])); //0
-console.log(Number([3])); //3
-console.log(Number([1, 2, 3])); //NaN
-console.log([] == false); //true
-console.log([1] == true); //true
-console.log([1, 2, 3] == true); //false
+console.log(Number([])) // 0
+console.log(Number([3])) // 3
+console.log(Number([1, 2, 3])) // NaN
+console.log([] == false) // true
+console.log([1] == true) // true
+console.log([1, 2, 3] == true) // false
 ```
 
 引用类型的 Boolean 值为真，如对象和数组
 
 ```js
-console.log(Boolean([])); // true
-console.log(Boolean({})); // true
-if ([]) console.log("true");
-if ({}) console.log("true");
+console.log(Boolean([])) // true
+console.log(Boolean({})) // true
+if ([])
+  console.log('true')
+if ({})
+  console.log('true')
 ```
 
 #### 显式转换
@@ -544,27 +546,27 @@ if ({}) console.log("true");
 使用 `!!` 转换布尔类型
 
 ```js
-let hd = '';
-console.log(!!hd); //false
-hd = 0;
-console.log(!!hd); //false
-hd = null;
-console.log(!!hd); //false
-hd = new Date("2020-2-22 10:33");
-console.log(!!hd); //true
+let hd = ''
+console.log(!!hd) // false
+hd = 0
+console.log(!!hd) // false
+hd = null
+console.log(!!hd) // false
+hd = new Date('2020-2-22 10:33')
+console.log(!!hd) // true
 ```
 
 使用 `Boolean` 函数可以显式转换为布尔类型
 
 ```js
-let hd = '';
-console.log(Boolean(hd)); //false
-hd = 0;
-console.log(Boolean(hd)); //false
-hd = null;
-console.log(Boolean(hd)); //false
-hd = new Date("2020-2-22 10:33");
-console.log(Boolean(hd)); //true
+let hd = ''
+console.log(Boolean(hd)) // false
+hd = 0
+console.log(Boolean(hd)) // false
+hd = null
+console.log(Boolean(hd)) // false
+hd = new Date('2020-2-22 10:33')
+console.log(Boolean(hd)) // true
 ```
 
 #### 实例操作
@@ -573,10 +575,11 @@ console.log(Boolean(hd)); //true
 
 ```js
 while (true) {
-  let n = prompt("请输入tydumpling博客成立年份").trim();
-  if (!n) continue;
-  alert(n == 2023 ? "回答正确" : "答案错误！");
-  break;
+  const n = prompt('请输入tydumpling博客成立年份').trim()
+  if (!n)
+    continue
+  alert(n == 2023 ? '回答正确' : '答案错误！')
+  break
 }
 ```
 
@@ -587,15 +590,15 @@ while (true) {
 使用对象方式声明
 
 ```js
-let hd = new Number(3);
-console.log(hd+3); //6
+const hd = new Number(3)
+console.log(hd + 3) // 6
 ```
 
 Number 用于表示整数和浮点数，数字是 `Number`实例化的对象，可以使用对象提供的丰富方法。
 
 ```js
-let num = 99;
-console.log(typeof num); // number
+const num = 99
+console.log(typeof num) // number
 ```
 
 #### 基本函数
@@ -603,13 +606,13 @@ console.log(typeof num); // number
 判断是否为整数
 
 ```js
-console.log(Number.isInteger(1.2)); // false
+console.log(Number.isInteger(1.2)) // false
 ```
 
 指定返回的小数位数可以四舍五入
 
 ```js
-console.log((16.556).toFixed(2)); // 16.56
+console.log((16.556).toFixed(2)) // 16.56
 ```
 
 #### NaN
@@ -617,25 +620,24 @@ console.log((16.556).toFixed(2)); // 16.56
 表示无效的数值，下例计算将产生 NaN 结果。
 
 ```js
-console.log(Number("tydumpling")); //NaN
+console.log(Number('tydumpling')) // NaN
 
-console.log(2 / 'tydumpling'); //NaN
+console.log(2 / 'tydumpling') // NaN
 ```
 
 NaN 不能使用 `==` 比较，使用以下代码来判断结果是否正确
 
 ```js
-var res = 2 / 'tydumpling';
-if (Number.isNaN(res)) {
-	console.log('Error'); // Error
-}
+const res = 2 / 'tydumpling'
+if (Number.isNaN(res))
+  console.log('Error') // Error
 ```
 
 也可以使用 `Object.is` 方法判断两个值是否完全相同
 
 ```js
-var res = 2 / 'duyidao';
-console.log(Object.is(res, NaN)); // true
+const res = 2 / 'duyidao'
+console.log(Object.is(res, Number.NaN)) // true
 ```
 
 #### 类型转换
@@ -645,14 +647,14 @@ console.log(Object.is(res, NaN)); // true
 使用 Number 函数基本上可以转换所有类型
 
 ```js
-console.log(Number('duyidao')); //NaN
-console.log(Number(true));	//1
-console.log(Number(false));	//0
-console.log(Number('9'));	//9
-console.log(Number([]));	//0
-console.log(Number([5]));	//5
-console.log(Number([5, 2]));	//NaN
-console.log(Number({}));	//NaN
+console.log(Number('duyidao')) // NaN
+console.log(Number(true))	// 1
+console.log(Number(false))	// 0
+console.log(Number('9'))	// 9
+console.log(Number([]))	// 0
+console.log(Number([5]))	// 5
+console.log(Number([5, 2]))	// NaN
+console.log(Number({}))	// NaN
 ```
 
 **parseInt**
@@ -660,8 +662,8 @@ console.log(Number({}));	//NaN
 提取字符串开始去除空白后的数字转为整数。
 
 ```js
-console.log(parseInt('  99duyidao'));	//99
-console.log(parseInt('18.55'));	//18
+console.log(Number.parseInt('  99duyidao'))	// 99
+console.log(Number.parseInt('18.55'))	// 18
 ```
 
 **parseFloat**
@@ -669,8 +671,8 @@ console.log(parseInt('18.55'));	//18
 转换字符串为浮点数，忽略字符串前面空白字符。
 
 ```js
-console.log(parseFloat('  99duyidao'));	//99
-console.log(parseFloat('18.55'));	//18.55
+console.log(Number.parseFloat('  99duyidao'))	// 99
+console.log(Number.parseFloat('18.55'))	// 18.55
 ```
 
 比如从表单获取的数字是字符串类型需要类型转换才可以计算，下面使用乘法进行隐式类型转换。
@@ -690,7 +692,7 @@ console.log(parseFloat('18.55'));	//18.55
 使用 `toFixed` 可对数值舍入操作，参数指定保存的小数位
 
 ```js
-console.log(1.556.toFixed(2)); //1.56
+console.log(1.556.toFixed(2)) // 1.56
 ```
 
 #### 浮点精度
@@ -698,15 +700,15 @@ console.log(1.556.toFixed(2)); //1.56
 大部分编程语言在浮点数计算时都会有精度误差问题，下面来看 JS 中的表现形式
 
 ```js
-let hd = 0.1 + 0.2
+const hd = 0.1 + 0.2
 console.log(hd)// 结果：0.30000000000000004
 ```
 
 这是因为计算机以二进制处理数值类型，上面的 0.1 与 0.2 转为二进制后是无穷的
 
 ```js
-console.log((0.1).toString(2)) //0.0001100110011001100110011001100110011001100110011001101
-console.log((0.2).toString(2)) //0.001100110011001100110011001100110011001100110011001101
+console.log((0.1).toString(2)) // 0.0001100110011001100110011001100110011001100110011001101
+console.log((0.2).toString(2)) // 0.001100110011001100110011001100110011001100110011001101
 ```
 
 **处理方式**
@@ -714,22 +716,22 @@ console.log((0.2).toString(2)) //0.001100110011001100110011001100110011001100110
 一种方式使用 toFixed 方法进行小数截取
 
 ```js
-console.log((0.1 + 0.2).toFixed(2)) //0.3
+console.log((0.1 + 0.2).toFixed(2)) // 0.3
 
-console.log(1.0 - 0.9) //0.09999999999999998
-console.log((1.0 - 0.9).toFixed(2)) //0.10
+console.log(1.0 - 0.9) // 0.09999999999999998
+console.log((1.0 - 0.9).toFixed(2)) // 0.10
 ```
 
 将小数转为整数进行计算后，再转为小数也可以解决精度问题
 
 ```js
 Number.prototype.add = function (num) {
-	//取两个数值中小数位最大的
-  let n1 = this.toString().split('.')[1].length
-  let n2 = num.toString().split('.')[1].length
+  // 取两个数值中小数位最大的
+  const n1 = this.toString().split('.')[1].length
+  const n2 = num.toString().split('.')[1].length
 
-  //得到10的N次幂
-  let m = Math.pow(10, Math.max(n1, n2))
+  // 得到10的N次幂
+  const m = 10 ** Math.max(n1, n2)
 
   return (this * m + num * m) / m
 }
@@ -764,15 +766,15 @@ console.log((0.1).add(0.2))
 使用 `min` 与 `max` 可以取得最小与最大值。
 
 ```js
-console.log(Math.min(1, 2, 3));
+console.log(Math.min(1, 2, 3))
 
-console.log(Math.max(1, 2, 3));
+console.log(Math.max(1, 2, 3))
 ```
 
 使用`apply` 来从数组中取值
 
 ```js
-console.log(Math.max.apply(Math, [1, 2, 3]));
+console.log(Math.max.apply(Math, [1, 2, 3]))
 ```
 
 ### 舍入处理
@@ -780,19 +782,19 @@ console.log(Math.max.apply(Math, [1, 2, 3]));
 取最接近的向上整数
 
 ```js
-console.log(Math.ceil(1.111)); //2
+console.log(Math.ceil(1.111)) // 2
 ```
 
 得到最接近的向下整数
 
 ```js
-console.log(Math.floor(1.555)); //1
+console.log(Math.floor(1.555)) // 1
 ```
 
 四舍五入处理
 
 ```js
-console.log(Math.round(1.5)); //2
+console.log(Math.round(1.5)) // 2
 ```
 
 ### random
@@ -802,45 +804,45 @@ console.log(Math.round(1.5)); //2
 返回 0~5 的随机数，不包括 5
 
 ```js
-const number = Math.floor(Math.random() * 5);
-console.log(number);
+const number = Math.floor(Math.random() * 5)
+console.log(number)
 ```
 
 返回 0~5 的随机数，包括 5
 
 ```js
-const number = Math.floor(Math.random() * (5+1));
-console.log(number);
+const number = Math.floor(Math.random() * (5 + 1))
+console.log(number)
 ```
 
 下面取 2~5 的随机数（不包括 5）公式为：min+Math.floor(Math.random()*(Max-min))
 
 ```js
-const number = Math.floor(Math.random() * (5 - 2)) + 2;
-console.log(number);
+const number = Math.floor(Math.random() * (5 - 2)) + 2
+console.log(number)
 ```
 
 下面取 2~5 的随机数（包括 5）公式为：min+Math.floor(Math.random()*(Max-min+1))
 
 ```js
-const number = Math.floor(Math.random() * (5 - 2 + 1)) + 2;
-console.log(number);
+const number = Math.floor(Math.random() * (5 - 2 + 1)) + 2
+console.log(number)
 ```
 
 下面是随机点名的示例
 
 ```js
-let stus = ['小明', '张三', '王五', '爱情'];
-let pos = Math.floor(Math.random() * stus.length);
-console.log(stus[pos]);
+const stus = ['小明', '张三', '王五', '爱情']
+const pos = Math.floor(Math.random() * stus.length)
+console.log(stus[pos])
 ```
 
 随机取第二到第三间的学生，即 1~2 的值
 
 ```js
-let stus = ['小明', '张三', '王五', '爱情'];
-let pos = Math.floor(Math.random() * (3-1)) + 1;
-console.log(stus[pos]);
+const stus = ['小明', '张三', '王五', '爱情']
+const pos = Math.floor(Math.random() * (3 - 1)) + 1
+console.log(stus[pos])
 ```
 
 ## Date
@@ -852,53 +854,53 @@ console.log(stus[pos]);
 获取当前日期时间
 
 ```js
-let now = new Date();
-console.log(now);
-console.log(typeof date); //object
-console.log(now * 1); //获取时间戳
+const now = new Date()
+console.log(now)
+console.log(typeof date) // object
+console.log(now * 1) // 获取时间戳
 
-//直接使用函数获取当前时间
-console.log(Date());
-console.log(typeof Date()); //string
+// 直接使用函数获取当前时间
+console.log(Date())
+console.log(typeof Date()) // string
 
-//获取当前时间戳单位毫秒
-console.log(Date.now());
+// 获取当前时间戳单位毫秒
+console.log(Date.now())
 ```
 
 计算脚本执行时间
 
 ```js
-const start = Date.now();
+const start = Date.now()
 for (let i = 0; i < 2000000; i++) {}
-const end = Date.now();
-console.log(end - start);
+const end = Date.now()
+console.log(end - start)
 ```
 
 当然也可以使用控制台测试
 
 ```js
 // 这里的testFor为自定义名称，可自定义取，注意前后要一致
-console.time("testFor");
+console.time('testFor')
 for (let i = 0; i < 20000000; i++) {}
-console.timeEnd("testFor");
+console.timeEnd('testFor')
 ```
 
 根据指定的日期与时间定义日期对象
 
 ```js
-let now = new Date('2028-02-22 03:25:02');
-console.log(now);
+let now = new Date('2028-02-22 03:25:02')
+console.log(now)
 
-now = new Date(2028, 4, 5, 1, 22, 16);
-console.log(now);
+now = new Date(2028, 4, 5, 1, 22, 16)
+console.log(now)
 ```
 
 使用展示运算符处理更方便
 
 ```js
-let info = [2020, 2, 20, 10, 15, 32];
-let date = new Date(...info);
-console.dir(date);
+const info = [2020, 2, 20, 10, 15, 32]
+const date = new Date(...info)
+console.dir(date)
 ```
 
 ### 类型转换
@@ -906,24 +908,24 @@ console.dir(date);
 将日期转为数值类型就是转为时间戳单位是毫秒
 
 ```js
-let hd = new Date("2020-2-22 10:33:12");
-console.log(hd * 1);
+const hd = new Date('2020-2-22 10:33:12')
+console.log(hd * 1)
 
-console.log(Number(hd));
+console.log(Number(hd))
 
 console.log(hd.valueOf())
 
-console.log(date.getTime());
+console.log(date.getTime())
 ```
 
 有时后台提供的日期为时间戳格式，下面是将时间戳转换为标准日期的方法
 
 ```js
-const param = [1990, 2, 22, 13, 22, 19];
-const date = new Date(...param);
-const timestamp = date.getTime();
-console.log(timestamp);
-console.log(new Date(timestamp));
+const param = [1990, 2, 22, 13, 22, 19]
+const date = new Date(...param)
+const timestamp = date.getTime()
+console.log(timestamp)
+console.log(new Date(timestamp))
 ```
 
 ### 对象方法
@@ -931,16 +933,16 @@ console.log(new Date(timestamp));
 格式化输出日期
 
 ```js
-let time = new Date();
+const time = new Date()
 console.log(
   `${time.getFullYear()}-${time.getMonth()}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
-);
+)
 ```
 
 封装函数用于复用
 
 ```js
-function dateFormat(date, format = "YYYY-MM-DD HH:mm:ss") {
+function dateFormat(date, format = 'YYYY-MM-DD HH:mm:ss') {
   const config = {
     YYYY: date.getFullYear(),
     MM: date.getMonth() + 1,
@@ -948,13 +950,13 @@ function dateFormat(date, format = "YYYY-MM-DD HH:mm:ss") {
     HH: date.getHours(),
     mm: date.getMinutes(),
     ss: date.getSeconds()
-  };
-  for (const key in config) {
-    format = format.replace(key, config[key]);
   }
-  return format;
+  for (const key in config)
+    format = format.replace(key, config[key])
+
+  return format
 }
-console.log(dateFormat(new Date(), "YYYY年MM月DD日"));
+console.log(dateFormat(new Date(), 'YYYY年MM月DD日'))
 ```
 
 下面是系统提供的日期时间方法，更多方法请查看 [MDN 官网(opens new window)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date)
@@ -1023,18 +1025,18 @@ Moment.js 是一个轻量级的 JavaScript 时间库，它方便了日常开发�
 获取当前时间
 
 ```js
-console.log(moment().format("YYYY-MM-DD HH:mm:ss"));
+console.log(moment().format('YYYY-MM-DD HH:mm:ss'))
 ```
 
 设置时间
 
 ```js
-console.log(moment("2020-02-18 09:22:15").format("YYYY-MM-DD HH:mm:ss"));
+console.log(moment('2020-02-18 09:22:15').format('YYYY-MM-DD HH:mm:ss'))
 ```
 
 十天后的日期
 
 ```js
-console.log(moment().add(10, "days").format("YYYY-MM-DD hh:mm:ss"));
+console.log(moment().add(10, 'days').format('YYYY-MM-DD hh:mm:ss'))
 ```
 

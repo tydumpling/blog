@@ -5,7 +5,7 @@
 如果要希望使用 `http` 模块创建 `Web` 服务器，则需要先导入它
 
 ```js
-const http = require('http')
+const http = require('node:http')
 ```
 
 ![img](https://doc.houdunren.com/assets/img/0_bxDKfJauHG6hjB-5.d8d959b1.png)
@@ -63,7 +63,7 @@ IP地址和域名是一一对应的关系，这份对应关系存放在一种叫
 1. 导入 http 模块
 
    ```js
-   import http from 'http'
+   import http from 'node:http'
    ```
 
 2. 创建 web 服务器实例
@@ -83,8 +83,8 @@ IP地址和域名是一一对应的关系，这份对应关系存放在一种叫
    service.on('request', (req, res) => {
      console.log(req.method)
      console.log(res)
-     let str = `url:${req.url}, method:${req.method}`
-     //告之客户端数据响应完毕
+     const str = `url:${req.url}, method:${req.method}`
+     // 告之客户端数据响应完毕
      res.end(str)
    })
    ```
@@ -100,20 +100,21 @@ IP地址和域名是一一对应的关系，这份对应关系存放在一种叫
 总体代码：
 
 ```js
-import http from 'http'
-//创建服务
+import http from 'node:http'
+
+// 创建服务
 const service = http.createServer()
-//客户端请求事件
+// 客户端请求事件
 service.on('request', (req, res) => {
   console.log(req.method)
   console.log(res)
-  let str = `url:${req.url}, method:${req.method}`
-  //告之客户端数据响应完毕
+  const str = `url:${req.url}, method:${req.method}`
+  // 告之客户端数据响应完毕
   res.end(str)
 })
 
-//监听端口
-service.listen(3000,'localhost', () => {
+// 监听端口
+service.listen(3000, 'localhost', () => {
   console.log('Service: http://127.0.0.1:3000')
 })
 ```
@@ -121,15 +122,16 @@ service.listen(3000,'localhost', () => {
 或者可以换一种写法，我们通过设置 **http.createServer** 的回调函数，来监听 **request** 事件。
 
 ```js
-import http from 'http'
-//创建服务
+import http from 'node:http'
+
+// 创建服务
 const service = http.createServer((req, res) => {
   console.log(req.method)
-  //响应完成，并输出内容
+  // 响应完成，并输出内容
   res.end('tydumpling.com')
 })
 
-//监听端口
+// 监听端口
 service.listen(3000, () => {
   console.log('Service: http://127.0.0.1:3000')
 })
@@ -142,17 +144,18 @@ service.listen(3000, () => {
 下例响应 HTML 数据，并设置编码为 utf-8
 
 ```js
-import http from 'http'
-//创建服务
+import http from 'node:http'
+
+// 创建服务
 const service = http.createServer((req, res) => {
-  //设置状态码200并指定响应类型与编码
+  // 设置状态码200并指定响应类型与编码
   res.setHeader('Content-type', 'text/html;charset=utf-8')
-  let str = `你的url是：${req.url}，你的method是：${req.method}`
-  //响应数据
+  const str = `你的url是：${req.url}，你的method是：${req.method}`
+  // 响应数据
   res.end(str)
 })
 
-//监听端口
+// 监听端口
 service.listen(3000, () => {
   console.log('Service: http://127.0.0.1:3000')
 })
@@ -161,18 +164,19 @@ service.listen(3000, () => {
 通过 **res.writeHead** 同时设置状态码与响应头信息
 
 ```js
-import http from 'http'
-//创建服务
+import http from 'node:http'
+
+// 创建服务
 const service = http.createServer((req, res) => {
-  //设置头信息
+  // 设置头信息
   res.writeHead(200, {
     'Content-Type': 'application/json',
   })
-  //响应数据
+  // 响应数据
   res.end(JSON.stringify({ name: 'tydumpling', url: 'tydumpling.com' }))
 })
 
-//监听端口
+// 监听端口
 service.listen(3000, () => {
   console.log('Service: http://127.0.0.1:3000')
 })
@@ -183,7 +187,7 @@ service.listen(3000, () => {
 通过设置头信息进行页面跳转
 
 ```js
-import { createServer } from 'http'
+import { createServer } from 'node:http'
 
 const service = createServer((req, res) => {
   res.statusCode = 301
@@ -245,9 +249,9 @@ service.listen(3000, () => {
 通过设置头信息来告之浏览器，服务器端响应的是 html 数据
 
 ```js
-import { pipeline } from 'stream'
-import { createReadStream } from 'fs'
-import { createServer } from 'http'
+import { pipeline } from 'node:stream'
+import { createReadStream } from 'node:fs'
+import { createServer } from 'node:http'
 
 const service = createServer((req, res) => {
   res.writeHead(200, {
@@ -264,7 +268,7 @@ service.listen(3000)
 后端做为接口时，需要传递 JSON 数据给前端
 
 ```js
-import { createServer } from 'http'
+import { createServer } from 'node:http'
 
 const user = [{ name: '后盾人' }, { name: '向军大叔' }]
 
@@ -302,17 +306,17 @@ service.listen(3000)
 然后实现后台逻辑
 
 ```js
-import { readFileSync } from 'fs'
-import { createServer } from 'http'
+import { readFileSync } from 'node:fs'
+import { createServer } from 'node:http'
 
 const service = createServer((req, res) => {
   res.writeHead(200, { 'Content-type': 'text/html' })
 
-	//模板变量
+  // 模板变量
   const vars = { name: '后盾人' } as any
-  //加载模板
-  const template = readFileSync(__dirname + '/index.html', 'utf-8')
-  //替换模板变量
+  // 加载模板
+  const template = readFileSync(`${__dirname}/index.html`, 'utf-8')
+  // 替换模板变量
   const content = template.replace(/\{\{(.*?)\}\}/gi, (match, ...args) => {
     return vars[args[0]]
   })
@@ -332,7 +336,7 @@ service.listen(3000, () => {
 ### 基本原理
 
 ```js
-import { createServer } from 'http'
+import { createServer } from 'node:http'
 
 const users = [] as any[]
 const service = createServer((req, res) => {
@@ -340,21 +344,21 @@ const service = createServer((req, res) => {
   res.setHeader('Content-Type', 'text/html;charset=utf8')
   if (req.method == 'POST' && req.url == '/user') {
     req.on('data', (data) => {
-      //buffer 转换
+      // buffer 转换
       const user = data.toString()
-      //转为 JSON 对象保存
+      // 转为 JSON 对象保存
       users.push(JSON.parse(user))
       req.pipe(res)
     })
   }
 
-  if (req.method == 'GET' && req.url == '/user') {
+  if (req.method == 'GET' && req.url == '/user')
     res.end(JSON.stringify(users))
-  }
+
 })
 
 service.listen(3000, () => {
-  console.log(`host: http://localhost:3000`)
+  console.log('host: http://localhost:3000')
 })
 ```
 
@@ -367,21 +371,21 @@ service.listen(3000, () => {
 使用 [multiparty (opens new window)](https://www.npmjs.com/package/multiparty)包解析前端非常方便，下面使用流并结合插件 [multiparty (opens new window)](https://www.npmjs.com/package/multiparty)扩展包实现文件上传
 
 ```js
-import { createReadStream, createWriteStream, mkdirSync } from 'fs'
-import { createServer } from 'http'
+import { createReadStream, createWriteStream, mkdirSync } from 'node:fs'
+import { createServer } from 'node:http'
+import { pipeline } from 'node:stream'
 import multiparty from 'multiparty'
-import { pipeline } from 'stream'
 
 const service = createServer((req, res) => {
-  var form = new multiparty.Form()
-  form.parse(req, function (err: any, fields: any, files: any) {
-    //创建目录
+  const form = new multiparty.Form()
+  form.parse(req, (err: any, fields: any, files: any) => {
+    // 创建目录
     mkdirSync('uploads')
 
-    //将临时文件使用流保存数据
+    // 将临时文件使用流保存数据
     pipeline(
       createReadStream(files.file[0].path),
-      createWriteStream('./uploads/' + files.file[0].originalFilename),
+      createWriteStream(`./uploads/${files.file[0].originalFilename}`),
       (error) => {
         error ? console.log(error) : res.end('文件上传成功')
       },
@@ -399,9 +403,9 @@ service.listen(3000)
 ### 导入模块
 
 ```js
-const fs = require('fs')
-const path = require('path')
-const http = require('http')
+const fs = require('node:fs')
+const path = require('node:path')
+const http = require('node:http')
 ```
 
 ### 搭建服务
@@ -413,7 +417,7 @@ server.on('request', (req, res) => {
 })
 
 server.listen(80, () => {
-  console.log('已启动');
+  console.log('已启动')
 })
 ```
 
@@ -427,7 +431,8 @@ const fPath = path.join(__dirname, url)
 
 ```js
 fs.readFile(fPath, 'utf8', (err, result) => {
-  if(err) return res.end('404 not found')
+  if (err)
+    return res.end('404 not found')
   res.end(result)
 })
 ```
@@ -435,41 +440,40 @@ fs.readFile(fPath, 'utf8', (err, result) => {
 ### 路径优化
 
 ```js
-if (url === '/') {
+if (url === '/')
   fPath = path.join(__dirname, '/clock/clock.html')
-} else {
+else
   fPath = path.join(__dirname, '/clock', url)
-}
 ```
 
 ### 总体代码
 
 ```js
-const fs = require('fs')
-const path = require('path')
-const http = require('http')
+const fs = require('node:fs')
+const path = require('node:path')
+const http = require('node:http')
 
 const server = http.createServer()
 
 server.on('request', (req, res) => {
   const url = req.url
   const method = req.method
-  
+
   let fPath = ''
-  if (url === '/') {
+  if (url === '/')
     fPath = path.join(__dirname, '/clock/clock.html')
-  } else {
+  else
     fPath = path.join(__dirname, '/clock', url)
-  }
 
   fs.readFile(fPath, 'utf8', (err, result) => {
-    if(err) return res.end('404 not')
+    if (err)
+      return res.end('404 not')
     res.end(result)
   })
 })
 
 server.listen(80, () => {
-  console.log('已启动');
+  console.log('已启动')
 })
 ```
 

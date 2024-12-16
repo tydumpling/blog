@@ -30,10 +30,10 @@ title 搭建
    ```
 5. 配置 `.vitepress` 目录。所有 `VitePress` 相关的文件都将会被放在这里。创建配置文件 `.vitepress/config.js`，导出一个 `JavaScript` 对象。
    ```js
-    module.exports = {
-      title: 'Hello VitePress',
-      description: 'Just playing around.'
-    }
+   module.exports = {
+     title: 'Hello VitePress',
+     description: 'Just playing around.'
+   }
    ```
    > 这部分会在 『配置文件配置』 模块详细介绍。
 6. 运行
@@ -147,19 +147,19 @@ module.exports = {
   dest: './dist',
   head: [
     // 添加图标
-    ["link", { rel: "icon", href: "/favicon.ico" }],
-    ["meta", { property: "og:title", content: "tydumpling博客" }],
-    ["meta", { property: "og:site_name", content: "tydumpling博客" }],
-    ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:description", content: "前端教程" }],
-    ["meta", { property: "og:url", content: "https://duyidao.gitee.io/tydumpling/" }],
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['meta', { property: 'og:title', content: 'tydumpling博客' }],
+    ['meta', { property: 'og:site_name', content: 'tydumpling博客' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:description', content: '前端教程' }],
+    ['meta', { property: 'og:url', content: 'https://duyidao.gitee.io/tydumpling/' }],
   ],
   // 使用插件
   plugins: [
-    '@vuepress/active-header-links',   // 页面滚动时自动激活侧边栏链接的插件
-    '@vuepress/back-to-top',          // 返回顶部插件
-    '@vuepress/medium-zoom',          // 图片预览插件
-    '@vuepress/nprogress',        //页面顶部进度条
+    '@vuepress/active-header-links', // 页面滚动时自动激活侧边栏链接的插件
+    '@vuepress/back-to-top', // 返回顶部插件
+    '@vuepress/medium-zoom', // 图片预览插件
+    '@vuepress/nprogress', // 页面顶部进度条
   ],
   // 主题配置
   themeConfig: {
@@ -170,15 +170,15 @@ module.exports = {
     // 头部导航栏配置
     nav: [
       {
-        text: "前端知识",
+        text: '前端知识',
         items: [
-          { text: "CSS", link: "/CSS/" },
+          { text: 'CSS', link: '/CSS/' },
         ],
       },
       {
-        text: "前端项目",
+        text: '前端项目',
         items: [
-          { text: "Music", link: "/project/Music/" },
+          { text: 'Music', link: '/project/Music/' },
         ],
       },
     ],
@@ -186,13 +186,13 @@ module.exports = {
     sidebar: {
       '/learn': getLearnSidebar(),
     },
-    //社交链接
+    // 社交链接
     socialLinks: [
-      { icon: "github", link: "https://gitee.com/tydumpling" }
+      { icon: 'github', link: 'https://gitee.com/tydumpling' }
     ],
-    //页脚
+    // 页脚
     footer: {
-      copyright: "Copyright © 2023-present tydumpling",
+      copyright: 'Copyright © 2023-present tydumpling',
     },
   }
 }
@@ -236,12 +236,12 @@ module.exports = {
   dest: './dist',
   head: [
     // 添加图标
-    ["link", { rel: "icon", href: "/favicon.ico" }],
-    ["meta", { property: "og:title", content: "tydumpling博客" }],
-    ["meta", { property: "og:site_name", content: "tydumpling博客" }],
-    ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:description", content: "前端教程" }],
-    ["meta", { property: "og:url", content: "https://duyidao.gitee.io/tydumpling/" }],
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['meta', { property: 'og:title', content: 'tydumpling博客' }],
+    ['meta', { property: 'og:site_name', content: 'tydumpling博客' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:description', content: '前端教程' }],
+    ['meta', { property: 'og:url', content: 'https://duyidao.gitee.io/tydumpling/' }],
   ]
 }
 ```
@@ -250,13 +250,13 @@ module.exports = {
 正如和 vue-cli 一样，生态环境中的插件，也有着很重要的地位，我们来安装下官方的插件，为 vitePress 添加更多的功能。
 ```js
 module.exports = {
-    // ...,
-    plugins: [
-        '@vuepress/active-header-links',   // 页面滚动时自动激活侧边栏链接的插件
-        '@vuepress/back-to-top',          // 返回顶部插件
-        '@vuepress/medium-zoom',          // 图片预览插件
-        '@vuepress/nprogress',        //页面顶部进度条
-    ],
+  // ...,
+  plugins: [
+    '@vuepress/active-header-links', // 页面滚动时自动激活侧边栏链接的插件
+    '@vuepress/back-to-top', // 返回顶部插件
+    '@vuepress/medium-zoom', // 图片预览插件
+    '@vuepress/nprogress', // 页面顶部进度条
+  ],
 }
 ```
 更多插件可以浏览 [此处](https://vuepress.vuejs.org/zh/plugin/official/plugin-active-header-links.html) 。
@@ -272,12 +272,12 @@ module.exports = {
 
 ```js
 module.exports = {
-  //...,
+  // ...,
   themeConfig: {
-    logo: "/logo.svg",
-    siteTitle: "『 tydumpling博客 』",
+    logo: '/logo.svg',
+    siteTitle: '『 tydumpling博客 』',
     outlineTitle: '🔴🟠🟡🟢🔵🟣🟤⚫⚪',
-    outline:[2,6],
+    outline: [2, 6],
     // 启动页面丝滑滚动
     smoothScroll: true
   }
@@ -288,19 +288,19 @@ module.exports = {
 `themeConfig` 对象中为 `nav` 属性赋值一个数组对象，每一个对象是一个导航栏模块。
 ```js
 module.exports = {
-  //...,
+  // ...,
   themeConfig: {
-    //...,
-    nav:[
-      {text: '掘金', link: 'https://juejin.cn/user/1855631359481847/posts'},
+    // ...,
+    nav: [
+      { text: '掘金', link: 'https://juejin.cn/user/1855631359481847/posts' },
       {
-        text: "💻 前端知识",
+        text: '💻 前端知识',
         items: [
-          { text: "🟧 HTML", link: "/learn/HTML/" },
-          { text: "🟥 CSS", link: "/learn/CSS/" },
-          { text: "🟨 JavaScript", link: "/learn/JavaScript/" },
-          { text: "🟦 TypeScript", link: "/learn/TypeScript/" },
-          { text: "🟩 Vue", link: "/learn/Vue/" }
+          { text: '🟧 HTML', link: '/learn/HTML/' },
+          { text: '🟥 CSS', link: '/learn/CSS/' },
+          { text: '🟨 JavaScript', link: '/learn/JavaScript/' },
+          { text: '🟦 TypeScript', link: '/learn/TypeScript/' },
+          { text: '🟩 Vue', link: '/learn/Vue/' }
         ],
       }
     ]
@@ -320,8 +320,8 @@ module.exports = {
   themeConfig: {
     // ...,
     nav: [],
-    sidebar:{
-      '/':getSidebar()
+    sidebar: {
+      '/': getSidebar()
     }
   }
 }
@@ -423,14 +423,14 @@ function getLearnSidebar() {
 function getProjectSidebar() {
   return [
     {
-      text: "📖 项目笔记",
+      text: '📖 项目笔记',
       collapsible: true,
       items: [
-        { text: "🎶 音果云音", link: "/project/Music/" },
-        { text: "🛒 视频分销", link: "/project/Sale/" },
+        { text: '🎶 音果云音', link: '/project/Music/' },
+        { text: '🛒 视频分销', link: '/project/Sale/' },
         {
-          text: "🔎 CRM",
-          link: "/project/CRM/",
+          text: '🔎 CRM',
+          link: '/project/CRM/',
         },
       ],
     }
@@ -463,7 +463,10 @@ layout           // 设置当前页面的布局组件
 
 ```js
 import DefaultTheme from 'vitepress/theme'
-import './custom.styl' // 自己的css文件名
+
+import './custom.styl'
+
+// 自己的css文件名
 
 export default DefaultTheme
 ```

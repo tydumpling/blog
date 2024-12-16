@@ -14,50 +14,50 @@
 对象可以属性最终都会转为字符串
 
 ```js
-let obj = { 1: "tydumpling", "1": "tydumpling" };
-console.table(obj); // {1:"tydumpling"}
+const obj = { 1: 'tydumpling', 1: 'tydumpling' }
+console.table(obj) // {1:"tydumpling"}
 ```
 
 使用对象做为键名时，会将对象转为字符串后使用
 
 ```js
-let obj = { 1: "tydumpling", "1": "tydumpling" };
-console.table(obj);
+const obj = { 1: 'tydumpling', 1: 'tydumpling' }
+console.table(obj)
 
-let hd = { [obj]: "duyidao" };
-console.table(hd);
+const hd = { [obj]: 'duyidao' }
+console.table(hd)
 
 // 对象obj转为字符串打印出来是[object Object]
-console.log(hd[obj.toString()]); // duyidao
-console.log(hd["[object Object]"]); // duyidao
+console.log(hd[obj.toString()]) // duyidao
+console.log(hd['[object Object]']) // duyidao
 ```
 
 使用数组做初始数据
 
 ```js
-let hd = new Set(['tydumpling', 'duyidao']);
-console.log(hd.values()); //{"tydumpling", "duyidao"}
+const hd = new Set(['tydumpling', 'duyidao'])
+console.log(hd.values()) // {"tydumpling", "duyidao"}
 ```
 
 Set 中是严格类型约束的，下面的数值`1`与字符串`1`属于两个不同的值
 
 ```js
-let set = new Set();
-set.add(1);
-set.add("1");
-console.log(set); //Set(2) {1, "1"}
+const set = new Set()
+set.add(1)
+set.add('1')
+console.log(set) // Set(2) {1, "1"}
 ```
 
 使用 `add` 添加元素，不允许重复添加`duyidao`值
 
 ```js
-let hd = new Set();
+const hd = new Set()
 
-hd.add('tydumpling');
-hd.add('duyidao');
+hd.add('tydumpling')
+hd.add('duyidao')
 hd.add('duyidao')
 
-console.log(hd.values()); // SetIterator {"tydumpling", "duyidao"}
+console.log(hd.values()) // SetIterator {"tydumpling", "duyidao"}
 ```
 
 ### 获取数量
@@ -65,8 +65,8 @@ console.log(hd.values()); // SetIterator {"tydumpling", "duyidao"}
 获取元素数量
 
 ```js
-let hd = new Set(['tydumpling', 'tydumpling']);
-console.log(hd.size); // 2
+const hd = new Set(['tydumpling', 'tydumpling'])
+console.log(hd.size) // 2
 ```
 
 ### 元素检测
@@ -74,10 +74,10 @@ console.log(hd.size); // 2
 检测元素是否存在
 
 ```js
-let hd = new Set();
-hd.add('tydumpling');
-console.log(hd.has('tydumpling')); // true
-console.log(hd.has('duyidao')); // false
+const hd = new Set()
+hd.add('tydumpling')
+console.log(hd.has('tydumpling')) // true
+console.log(hd.has('duyidao')) // false
 ```
 
 ### 删除元素
@@ -85,26 +85,26 @@ console.log(hd.has('duyidao')); // false
 使用 `delete` 方法删除单个元素，返回值为`boolean`类型
 
 ```js
-let hd = new Set();
-hd.add("tydumpling");
-hd.add("duyidao");
-console.log(hd.size); // 2
+const hd = new Set()
+hd.add('tydumpling')
+hd.add('duyidao')
+console.log(hd.size) // 2
 
-console.log(hd.delete("tydumpling")); // true
-console.log(hd.size); // 1  删了一个，还剩一个
+console.log(hd.delete('tydumpling')) // true
+console.log(hd.size) // 1  删了一个，还剩一个
 
-console.log(hd.values()); // SetIterator {"duyidao"}
-console.log(hd.has("tydumpling")); // false 没有改元素可删
+console.log(hd.values()) // SetIterator {"duyidao"}
+console.log(hd.has('tydumpling')) // false 没有改元素可删
 ```
 
 使用 `clear` 删除所有元素
 
 ```js
-let hd = new Set();
-hd.add('tydumpling');
-hd.add('duyidao');
-hd.clear();
-console.log(hd.values()); // SetIterator {}
+const hd = new Set()
+hd.add('tydumpling')
+hd.add('duyidao')
+hd.clear()
+console.log(hd.values()) // SetIterator {}
 ```
 
 ### 数组转换
@@ -112,17 +112,17 @@ console.log(hd.values()); // SetIterator {}
 可以使用`点语法` 或 `Array.form` 静态方法将Set类型转为数组，这样就可以使用数组处理函数了
 
 ```js
-const set = new Set(["tydumpling", "duyidao"]);
-console.log([...set]); // ["tydumpling", "duyidao"]
-console.log(Array.from(set)); // ["tydumpling", "duyidao"]
+const set = new Set(['tydumpling', 'duyidao'])
+console.log([...set]) // ["tydumpling", "duyidao"]
+console.log(Array.from(set)) // ["tydumpling", "duyidao"]
 ```
 
 移除Set中大于5的数值
 
 ```js
-let hd = new Set("123456789");
-hd = new Set([...hd].filter(item => item < 5));
-console.log(hd); // Set(4) {'1', '2', '3', '4'}
+let hd = new Set('123456789')
+hd = new Set([...hd].filter(item => item < 5))
+console.log(hd) // Set(4) {'1', '2', '3', '4'}
 ```
 
 ### 去除重复
@@ -130,13 +130,13 @@ console.log(hd); // Set(4) {'1', '2', '3', '4'}
 去除字符串重复
 
 ```js
-console.log([...new Set("tydumpling")].join("")); // dao
+console.log([...new Set('tydumpling')].join('')) // dao
 ```
 
 去除数组重复
 
 ```js
-console.log([...new Set([1,2,2,4,5,3,4,2])].join("")); // 12453
+console.log([...new Set([1, 2, 2, 4, 5, 3, 4, 2])].join('')) // 12453
 ```
 
 ### 遍历数据
@@ -144,10 +144,10 @@ console.log([...new Set([1,2,2,4,5,3,4,2])].join("")); // 12453
 使用 `keys()/values()/entries()` 都可以返回迭代对象，因为`set`类型只有值所以 `keys与values` 方法结果一致。
 
 ```js
-const hd = new Set(["tydumpling", "duyidao"]);
-console.log(hd.values()); //SetIterator {"tydumpling", "duyidao"}
-console.log(hd.keys()); //SetIterator {"tydumpling", "duyidao"}
-console.log(hd.entries()); //SetIterator {"tydumpling" => "tydumpling", "duyidao" => "duyidao"}
+const hd = new Set(['tydumpling', 'duyidao'])
+console.log(hd.values()) // SetIterator {"tydumpling", "duyidao"}
+console.log(hd.keys()) // SetIterator {"tydumpling", "duyidao"}
+console.log(hd.entries()) // SetIterator {"tydumpling" => "tydumpling", "duyidao" => "duyidao"}
 ```
 
 可以使用 `forEach` 遍历Set数据，默认使用 `values` 方法创建迭代器。
@@ -155,21 +155,20 @@ console.log(hd.entries()); //SetIterator {"tydumpling" => "tydumpling", "duyidao
 为了保持和遍历数组参数统一，函数中的value与key是一样的。
 
 ```js
-let arr = [7, 6, 2, 8, 2, 6];
-let set = new Set(arr);
-//使用forEach遍历
-set.forEach((item,key) => console.log(item,key));
+const arr = [7, 6, 2, 8, 2, 6]
+const set = new Set(arr)
+// 使用forEach遍历
+set.forEach((item, key) => console.log(item, key))
 ```
 
 也可以使用 `forof` 遍历Set数据，默认使用 `values` 方法创建迭代器
 
 ```js
-//使用for/of遍历
-let set = new Set([7, 6, 2, 8, 2, 6]);
+// 使用for/of遍历
+const set = new Set([7, 6, 2, 8, 2, 6])
 
-for (const iterator of set) {
-	console.log(iterator); // 7   8   6   2
-}
+for (const iterator of set)
+  console.log(iterator) // 7   8   6   2
 ```
 
 ### 搜索实例
@@ -243,12 +242,12 @@ for (const iterator of set) {
 获取两个集合中共同存在的元素
 
 ```js
-let hd = new Set(['tydumpling', 'duyidao']);
-let cms = new Set(['tydumpling', 'tydumpling']);
-let newSet = new Set(
-	[...hd].filter(item => cms.has(item))
-);
-console.log(newSet); // {"tydumpling"}
+const hd = new Set(['tydumpling', 'duyidao'])
+const cms = new Set(['tydumpling', 'tydumpling'])
+const newSet = new Set(
+  [...hd].filter(item => cms.has(item))
+)
+console.log(newSet) // {"tydumpling"}
 ```
 
 ### 差集
@@ -256,12 +255,12 @@ console.log(newSet); // {"tydumpling"}
 在集合a中出现但不在集合b中出现元素集合
 
 ```js
-let hd = new Set(['tydumpling', 'duyidao']);
-let cms = new Set(['tydumpling', 'tydumpling']);
-let newSet = new Set(
-	[...hd].filter(item => !cms.has(item)) // 数组cms包含的内容取反
-);
-console.log(newSet); // {"duyidao"}
+const hd = new Set(['tydumpling', 'duyidao'])
+const cms = new Set(['tydumpling', 'tydumpling'])
+const newSet = new Set(
+  [...hd].filter(item => !cms.has(item)) // 数组cms包含的内容取反
+)
+console.log(newSet) // {"duyidao"}
 ```
 
 ### 并集
@@ -269,10 +268,10 @@ console.log(newSet); // {"duyidao"}
 将两个集合合并成一个新的集合，由于Set特性当然也不会产生重复元素。
 
 ```js
-let hd = new Set(['tydumpling', 'duyidao']);
-let cms = new Set(['tydumpling', 'tydumpling']);
-let newSet = [...hd, ...cms];
-console.log(newSet);
+const hd = new Set(['tydumpling', 'duyidao'])
+const cms = new Set(['tydumpling', 'tydumpling'])
+const newSet = [...hd, ...cms]
+console.log(newSet)
 ```
 
 ## WeakSet
@@ -289,21 +288,21 @@ console.log(newSet);
 以下操作由于数据不是对象类型将产生错误
 
 ```js
-new WeakSet(["tydumpling", "duyidao"]); //Invalid value used in weak set
+new WeakSet(['tydumpling', 'duyidao']) // Invalid value used in weak set
 
-new WeakSet("tydumpling"); //Invalid value used in weak set
+new WeakSet('tydumpling') // Invalid value used in weak set
 ```
 
 WeakSet的值必须为对象类型
 
 ```js
-new WeakSet([["tydumpling"], ["duyidao"]]);
+new WeakSet([['tydumpling'], ['duyidao']])
 ```
 
 将DOM节点保存到`WeakSet`
 
 ```js
-document.querySelectorAll("button").forEach(item => Wset.add(item));
+document.querySelectorAll('button').forEach(item => Wset.add(item))
 ```
 
 ### 基本操作
@@ -311,17 +310,17 @@ document.querySelectorAll("button").forEach(item => Wset.add(item));
 下面是WeakSet的常用指令
 
 ```js
-const hd = new WeakSet();
-const arr = ["tydumpling"];
-//添加操作
-hd.add(arr);
-console.log(hd.has(arr));
+const hd = new WeakSet()
+const arr = ['tydumpling']
+// 添加操作
+hd.add(arr)
+console.log(hd.has(arr))
 
-//删除操作
-hd.delete(arr);
+// 删除操作
+hd.delete(arr)
 
-//检索判断
-console.log(hd.has(arr));
+// 检索判断
+console.log(hd.has(arr))
 ```
 
 ### 垃圾回收
@@ -334,17 +333,17 @@ console.log(hd.has(arr));
 - 当垃圾回收时对象被删除，这时 `WakeSet` 也就没有记录了
 
 ```js
-const hd = new WeakSet();
-let arr = ["tydumpling"];
-hd.add(arr);
-console.log(hd.has(arr));
+const hd = new WeakSet()
+let arr = ['tydumpling']
+hd.add(arr)
+console.log(hd.has(arr))
 
-arr = null;
-console.log(hd); //WeakSet {Array(1)}
+arr = null
+console.log(hd) // WeakSet {Array(1)}
 
 setTimeout(() => {
-  console.log(hd); //WeakSet {}
-}, 1000);
+  console.log(hd) // WeakSet {}
+}, 1000)
 ```
 
 ### 案例操作

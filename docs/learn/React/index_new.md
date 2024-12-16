@@ -69,17 +69,17 @@
 - 渲染后的内容将放在 `public/index.html` 中 ID 为 root 的标签中
 
 ```js
-import React from "react";
-import ReactDom from "react-dom";
+import React from 'react'
+import ReactDom from 'react-dom'
 
-ReactDom.render(<div>tydumpling</div>, document.querySelector("#root"));
+ReactDom.render(<div>tydumpling</div>, document.querySelector('#root'))
 ```
 
 在 JSX 中可以使用 JS 的功能，要求使用花扩号包裹
 
 ```js
-const name = "tydumpling";
-ReactDom.render(<div>{name}</div>, document.querySelector("#root"));
+const name = 'tydumpling'
+ReactDom.render(<div>{name}</div>, document.querySelector('#root'))
 ```
 
 #### 函数声明
@@ -87,11 +87,11 @@ ReactDom.render(<div>{name}</div>, document.querySelector("#root"));
 使用函数返回组件，渲染组件时可以传递参数供组件使用
 
 ```js
-const App = (props) => {
-  return <div>{props.name}</div>;
-};
+function App(props) {
+  return <div>{props.name}</div>
+}
 
-ReactDom.render(App({ name: "tydumpling" }), document.querySelector("#root"));
+ReactDom.render(App({ name: 'tydumpling' }), document.querySelector('#root'))
 ```
 
 调用组件也可以直接使用标签形式，参数以属性形式传递
@@ -99,13 +99,14 @@ ReactDom.render(App({ name: "tydumpling" }), document.querySelector("#root"));
 - 要求首字母大写
 
 ```js
-import React from "react";
-import ReactDom from "react-dom";
-const App = (props) => {
-  return <div>{props.name}</div>;
-};
+import React from 'react'
+import ReactDom from 'react-dom'
 
-ReactDom.render(<App name="tydumpling.com" />, document.querySelector("#root"));
+function App(props) {
+  return <div>{props.name}</div>
+}
+
+ReactDom.render(<App name="tydumpling.com" />, document.querySelector('#root'))
 ```
 
 #### 类的声明
@@ -113,38 +114,41 @@ ReactDom.render(<App name="tydumpling.com" />, document.querySelector("#root"));
 我们知道 JS 中的类也是函数，REACT 也可以使用类的方式声明组件，但要保证返回 JSX 组件标签
 
 ```js
-import React, { Component } from "react";
-import ReactDom from "react-dom";
+import React, { Component } from 'react'
+import ReactDom from 'react-dom'
+
 class App {
   constructor(props) {
-    this.props = props;
+    this.props = props
   }
+
   render() {
-    return <div>{this.props.name}</div>;
+    return <div>{this.props.name}</div>
   }
 }
 
 ReactDom.render(
-  new App({ name: "tydumpling" }).render(),
-  document.querySelector("#root")
-);
+  new App({ name: 'tydumpling' }).render(),
+  document.querySelector('#root')
+)
 ```
 
 如果继承了 Component 基类，会自动绑定参数到 props
 
 ```js
-import React, { Component } from "react";
-import ReactDom from "react-dom";
+import React, { Component } from 'react'
+import ReactDom from 'react-dom'
+
 class App extends Component {
   render() {
-    return <div>{this.props.name}</div>;
+    return <div>{this.props.name}</div>
   }
 }
 
 ReactDom.render(
-  new App({ name: "tydumpling" }).render(),
-  document.querySelector("#root")
-);
+  new App({ name: 'tydumpling' }).render(),
+  document.querySelector('#root')
+)
 ```
 
 更好的是，当继承了 Component 基类
@@ -154,33 +158,36 @@ ReactDom.render(
 - 注意要求首字母大写
 
 ```js
-import React, { Component } from "react";
-import ReactDom from "react-dom";
+import React, { Component } from 'react'
+import ReactDom from 'react-dom'
+
 class App extends Component {
   constructor(props) {
-    super(props);
-    this.props = props;
+    super(props)
+    this.props = props
   }
+
   render() {
-    return <div>{this.props.name}</div>;
+    return <div>{this.props.name}</div>
   }
 }
 
-ReactDom.render(<App name="tydumpling" />, document.querySelector("#root"));
+ReactDom.render(<App name="tydumpling" />, document.querySelector('#root'))
 ```
 
 基类会帮助我们绑定数据到 props，所以不写构造函数也可以正常执行
 
 ```js
-import React, { Component } from "react";
-import ReactDom from "react-dom";
+import React, { Component } from 'react'
+import ReactDom from 'react-dom'
+
 class App extends Component {
   render() {
-    return <div>{this.props.name}</div>;
+    return <div>{this.props.name}</div>
   }
 }
 
-ReactDom.render(<App name="tydumpling" />, document.querySelector("#root"));
+ReactDom.render(<App name="tydumpling" />, document.querySelector('#root'))
 ```
 
 #### 组件嵌套
@@ -188,12 +195,12 @@ ReactDom.render(<App name="tydumpling" />, document.querySelector("#root"));
 下面 App 组件内部引入了 Hd 组件
 
 ```js
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React, { Component } from 'react'
+import { render } from 'react-dom'
 
 class Hd extends Component {
   render() {
-    return <div>Hd组件: {this.props.name} </div>;
+    return <div>Hd组件: {this.props.name} </div>
   }
 }
 
@@ -204,10 +211,10 @@ class App extends Component {
         <Hd name="tydumpling.com" />
         App: {this.props.name}
       </div>
-    );
+    )
   }
 }
-render(<App name="tydumpling" />, document.getElementById("root"));
+render(<App name="tydumpling" />, document.getElementById('root'))
 ```
 
 #### 根组件
@@ -217,10 +224,11 @@ render(<App name="tydumpling" />, document.getElementById("root"));
 组件一般都是独立的文件，下面创建 App.js 文件构建根组件
 
 ```js
-import React, { Component } from "react";
+import React, { Component } from 'react'
+
 export default class App extends Component {
   render() {
-    return <div>tydumpling</div>;
+    return <div>tydumpling</div>
   }
 }
 ```
@@ -228,10 +236,11 @@ export default class App extends Component {
 在入口文件中导入组件并渲染
 
 ```js
-import React, { Component } from "react";
-import { render } from "react-dom";
-import App from "./App";
-render(<App />, document.querySelector("#root"));
+import React, { Component } from 'react'
+import { render } from 'react-dom'
+import App from './App'
+
+render(<App />, document.querySelector('#root'))
 ```
 
 #### 注释规范
@@ -246,7 +255,7 @@ class App extends Component {
         {/* tydumpling */}
         {this.props.name}
       </div>
-    );
+    )
   }
 }
 ```
@@ -262,10 +271,10 @@ REACT 中定义样式也非常简单，下面是定义 STYLE 行样式
 ```js
 class App extends Component {
   render() {
-    return <div style={{ color: "red" }}>App: {this.props.name}</div>;
+    return <div style={{ color: 'red' }}>App: {this.props.name}</div>
   }
 }
-render(<App name="tydumpling" />, document.getElementById("root"));
+render(<App name="tydumpling" />, document.getElementById('root'))
 ```
 
 以对象形式声明样式
@@ -274,13 +283,13 @@ render(<App name="tydumpling" />, document.getElementById("root"));
 class App extends Component {
   render() {
     const style = {
-      backgroundColor: "red",
-      color: "blue",
-    };
-    return <div style={style}>tydumpling</div>;
+      backgroundColor: 'red',
+      color: 'blue',
+    }
+    return <div style={style}>tydumpling</div>
   }
 }
-render(<App name="tydumpling" />, document.getElementById("root"));
+render(<App name="tydumpling" />, document.getElementById('root'))
 ```
 
 #### 类的声明
@@ -295,15 +304,16 @@ render(<App name="tydumpling" />, document.getElementById("root"));
    ```
 2. 在 index.js 中使用 className 属性来声明类
    ```js
-   import React, { Component } from "react";
-   import { render } from "react-dom";
-   import "./App.css";
+   import React, { Component } from 'react'
+   import { render } from 'react-dom'
+   import './App.css'
+   
    class App extends Component {
      render() {
-       return <div className="bg-color">App: {this.props.name}</div>;
+       return <div className="bg-color">App: {this.props.name}</div>
      }
    }
-   render(<App name="tydumpling" />, document.getElementById("root"));
+   render(<App name="tydumpling" />, document.getElementById('root'))
    ```
 
 当然也可以使用 JS 程序计算，下面是使用三元表达式的计算
@@ -312,8 +322,8 @@ render(<App name="tydumpling" />, document.getElementById("root"));
 class App extends Component {
   render() {
     return (
-      <div className={true ? "bg-color" : "hd"}>App: {this.props.name}</div>
-    );
+      <div className={true ? 'bg-color' : 'hd'}>App: {this.props.name}</div>
+    )
   }
 }
 ```
@@ -333,18 +343,19 @@ npm i classnames
 在 index.js 声明的组件中使用
 
 ```js
-import className from "classnames";
-import "./App.css";
+import className from 'classnames'
+import './App.css'
+
 class App extends Component {
   render() {
     return (
-      <div className={className("bg-color", { hd: true })}>
+      <div className={className('bg-color', { hd: true })}>
         App: {this.props.name}
       </div>
-    );
+    )
   }
 }
-render(<App name="tydumpling" />, document.getElementById("root"));
+render(<App name="tydumpling" />, document.getElementById('root'))
 ```
 
 **styled-components**

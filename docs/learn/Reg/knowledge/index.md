@@ -12,16 +12,16 @@
 下面使用获取字符串中的所有数字来比较函数与正则的差异。
 
 ```js
-let fn = "tydumpling2200fndd9988";
-let nums = [...fn].filter(a => !Number.isNaN(parseInt(a)));
-console.log(nums.join(""));
+const fn = 'tydumpling2200fndd9988'
+const nums = [...fn].filter(a => !Number.isNaN(Number.parseInt(a)))
+console.log(nums.join(''))
 ```
 
 使用正则表达式将简单得多
 
 ```js
-let fn = "tydumpling2200fndd9988";
-console.log(fn.match(/\d/g).join(""));
+const fn = 'tydumpling2200fndd9988'
+console.log(fn.match(/\d/g).join(''))
 ```
 
 ## 创建正则
@@ -33,24 +33,24 @@ JS 提供字面量与对象两种方式创建正则表达式
 使用`//`包裹的字面量创建方式是推荐的作法，但它不能在其中使用变量
 
 ```js
-let fn = "tydumpling.com";
-console.log(/o/.test(fn));//true
+const fn = 'tydumpling.com'
+console.log(/o/.test(fn))// true
 ```
 
 下面尝试使用 `a` 变量时将不可以查询，因为他把 a 看成字符串来查找。
 
 ```js
-let fn = "tydumpling.com";
-let a = "o";
-console.log(/a/.test(fn)); //false
+const fn = 'tydumpling.com'
+const a = 'o'
+console.log(/a/.test(fn)) // false
 ```
 
 虽然可以使用 `eval` 转换为 js 语法来实现将变量解析到正则中，但是比较麻烦，所以有变量时建议使用下面的对象创建方式
 
 ```js
-let fn = "tydumpling.com";
-let a = "o";
-console.log(eval(`/${a}/`).test(fn)); //true
+const fn = 'tydumpling.com'
+const a = 'o'
+console.log(eval(`/${a}/`).test(fn)) // true
 ```
 
 ### 对象创建
@@ -58,10 +58,10 @@ console.log(eval(`/${a}/`).test(fn)); //true
 当正则需要动态创建时使用对象方式
 
 ```js
-let fn = "tydumpling.com";
-let web = "tydumpling";
-let reg = new RegExp(web);
-console.log(reg.test(fn)); //true
+const fn = 'tydumpling.com'
+const web = 'tydumpling'
+const reg = new RegExp(web)
+console.log(reg.test(fn)) // true
 ```
 
 根据用户输入高亮显示内容，支持用户输入正则表达式
@@ -106,19 +106,19 @@ console.table(element("h1"));
 检测电话是否是上海或北京的坐机
 
 ```js
-let tel = "010-12345678";
-//错误结果：只匹配 | 左右两边任一结果
-console.log(tel.match(/010|020\-\d{7,8}/)); // false。该比较是 是否是 ： 010或020-7或8个数字
+const tel = '010-12345678'
+// 错误结果：只匹配 | 左右两边任一结果
+console.log(tel.match(/010|020\-\d{7,8}/)) // false。该比较是 是否是 ： 010或020-7或8个数字
 
-//正确结果：所以需要放在原子组中使用
-console.log(tel.match(/(010|020)\-\d{7,8}/)); // true
+// 正确结果：所以需要放在原子组中使用
+console.log(tel.match(/(010|020)\-\d{7,8}/)) // true
 ```
 
 匹配字符是否包含`tydumpling` 或 `fndd`
 
 ```js
-const fn = "tydumpling";
-console.log(/tydumpling|fndd/.test(fn)); //true
+const fn = 'tydumpling'
+console.log(/tydumpling|fndd/.test(fn)) // true
 ```
 
 ## 字符转义
@@ -128,32 +128,32 @@ console.log(/tydumpling|fndd/.test(fn)); //true
 假如有这样的场景，如果我们想通过正则查找`/`符号，但是 `/`在正则中有特殊的意义。如果写成`///`这会造成解析错误，所以要使用转义语法 `/\//`来匹配。
 
 ```js
-const url = "https://www.tydumpling.com";
-console.log(/https:\/\//.test(url)); //true
+const url = 'https://www.tydumpling.com'
+console.log(/https:\/\//.test(url)) // true
 ```
 
 使用 `RegExp` 构建正则时在转义上会有些区别，下面是对象与字面量定义正则时区别
 
 ```js
-let price = 12.23;
-//含义1: . 除换行外任何字符 	含义2: .普通点
-//含义1: d 字母d   					含义2: \d 数字 0~9
-console.log(/\d+\.\d+/.test(price));
+const price = 12.23
+// 含义1: . 除换行外任何字符 	含义2: .普通点
+// 含义1: d 字母d   					含义2: \d 数字 0~9
+console.log(/\d+\.\d+/.test(price))
 
-//字符串中 \d 与 d 是一样的，所以在 new RegExp 时\d 即为 d
-console.log("\d" == "d");
+// 字符串中 \d 与 d 是一样的，所以在 new RegExp 时\d 即为 d
+console.log('\d' == 'd')
 
-//使用对象定义正则时，可以先把字符串打印一样，结果是字面量一样的定义就对了
-console.log("\\d+\\.\\d+");
-let reg = new RegExp("\\d+\\.\\d+");
-console.log(reg.test(price));
+// 使用对象定义正则时，可以先把字符串打印一样，结果是字面量一样的定义就对了
+console.log('\\d+\\.\\d+')
+const reg = new RegExp('\\d+\\.\\d+')
+console.log(reg.test(price))
 ```
 
 下面是网址检测中转义符使用
 
 ```js
-let url = "https://www.tydumpling.com";
-console.log(/https?:\/\/\w+\.\w+\.\w+/.test(url));
+const url = 'https://www.tydumpling.com'
+console.log(/https?:\/\/\w+\.\w+\.\w+/.test(url))
 ```
 
 ## 字符边界
@@ -168,15 +168,15 @@ console.log(/https?:\/\/\w+\.\w+\.\w+/.test(url));
 匹配内容必须以`www`开始
 
 ```js
-const fn = "www.tydumpling.com";
-console.log(/^www/.test(fn)); //true
+const fn = 'www.tydumpling.com'
+console.log(fn.startsWith('www')) // true
 ```
 
 匹配内容必须以`.com`结束
 
 ```js
-const fn = "www.tydumpling.com";
-console.log(/\.com$/.test(fn)); //true
+const fn = 'www.tydumpling.com'
+console.log(/\.com$/.test(fn)) // true
 ```
 
 检测用户名长度为 3~6 位，且只能为字母。如果不使用 `^与$` 限制将得不到正确结果

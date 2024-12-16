@@ -9,18 +9,18 @@
 ### Symbol
 
 ```js
-let hd = Symbol();
-let edu = Symbol();
-console.log(hd); //symbol
-console.log(hd == edu); //false
+const hd = Symbol()
+const edu = Symbol()
+console.log(hd) // symbol
+console.log(hd == edu) // false
 ```
 
 `Symbol` 不可以添加属性
 
 ```js
-let hd = Symbol();
-hd.name = "tydumpling";
-console.log(hd.name); // undefined
+const hd = Symbol()
+hd.name = 'tydumpling'
+console.log(hd.name) // undefined
 ```
 
 ### 描述参数
@@ -28,26 +28,26 @@ console.log(hd.name); // undefined
 可传入字符串用于描述 `Symbol` ，方便在控制台分辨 `Symbol` 
 
 ```js
-let hd = Symbol("is name");
-let edu = Symbol("这是一个测试");
+const hd = Symbol('is name')
+const edu = Symbol('这是一个测试')
 
-console.log(hd); //Symbol(is name)
-console.log(edu.toString()); //Symbol(这是一个测试)
+console.log(hd) // Symbol(is name)
+console.log(edu.toString()) // Symbol(这是一个测试)
 ```
 
 传入相同参数 `Symbol` 也是独立唯一的，因为参数只是描述而已，但使用 `Symbol.for`则不会
 
 ```js
-let hd = Symbol("tydumpling");
-let edu = Symbol("tydumpling");
-console.log(hd == edu); //false
+const hd = Symbol('tydumpling')
+const edu = Symbol('tydumpling')
+console.log(hd == edu) // false
 ```
 
 使用`description`可以获取传入的描述参数
 
 ```js
-let hd = Symbol("tydumpling");
-console.log(hd.description); //tydumpling
+const hd = Symbol('tydumpling')
+console.log(hd.description) // tydumpling
 ```
 
 ### Symbol.for
@@ -58,9 +58,9 @@ console.log(hd.description); //tydumpling
 - 使用 `Symbol` 则不会登记
 
 ```js
-let hd = Symbol.for("tydumpling");
-let edu = Symbol.for("tydumpling");
-console.log(hd == edu); //true
+const hd = Symbol.for('tydumpling')
+const edu = Symbol.for('tydumpling')
+console.log(hd == edu) // true
 ```
 
 ### Symbol.keyFor
@@ -68,11 +68,11 @@ console.log(hd == edu); //true
 `Symbol.keyFor` 根据使用 `Symbol.for` 登记的 `Symbol` 返回描述，如果找不到返回 `undefined` 。
 
 ```js
-let hd = Symbol.for("tydumpling");
-console.log(Symbol.keyFor(hd)); //tydumpling
+const hd = Symbol.for('tydumpling')
+console.log(Symbol.keyFor(hd)) // tydumpling
 
-let edu = Symbol("duyidao");
-console.log(Symbol.keyFor(edu)); //undefined
+const edu = Symbol('duyidao')
+console.log(Symbol.keyFor(edu)) // undefined
 ```
 
 ### 对象属性
@@ -85,21 +85,21 @@ console.log(Symbol.keyFor(edu)); //undefined
 下面写法是错误的，会将`symbol` 当成字符串`symbol`处理
 
 ```js
-let symbol = Symbol("tydumpling");
-let obj = {
-  symbol: "tydumpling.com"
-};
-console.log(obj);
+const symbol = Symbol('tydumpling')
+const obj = {
+  symbol: 'tydumpling.com'
+}
+console.log(obj)
 ```
 
 正确写法是以`[]` 变量形式声明和访问
 
 ```js
-let symbol = Symbol("tydumpling");
-let obj = {
-  [symbol]: "tydumpling.com"
-};
-console.log(obj[symbol]); //tydumpling.com
+const symbol = Symbol('tydumpling')
+const obj = {
+  [symbol]: 'tydumpling.com'
+}
+console.log(obj[symbol]) // tydumpling.com
 ```
 
 ## 实例操作
@@ -110,28 +110,29 @@ console.log(obj[symbol]); //tydumpling.com
 
 ```js
 class Cache {
-  static data = {};
+  static data = {}
   static set(name, value) {
-    this.data[name] = value;
+    this.data[name] = value
   }
+
   static get(name) {
-    return this.data[name];
+    return this.data[name]
   }
 }
 
-let user = {
-  name: "tydumpling",
-  key: Symbol("首页")
-};
+const user = {
+  name: 'tydumpling',
+  key: Symbol('首页')
+}
 
-let cart = {
-  name: "我的",
-  key: Symbol("我的")
-};
+const cart = {
+  name: '我的',
+  key: Symbol('我的')
+}
 
-Cache.set(user.key, user);
-Cache.set(cart.key, cart);
-console.log(Cache.get(user.key));
+Cache.set(user.key, user)
+Cache.set(cart.key, cart)
+console.log(Cache.get(user.key))
 ```
 
 ### 遍历属性
@@ -139,19 +140,17 @@ console.log(Cache.get(user.key));
 `Symbol` 不能使用 `for/in`、`for/of` 遍历操作
 
 ```js
-let symbol = Symbol("tydumpling");
-let obj = {
-  name: "tydumpling.com",
-  [symbol]: "duyidao.com"
-};
-
-for (const key in obj) {
-  console.log(key); //name
+const symbol = Symbol('tydumpling')
+const obj = {
+  name: 'tydumpling.com',
+  [symbol]: 'duyidao.com'
 }
 
-for (const key of Object.keys(obj)) {
-  console.log(key); //name
-}
+for (const key in obj)
+  console.log(key) // name
+
+for (const key of Object.keys(obj))
+  console.log(key) // name
 ```
 
 可以使用 `Object.getOwnPropertySymbols` 获取所有`Symbol`属性
@@ -176,19 +175,19 @@ for (const key of Reflect.ownKeys(obj)) {
 如果对象属性不想被遍历，可以使用`Symbol`保护
 
 ```js
-const site = Symbol("网站名称");
+const site = Symbol('网站名称')
 class User {
   constructor(name) {
-    this[site] = "tydumpling博客";
-    this.name = name;
+    this[site] = 'tydumpling博客'
+    this.name = name
   }
+
   getName() {
-    return `${this[site]}-${this.name}`;
+    return `${this[site]}-${this.name}`
   }
 }
-const hd = new User("tydumpling");
-console.log(hd.getName());
-for (const key in hd) {
-  console.log(key);
-}
+const hd = new User('tydumpling')
+console.log(hd.getName())
+for (const key in hd)
+  console.log(key)
 ```
