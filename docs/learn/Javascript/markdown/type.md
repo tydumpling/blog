@@ -30,7 +30,7 @@ console.log(typeof run); //function
 let c = [1, 2, 3];
 console.log(typeof c); //object
 
-let d = { name: "daodao.com" };
+let d = { name: "tydumpling.com" };
 console.log(typeof d); //object
 ```
 
@@ -42,14 +42,14 @@ console.log(typeof d); //object
 
 ```js
 let hd = [];
-let daodao = {};
+let tydumpling = {};
 console.log(hd instanceof Array); //true
-console.log(daodao instanceof Array); //false
+console.log(tydumpling instanceof Array); //false
 
 let c = [1, 2, 3];
 console.log(c instanceof Array); //true
 
-let d = { name: "daodao.com" };
+let d = { name: "tydumpling.com" };
 console.log(d instanceof Object); //true
 
 function User() {}
@@ -62,7 +62,7 @@ console.log(hd instanceof User); //true
 下面是使用字面量与对象方法创建字符串，返回的是不同类型。
 
 ```js
-let hd = "daodao";
+let hd = "tydumpling";
 let cms = new String("duyidao");
 console.log(typeof hd, typeof cms); //string object
 ```
@@ -70,7 +70,7 @@ console.log(typeof hd, typeof cms); //string object
 只有对象才有方法使用，但在`JS`中也可以使用值类型调用方法，因为它会在执行时将值类型转为对象。
 
 ```js
-let hd = "daodao";
+let hd = "tydumpling";
 let cms = new String("duyidao");
 console.log(hd.length); //9
 console.log(cms.length); //5
@@ -87,7 +87,7 @@ console.log(cms.length); //5
 使用对象形式创建字符串
 
 ```js
-let hd = new String('daodao');
+let hd = new String('tydumpling');
 // 获取字符串长度
 console.log(hd.length);
 // 获取字符串
@@ -143,14 +143,14 @@ console.log(web); //tydumpling网址：duyidao.com
 使用反引号符号包裹的字符串中可以写入引入变量与表达式，引入方式为 `${}` 。
 
 ```js
-let url = 'daodao.com';
+let url = 'tydumpling.com';
 console.log(`tydumpling网址是${url}`); //tydumpling网址是duyidao.com
 ```
 
 支持换行操作不会产生错误
 
 ```js
-let url = 'daodao.com';
+let url = 'tydumpling.com';
 document.write(`tydumpling网址是${url}
 大家可以在网站上学习到很多技术知识`);
 ```
@@ -166,7 +166,7 @@ console.log(`${show()}`)
 
 模板字面量支持嵌套使用
 
-![image-20191011025107379](https://doc.daodao.com/assets/img/image-20191011025107379.418bb650.png)
+![image-20191011025107379](https://doc.tydumpling.com/assets/img/image-20191011025107379.418bb650.png)
 
 ```js
 let lessons = [
@@ -215,7 +215,7 @@ function links(strings, ...vars) {
         (vars[key]
           ? vars[key].replace(
               "tydumpling",
-              `<a href="https://www.daodao.com">tydumpling</a>`
+              `<a href="https://www.tydumpling.com">tydumpling</a>`
             )
           : "")
       );
@@ -240,7 +240,7 @@ document.body.innerHTML += template();
 使用`length`属性可以获取字符串长度
 
 ```js
-console.log("daodao.com".length)
+console.log("tydumpling.com".length)
 ```
 
 ##### 大小写转换
@@ -248,13 +248,13 @@ console.log("daodao.com".length)
 将字符转换成大写格式
 
 ```js
-console.log('daodao.com'.toUpperCase()); //duyidao.COM
+console.log('tydumpling.com'.toUpperCase()); //duyidao.COM
 ```
 
 转字符为小写格式
 
 ```js
-console.log('daodao.com'.toLowerCase()); //daodao.com
+console.log('tydumpling.com'.toLowerCase()); //tydumpling.com
 ```
 
 ##### 移除空白
@@ -262,7 +262,7 @@ console.log('daodao.com'.toLowerCase()); //daodao.com
 使用`trim`删除字符串左右的空白字符
 
 ```js
-let str = '   daodao.com  ';
+let str = '   tydumpling.com  ';
 console.log(str.length);
 console.log(str.trim().length);
 ```
@@ -270,10 +270,10 @@ console.log(str.trim().length);
 使用`trimLeft`删除左边空白，使用`trimRight`删除右边空白
 
 ```js
-let name = " daodao ";
-console.log(name); // " daodao "
-console.log(name.trimLeft()); // "daodao "
-console.log(name.trimRight()); // " daodao"
+let name = " tydumpling ";
+console.log(name); // " tydumpling "
+console.log(name.trimLeft()); // "tydumpling "
+console.log(name.trimRight()); // " tydumpling"
 ```
 
 ##### 获取单字符
@@ -281,13 +281,13 @@ console.log(name.trimRight()); // " daodao"
 根据从 0 开始的位置获取字符
 
 ```js
-console.log('daodao'.charAt(3)) // d
+console.log('tydumpling'.charAt(3)) // d
 ```
 
 使用数字索引获取字符串
 
 ```js
-console.log('daodao'[3]) // d
+console.log('tydumpling'[3]) // d
 ```
 
 ##### 截取字符串
@@ -298,7 +298,7 @@ console.log('daodao'[3]) // d
 - `slice`、`substr` 仅有一个参数且该参数为负数，则从后面找起，`substring` 无法读取负数，会默认为0，抓取全部
 
 ```js
-let hd = 'daodao.com';
+let hd = 'tydumpling.com';
 console.log(hd.slice(3)); //dao.com
 console.log(hd.substr(3)); //dao.com
 console.log(hd.substring(3)); //dao.com
@@ -310,7 +310,7 @@ console.log(hd.substr(3, 6)); //dao.
 
 console.log(hd.slice(-2));//om 从末尾取
 console.log(hd.substr(-2));//om 从末尾取
-console.log(hd.substring(-2));//daodao.com 获取全部
+console.log(hd.substring(-2));//tydumpling.com 获取全部
 
 console.log(hd.slice(3, -1)); //dao.co 第二个为负数表示从后面算的字符
 console.log(hd.substring(3, -9)); //dao 负数转为0
@@ -322,21 +322,21 @@ console.log(hd.substr(-3, 2)); //co 从后面第三个开始取两个
 从开始获取字符串位置，检测不到时返回 `-1`
 
 ```js
-console.log('daodao.com'.indexOf('o')); //2
-console.log('daodao.com'.indexOf('o', 3)); //5 从第3个字符向后搜索
+console.log('tydumpling.com'.indexOf('o')); //2
+console.log('tydumpling.com'.indexOf('o', 3)); //5 从第3个字符向后搜索
 ```
 
 从结尾来搜索字符串位置
 
 ```js
-console.log('daodao.com'.lastIndexOf('o')); //8
-console.log('daodao.com'.lastIndexOf('o', 7)); //3 从第7个字符向前搜索
+console.log('tydumpling.com'.lastIndexOf('o')); //8
+console.log('tydumpling.com'.lastIndexOf('o', 7)); //3 从第7个字符向前搜索
 ```
 
 `search()` 方法用于检索字符串中指定的子字符串，也可以使用正则表达式搜索
 
 ```js
-let str = "daodao.com";
+let str = "tydumpling.com";
 console.log(str.search("com")); // 7
 console.log(str.search(/\.com/i)); // 6
 ```
@@ -344,23 +344,23 @@ console.log(str.search(/\.com/i)); // 6
 `includes` 字符串中是否包含指定的值，第二个参数指查找开始位置
 
 ```js
-console.log('daodao.com'.includes('o')); //true
-console.log('daodao.com'.includes('h', 11)); //true
+console.log('tydumpling.com'.includes('o')); //true
+console.log('tydumpling.com'.includes('h', 11)); //true
 ```
 
 `startsWith` 是否是指定位置开始，第二个参数为查找的开始位置。
 
 ```js
-console.log('daodao.com'.startsWith('d')); //true
-console.log('daodao.com'.startsWith('a')); //false
-console.log('daodao.com'.startsWith('o', 1)); //true
+console.log('tydumpling.com'.startsWith('d')); //true
+console.log('tydumpling.com'.startsWith('a')); //false
+console.log('tydumpling.com'.startsWith('o', 1)); //true
 ```
 
 `endsWith` 是否是指定位置结束，第二个参数为查找的结束位置。
 
 ```js
-console.log('daodao.com'.endsWith('com')); //true
-console.log('daodao.com'.endsWith('o', 2)); //true
+console.log('tydumpling.com'.endsWith('com')); //true
+console.log('tydumpling.com'.endsWith('o', 2)); //true
 ```
 
 下面是查找关键词的示例
@@ -379,8 +379,8 @@ console.log(status);
 `replace` 方法用于字符串的替换操作
 
 ```js
-let name = "daodao.com";
-web = name.replace("daodao", "duyidao");
+let name = "tydumpling.com";
+web = name.replace("tydumpling", "duyidao");
 console.log(web); // duyidao.com
 ```
 
@@ -405,7 +405,7 @@ document.body.innerHTML += title;
 使用正则表达式完成替换
 
 ```js
-let res = "daodao.com".replace(/u/g, str => {
+let res = "tydumpling.com".replace(/u/g, str => {
   return "@";
 });
 console.log(res);
@@ -513,9 +513,9 @@ console.log(0 == false); //true
 下面是一个典型的例子，字符串在与 Boolean 比较时，两边都为转换为数值类型后再进行比较。
 
 ```js
-console.log(Number("daodao")); //NaN
-console.log(Boolean("daodao")); //true
-console.log("daodao" == true); //false
+console.log(Number("tydumpling")); //NaN
+console.log(Boolean("tydumpling")); //true
+console.log("tydumpling" == true); //false
 console.log("1" == true); //true
 ```
 
@@ -617,15 +617,15 @@ console.log((16.556).toFixed(2)); // 16.56
 表示无效的数值，下例计算将产生 NaN 结果。
 
 ```js
-console.log(Number("daodao")); //NaN
+console.log(Number("tydumpling")); //NaN
 
-console.log(2 / 'daodao'); //NaN
+console.log(2 / 'tydumpling'); //NaN
 ```
 
 NaN 不能使用 `==` 比较，使用以下代码来判断结果是否正确
 
 ```js
-var res = 2 / 'daodao';
+var res = 2 / 'tydumpling';
 if (Number.isNaN(res)) {
 	console.log('Error'); // Error
 }

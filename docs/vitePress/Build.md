@@ -6,9 +6,9 @@ title 打包
 
 `vitepress` 打包需要做一个前置步骤：在 `config.js` 文件中设置 `base` 打包基准路径，路径填啥取决于部署时仓库的名称是啥。
 
-例如：我的仓库名称为 “daodao” ，则我的 `base` 参数如下：
+例如：我的仓库名称为 “tydumpling” ，则我的 `base` 参数如下：
 ```js
-base: '/daodao/'
+base: '/tydumpling/'
 ```
 
 如果仓库名称为 `github用户名.github.io` 或者 `gitee用户名.gitee.io` ，则视为默认路径，斜杆即可。

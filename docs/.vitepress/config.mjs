@@ -1,13 +1,15 @@
-import nav from "./nav.mjs";
-import sidebar from "./silber.mjs";
-import rewrites from "./rewrites.mjs";
+import { defineConfig } from 'vitepress'
+import nav from './nav.mjs'
+import sidebar from './silber.mjs'
+import rewrites from './rewrites.mjs'
+import { description, docsVersion, github, keywords, name, site } from './meta'
+
 // 'packages/:pkg/src/(.*)': ':pkg/index.md'
-//packages这是路径的固定部分，base路径
-//:pkg：这是一个动态参数，表示匹配的路径中的一部分可以是任意值，并且这个值会被捕获并命名为 :pkg。例如，如果路径是 packages/vue/src/some-file.md，那么 :pkg 的值就是 vue。
-//这是路径的另一个固定部分，表示匹配的路径必须包含 src/。
-//.*这是一个正则表达式，表示匹配任意.的文件
-import socialLinks from './link.ts';
-import { defineConfig } from "vitepress";
+// packages这是路径的固定部分，base路径
+// :pkg：这是一个动态参数，表示匹配的路径中的一部分可以是任意值，并且这个值会被捕获并命名为 :pkg。例如，如果路径是 packages/vue/src/some-file.md，那么 :pkg 的值就是 vue。
+// 这是路径的另一个固定部分，表示匹配的路径必须包含 src/。
+// .*这是一个正则表达式，表示匹配任意.的文件
+import socialLinks from './link.ts'
 export default defineConfig({
   // 网站标题
   title: 'tydumpling博客',
@@ -17,35 +19,47 @@ export default defineConfig({
   // 打包目录
   dest: './dist',
   head: [
-    //  添加图标配置网站的图标（显示在浏览器的 tab 上）
-    ["link", { rel: "icon", href: `/favicon.ico` }],
-    ["meta", { property: "og:title", content: "tydumpling博客" }],
-    ["meta", { property: "og:site_name", content: "tydumpling博客" }],
-    ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:description", content: "tydumpling技术博客，记录着所学所思所想" }],
-    ["meta", { property: "og:keyword", content: "tydumpling,技术博客,博客,前端,js,css,html,react,vue,webpack,vite,git,github,码农,程序员,tydumpling博客" }],
-    ["meta", { property: "og:image", content: "./favicon.ico" }],
-    ["meta", { property: "og:url", content: "https://duyidao.github.io/" }],
-    ["meta", { property: "keyword", content: "tydumpling,技术博客,博客,前端,js,css,html,react,vue,webpack,vite,git,github,码农,程序员,tydumpling博客" }],
-    ["meta", { httpEquiv: "Cache-Control", content: "no-cache, no-store, must-revalidate" }],
-    ["meta", { httpEquiv: "Pragma", content: "no-cache" }],
-    ["meta", { httpEquiv: "Expires", content: "0" }],
+    ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
+    ['meta', { name: 'keywords', content: keywords }],
+    ['meta', { name: 'author', content: 'Choi Yang' }],
+    ['meta', { property: 'og:type', content: 'article' }],
+    ['meta', { name: 'application-name', content: name }],
+    ['meta', { name: 'apple-mobile-web-app-title', content: name }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
+    ['link', { rel: 'shortcut icon', href: '/blog/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/x-icon', href: '/blog/favicon.ico' }],
+    ['link', { rel: 'mask-icon', href: '/chodocs-logo.svg', color: '#06f' }],
+    ['meta', { name: 'theme-color', content: '#06f' }],
+
+    ['link', { rel: 'apple-touch-icon', sizes: '120x120', href: '/images/icons/apple-touch-icon.png' }],
+
+    // webfont
+    ['link', { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' }],
+    ['link', { rel: 'preconnect', crossorigin: 'anonymous', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', crossorigin: 'anonymous', href: 'https://fonts.gstatic.com' }],
+    // og
+    ['meta', { property: 'og:description', content: description }],
+    ['meta', { property: 'og:url', content: site }],
+    ['meta', { property: 'og:locale', content: 'zh_CN' }],
+    // analytics
+    ['script', { 'async': '', 'defer': '', 'data-website-id': `${process.env.UMAMI_WEBSITE_ID || ''}`, 'src': `${process.env.UMAMI_ENDPOINT || ''}` }],
   ],
   // 使用插件
   plugins: [
-    '@vuepress/active-header-links',   // 页面滚动时自动激活侧边栏链接的插件
-    '@vuepress/back-to-top',          // 返回顶部插件
-    '@vuepress/medium-zoom',          // 图片预览插件
-    '@vuepress/nprogress',        //页面顶部进度条
+    '@vuepress/active-header-links', // 页面滚动时自动激活侧边栏链接的插件
+    '@vuepress/back-to-top', // 返回顶部插件
+    '@vuepress/medium-zoom', // 图片预览插件
+    '@vuepress/nprogress', // 页面顶部进度条
   ],
-// 忽略死链检查（指向一个不存在页面或资源）
+  // 忽略死链检查（指向一个不存在页面或资源）
   ignoreDeadLinks: true,
 
   markdown: {
     // lineNumbers:true, //代码快是否启动行号
     image: {
       // 默认禁用；设置为 true 可为所有图片启用懒加载。
-      lazyLoading: true
+      lazyLoading: true,
     },
     // 启用或禁用代码标签页功能Markdown 文件中创建带有标签页的代码块。
     codeTabs: true,
@@ -56,24 +70,25 @@ export default defineConfig({
       warningLabel: '警告',
       dangerLabel: '危险',
       infoLabel: '信息',
-      detailsLabel: '详细信息'
-    }
+      detailsLabel: '详细信息',
+    },
   },
   // 主题配置
   themeConfig: {
     docFooter: {
-      prev: "上一篇",
-      next: "下一篇",
+      prev: '上一篇',
+      next: '下一篇',
     },
-  editLink: {
-    pattern: 'https://github.com/tydumpling/blog/main/docs/:path',
-    text: '在github上编辑'
-  },
-    logo: "/favicon.ico",
+    editLink: {
+      pattern: 'https://github.com/tydumpling/blog/main/docs/:path',
+      text: '在github上编辑',
+    },
+    // 首页标题图标
+    logo: '/favicon.ico',
     // 获取每个文件最后一次 git 提交的 UNIX 时间戳(ms)，同时它将以合适的日期格式显示在每一页的底部
-    lastUpdated: 'last Update', // string | boolean
-    siteTitle: "『 tydumpling博客 』",
-    outlineTitle: '我是一个目录哦~',
+    lastUpdated: '上次更新', // string | boolean
+    siteTitle: '『 tydumpling博客 』',
+    outlineTitle: '导航~',
     outline: [0, 6],
     // 启动页面丝滑滚动
     smoothScroll: true,
@@ -81,33 +96,33 @@ export default defineConfig({
     nav,
     // 设置搜索框的样式
     search: {
-      provider: "local",
+      provider: 'local',
       options: {
         translations: {
           button: {
-            buttonText: "搜索文档",
-            buttonAriaLabel: "搜索文档",
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档',
           },
           modal: {
-            noResultsText: "无法找到相关结果",
-            resetButtonTitle: "清除查询条件",
+            noResultsText: '无法找到相关结果',
+            resetButtonTitle: '清除查询条件',
             footer: {
-              selectText: "选择",
-              navigateText: "切换",
+              selectText: '选择',
+              navigateText: '切换',
             },
           },
         },
       },
     },
-  
+
     // 左侧导航栏
     sidebar,
-    //社交链接
+    // 社交链接
     socialLinks,
-    //页脚
+    // 页脚
     footer: {
-      copyright: "Copyright © 2023-present tydumpling",
+      copyright: 'Copyright © 2023-present tydumpling',
     },
   },
-  rewrites
+  rewrites,
 })

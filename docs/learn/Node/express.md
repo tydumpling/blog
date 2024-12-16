@@ -66,7 +66,7 @@ app.post('请求url', function(req,res) {})
 
 ```js
 app.get('/user', (req, res) => {
-	res.send({username: 'daodao', age: 23})
+	res.send({username: 'tydumpling', age: 23})
 })
 
 app.post('/add', (req, res) => {
@@ -163,7 +163,7 @@ app.METHOD(PATH, CALLBACK)
 
 ```
 app.get('/user', (req, res) => {
-	res.send({username: 'daodao', age: 23})
+	res.send({username: 'tydumpling', age: 23})
 })
 
 app.post('/add', (req, res) => {
@@ -441,7 +441,7 @@ app.use((err, req, res, next) => {
    app.use(express.json())
    
    app.post('/add', (req, res) => {
-       console.log(req.body) // 配置了json中间件，打印出来是{ name: 'daodao', age: '20' }
+       console.log(req.body) // 配置了json中间件，打印出来是{ name: 'tydumpling', age: '20' }
        res.send('ok')
    })
    ```

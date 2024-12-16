@@ -126,7 +126,7 @@ import http from 'http'
 const service = http.createServer((req, res) => {
   console.log(req.method)
   //响应完成，并输出内容
-  res.end('daodao.com')
+  res.end('tydumpling.com')
 })
 
 //监听端口
@@ -169,7 +169,7 @@ const service = http.createServer((req, res) => {
     'Content-Type': 'application/json',
   })
   //响应数据
-  res.end(JSON.stringify({ name: 'tydumpling', url: 'daodao.com' }))
+  res.end(JSON.stringify({ name: 'tydumpling', url: 'tydumpling.com' }))
 })
 
 //监听端口
@@ -187,7 +187,7 @@ import { createServer } from 'http'
 
 const service = createServer((req, res) => {
   res.statusCode = 301
-  res.setHeader('Location', 'https://duyidao.gitee.io/daodao/')
+  res.setHeader('Location', 'https://duyidao.gitee.io/tydumpling/')
   res.end()
 })
 

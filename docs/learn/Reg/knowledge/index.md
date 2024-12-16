@@ -12,7 +12,7 @@
 下面使用获取字符串中的所有数字来比较函数与正则的差异。
 
 ```js
-let fn = "daodao2200fndd9988";
+let fn = "tydumpling2200fndd9988";
 let nums = [...fn].filter(a => !Number.isNaN(parseInt(a)));
 console.log(nums.join(""));
 ```
@@ -20,7 +20,7 @@ console.log(nums.join(""));
 使用正则表达式将简单得多
 
 ```js
-let fn = "daodao2200fndd9988";
+let fn = "tydumpling2200fndd9988";
 console.log(fn.match(/\d/g).join(""));
 ```
 
@@ -33,14 +33,14 @@ JS 提供字面量与对象两种方式创建正则表达式
 使用`//`包裹的字面量创建方式是推荐的作法，但它不能在其中使用变量
 
 ```js
-let fn = "daodao.com";
+let fn = "tydumpling.com";
 console.log(/o/.test(fn));//true
 ```
 
 下面尝试使用 `a` 变量时将不可以查询，因为他把 a 看成字符串来查找。
 
 ```js
-let fn = "daodao.com";
+let fn = "tydumpling.com";
 let a = "o";
 console.log(/a/.test(fn)); //false
 ```
@@ -48,7 +48,7 @@ console.log(/a/.test(fn)); //false
 虽然可以使用 `eval` 转换为 js 语法来实现将变量解析到正则中，但是比较麻烦，所以有变量时建议使用下面的对象创建方式
 
 ```js
-let fn = "daodao.com";
+let fn = "tydumpling.com";
 let a = "o";
 console.log(eval(`/${a}/`).test(fn)); //true
 ```
@@ -58,8 +58,8 @@ console.log(eval(`/${a}/`).test(fn)); //true
 当正则需要动态创建时使用对象方式
 
 ```js
-let fn = "daodao.com";
-let web = "daodao";
+let fn = "tydumpling.com";
+let web = "tydumpling";
 let reg = new RegExp(web);
 console.log(reg.test(fn)); //true
 ```
@@ -68,7 +68,7 @@ console.log(reg.test(fn)); //true
 
 ```html
 <body>
-  <div id="content">daodao.com</div>
+  <div id="content">tydumpling.com</div>
 </body>
 <script>
   const content = prompt("请输入要搜索的内容，支持正则表达式");
@@ -86,7 +86,7 @@ console.log(reg.test(fn)); //true
 
 ```html
 <body>
-  <h1>daodao.com</h1>
+  <h1>tydumpling.com</h1>
   <h1>fndd.com</h1>
 </body>
 
@@ -114,11 +114,11 @@ console.log(tel.match(/010|020\-\d{7,8}/)); // false。该比较是 是否是 �
 console.log(tel.match(/(010|020)\-\d{7,8}/)); // true
 ```
 
-匹配字符是否包含`daodao` 或 `fndd`
+匹配字符是否包含`tydumpling` 或 `fndd`
 
 ```js
-const fn = "daodao";
-console.log(/daodao|fndd/.test(fn)); //true
+const fn = "tydumpling";
+console.log(/tydumpling|fndd/.test(fn)); //true
 ```
 
 ## 字符转义
@@ -128,7 +128,7 @@ console.log(/daodao|fndd/.test(fn)); //true
 假如有这样的场景，如果我们想通过正则查找`/`符号，但是 `/`在正则中有特殊的意义。如果写成`///`这会造成解析错误，所以要使用转义语法 `/\//`来匹配。
 
 ```js
-const url = "https://www.daodao.com";
+const url = "https://www.tydumpling.com";
 console.log(/https:\/\//.test(url)); //true
 ```
 
@@ -152,7 +152,7 @@ console.log(reg.test(price));
 下面是网址检测中转义符使用
 
 ```js
-let url = "https://www.daodao.com";
+let url = "https://www.tydumpling.com";
 console.log(/https?:\/\/\w+\.\w+\.\w+/.test(url));
 ```
 
@@ -168,14 +168,14 @@ console.log(/https?:\/\/\w+\.\w+\.\w+/.test(url));
 匹配内容必须以`www`开始
 
 ```js
-const fn = "www.daodao.com";
+const fn = "www.tydumpling.com";
 console.log(/^www/.test(fn)); //true
 ```
 
 匹配内容必须以`.com`结束
 
 ```js
-const fn = "www.daodao.com";
+const fn = "www.tydumpling.com";
 console.log(/\.com$/.test(fn)); //true
 ```
 

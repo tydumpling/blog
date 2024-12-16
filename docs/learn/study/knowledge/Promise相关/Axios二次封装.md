@@ -36,7 +36,7 @@ let request = axios.create({
 
 // 请求拦截器
 const whileList = ['/a'] // 白名单
-const secretId = 'daodao' // 密钥假设
+const secretId = 'tydumpling' // 密钥假设
 request.intercepetors.request.use((config) => {
     // token请求头设置。可设置一个白名单，如果不需要token可放到白名单内
     const token = localStorage.getItem('token')

@@ -93,7 +93,7 @@ export default {
     createExcel() {
       // 转换data数组数据
       let data = [
-          {name: 'daodao', age: 18},
+          {name: 'tydumpling', age: 18},
           {name: 'xiaodao', age: 20},
           {name: 'duyidao', age: 23},
       ]

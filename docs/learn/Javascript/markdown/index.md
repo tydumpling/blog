@@ -17,7 +17,7 @@ web = "tydumpling"
 多变量声明赋值
 
 ```js
-let web = "daodao", name = "haha"
+let web = "tydumpling", name = "haha"
 // or
 let web = name = "haha"
 ```
@@ -57,7 +57,7 @@ console.log(a); //1
 
 ```js
 console.log(web);
-let web = 'daodao'; //Uncaught SyntaxError: Unexpected token 'while'
+let web = 'tydumpling'; //Uncaught SyntaxError: Unexpected token 'while'
 ```
 
 ## 临时性死区
@@ -79,7 +79,7 @@ let x = 1;
 在`run`函数作用域中产生 TDZ，不允许变量在未声明前使用。
 
 ```js
-hd = "daodao";
+hd = "tydumpling";
 function run() {
   console.log(hd); // Cannot access 'hd' before initialization
   let hd = "duyidao";
@@ -108,24 +108,24 @@ hd();
 `var/let/const`共同点是全局作用域中定义的变量，可以在函数中使用
 
 ```js
-var hd = 'daodao';
+var hd = 'tydumpling';
 function show() {
 	return hd;
 }
-console.log(show()); // daodao
+console.log(show()); // tydumpling
 ```
 
 函数中声明的变量，只能在函数及其子函数中使用，函数中声明的变量就像声明了私有领地，外部无法访问
 
 ```js
 function hd() {
-  var web = "daodao";
+  var web = "tydumpling";
 
   function show() {
-    console.log(web); //子函数结果: daodao
+    console.log(web); //子函数结果: tydumpling
   }
   show();
-  console.log(web); //函数结果: daodao
+  console.log(web); //函数结果: tydumpling
 }
 hd();
 console.log(web); //全局访问: hd is not defined
@@ -141,10 +141,10 @@ console.log(web); //全局访问: hd is not defined
 
 ```js
 function run() {
-  web = "daodao";
+  web = "tydumpling";
 }
 run();
-console.log(web); //daodao
+console.log(web); //tydumpling
 ```
 
 没有块作用作用域时 var 也会污染全局
@@ -176,8 +176,8 @@ show();
 `var` 全局声明的变量也存在于 `window`对象中
 
 ```js
-var hd = "daodao";
-console.log(window.hd); //daodao
+var hd = "tydumpling";
+console.log(window.hd); //tydumpling
 ```
 
 以往没有块任用时使用立即执行函数模拟块作用域
@@ -201,7 +201,7 @@ console.log($.web);
 
 ```js
 if (true) {
-    let web = 'duyidao',url = 'daodao.com';
+    let web = 'duyidao',url = 'tydumpling.com';
     console.log(web); //duyidao
 }
 console.log(web); //web is not defined
@@ -225,12 +225,12 @@ console.log(user); // tydumpling
 
 ```js
 function run() {
-  hd = "daodao";
+  hd = "tydumpling";
   if (true) {
     let hd = "duyidao";
     console.log(hd); //duyidao
   }
-  console.log(hd); //daodao
+  console.log(hd); //tydumpling
 }
 run();
 ```
@@ -250,7 +250,7 @@ run();
 
 ```js
 try {
-  const URL = "https://www.daodao.com";
+  const URL = "https://www.tydumpling.com";
   URL = "https://www.duyidao.com"; //产生错误
 } catch (error) {
   throw new Error(error);
@@ -271,14 +271,14 @@ console.log(INFO); // {url:'https://duyidao.gitee.com',port: '443'}
 在不同作用域中可以重名定义常量，如下所示
 
 ```js
-const NAME = 'daodao';
+const NAME = 'tydumpling';
 
 function show() {
   const NAME = 'duyidao';
   return NAME;
 }
 console.log(show()); // duyidao
-console.log(NAME); // daodao
+console.log(NAME); // tydumpling
 ```
 
 ## 全局
@@ -300,9 +300,9 @@ console.log(window.screenLeft) // 80
 
 ```js
 function fn() {
-	web = 'daodao'
+	web = 'tydumpling'
 }
-console.log(web) // daodao
+console.log(web) // tydumpling
 ```
 
 ### 重复定义
@@ -320,14 +320,14 @@ console.log(`商品优惠价格是:${price}`);
 使用`let` 可以避免上面的问题，因为 let 声明后的变量不允许在同一作用域中重新声明
 
 ```js
-let web = 'daodao.com';
+let web = 'tydumpling.com';
 let web = 'tydumpling'; //Identifier 'web' has already been declared
 ```
 
 不同作用域可以重新声明
 
 ```js
-let web = 'daodao.com';
+let web = 'tydumpling.com';
 if (true) {
 	let web = 'tydumpling'; //Identifier 'web' has already been declared
 }
@@ -355,7 +355,7 @@ console.log(window.hd); //undefined
 ```js
 "use strict"
 const INFO = {
-  url: 'https://www.daodao.com',
+  url: 'https://www.tydumpling.com',
   port: '8080'
 };
 Object.freeze(INFO);
@@ -383,8 +383,8 @@ let a = {
   web: "tydumpling"
 };
 let b = a;
-a.web = "daodao";
-console.log(b); // {web: 'daodao'}
+a.web = "tydumpling";
+console.log(b); // {web: 'tydumpling'}
 ```
 
 ## undefined 与 null
@@ -400,11 +400,11 @@ console.log(typeof hd);
 
 对未声明的变量使用会报错，但判断类型将显示 `undefined`。
 
-![image-20191003194105707](https://doc.daodao.com/assets/img/image-20191003194105707.a5cd9f56.png)
+![image-20191003194105707](https://doc.tydumpling.com/assets/img/image-20191003194105707.a5cd9f56.png)
 
 ```js
-console.log(typeof daodao);
-console.log(daodao);
+console.log(typeof tydumpling);
+console.log(tydumpling);
 ```
 
 我们发现未赋值与未定义的变量值都为 `undefined` ，建议声明变量设置初始值，这样就可以区分出变量状态了。
@@ -444,7 +444,7 @@ console.log(typeof hd);
 
 ```js
 "use strict";
-url = 'daodao.com'; //url is not defined
+url = 'tydumpling.com'; //url is not defined
 ```
 
 强制声明防止污染全局
@@ -452,7 +452,7 @@ url = 'daodao.com'; //url is not defined
 ```js
 "use strict";
 function run() {
-  web = "daodao";
+  web = "tydumpling";
 }
 run();
 console.log(web); // 报错
@@ -462,7 +462,7 @@ console.log(web); // 报错
 
 ```js
 "use strict";
-var public = 'daodao.com'; // 报错
+var public = 'tydumpling.com'; // 报错
 ```
 
 变量参数不允许重复定义
@@ -490,7 +490,7 @@ function notStrict() {
 ```js
 (function () {
   "use strict";
-  url = 'daodao.com';
+  url = 'tydumpling.com';
 })();
 ```
 
@@ -500,15 +500,15 @@ function notStrict() {
 
 ```js
 // "use strict";
-({name,url} = {name:'tydumpling',url:'daodao.com'});
-console.log(name, url); // {name:'tydumpling',url:'daodao.com'}
+({name,url} = {name:'tydumpling',url:'tydumpling.com'});
+console.log(name, url); // {name:'tydumpling',url:'tydumpling.com'}
 ```
 
 严格模式下必须使用声明。所以建议使用 let 等声明。
 
 ```js
 "use strict";
-({name,url} = {name:'tydumpling',url:'daodao.com'});
+({name,url} = {name:'tydumpling',url:'tydumpling.com'});
 console.log(name, url); // 报错
 ```
 

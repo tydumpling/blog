@@ -54,7 +54,7 @@ export default [
       {
         text: "📜 自主学习",
         items: [
-          { text: "🔪 tydumpling博客", link: "/daodao/" },
+          { text: "🔪 tydumpling博客", link: "/tydumpling/" },
           { text: "📢 网上学习", link: "/myself/" },
         ],
       },

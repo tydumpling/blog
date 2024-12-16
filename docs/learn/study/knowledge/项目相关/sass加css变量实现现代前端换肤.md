@@ -16,7 +16,7 @@
 
 ## 样式变量定义
 
-下面先来实现通过变量定义部分样式。假设我们已经创建了自己的组件库，放到了 `daodao_ui` 文件夹下，样式文件放在 `daodao_ui/css` 文件夹下。
+下面先来实现通过变量定义部分样式。假设我们已经创建了自己的组件库，放到了 `tydumpling_ui` 文件夹下，样式文件放在 `tydumpling_ui/css` 文件夹下。
 
 自定义组件代码如下所示：
 
@@ -30,19 +30,19 @@
 <script setup></script>
 ```
 
-组件的样式则在 `daodao_ui/css/index.scss` 文件内。
+组件的样式则在 `tydumpling_ui/css/index.scss` 文件内。
 
 > 注意
 >
 > 这里的类名都使用 BEM 类名规范来设置类名
 
-在 `daodao_ui/index.js` 文件中注册自定义组件（不是本章重点，因此不做过多描述）：
+在 `tydumpling_ui/index.js` 文件中注册自定义组件（不是本章重点，因此不做过多描述）：
 
 ```js
-import daodaobutton from './daodaobutton.vue'
+import tydumplingbutton from './tydumplingbutton.vue'
 
 let obj = {
-  daodaobutton
+  tydumplingbutton
 }
 
 export default {
@@ -58,13 +58,13 @@ export default {
 
 ```js
 // 注册的组件
-import daodaoui from './daodao_ui/index.js'
+import tydumplingui from './tydumpling_ui/index.js'
 
 // 样式文件
-import './daodao_ui/css/index.scss'
+import './tydumpling_ui/css/index.scss'
 ```
 
-为按钮组件设置样式变量。一般的，为了方便后续换肤，这些变量都设置在新的样式文件中。本案例放到 `daodao_ui/css/variable.scss` 文件内。
+为按钮组件设置样式变量。一般的，为了方便后续换肤，这些变量都设置在新的样式文件中。本案例放到 `tydumpling_ui/css/variable.scss` 文件内。
 
 注意要设置为默认样式：
 
@@ -148,17 +148,17 @@ $button-primary: blue !default;
 ```scss
 $theme-color: pink;
 $button-primary: green;
-@import '@/daodao_ui/css/index.scss'
+@import '@/tydumpling_ui/css/index.scss'
 ```
 
 而入口文件不再引入组件库的样式文件了，改为引入刚新建的样式文件。
 
 ```js
 // 注册的组件
-import daodaoui from './daodao_ui/index.js'
+import tydumplingui from './tydumpling_ui/index.js'
 
 // 样式文件
-// import './daodao_ui/css/index.scss'
+// import './tydumpling_ui/css/index.scss'
 import './myindex.scss'
 ```
 
@@ -168,7 +168,7 @@ import './myindex.scss'
 
 在 css 中， `()` 表示一个对象。把所有相关的主题属性放到该对象中。为了方便替换，需要添加 `!default` 。
 
-修改 `daodao_ui/css/index.scss` 文件代码，代码如下：
+修改 `tydumpling_ui/css/index.scss` 文件代码，代码如下：
 
 ```scss
 $themes:(
@@ -202,7 +202,7 @@ $themes:(
 - `[data-skin='#{}']` 表示在 HTML 中找到符合 `data-skin` 为主题名称的标签
 - `map-get()` 方法表示找到对应对象中的键值类名。需要传两个参数，参数一为所要对比的属性对象，参数二为需要查找的类名字符串
 
-生成好对应的属性后再返回 `daodao_ui/css/index.scss` 文件内绑定样式。代码如下：
+生成好对应的属性后再返回 `tydumpling_ui/css/index.scss` 文件内绑定样式。代码如下：
 
 ```scss
 @import './mixin.scss';
@@ -240,7 +240,7 @@ $themes:(
   )
 );
 
-@import '@/daodao_ui/css/index.scss'
+@import '@/tydumpling_ui/css/index.scss'
 ```
 
 现在只需要修改样式变量类名即可，代码如下：
@@ -288,7 +288,7 @@ $themes:(
   )
 );
 
-@import '@/daodao_ui/css/index.scss'
+@import '@/tydumpling_ui/css/index.scss'
 ```
 
 注册一个全局组件，通过父子组件传参需要修改的样式变量和修改成啥的颜色样式；子组件接受并修改。

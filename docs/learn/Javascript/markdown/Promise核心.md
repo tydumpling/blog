@@ -28,11 +28,11 @@ Promise.resolve()
   .then(function() {
     console.log("promise2");
   });
-console.log("daodao.com");
+console.log("tydumpling.com");
 
 #输出结果为
 tydumpling
-daodao.com
+tydumpling.com
 promise1
 promise2
 定时器
@@ -96,13 +96,13 @@ HTML 标准规定最小时间不能低于 4 毫秒，有些异步操作如 DOM �
 setTimeout(func,6);
 ```
 
-下面的代码会先输出 `daodao.com` 之后输出 `tydumpling`
+下面的代码会先输出 `tydumpling.com` 之后输出 `tydumpling`
 
 ```js
 setTimeout(() => {
   console.log("tydumpling");
 }, 0);
-console.log("daodao.com");
+console.log("tydumpling.com");
 ```
 
 > 其他的异步操作如事件、XMLHTTPREQUEST 等逻辑是一样的
@@ -230,7 +230,7 @@ function fn(num) {
 }
 let num=987654321;
 fn(num);
-console.log("daodao.com"); //需要等待上面执行完才会执行
+console.log("tydumpling.com"); //需要等待上面执行完才会执行
 ```
 
 现在把任务分解成小块放入任务队列，游览器就不会出现卡死的现象了，也不会影响后续代码的执行
@@ -253,7 +253,7 @@ function fn() {
   }
 }
 fn();
-console.log("daodao.com"); //立刻显示出来
+console.log("tydumpling.com"); //立刻显示出来
 ```
 
 交给微任务处理是更好的选择
@@ -376,7 +376,7 @@ let p = new fn((resolve, reject) => {
     console.log(reason);
   }
 );
-console.log("daodao.com");
+console.log("tydumpling.com");
 ```
 
 ### 异步任务
@@ -412,7 +412,7 @@ then(onFulfilled, onRejected) {
 }
 ```
 
-现在再执行代码，已经有异步效果了，先输出了`daodao.com`
+现在再执行代码，已经有异步效果了，先输出了`tydumpling.com`
 
 ```js
 let p = new fn((resolve, reject) => {
@@ -425,7 +425,7 @@ let p = new fn((resolve, reject) => {
     console.log(reason);
   }
 );
-console.log("daodao.com");
+console.log("tydumpling.com");
 ```
 
 ### PENDING 状态
@@ -640,7 +640,7 @@ let p = new fn((resolve, reject) => {
     console.log(reason);
   }
 );
-console.log("daodao.com");
+console.log("tydumpling.com");
 ```
 
 ## 返回类型
@@ -873,7 +873,7 @@ fn.resolve("tydumpling").then(value => {
 ```js
 fn.resolve(
   new fn(resolve => {
-    resolve("daodao.com");
+    resolve("tydumpling.com");
   })
 ).then(value => {
   console.log(value);
@@ -965,7 +965,7 @@ let promises = fn.all([p1, p2]).then(
 
 ```js
 let p1 = fn.resolve("tydumpling");
-let p2 = fn.resolve("daodao.com");
+let p2 = fn.resolve("tydumpling.com");
 let promises = fn.all([p1, p2]).then(
   promises => {
     console.log(promises);
@@ -1011,7 +1011,7 @@ static race(promises) {
 
 ```js
 let p1 = fn.resolve("tydumpling");
-let p2 = fn.resolve("daodao.com");
+let p2 = fn.resolve("tydumpling.com");
 let promises = fn.race([p1, p2]).then(
   promises => {
     console.log(promises);
@@ -1032,7 +1032,7 @@ let p1 = new fn(resolve => {
 });
 let p2 = new fn(resolve => {
   setInterval(() => {
-    resolve("daodao.com");
+    resolve("tydumpling.com");
   }, 1000);
 });
 let promises = fn.race([p1, p2]).then(

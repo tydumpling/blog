@@ -77,10 +77,10 @@ console.log(obj.get()); //tydumpling
 
 ```js
 let hd = {};
-let daodao = new Object();
-console.log(hd, daodao);
+let tydumpling = new Object();
+console.log(hd, tydumpling);
 console.log(hd.constructor);
-console.log(daodao.constructor);
+console.log(tydumpling.constructor);
 ```
 
 ### 操作属性
@@ -275,22 +275,22 @@ upload({ size: 999 });
 下面的数值对象会在数学运算时转换为 `number`
 
 ```js
-let daodao = new Number(1);
-console.log(daodao + 3); //4
+let tydumpling = new Number(1);
+console.log(tydumpling + 3); //4
 ```
 
 如果参数字符串运长时会转换为 `string`
 
 ```js
-let daodao = new Number(1);
-console.log(daodao + "3"); //13
+let tydumpling = new Number(1);
+console.log(tydumpling + "3"); //13
 ```
 
 下面当不确定转换声明时使用 `default` ，大部分`default`转换使用 `number` 转换。
 
 ```js
-let daodao = new Number(1);
-console.log(daodao == "1"); //true
+let tydumpling = new Number(1);
+console.log(tydumpling == "1"); //true
 ```
 
 ### Symbol.toPrimitive
@@ -340,12 +340,12 @@ console.log(`${hd}tydumpling`); //toString tydumplingtydumpling
 
 ```js
 //对象使用
-let info = {name:'tydumpling',url:'daodao.com'};
+let info = {name:'tydumpling',url:'tydumpling.com'};
 let {name:n,url:u} = info
 console.log(n); // tydumpling
 
 //如果属性名与变量相同可以省略属性定义
-let {name,url} = {name:'tydumpling',url:'daodao.com'};
+let {name,url} = {name:'tydumpling',url:'tydumpling.com'};
 console.log(name); // tydumpling
 ```
 
@@ -355,7 +355,7 @@ console.log(name); // tydumpling
 function hd() {
   return {
     name: 'tydumpling',
-    url: 'daodao.com'
+    url: 'tydumpling.com'
   };
 }
 let {name: n,url: u} = hd();
@@ -385,7 +385,7 @@ console.log(random());
 
 ```js
 // "use strict";
-({name,url} = {name:'tydumpling',url:'daodao.com'});
+({name,url} = {name:'tydumpling',url:'tydumpling.com'});
 console.log(name, url);
 ```
 
@@ -393,7 +393,7 @@ console.log(name, url);
 
 ```js
 "use strict";
-let { name, url } = { name: "tydumpling", url: "daodao.com" };
+let { name, url } = { name: "tydumpling", url: "tydumpling.com" };
 console.log(name, url);
 ```
 
@@ -402,7 +402,7 @@ console.log(name, url);
 如果属性名与赋值的变量名相同可以更简洁
 
 ```js
-let web = { name: "tydumpling",url: "daodao.com" };
+let web = { name: "tydumpling",url: "tydumpling.com" };
 let { name, url } = web;
 console.log(name); //tydumpling
 ```
@@ -410,24 +410,24 @@ console.log(name); //tydumpling
 只赋值部分变量
 
 ```js
-let [,url]=['tydumpling','daodao.com'];
-console.log(url);//daodao.com
+let [,url]=['tydumpling','tydumpling.com'];
+console.log(url);//tydumpling.com
 
-let {name}= {name:'tydumpling',url:'daodao.com'};
+let {name}= {name:'tydumpling',url:'tydumpling.com'};
 console.log(name); //tydumpling
 ```
 
 可以直接使用变量赋值对象属性
 
 ```js
-let name = "tydumpling",url = "daodao.com";
+let name = "tydumpling",url = "tydumpling.com";
 //标准写法如下
 let hd = { name: name, url: url };
-console.log(hd);  //{name: "tydumpling", url: "daodao.com"}
+console.log(hd);  //{name: "tydumpling", url: "tydumpling.com"}
 
 //如果属性和值变量同名可以写成以下简写形式
 let opt = { name, url };
-console.log(opt); //{name: "tydumpling", url: "daodao.com"}
+console.log(opt); //{name: "tydumpling", url: "tydumpling.com"}
 ```
 
 ### 嵌套解构
@@ -454,7 +454,7 @@ console.log(lessons); // lessons is not defined
 let [name, site = 'xiaodao'] = ['tydumpling'];
 console.log(site); //xiaodao
 
-let {name,url,user='tydumpling'}= {name:'tydumpling',url:'daodao.com'};
+let {name,url,user='tydumpling'}= {name:'tydumpling',url:'tydumpling.com'};
 console.log(name,user); // tydumpling, tydumpling
 ```
 
@@ -494,9 +494,9 @@ hd(['tydumpling', 'duyidao']);
 
 ```js
 function hd({name,url,user='tydumpling'}) {
-	console.log(name,url,user); //tydumpling daodao.com tydumpling
+	console.log(name,url,user); //tydumpling tydumpling.com tydumpling
 }
-hd({name:'tydumpling', url:'daodao.com'});
+hd({name:'tydumpling', url:'tydumpling.com'});
 ```
 
 对象解构传参
@@ -516,7 +516,7 @@ user("tydumpling", { sex: "男", age: 18 });
 
 ```js
 let obj = {name: "tydumpling"};
-obj.site = "daodao.com";
+obj.site = "tydumpling.com";
 console.log(obj);
 ```
 
@@ -554,7 +554,7 @@ console.log("concat" in arr); //true
 ```js
 let obj = {name: "tydumpling"};
 let hd = {
-  web: "daodao.com"
+  web: "tydumpling.com"
 };
 
 //设置hd为obj的新原型
@@ -639,8 +639,8 @@ let user = {
 let hd = {
 	stu: user
 };
-hd.stu.name = 'daodao';
-console.log(user); // {name: 'daodao'}
+hd.stu.name = 'tydumpling';
+console.log(user); // {name: 'tydumpling'}
 console.log(user.name); // xiaodao
 ```
 
@@ -766,8 +766,8 @@ for (const key in obj) {
   hd[key] = obj[key];
 }
 
-hd.name = "daodao";
-console.log(hd); // {name: 'daodao'}
+hd.name = "tydumpling";
+console.log(hd); // {name: 'tydumpling'}
 console.log(obj); // {name: 'tydumpling'}
 ```
 
@@ -780,7 +780,7 @@ let user = {
 let hd = {
 	stu: Object.assign({}, user)
 };
-hd.stu.name = 'daodao';
+hd.stu.name = 'tydumpling';
 console.log(user.name);//tydumpling
 ```
 
@@ -791,8 +791,8 @@ let obj = {
   name: "tydumpling"
 };
 let hd = { ...obj };
-hd.name = "daodao";
-console.log(hd); //  {name: 'daodao'}
+hd.name = "tydumpling";
+console.log(hd); //  {name: 'tydumpling'}
 console.log(obj); //  {name: 'tydumpling'}
 ```
 
@@ -819,7 +819,7 @@ function copy(object) {
 }
 let newObj = copy(obj);
 newObj.name = 'xiaodao';
-newObj.user.name = 'daodao.com';
+newObj.user.name = 'tydumpling.com';
 console.log(newObj);
 console.log(obj);
 ```
@@ -1335,7 +1335,7 @@ console.log(Lesson.total); //410
 ```js
 const web = {
   name: "tydumpling",
-  url: "daodao.com",
+  url: "tydumpling.com",
   get site() {
     return `${this.name} ${this.url}`;
   },
@@ -1363,7 +1363,7 @@ let Request = {
   	localStorage.setItem('token', con);
   }
 };
-// Request.token = 'daodao'
+// Request.token = 'tydumpling'
 console.log(Request.token);
 ```
 
@@ -1461,7 +1461,7 @@ console.log(hd);
 
 ```js
 let data = {
-  name: 'daodao.com',
+  name: 'tydumpling.com',
 }
 for (const [key, value] of Object.entries(data)) {
   observer(data, key, value)
@@ -1576,7 +1576,7 @@ console.log(stringDotProxy[0]);
 
 下面通过代理实现`vue` 等前端框架的数据绑定特性特性。
 
-![Untitled](https://doc.daodao.com/assets/img/Untitled-5190245.5087f5bc.gif)
+![Untitled](https://doc.tydumpling.com/assets/img/Untitled-5190245.5087f5bc.gif)
 
 ```html
 <body>
@@ -1693,7 +1693,7 @@ let view = new View().run();
 ```js
 let hd = {
   "title": "tydumpling",
-  "url": "daodao.com",
+  "url": "tydumpling.com",
   "teacher": {
   	"name": "tydumpling",
   }
@@ -1736,20 +1736,20 @@ console.log(lessons[0].title);
 ```js
 let hd = {
   "title": "tydumpling",
-  "url": "daodao.com",
+  "url": "tydumpling.com",
   "teacher": {
   	"name": "tydumpling",
   }
 }
 console.log(JSON.stringify(hd));
-//{"title":"tydumpling","url":"daodao.com","teacher":{"name":"tydumpling"}}
+//{"title":"tydumpling","url":"tydumpling.com","teacher":{"name":"tydumpling"}}
 ```
 
 根据第二个参数指定保存的属性
 
 ```js
 console.log(JSON.stringify(hd, ['title', 'url']));
-//{"title":"tydumpling","url":"daodao.com"}
+//{"title":"tydumpling","url":"tydumpling.com"}
 ```
 
 第三个是参数用来控制 TAB 数量，如果字符串则为前导字符。
@@ -1757,7 +1757,7 @@ console.log(JSON.stringify(hd, ['title', 'url']));
 ```js
 let hd = {
   "title": "tydumpling",
-  "url": "daodao.com",
+  "url": "tydumpling.com",
   "teacher": {
   	"name": "tydumpling",
   }
@@ -1770,7 +1770,7 @@ console.log(JSON.stringify(hd, null, 4));
 ```js
 let hd = {
     "title": "tydumpling",
-    "url": "daodao.com",
+    "url": "tydumpling.com",
     "teacher": {
         "name": "tydumpling",
     },
@@ -1781,7 +1781,7 @@ let hd = {
         };
     }
 }
-console.log(JSON.stringify(hd)); //{"title":"daodao.com","name":"tydumpling"}
+console.log(JSON.stringify(hd)); //{"title":"tydumpling.com","name":"tydumpling"}
 ```
 
 ### 反序列化
@@ -1791,7 +1791,7 @@ console.log(JSON.stringify(hd)); //{"title":"daodao.com","name":"tydumpling"}
 ```js
 let hd = {
   "title": "tydumpling",
-  "url": "daodao.com",
+  "url": "tydumpling.com",
   "teacher": {
   	"name": "tydumpling",
   }
@@ -1805,7 +1805,7 @@ console.log(JSON.parse(jsonStr));
 ```js
 let hd = {
   title: "tydumpling",
-  url: "daodao.com",
+  url: "tydumpling.com",
   teacher: {
     name: "tydumpling"
   }

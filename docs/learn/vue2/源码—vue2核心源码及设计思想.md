@@ -126,7 +126,7 @@ npm run dev
   console.log(Vue)
   const vm = new Vue({
     data: {
-      name: 'daodao',
+      name: 'tydumpling',
       age: 23
     }
   })
@@ -1271,7 +1271,7 @@ function patchProps(el, props) {
       const vm = new Vue({
         el: "#app", // 将数据解析到el元素上
         data: {
-          name: "daodao",
+          name: "tydumpling",
           age: 23,
           list: ["eat", { a: 1 }],
         },
@@ -1559,7 +1559,7 @@ export default Watcher;
       const vm = new Vue({
         el: "#app", // 将数据解析到el元素上
         data: {
-          name: "daodao",
+          name: "tydumpling",
           age: 23,
           list: ["eat", { a: 1 }],
         },
@@ -1683,7 +1683,7 @@ export default Vue;
       const vm = new Vue({
         el: "#app", // 将数据解析到el元素上
         data: {
-          name: "daodao",
+          name: "tydumpling",
           age: 23,
           list: ["eat", { a: 1 }],
         },

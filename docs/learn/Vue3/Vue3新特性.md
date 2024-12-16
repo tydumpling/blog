@@ -214,7 +214,7 @@ defineProps<Props & { age: number }>()
    <template>
    	<div>
            <slot msg="nnnn"></slot>
-           <slot name="daodao" :bar="1"></slot>
+           <slot name="tydumpling" :bar="1"></slot>
        </div>
    </template>
    ```
@@ -308,7 +308,7 @@ console.log(bar.value)
 
 ```vue
 <script setup>
-const bar = ref('daodao')
+const bar = ref('tydumpling')
 </script>
 
 <template>
@@ -341,7 +341,7 @@ export default defineConfig({
 <script setup>
 defineOptions({ 
     inheritAttrs: false,
-    name: 'daodao'
+    name: 'tydumpling'
 })
 </script>
 ```
@@ -352,7 +352,7 @@ defineOptions({
 <script setup></script>
 <script>
 export default {
-    name: 'daodao'
+    name: 'tydumpling'
 }
 </script>
 ```

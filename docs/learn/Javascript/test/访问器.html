@@ -10,7 +10,7 @@
   <script>
     // 访问器基本使用
     const user = {
-      data: {name:'daodao',age:23},
+      data: {name:'tydumpling',age:23},
       set age(value) {
         if(typeof value !== 'number' || value < 0 || value > 150) return '年龄格式有误'
         this.data.age = value
@@ -21,7 +21,7 @@
     }
 
     user.age = 18
-    console.log(user); // {data:{name: 'daodao', age: 18}, age:18}
+    console.log(user); // {data:{name: 'tydumpling', age: 18}, age:18}
 
     // 只读属性 / 伪计算
     const book = {
@@ -41,7 +41,7 @@
     // 批量操作
     const edit = {
       data: {
-        user:'daodao',
+        user:'tydumpling',
         url: ''
       },
       set change(value) {
@@ -52,8 +52,8 @@
       }
     }
 
-    edit.change = 'tydumpling博客,https://duyidao.gitee.io/daodao/'
-    console.log(edit.val); // 网站为tydumpling博客，网址是https://duyidao.gitee.io/daodao/
+    edit.change = 'tydumpling博客,https://duyidao.gitee.io/tydumpling/'
+    console.log(edit.val); // 网站为tydumpling博客，网址是https://duyidao.gitee.io/tydumpling/
   </script>
 </body>
 </html>

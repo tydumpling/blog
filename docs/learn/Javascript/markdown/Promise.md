@@ -67,7 +67,7 @@ function loadImage(file, resolve, reject) {
 }
 
 loadImage(
-  "images/daodao.png",
+  "images/tydumpling.png",
   image => {
     image.style.border = "solid 5px red";
   },
@@ -101,7 +101,7 @@ load(
 );
 ```
 
-实例中用到的 `fn.js` 与 `daodao.js` 内容如下
+实例中用到的 `fn.js` 与 `tydumpling.js` 内容如下
 
 ```js
 # fn.js
@@ -109,14 +109,14 @@ function fn() {
   console.log("fn function run");
 }
 
-# daodao.js
-function daodao() {
-  console.log("daodao function run");
+# tydumpling.js
+function tydumpling() {
+  console.log("tydumpling function run");
   fn();
 }
 ```
 
-如果要加载多个脚本时需要嵌套使用，下面`daodao.js` 依赖 `fn.js`，需要先加载`fn.js` 后加载`daodao.js`
+如果要加载多个脚本时需要嵌套使用，下面`tydumpling.js` 依赖 `fn.js`，需要先加载`fn.js` 后加载`tydumpling.js`
 
 > 不断的回调函数操作将产生回调地狱，使代码很难维护
 
@@ -125,9 +125,9 @@ load(
   "js/fn.js",
   script => {
     load(
-      "js/daodao.js",
+      "js/tydumpling.js",
       script => {
-        daodao();
+        tydumpling();
       },
       error => {
         console.log(`${error.srcElement.src} 加载失败`);
@@ -278,7 +278,7 @@ console.log(
 ); //Promise {<rejected>: "rejected"}
 ```
 
-`promise` 创建时即立即执行即同步任务，`then` 会放在异步微任务中执行，需要等同步任务执行后才执行。`promise` 操作都是在其他代码后执行，下面会先输出 `daodao.com` 再弹出 `success` 。
+`promise` 创建时即立即执行即同步任务，`then` 会放在异步微任务中执行，需要等同步任务执行后才执行。`promise` 操作都是在其他代码后执行，下面会先输出 `tydumpling.com` 再弹出 `success` 。
 
 ```js
 let promise = new Promise((resolve, reject) => {
@@ -288,7 +288,7 @@ let promise = new Promise((resolve, reject) => {
 promise.then(msg => {
   console.log(msg);
 });
-console.log("daodao.com");
+console.log("tydumpling.com");
 ```
 
 - `promise` 的 then、catch、finally 的方法都是异步任务
@@ -297,7 +297,7 @@ console.log("daodao.com");
 ```js
 const promise = new Promise(resolve => resolve("success"));
 promise.then(alert);
-alert("daodao.com");
+alert("tydumpling.com");
 promise.then(() => {
   alert("tydumpling");
 });
@@ -540,7 +540,7 @@ let p2 = p1.then(() => {
   console.log("tydumpling");
 });
 p2.then(() => {
-  console.log("daodao.com");
+  console.log("tydumpling.com");
 });
 console.log(p1); // Promise {<resolved>}
 console.log(p2); // Promise {<pending>}
@@ -585,11 +585,11 @@ let p1 = new Promise(resolve => {
 });
 let p2 = p1.then(() => {
   return new Promise(r => {
-    r("daodao.com");
+    r("tydumpling.com");
   });
 });
 p2.then(v => {
-  console.log(v); //daodao.com
+  console.log(v); //tydumpling.com
 });
 ```
 
@@ -739,7 +739,7 @@ class User {
     this.id = id;
   }
   then(resolve, reject) {
-    resolve(ajax(`http://localhost:8888/php/daodao.php?id=${this.id}`));
+    resolve(ajax(`http://localhost:8888/php/tydumpling.php?id=${this.id}`));
   }
 }
 new Promise((resolve, reject) => {
@@ -1127,7 +1127,7 @@ function ajax(url) {
 }
 
 ajax("http://localhost:8888/php/user.php?name=tydumpling")
-.then(user =>ajax(`http://localhost:8888/php/daodao.php?id=${user["id"]}`))
+.then(user =>ajax(`http://localhost:8888/php/tydumpling.php?id=${user["id"]}`))
 .then(lesson => {
   console.log(lesson);
 });
@@ -1150,7 +1150,7 @@ function loadImage(file) {
   });
 }
 
-loadImage("images/daodao.png").then(image => {
+loadImage("images/tydumpling.png").then(image => {
   image.style.border = "solid 20px black";
   console.log("宽度:" + window.getComputedStyle(image).width);
 });
@@ -1237,8 +1237,8 @@ promise.then(fn => {
   console.log(fn); //tydumpling-dd
 });
 promise.then(fn => {
-  fn += "-daodao";
-  console.log(fn); //tydumpling-daodao
+  fn += "-tydumpling";
+  console.log(fn); //tydumpling-tydumpling
 });
 ```
 
@@ -1274,8 +1274,8 @@ new Promise((resolve, reject) => {
   return fn;
 })
 .then(fn => {
-  fn += "-daodao";
-  console.log(fn); //tydumpling-dd-daodao
+  fn += "-tydumpling";
+  console.log(fn); //tydumpling-dd-tydumpling
 });
 ```
 
@@ -1314,8 +1314,8 @@ function load(file) {
 }
 
 load("js/fn.js")
-.then(() => load("js/daodao.js"))
-.then(() => daodao());
+.then(() => load("js/tydumpling.js"))
+.then(() => tydumpling());
 ```
 
 ### 操作元素
@@ -1379,7 +1379,7 @@ function ajax(url) {
 }
 ajax("http://localhost:8888/php/user.php?name=tydumpling")
 .then(user => {
-  return ajax(`http://localhost:8888/php/daodao.php?id=${user["id"]}`);
+  return ajax(`http://localhost:8888/php/tydumpling.php?id=${user["id"]}`);
 })
 .then(lesson => {
   console.log(lesson);
@@ -1457,7 +1457,7 @@ new Promise(resolve => {
   resolve("tydumpling");
 })
 .then(v => {
-  if (v != "daodao.com") return Promise.reject(new Error("fail"));
+  if (v != "tydumpling.com") return Promise.reject(new Error("fail"));
 })
 .catch(error => {
   console.log(error); // fail
@@ -1473,7 +1473,7 @@ new Promise(resolve => {
 - 参数必须是可迭代类型，如 Array/Set
 - 成功后返回 `promise` 结果的有序数组
 
-下例中当 `dd、daodao` 两个 Promise 状态都为 `fulfilled` 时，fn 状态才为`fulfilled`。
+下例中当 `dd、tydumpling` 两个 Promise 状态都为 `fulfilled` 时，fn 状态才为`fulfilled`。
 
 ```js
 const dd = new Promise((resolve, reject) => {
@@ -1481,12 +1481,12 @@ const dd = new Promise((resolve, reject) => {
     resolve("第一个Promise");
   }, 1000);
 });
-const daodao = new Promise((resolve, reject) => {
+const tydumpling = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve("第二个异步");
   }, 1000);
 });
-const fn = Promise.all([dd, daodao])
+const fn = Promise.all([dd, tydumpling])
   .then(results => {
     console.log(results);  // ['第一个Promise', '第二个异步']
   })
@@ -1544,7 +1544,7 @@ const promises = [
 ```js
 function getFn(names) {
     let promise = names.map(item => {
-        return ajax('http:192.168.0.18:8080/daodao' + item)
+        return ajax('http:192.168.0.18:8080/tydumpling' + item)
     })
     return Promise.all(promise)
 }
@@ -1638,12 +1638,12 @@ const dd = new Promise((resolve, reject) => {
     resolve("第一个Promise");
   }, 2000);
 });
-const daodao = new Promise((resolve, reject) => {
+const tydumpling = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve("第二个异步");
   }, 1000);
 });
-Promise.race([dd, daodao])
+Promise.race([dd, tydumpling])
 .then(results => {
   console.log(results); // 第二个异步
 })
@@ -1855,7 +1855,7 @@ echo $users[$_GET['id']];
 
 ```js
 async function fn() {
-  return "daodao.com";
+  return "tydumpling.com";
 }
 console.log(fn());
 fn().then(value => {
@@ -1876,7 +1876,7 @@ async function fn(message) {
 async function run() {
   let h1 = await fn("tydumpling");
   console.log(h1);
-  let h2 = await fn("daodao.com");
+  let h2 = await fn("tydumpling.com");
   console.log(h2);
 }
 run();
@@ -1896,7 +1896,7 @@ run();
 async function fn() {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve("daodao.com");
+      resolve("tydumpling.com");
     }, 2000);
   });
   let result = await promise;
@@ -1917,7 +1917,7 @@ async function fn() {
 }
 async function run() {
   let value = await fn();
-  console.log("daodao.com");
+  console.log("tydumpling.com");
   console.log(value);
 }
 run();
@@ -1929,7 +1929,7 @@ run();
 async function user() {
   let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
   let lessons = await ajax(
-    `http://localhost:8888/php/daodao.php?id=${user.id}`
+    `http://localhost:8888/php/tydumpling.php?id=${user.id}`
   );
   console.log(lessons);
 }
@@ -1941,7 +1941,7 @@ async function user() {
 (async () => {
   let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
   let lessons = await ajax(
-    `http://localhost:8888/php/daodao.php?id=${user.id}`
+    `http://localhost:8888/php/tydumpling.php?id=${user.id}`
   );
   console.log(lessons);
 })();
@@ -2025,7 +2025,7 @@ class User {
     let user = await ajax(
       `http://localhost:8888/php/user.php?name=${name}`
     );
-    user.name += "-daodao.com"; // 如果前面不加await，这里拿不到user，会undefined，因为异步操作再同步操作之后
+    user.name += "-tydumpling.com"; // 如果前面不加await，这里拿不到user，会undefined，因为异步操作再同步操作之后
     return user;
   }
 }
@@ -2078,7 +2078,7 @@ fn.get("tydumpling").then(user => {
 (async () => {
   let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
   let lessons = await ajax(
-    `http://localhost:8888/php/daodao.php?id=${user.id}`
+    `http://localhost:8888/php/tydumpling.php?id=${user.id}`
   );
   console.log(lessons);
 })();
@@ -2103,7 +2103,7 @@ async 内部发生的错误，会将必变 promise 对象为 rejected 状态，�
 
 ```js
 async function fn() {
-  console.log(daodao);
+  console.log(tydumpling);
 }
 fn().catch(error => {
   throw new Error(error);
@@ -2200,7 +2200,7 @@ fn("tydumpling教程");
 async function p1() {
   return new Promise(resolve => {
     setTimeout(() => {
-      console.log("daodao");
+      console.log("tydumpling");
       resolve();
     }, 2000);
   });
@@ -2298,7 +2298,7 @@ function loadImage(file, resolve, reject) {
 }
 
 loadImage(
-  "images/daodao.png",
+  "images/tydumpling.png",
   image => {
     image.style.border = "solid 5px red";
   },
@@ -2326,19 +2326,19 @@ load(
     console.log(`${error.srcElement.src} 加载失败`);
   }
 );
-实例中用到的 fn.js 与 daodao.js 内容如下
+实例中用到的 fn.js 与 tydumpling.js 内容如下
 
 # fn.js
 function fn() {
   console.log("fn function run");
 }
 
-# daodao.js
-function daodao() {
-  console.log("daodao function run");
+# tydumpling.js
+function tydumpling() {
+  console.log("tydumpling function run");
   fn();
 }
-如果要加载多个脚本时需要嵌套使用，下面daodao.js 依赖 fn.js，需要先加载fn.js 后加载daodao.js
+如果要加载多个脚本时需要嵌套使用，下面tydumpling.js 依赖 fn.js，需要先加载fn.js 后加载tydumpling.js
 
 不断的回调函数操作将产生回调地狱，使代码很难维护
 
@@ -2346,9 +2346,9 @@ load(
   "js/fn.js",
   script => {
     load(
-      "js/daodao.js",
+      "js/tydumpling.js",
       script => {
-        daodao();
+        tydumpling();
       },
       error => {
         console.log(`${error.srcElement.src} 加载失败`);
@@ -2382,7 +2382,7 @@ function ajax(url, resolve, reject) {
 }
 ajax("http://localhost:8888/php/user.php?name=tydumpling", user => {
   ajax(
-    `http://localhost:8888/php/daodao.php?id=${user["id"]}`,
+    `http://localhost:8888/php/tydumpling.php?id=${user["id"]}`,
     response => {
       console.log(response[0]);
     }
@@ -2485,14 +2485,14 @@ let promise = new Promise((resolve, reject) => {
 promise.then(msg => {
   console.log(msg);
 });
-console.log("daodao.com");
-promise 操作都是在其他代码后执行，下面会先输出 daodao.com 再弹出 success
+console.log("tydumpling.com");
+promise 操作都是在其他代码后执行，下面会先输出 tydumpling.com 再弹出 success
 
 promise 的 then、catch、finally 的方法都是异步任务
 程序需要将主任务执行完成才会执行异步队列任务
 const promise = new Promise(resolve => resolve("success"));
 promise.then(alert);
-alert("daodao.com");
+alert("tydumpling.com");
 promise.then(() => {
   alert("tydumpling");
 });
@@ -2682,7 +2682,7 @@ let p2 = p1.then(() => {
   console.log("tydumpling");
 });
 p2.then(() => {
-  console.log("daodao.com");
+  console.log("tydumpling.com");
 });
 console.log(p1); // Promise {<resolved>}
 console.log(p2); // Promise {<pending>}
@@ -2721,11 +2721,11 @@ let p1 = new Promise(resolve => {
 });
 let p2 = p1.then(() => {
   return new Promise(r => {
-    r("daodao.com");
+    r("tydumpling.com");
   });
 });
 p2.then(v => {
-  console.log(v); //daodao.com
+  console.log(v); //tydumpling.com
 });
 如果 then 返回promise 时，后面的then 就是对返回的 promise 的处理，需要等待该 promise 变更状态后执行。
 
@@ -2849,7 +2849,7 @@ class User {
     this.id = id;
   }
   then(resolve, reject) {
-    resolve(ajax(`http://localhost:8888/php/daodao.php?id=${this.id}`));
+    resolve(ajax(`http://localhost:8888/php/tydumpling.php?id=${this.id}`));
   }
 }
 new Promise((resolve, reject) => {
@@ -3172,7 +3172,7 @@ function ajax(url) {
 }
 
 ajax("http://localhost:8888/php/user.php?name=tydumpling")
-.then(user =>ajax(`http://localhost:8888/php/daodao.php?id=${user["id"]}`))
+.then(user =>ajax(`http://localhost:8888/php/tydumpling.php?id=${user["id"]}`))
 .then(lesson => {
   console.log(lesson);
 });
@@ -3191,7 +3191,7 @@ function loadImage(file) {
   });
 }
 
-loadImage("images/daodao.png").then(image => {
+loadImage("images/tydumpling.png").then(image => {
   image.style.border = "solid 20px black";
   console.log("宽度:" + window.getComputedStyle(image).width);
 });
@@ -3267,8 +3267,8 @@ promise.then(fn => {
   console.log(fn); //tydumpling-dd
 });
 promise.then(fn => {
-  fn += "-daodao";
-  console.log(fn); //tydumpling-daodao
+  fn += "-tydumpling";
+  console.log(fn); //tydumpling-tydumpling
 });
 第一个 then 也是一个 promise，当没接受到结果是状态为 pending
 
@@ -3297,8 +3297,8 @@ new Promise((resolve, reject) => {
   return fn;
 })
 .then(fn => {
-  fn += "-daodao";
-  console.log(fn); //tydumpling-dd-daodao
+  fn += "-tydumpling";
+  console.log(fn); //tydumpling-dd-tydumpling
 });
 then 方法可以返回一个promise 对象，等promise 执行结束后，才会继承执行后面的 then。后面的then 方法就是对新返回的promise 状态的处理
 
@@ -3330,8 +3330,8 @@ function load(file) {
 }
 
 load("js/fn.js")
-.then(() => load("js/daodao.js"))
-.then(() => daodao());
+.then(() => load("js/tydumpling.js"))
+.then(() => tydumpling());
 #操作元素
 下面使用 promise 对元素事件进行处理
 
@@ -3387,7 +3387,7 @@ function ajax(url) {
 }
 ajax("http://localhost:8888/php/user.php?name=tydumpling")
 .then(user => {
-  return ajax(`http://localhost:8888/php/daodao.php?id=${user["id"]}`);
+  return ajax(`http://localhost:8888/php/tydumpling.php?id=${user["id"]}`);
 })
 .then(lesson => {
   console.log(lesson);
@@ -3446,7 +3446,7 @@ new Promise(resolve => {
   resolve("tydumpling");
 })
 .then(v => {
-  if (v != "daodao.com") return Promise.reject(new Error("fail"));
+  if (v != "tydumpling.com") return Promise.reject(new Error("fail"));
 })
 .catch(error => {
   console.log(error);
@@ -3458,19 +3458,19 @@ new Promise(resolve => {
 适用于一次发送多个异步操作
 参数必须是可迭代类型，如 Array/Set
 成功后返回 promise 结果的有序数组
-下例中当 dd、daodao 两个 Promise 状态都为 fulfilled 时，fn 状态才为fulfilled。
+下例中当 dd、tydumpling 两个 Promise 状态都为 fulfilled 时，fn 状态才为fulfilled。
 
 const dd = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve("第一个Promise");
   }, 1000);
 });
-const daodao = new Promise((resolve, reject) => {
+const tydumpling = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve("第二个异步");
   }, 1000);
 });
-const fn = Promise.all([dd, daodao])
+const fn = Promise.all([dd, tydumpling])
   .then(results => {
     console.log(results);
   })
@@ -3564,12 +3564,12 @@ const dd = new Promise((resolve, reject) => {
     resolve("第一个Promise");
   }, 2000);
 });
-const daodao = new Promise((resolve, reject) => {
+const tydumpling = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve("第二个异步");
   }, 1000);
 });
-Promise.race([dd, daodao])
+Promise.race([dd, tydumpling])
 .then(results => {
   console.log(results);
 })
@@ -3742,7 +3742,7 @@ async/await 使用更清晰的 promise 来替换 promise.then/catch 的方式
 下面在 fn 函数前加上 async，函数将返回 promise，我们就可以像使用标准 Promise 一样使用了。
 
 async function fn() {
-  return "daodao.com";
+  return "tydumpling.com";
 }
 console.log(fn());
 fn().then(value => {
@@ -3760,7 +3760,7 @@ async function fn(message) {
 async function run() {
   let h1 = await fn("tydumpling");
   console.log(h1);
-  let h2 = await fn("daodao.com");
+  let h2 = await fn("tydumpling.com");
   console.log(h2);
 }
 run();
@@ -3775,7 +3775,7 @@ await 用于替代 then 使编码更优雅
 async function fn() {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve("daodao.com");
+      resolve("tydumpling.com");
     }, 2000);
   });
   let result = await promise;
@@ -3793,7 +3793,7 @@ async function fn() {
 }
 async function run() {
   let value = await fn();
-  console.log("daodao.com");
+  console.log("tydumpling.com");
   console.log(value);
 }
 run();
@@ -3802,7 +3802,7 @@ run();
 async function user() {
   let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
   let lessons = await ajax(
-    `http://localhost:8888/php/daodao.php?id=${user.id}`
+    `http://localhost:8888/php/tydumpling.php?id=${user.id}`
   );
   console.log(lessons);
 }
@@ -3811,7 +3811,7 @@ async function user() {
 (async () => {
   let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
   let lessons = await ajax(
-    `http://localhost:8888/php/daodao.php?id=${user.id}`
+    `http://localhost:8888/php/tydumpling.php?id=${user.id}`
   );
   console.log(lessons);
 })();
@@ -3881,7 +3881,7 @@ class User {
     let user = await ajax(
       `http://localhost:8888/php/user.php?name=${name}`
     );
-    user.name += "-daodao.com";
+    user.name += "-tydumpling.com";
     return user;
   }
 }
@@ -3921,7 +3921,7 @@ fn.get("tydumpling").then(user => {
 (async () => {
   let user = await ajax(`http://localhost:8888/php/user.php?name=tydumpling`);
   let lessons = await ajax(
-    `http://localhost:8888/php/daodao.php?id=${user.id}`
+    `http://localhost:8888/php/tydumpling.php?id=${user.id}`
   );
   console.log(lessons);
 })();
@@ -3939,7 +3939,7 @@ let user = new User().get("tydumpling").then(user => {
 async 内部发生的错误，会将必变 promise 对象为 rejected 状态，所以可以使用catch 来处理
 
 async function fn() {
-  console.log(daodao);
+  console.log(tydumpling);
 }
 fn().catch(error => {
   throw new Error(error);
@@ -4014,7 +4014,7 @@ fn("tydumpling教程");
 async function p1() {
   return new Promise(resolve => {
     setTimeout(() => {
-      console.log("daodao");
+      console.log("tydumpling");
       resolve();
     }, 2000);
   });

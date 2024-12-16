@@ -174,7 +174,7 @@ function hd() {
 console.log(fn()); // 报错fn is not a function
 
 var fn = function () {
-	return 'daodao.com';
+	return 'tydumpling.com';
 }
 
 console.log(hd()); //tydumpling
@@ -183,7 +183,7 @@ function hd() {
 	return 'tydumpling';
 }
 var hd = function () {
-	return 'daodao.com';
+	return 'tydumpling.com';
 }
 ```
 
@@ -628,7 +628,7 @@ let Lesson = {
 下例中的匿名函数的执行环境为全局所以 `this` 指向 `window`。
 
 ```js
-var name = 'daodao';
+var name = 'tydumpling';
 var obj = {
   name: 'tydumpling',
   getName: function () {
@@ -637,13 +637,13 @@ var obj = {
     }
   }
 }
-console.log(obj.getName()()); //返回window.name的值daodao
+console.log(obj.getName()()); //返回window.name的值tydumpling
 ```
 
 以往解决办法会匿名函数调用处理定义变量，然后在匿名函数中使用。
 
 ```js
-var name = 'daodao';
+var name = 'tydumpling';
 var obj = {
   name: 'tydumpling',
   getName: function () {
@@ -653,13 +653,13 @@ var obj = {
     }
   }
 }
-console.log(obj.getName()()); //返回window.name的值daodao
+console.log(obj.getName()()); //返回window.name的值tydumpling
 ```
 
 使用箭头函数后 `this` 为定义该函数的上下文，也可以理解为定义时父作用域中的`this`
 
 ```js
-var name = 'daodao';
+var name = 'tydumpling';
 var obj = {
   name: 'tydumpling',
   getName: function () {
@@ -682,7 +682,7 @@ console.log(obj.getName()()); //tydumpling
 
 ```html
 <body>
-  <button desc="daodao">button</button>
+  <button desc="tydumpling">button</button>
 </body>
 <script>
   let Dom = {
@@ -702,7 +702,7 @@ console.log(obj.getName()()); //tydumpling
 
 ```html
 <body>
-  <button desc="daodao">button</button>
+  <button desc="tydumpling">button</button>
 </body>
 <script>
   let Dom = {
@@ -726,7 +726,7 @@ console.log(obj.getName()()); //tydumpling
 
 ```html
 <body>
-  <button desc="daodao">button</button>
+  <button desc="tydumpling">button</button>
 </body>
 <script>
   let Dom = {
@@ -770,9 +770,9 @@ function User(name) {
   this.name = name;
 }
 
-let daodao = {age: 20};
-User.call(daodao, "daodao");
-console.log(daodao); // User {name: 'tydumpling', age: 20}
+let tydumpling = {age: 20};
+User.call(tydumpling, "tydumpling");
+console.log(tydumpling); // User {name: 'tydumpling', age: 20}
 ```
 
 ### apply/call
@@ -796,7 +796,7 @@ let wangwu = {
     name: '王五'
 };
 show.call(lisi, 'tydumpling'); // tydumpling李四
-show.apply(wangwu, ['daodao']); // daodao王五
+show.apply(wangwu, ['tydumpling']); // tydumpling王五
 ```
 
 使用 `call` 设置函数上下文
@@ -804,7 +804,7 @@ show.apply(wangwu, ['daodao']); // daodao王五
 ```html
 <body>
     <button message="tydumpling">button</button>
-    <button message="daodao">button</button>
+    <button message="tydumpling">button</button>
 </body>
 <script>
     function show() {
@@ -853,7 +853,7 @@ function Request() {
 }
 
 let learn = new Learn()
-console.log(learn.axios({id: 1, name: 'daodao'})); // /learn/js?id=1&name=daodao
+console.log(learn.axios({id: 1, name: 'tydumpling'})); // /learn/js?id=1&name=tydumpling
 
 let product = new Product()
 console.log(product.axios({id: 2, name: 'duyidao'})) // /product/music?id=2&name=duyidao
@@ -905,7 +905,7 @@ console.log(product.axios({id: 2, name: 'duyidao'})) // /product/music?id=2&name
     <dl>
         <dt>tydumpling</dt>
         <dd>1</dd>
-        <dt>daodao</dt>
+        <dt>tydumpling</dt>
         <dd hidden="hidden">2</dd>
     </dl>
 </body>

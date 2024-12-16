@@ -49,7 +49,7 @@ count();
 let site = 'tydumpling';
 
 function a() {
-  let hd = 'daodao.com';
+  let hd = 'tydumpling.com';
 
   function b() {
       let cms = 'duyidao.com';
@@ -217,7 +217,7 @@ console.log(arr.filter(between(3, 5))); // 相当于 arr.filter(gunction(v) { re
       position: absolute;
     }
   </style>
-  <button message="tydumpling">daodao</button>
+  <button message="tydumpling">tydumpling</button>
   <!-- <button message="duyidao">duyidao</button> -->
 </body>
 <script>
@@ -278,7 +278,7 @@ console.table(lessons.sort(order("price")));
 
 ```html
 <body>
-  <div desc="daodao">在线学习</div>
+  <div desc="tydumpling">在线学习</div>
   <div desc="duyidao">开源产品</div>
 </body>
 <script>

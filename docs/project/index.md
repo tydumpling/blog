@@ -18,7 +18,7 @@ title 项目或功能模块
 
 ## tydumpling博客小站
 
-- [tydumpling博客小站](/project/daodao/)
+- [tydumpling博客小站](/project/tydumpling/)
 
 ## 网上学习
 

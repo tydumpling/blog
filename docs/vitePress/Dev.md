@@ -140,7 +140,7 @@ features:
 module.exports = {
   // 网站标题
   title: '🔪 tydumpling博客',
-  base: '/daodao/',
+  base: '/tydumpling/',
   // 网站描述
   description: 'tydumpling博客',
   // 打包目录
@@ -152,7 +152,7 @@ module.exports = {
     ["meta", { property: "og:site_name", content: "tydumpling博客" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:description", content: "前端教程" }],
-    ["meta", { property: "og:url", content: "https://duyidao.gitee.io/daodao/" }],
+    ["meta", { property: "og:url", content: "https://duyidao.gitee.io/tydumpling/" }],
   ],
   // 使用插件
   plugins: [
@@ -188,7 +188,7 @@ module.exports = {
     },
     //社交链接
     socialLinks: [
-      { icon: "github", link: "https://gitee.com/duyidao" }
+      { icon: "github", link: "https://gitee.com/tydumpling" }
     ],
     //页脚
     footer: {
@@ -229,7 +229,7 @@ function getLearnSidebar() {
 module.exports = {
   // 网站标题
   title: '🔪 tydumpling博客',
-  base: '/daodao/',
+  base: '/tydumpling/',
   // 网站描述
   description: 'tydumpling博客',
   // 打包目录
@@ -241,7 +241,7 @@ module.exports = {
     ["meta", { property: "og:site_name", content: "tydumpling博客" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:description", content: "前端教程" }],
-    ["meta", { property: "og:url", content: "https://duyidao.gitee.io/daodao/" }],
+    ["meta", { property: "og:url", content: "https://duyidao.gitee.io/tydumpling/" }],
   ]
 }
 ```

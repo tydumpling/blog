@@ -10,7 +10,7 @@
    ```txt
    npm install -g yarn@berry
    ```
-3. 使用 [Create React App (opens new window)](https://create-react-app.dev/)安装 REACT 项目非常方便，下面来创建项目 daodao
+3. 使用 [Create React App (opens new window)](https://create-react-app.dev/)安装 REACT 项目非常方便，下面来创建项目 tydumpling
    ```txt
    npm i -g create-react-app
    ```
@@ -72,7 +72,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 
-ReactDom.render(<div>daodao</div>, document.querySelector("#root"));
+ReactDom.render(<div>tydumpling</div>, document.querySelector("#root"));
 ```
 
 在 JSX 中可以使用 JS 的功能，要求使用花扩号包裹
@@ -105,7 +105,7 @@ const App = (props) => {
   return <div>{props.name}</div>;
 };
 
-ReactDom.render(<App name="daodao.com" />, document.querySelector("#root"));
+ReactDom.render(<App name="tydumpling.com" />, document.querySelector("#root"));
 ```
 
 #### 类的声明
@@ -201,7 +201,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Hd name="daodao.com" />
+        <Hd name="tydumpling.com" />
         App: {this.props.name}
       </div>
     );

@@ -58,10 +58,10 @@ npm install -g yarn
 
 **vite**
 
-下面是使用 vite 构建基于 `vue-ts` 模板的项目 `daodao`
+下面是使用 vite 构建基于 `vue-ts` 模板的项目 `tydumpling`
 
 ```js
-yarn create vite daodao --template vue-ts
+yarn create vite tydumpling --template vue-ts
 ```
 
 或者使用 `@vue/latest` 创建，他会执行 `create vite` 命令
@@ -105,7 +105,7 @@ const app = Vue.createApp({
     data() {
         return{
             list: [{
-                name: 'daodao',
+                name: 'tydumpling',
                 age: 20
             }, {
                 name: 'xiaodao',
@@ -138,7 +138,7 @@ html文件引入
 
 ```js
 export default [{
-                name: 'daodao',
+                name: 'tydumpling',
                 age: 20
             }, {
                 name: 'xiaodao',
@@ -268,7 +268,7 @@ export default{
 
 跨越请求的主要问题是携带 `cookie`，下面我们来解决 `vue` 的跨越请求问题。
 
-以下示例环境为：后台 `daodao.test`，前台为 `localhost:3000` 。
+以下示例环境为：后台 `tydumpling.test`，前台为 `localhost:3000` 。
 
 ### 代理方式
 
@@ -291,7 +291,7 @@ instance.interceptors.request.use(
 
 ### vite
 
-下面是重点即在 **vite.config.js** 中配置代理，最终将实现通过 `http://daodao.test/api`访问后台，解决跨越的问题。
+下面是重点即在 **vite.config.js** 中配置代理，最终将实现通过 `http://tydumpling.test/api`访问后台，解决跨越的问题。
 
 ```js
 export default defineConfig({
@@ -302,13 +302,13 @@ export default defineConfig({
       	//laravel 中获取 csrf-token 的接口
         '/sanctum': {
             //将/api访问转换为target
-            target: 'http://daodao.test/sanctum',
+            target: 'http://tydumpling.test/sanctum',
             changeOrigin: true,
             rewrite: path => path.replace(/^\/sanctum/, ''),
           },
          '/api': {
               //将/api访问转换为target
-              target: 'http://daodao.test/api',
+              target: 'http://tydumpling.test/api',
               //跨域请求携带cookie
               changeOrigin: true,
               //url 重写删除`/api`

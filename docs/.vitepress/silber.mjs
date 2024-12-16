@@ -695,7 +695,7 @@ const ProjectSidebar = [
     items: [
       { text: "🧟 中科星图", link: "/lingsi/" },
       { text: "⛷️百度外包", link: "/baidu/" },
-      { text: "🔪 tydumpling博客", link: "/daodao/" },
+      { text: "🔪 tydumpling博客", link: "/tydumpling/" },
       { text: "📜 自主学习", link: "/myself/" },
     ],
   },
@@ -858,20 +858,20 @@ const CRMSidebar = [
 ]
 
 // tydumpling博客的数组
-const DaodaoSidebar = [
+const tydumplingSidebar = [
   {
     text: "🔪 tydumpling博客",
     collapsible: true,
     items: [
-      { text: "🔪 引言", link: "/daodao/" },
-      { text: "🦌 自动路由", link: "/daodao/router" },
-      { text: "🌺 自动导入", link: "/daodao/自动导入" },
-      { text: "📈 svg封装", link: "/daodao/svg" },
-      { text: "🦩 适应性布局", link: "/daodao/适应性布局" },
-      { text: "☁️ 天气获取", link: "/daodao/天气获取" },
-      { text: "💻 代码编辑器", link: "/daodao/代码编辑器" },
-      { text: "🐛 捉虫记录", link: "/daodao/bug" },
-      { text: "🖼️ 优化", link: "/daodao/prod" },
+      { text: "🔪 引言", link: "/tydumpling/" },
+      { text: "🦌 自动路由", link: "/tydumpling/router" },
+      { text: "🌺 自动导入", link: "/tydumpling/自动导入" },
+      { text: "📈 svg封装", link: "/tydumpling/svg" },
+      { text: "🦩 适应性布局", link: "/tydumpling/适应性布局" },
+      { text: "☁️ 天气获取", link: "/tydumpling/天气获取" },
+      { text: "💻 代码编辑器", link: "/tydumpling/代码编辑器" },
+      { text: "🐛 捉虫记录", link: "/tydumpling/bug" },
+      { text: "🖼️ 优化", link: "/tydumpling/prod" },
       { text: "🗑 返回", link: "/project/" },
     ],
   },
@@ -1314,7 +1314,7 @@ export default {
   "/lingsi/music": generateSidebarItems(MusicSidebar),
   "/lingsi/elk": generateSidebarItems(ELKSidebar),
   "/lingsi/crm": generateSidebarItems(CRMSidebar),
-  "/daodao/": generateSidebarItems(DaodaoSidebar),
+  "/tydumpling/": generateSidebarItems(tydumplingSidebar),
   "/baidu/": generateSidebarItems(BaiduSidebar),
   "/baidu/layer/": generateSidebarItems(LayerSidebar),
   "/baidu/fokai/": generateSidebarItems(FokaiSidebar),

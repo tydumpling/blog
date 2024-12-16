@@ -3,7 +3,7 @@
 使用 `=` 进行变量赋值
 
 ```js
-let url = 'daodao.com';
+let url = 'tydumpling.com';
 ```
 
 ## 算术运算符
@@ -188,7 +188,7 @@ console.log((true || false) && false);
 
 ### 密码比对实例
 
-![Untitled](https://doc.daodao.com/assets/img/Untitled-2408590.ed2e964d.gif)
+![Untitled](https://doc.tydumpling.com/assets/img/Untitled-2408590.ed2e964d.gif)
 
 ```html
 <input type="js" name="password" />
@@ -249,7 +249,7 @@ let opt = {
 };
 
 function getUrl(opt) {
-    opt.url = 'daodao.com';
+    opt.url = 'tydumpling.com';
 }
 opt.url || getUrl(opt);
 console.log(opt.url);
@@ -263,7 +263,7 @@ console.log(opt.url);
 
 ```html
 <body>
-<form action="https://www.daodao.com" id="form">
+<form action="https://www.tydumpling.com" id="form">
   用户名: <input type="js" name="username" />
   <hr />
   <input type="checkbox" name="copyright" /> 接收协议
@@ -314,7 +314,7 @@ console.log('一直都显示的内容');
 
 下面是使用多条件判断密码强度的示例
 
-![1](https://doc.daodao.com/assets/img/1.6c60f9e2.gif)
+![1](https://doc.tydumpling.com/assets/img/1.6c60f9e2.gif)
 
 ```html
 <body>
@@ -379,7 +379,7 @@ switch (name) {
         console.log('duyidao.com');
         break;
     case '视频':
-        console.log('daodao.com'); // 执行此条
+        console.log('tydumpling.com'); // 执行此条
         break;
     default:
         console.log('dao.com')
@@ -509,7 +509,7 @@ for (let i = 10; i > 0; i--) {
 
 下面是使用循环制作杨辉三角的案例
 
-![image-20191005010514562.9bfa19b0](https://doc.daodao.com/assets/img/image-20191005010514562.9bfa19b0.9bfa19b0.png)
+![image-20191005010514562.9bfa19b0](https://doc.tydumpling.com/assets/img/image-20191005010514562.9bfa19b0.9bfa19b0.png)
 
 ```js
     *
@@ -570,14 +570,14 @@ for (let i = 1; i <= 10; i++) {
 下面取`i+n` 大于 15 时退出循环
 
 ```js
-daodao: for (let i = 1; i <= 10; i++) {
+tydumpling: for (let i = 1; i <= 10; i++) {
   duyidao: for (let n = 1; n <= 10; n++) {
     if (n % 2 != 0) {
       continue duyidao;
     }
     console.log(i, n);
     if (i + n > 15) {
-      break daodao;
+      break tydumpling;
     }
   }
 }
@@ -615,7 +615,7 @@ document.write("</table>");
 ```js
 let info = {
   name: "tydumpling",
-  url: "daodao.com"
+  url: "tydumpling.com"
 };
 for (const key in info) {
   if (info.hasOwnProperty(key)) {
@@ -650,7 +650,7 @@ for (const iterator of arr) {
 遍历字符串
 
 ```js
-let str = 'daodao';
+let str = 'tydumpling';
 for (const iterator of str) {
     console.log(iterator); // d a o d a o
 }
@@ -659,7 +659,7 @@ for (const iterator of str) {
 使用迭代特性遍历数组（后面章节会介绍迭代器）
 
 ```js
-const hd = ["duyidao", "daodao"];
+const hd = ["duyidao", "tydumpling"];
 
 for (const [key, value] of hd.entries()) {
   console.log(key, value); //这样就可以遍历了

@@ -145,7 +145,7 @@ var ele = <h1> Hello JSX!</h1>
    ```
 2. 遇到以 `{` 开头的代码，以 JS 语法解析: 标签中的 `js` 表达式必须用 `{ }` 包含
    ```jsx
-   const myId = 'DaodaO'
+   const myId = 'tydumpling'
    const myContent = 'helLo,reAcT'
    // 1.创建虚拟DOM
    const vDOM = (
@@ -156,7 +156,7 @@ var ele = <h1> Hello JSX!</h1>
    ```
 3. 类名指定不能使用 `class` ，要用 `className` 
    ```jsx
-   const myId = 'DaodaO'
+   const myId = 'tydumpling'
    const myContent = 'helLo,reAcT'
    // 1.创建虚拟DOM
    const vDOM = (
@@ -169,7 +169,7 @@ var ele = <h1> Hello JSX!</h1>
    如果使用了 `class` 虽然页面上会有效果，但是控制台会报错且给出提醒。
 4. 内联样式设置不能写成字符串，需要使用双花括号 `{{}}` 的形式，采取驼峰命名法。
    ```jsx
-   const myId = 'DaodaO'
+   const myId = 'tydumpling'
    const myContent = 'helLo,reAcT'
    // 1.创建虚拟DOM
    const vDOM = (
@@ -180,7 +180,7 @@ var ele = <h1> Hello JSX!</h1>
    ```
 5. 虚拟 DOM 只能有一个根标签
    ```jsx
-   const myId = 'DaodaO'
+   const myId = 'tydumpling'
    const myContent = 'helLo,reAcT'
    // 1.创建虚拟DOM
    const vDOM = (
@@ -487,7 +487,7 @@ class A {
       render() {
         return (
           <div>
-            daodao
+            tydumpling
           </div>
         )
       }
@@ -881,7 +881,7 @@ ReactDOM.render(<Person name="tydumpling" age="23" sex="男"/>, document.querySe
 在 `react` 中，通过 `react` 和 `babel` 处理，让我们也能在组件上使用该语法批量传参，代码如下所示：
 
 ```jsx
-const p = {name: 'daodao', age: 18, sex: '🚹'}
+const p = {name: 'tydumpling', age: 18, sex: '🚹'}
 ReactDOM.render(<Person {...p}/>, document.querySelector('#test1'))
 ```
 

@@ -19,7 +19,7 @@ console.log(hd == edu); //false
 
 ```js
 let hd = Symbol();
-hd.name = "daodao";
+hd.name = "tydumpling";
 console.log(hd.name); // undefined
 ```
 
@@ -38,16 +38,16 @@ console.log(edu.toString()); //Symbol(这是一个测试)
 传入相同参数 `Symbol` 也是独立唯一的，因为参数只是描述而已，但使用 `Symbol.for`则不会
 
 ```js
-let hd = Symbol("daodao");
-let edu = Symbol("daodao");
+let hd = Symbol("tydumpling");
+let edu = Symbol("tydumpling");
 console.log(hd == edu); //false
 ```
 
 使用`description`可以获取传入的描述参数
 
 ```js
-let hd = Symbol("daodao");
-console.log(hd.description); //daodao
+let hd = Symbol("tydumpling");
+console.log(hd.description); //tydumpling
 ```
 
 ### Symbol.for
@@ -58,8 +58,8 @@ console.log(hd.description); //daodao
 - 使用 `Symbol` 则不会登记
 
 ```js
-let hd = Symbol.for("daodao");
-let edu = Symbol.for("daodao");
+let hd = Symbol.for("tydumpling");
+let edu = Symbol.for("tydumpling");
 console.log(hd == edu); //true
 ```
 
@@ -85,9 +85,9 @@ console.log(Symbol.keyFor(edu)); //undefined
 下面写法是错误的，会将`symbol` 当成字符串`symbol`处理
 
 ```js
-let symbol = Symbol("daodao");
+let symbol = Symbol("tydumpling");
 let obj = {
-  symbol: "daodao.com"
+  symbol: "tydumpling.com"
 };
 console.log(obj);
 ```
@@ -95,11 +95,11 @@ console.log(obj);
 正确写法是以`[]` 变量形式声明和访问
 
 ```js
-let symbol = Symbol("daodao");
+let symbol = Symbol("tydumpling");
 let obj = {
-  [symbol]: "daodao.com"
+  [symbol]: "tydumpling.com"
 };
-console.log(obj[symbol]); //daodao.com
+console.log(obj[symbol]); //tydumpling.com
 ```
 
 ## 实例操作
@@ -141,7 +141,7 @@ console.log(Cache.get(user.key));
 ```js
 let symbol = Symbol("tydumpling");
 let obj = {
-  name: "daodao.com",
+  name: "tydumpling.com",
   [symbol]: "duyidao.com"
 };
 

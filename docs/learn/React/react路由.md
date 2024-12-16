@@ -263,7 +263,7 @@ ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.querySelector('
   <Route path="/home/news"></Route> // 无需声明接收
   ```
   
-  接收的时候需要在 `location` 对象中的 `search` 属性中获取，该属性是一个字符串，如 `?id=0&title=daodao` ，需要我们手动转为对象的形式。
+  接收的时候需要在 `location` 对象中的 `search` 属性中获取，该属性是一个字符串，如 `?id=0&title=tydumpling` ，需要我们手动转为对象的形式。
   
   `React` 脚手架下载好一个库 `querystring` ，其方法 `stringify()` 可以把一个对象转为 `key=value&key=value` 的格式；其 `parse()` 方法可以把该格式的字符串换为对象的形式。
   
