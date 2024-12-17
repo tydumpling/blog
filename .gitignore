@@ -9,3 +9,12 @@ dist/
 # Cache
 .cache
 .temp
+
+# 忽略所有的 .d.ts 文件
+*.d.ts
+
+# 如果只想忽略特定目录下的 .d.ts 文件
+docs/.vitepress/**/*.d.ts
+
+# 如果有某些 .d.ts 文件需要保留，可以使用 !
+!important.d.ts
