@@ -74,7 +74,7 @@ const members = [
   {
     avatar: 'https://www.github.com/tydumpling.png',
     name: 'Yuan tang',
-    title: '逆水行舟，不进则退',
+    title: '谦谨行事',
     desc: 'FE Developer<br/>Creator @ <a href="https://github.com/tydumpling/blog" target="_blank">tydumpling</a>',
     links: [
       { icon: 'github', link: 'https://github.com/tydumpling' },

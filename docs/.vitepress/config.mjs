@@ -17,14 +17,13 @@ import socialLinks from './link.ts'
 
 export default withPwa(defineConfig({
   pwa,
-
   // 网站标题
   title: 'tydumpling博客',
   base: '/blog/',
   // 网站描述
   description: 'tydumpling博客',
   // 打包目录
-  dest: './dist',
+  // dest: './dist',
   head: [
     ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
     ['meta', { name: 'keywords', content: keywords }],
@@ -58,7 +57,7 @@ export default withPwa(defineConfig({
   },
   vite: {
     build: {
-
+      chunkSizeWarningLimit: 1500,
       // 方式2：配置代码分割处理构建之后的大文件
       rollupOptions: {
         output: {
@@ -68,6 +67,14 @@ export default withPwa(defineConfig({
           },
         },
       },
+    },
+    ssr: {
+      // 添加 SSR 外部化配置
+      noExternal: ['mark.js'],
+    },
+    optimizeDeps: {
+      // 添加预构建包含
+      include: ['mark.js'],
     },
   },
   // 使用插件

@@ -1,4 +1,11 @@
+# Dependencies
 node_modules
 pnpm-lock.yaml
-.DS_Store
-cache
+
+# Production
+docs/.vitepress/dist/
+dist/
+
+# Cache
+.cache
+.temp

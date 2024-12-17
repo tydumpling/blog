@@ -76,6 +76,7 @@ export default [
       { text: "🎁 打包", link: "/vitePress/Build" },
       { text: "⏳ 部署", link: "/vitePress/Deploy" },
       { text: "✨ 拓展", link: "/vitePress/Know" },
+      { text: "🗿 插件", link: "/vitePress/plugin" },
     ],
   },
   {
