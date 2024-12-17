@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import { generateSitemap as sitemap } from 'sitemap-ts'
 import nav from './nav.mjs'
-import sidebar from './silber.mjs'
+import sidebar from './sidebar.mjs'
 import rewrites from './rewrites.mjs'
 import { description, docsVersion, github, keywords, name, site } from './meta'
 import { pwa } from './plugins/pwa'
@@ -50,6 +50,9 @@ export default withPwa(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     // analytics
     ['script', { 'async': '', 'defer': '', 'data-website-id': `${process.env.UMAMI_WEBSITE_ID || ''}`, 'src': `${process.env.UMAMI_ENDPOINT || ''}` }],
+    ['link', { rel: 'manifest', href: '/blog/manifest.webmanifest' }],
+    ['meta', { name: 'theme-color', content: '#06f' }],
+    ['link', { rel: 'apple-touch-icon', href: '/blog/images/icons/apple-touch-120x120.png' }],
   ],
   async buildEnd(siteConfig) {
     await sitemap({ hostname: 'https://chodocs.cn/' })
@@ -93,7 +96,7 @@ export default withPwa(defineConfig({
       // 默认禁用；设置为 true 可为所有图片启用懒加载。
       lazyLoading: true,
     },
-    // 启用或禁用代码标签页功能Markdown 文件中创建带有标签页的代码块。
+    // 启用或禁用代码标签页功能Markdown 文件中创建带有标���页的代码块。
     codeTabs: true,
     // 文档中的所有 `details` 容器都会显示为`详细信息`。。
 
