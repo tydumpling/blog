@@ -27,14 +27,15 @@ export default withPwa(defineConfig({
   head: [
     ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
     ['meta', { name: 'keywords', content: keywords }],
-    ['meta', { name: 'author', content: 'Choi Yang' }],
+    ['meta', { name: 'author', content: 'Yuan Tang' }],
     ['meta', { property: 'og:type', content: 'article' }],
     ['meta', { name: 'application-name', content: name }],
     ['meta', { name: 'apple-mobile-web-app-title', content: name }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
     ['link', { rel: 'shortcut icon', href: '/blog/favicon.ico' }],
+    ['link', { rel: 'icon', href: '/blog/favicon.ico' }],
     ['link', { rel: 'icon', type: 'image/x-icon', href: '/blog/favicon.ico' }],
-    ['link', { rel: 'mask-icon', href: '/chodocs-logo.svg', color: '#06f' }],
+    ['link', { rel: 'mask-icon', href: '/blog/favicon.png', color: '#06f' }],
     ['meta', { name: 'theme-color', content: '#06f' }],
 
     ['link', { rel: 'apple-touch-icon', sizes: '120x120', href: '/images/icons/apple-touch-icon.png' }],
@@ -55,7 +56,7 @@ export default withPwa(defineConfig({
     ['link', { rel: 'apple-touch-icon', href: '/blog/images/icons/apple-touch-120x120.png' }],
   ],
   async buildEnd(siteConfig) {
-    await sitemap({ hostname: 'https://chodocs.cn/' })
+    await sitemap({ hostname: 'https://tydumpling.cn/' })
     await genFeed(siteConfig)
   },
   vite: {

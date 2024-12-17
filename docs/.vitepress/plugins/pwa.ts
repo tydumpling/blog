@@ -14,6 +14,7 @@ export const pwa: Partial<VitePWAOptions> = {
   outDir: '../dist',
   registerType: 'autoUpdate',
   base: '/blog/', // 添加这行，匹配你的 base 路径
+  strategies: 'generateSW', // 添加这行
   includeAssets: ['**/*.{png,svg,gif,ico,txt}'],
   manifest: {
     id: '/blog/', // 修改这行
@@ -21,6 +22,9 @@ export const pwa: Partial<VitePWAOptions> = {
     short_name: name,
     description,
     theme_color: '#06f',
+    start_url: '/blog/',
+    scope: '/blog/',
+    display: 'standalone',
     icons: [
       {
         src: '/blog/images/icons/apple-touch-120x120.png', // 添加 /blog 前缀
@@ -39,11 +43,13 @@ export const pwa: Partial<VitePWAOptions> = {
       },
     ],
   },
+  devOptions: {
+    enabled: false, // 开发环境禁用 PWA
+    type: 'module',
+  },
   workbox: {
     navigateFallbackDenylist: [/^\/new$/],
-    globPatterns: [
-      '**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,json,woff,woff2,ttf,eot}',
-    ],
+    globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
     navigateFallback: null,
     runtimeCaching: [
       {

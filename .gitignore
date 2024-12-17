@@ -6,7 +6,8 @@ pnpm-lock.yaml
 docs/.vitepress/dist/
 docs/.vitepress/cache
 dist/
-
+# dev-dist 文件夹是 Vite PWA 插件在开发环境下生成的临时文件夹，用于存放开发环境的 Service Worker 和相关文件。
+dev-dist/
 # Cache
 .cache
 .temp
