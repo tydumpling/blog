@@ -60,14 +60,22 @@ export default withPwa(defineConfig({
   },
   vite: {
     build: {
-      chunkSizeWarningLimit: 1500,
-      // 方式2：配置代码分割处理构建之后的大文件
+      chunkSizeWarningLimit: 2000,
+      cache: true,
       rollupOptions: {
         output: {
-          manualChunks(id) {
-            if (id.includes('node_modules'))
-              return 'vendor'
+          manualChunks: {
+            'vue-vendor': ['vue'],
+            'vitepress-vendor': ['vitepress'],
+            'other-vendor': ['medium-zoom', 'mark.js'],
           },
+        },
+      },
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
         },
       },
     },
@@ -76,8 +84,8 @@ export default withPwa(defineConfig({
       noExternal: ['mark.js'],
     },
     optimizeDeps: {
-      // 添加预构建包含
-      include: ['mark.js'],
+      include: ['vue', 'medium-zoom', 'mark.js'],
+      exclude: ['@vuepress/shared'],
     },
   },
   // 使用插件
@@ -96,7 +104,7 @@ export default withPwa(defineConfig({
       // 默认禁用；设置为 true 可为所有图片启用懒加载。
       lazyLoading: true,
     },
-    // 启用或禁用代码标签页功能Markdown 文件中创建带有标���页的代码块。
+    // 启用或禁用代码标签页功能Markdown 文件中创建带有标页的代码块。
     codeTabs: true,
     // 文档中的所有 `details` 容器都会显示为`详细信息`。。
 
@@ -132,7 +140,7 @@ export default withPwa(defineConfig({
     siteTitle: '『 tydumpling博客 』',
     outlineTitle: '导航~',
     outline: [0, 6],
-    // 启动页面丝滑滚动
+    // 启用页面丝滑滚动
     smoothScroll: true,
     // 头部导航栏配置
     nav,

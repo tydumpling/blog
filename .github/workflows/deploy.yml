@@ -56,6 +56,15 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
+      
+      # 缓存依赖
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            .vitepress/cache
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
   deploy:
     environment:
