@@ -61,13 +61,12 @@ export default withPwa(defineConfig({
   vite: {
     build: {
       chunkSizeWarningLimit: 2000,
-      cache: true,
       rollupOptions: {
         output: {
-          manualChunks: {
-            'vue-vendor': ['vue'],
-            'vitepress-vendor': ['vitepress'],
-            'other-vendor': ['medium-zoom', 'mark.js'],
+          manualChunks(id) {
+            // 排除 vue 相关模块
+            if (id.includes('node_modules') && !id.includes('vue'))
+              return 'vendor'
           },
         },
       },
@@ -81,11 +80,11 @@ export default withPwa(defineConfig({
     },
     ssr: {
       // 添加 SSR 外部化配置
-      noExternal: ['mark.js'],
+      noExternal: ['mark.js', 'vue'],
     },
     optimizeDeps: {
-      include: ['vue', 'medium-zoom', 'mark.js'],
-      exclude: ['@vuepress/shared'],
+      // 包含需要预构建的依赖
+      include: ['vue'],
     },
   },
   // 使用插件
