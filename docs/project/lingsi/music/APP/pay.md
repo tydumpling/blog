@@ -106,7 +106,7 @@ const realPay = (res) => {
 
 产品在测试的时候通过微信内置的浏览器打开项目时，发现支付宝支付只能显示链接不能跳转，且链接复制到浏览器后部分链接会报错，如下所示：
 
-[![pC42OfJ.jpg](https://s1.ax1x.com/2023/07/14/pC42OfJ.jpg)](https://imgse.com/i/pC42OfJ)
+![图片信息](https://s1.ax1x.com/2023/07/14/pC42OfJ.jpg)
 
 最终经过商讨，决定在用户使用微信内置浏览器打开时，给予提示使用外部浏览器打开项目。如何判断当前浏览器是微信浏览器的方法可见 [音果H5](/project/lingsi/music/H5/index.md) 。
 

@@ -10,7 +10,7 @@ SPU 管理模块页面效果如下所示：
 
 主要需要注意的是 SPU 属性的添加。属性值通过接口调用获取，下拉框选择完属性后点击按钮可以添加到表格内。下一次选择的时候就无法再选择该属性，效果如下图所示：
 
-[![pCrzUOI.png](https://s1.ax1x.com/2023/07/03/pCrzUOI.png)](https://imgse.com/i/pCrzUOI)
+![图片信息](https://s1.ax1x.com/2023/07/03/pCrzUOI.png)
 
 ## 属性添加
 

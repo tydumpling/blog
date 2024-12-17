@@ -79,4 +79,4 @@ const closeFn = () => {
 
 现在的效果如下所示：
 
-[![p9gWBi4.png](https://s1.ax1x.com/2023/05/15/p9gWBi4.png)](https://imgse.com/i/p9gWBi4)
+![图片信息](https://s1.ax1x.com/2023/05/15/p9gWBi4.png)

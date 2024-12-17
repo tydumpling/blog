@@ -19,7 +19,7 @@ title 音果云音
 
 Bug数记录
 
-[![pCC6ufx.png](https://s1.ax1x.com/2023/06/05/pCC6ufx.png)](https://imgse.com/i/pCC6ufx)
+![图片信息](https://s1.ax1x.com/2023/06/05/pCC6ufx.png)
 
 ## 主要模块
 

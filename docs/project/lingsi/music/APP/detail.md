@@ -18,7 +18,7 @@ title 详情页
 
 我们需要实现下方的效果：
 
-[![pCoPrRS.png](https://s1.ax1x.com/2023/07/17/pCoPrRS.png)](https://imgse.com/i/pCoPrRS)
+![图片信息](https://s1.ax1x.com/2023/07/17/pCoPrRS.png)
 
 我们需要音频的总时长、当前播放的时长、进度条、暂停播放的控制等。
 
@@ -451,7 +451,7 @@ onLoad((val) => {
 
 本以为能够交差了，测试和我说当重复进入该页面后就会卡顿，我尝试了一下到第三次已经明显的卡了，到第六次直接点不动了，打印音频对象结果如下所示：
 
-[![p9hWor9.png](https://s1.ax1x.com/2023/05/19/p9hWor9.png)](https://imgse.com/i/p9hWor9)
+![图片信息](https://s1.ax1x.com/2023/05/19/p9hWor9.png)
 
 可以看到每点击一次他就往里面添加一次函数。还记得吗？在前面介绍的时候我们已经介绍过了，那些方法都是传一个回调函数进去，等那些方法触发后再触发回调。因此越积越多，直到最后内存溢出。
 
@@ -836,7 +836,7 @@ const downloadMusicFn = () => {
 
 打印网络类型时发现，其返回的不是 `none` ，而是 `unknown` ，无论当前是否有连接到网络，因此这个判断无效了（这里我要恶狠狠吐槽一波）
 
-[![pC4cTcq.png](https://s1.ax1x.com/2023/07/14/pC4cTcq.png)](https://imgse.com/i/pC4cTcq)
+![图片信息](https://s1.ax1x.com/2023/07/14/pC4cTcq.png)
 
 既然这个方法不能走，那就换一个方法。通过 ChatGPT 发现有 `navigator` 方法可以使用， ChatGPT 是这么介绍它的：
 

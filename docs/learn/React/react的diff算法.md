@@ -2,7 +2,7 @@
 
 ## 原理图
 
-[![pCF9Ouq.png](https://s1.ax1x.com/2023/06/07/pCF9Ouq.png)](https://imgse.com/i/pCF9Ouq)
+![图片信息](https://s1.ax1x.com/2023/06/07/pCF9Ouq.png)
 
 ## key的作用
 
@@ -99,7 +99,7 @@
 
 同样的，如果循环体 `li` 标签内存在输入框 `input` ，则输入框节点对比后无变化，因此会复用，此时索引作为 `key` 时会出现下面这种 `bug` ：
 
-[![pCFZfDH.png](https://s1.ax1x.com/2023/06/07/pCFZfDH.png)](https://imgse.com/i/pCFZfDH)
+![图片信息](https://s1.ax1x.com/2023/06/07/pCFZfDH.png)
 
 > 注意
 > 

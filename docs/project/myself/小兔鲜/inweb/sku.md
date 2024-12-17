@@ -8,7 +8,7 @@
 
 后端返回的规格数据如下所示，遍历数据渲染数据即可。
 
-[![pCVjbex.png](https://s1.ax1x.com/2023/06/11/pCVjbex.png)](https://imgse.com/i/pCVjbex)
+![图片信息](https://s1.ax1x.com/2023/06/11/pCVjbex.png)
 
 ```vue
 <script setup>

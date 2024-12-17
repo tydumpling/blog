@@ -756,7 +756,7 @@ app.use(gloablComponent);
 
    其 `install` 有一个形参，打印后内容如下所示：
 
-   [![pCmf5Gt.png](https://s1.ax1x.com/2023/06/13/pCmf5Gt.png)](https://imgse.com/i/pCmf5Gt)
+   ![图片信息](https://s1.ax1x.com/2023/06/13/pCmf5Gt.png)
 
    因此可以通过 `component` 注册组件。注册完毕后入口文件导入自定义插件，通过 `app.use()` 注册插件即可。
 

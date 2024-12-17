@@ -26,7 +26,7 @@ title sku商品规格
 
 ### 型号
 
-[![p9gc9hR.png](https://s1.ax1x.com/2023/05/15/p9gc9hR.png)](https://imgse.com/i/p9gc9hR)
+![图片信息](https://s1.ax1x.com/2023/05/15/p9gc9hR.png)
 
 型号是数组对象的形式，通过 `v-for` 遍历渲染；子选项则遍历其属性 `values` 即可。
 

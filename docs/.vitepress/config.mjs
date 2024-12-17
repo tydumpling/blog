@@ -56,6 +56,20 @@ export default withPwa(defineConfig({
     await sitemap({ hostname: 'https://chodocs.cn/' })
     await genFeed(siteConfig)
   },
+  vite: {
+    build: {
+
+      // 方式2：配置代码分割处理构建之后的大文件
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules'))
+              return 'vendor'
+          },
+        },
+      },
+    },
+  },
   // 使用插件
   plugins: [
     '@vuepress/active-header-links', // 页面滚动时自动激活侧边栏链接的插件

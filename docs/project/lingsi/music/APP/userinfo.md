@@ -6,7 +6,7 @@ title 个人资料页
 
 音果项目客户那边需要生成证书，证书生成个人证件照有宽高要求。因此 `APP` 这边需要对用户上传的图片做裁剪操作，上传成功后点击可预览，如下所示：
 
-[![p9gyE26.png](https://s1.ax1x.com/2023/05/15/p9gyE26.png)](https://imgse.com/i/p9gyE26)
+![图片信息](https://s1.ax1x.com/2023/05/15/p9gyE26.png)
 
 ## chooseImage
 
@@ -63,7 +63,7 @@ const uploadImgFn = async () => {
 
 打包后在手机运行，最终效果如下所示：
 
-[![p9g6WX8.jpg](https://s1.ax1x.com/2023/05/15/p9g6WX8.jpg)](https://imgse.com/i/p9g6WX8)
+![图片信息](https://s1.ax1x.com/2023/05/15/p9g6WX8.jpg)
 
 ## 预览
 

@@ -8,7 +8,7 @@
 
 前往 iconfont 阿里巴巴标签矢量库添加字体图标到项目中，生成在线链接，组件中复制粘贴对应标签类名即可。
 
-[![p9OZvAs.png](https://s1.ax1x.com/2023/05/28/p9OZvAs.png)](https://imgse.com/i/p9OZvAs)
+![图片信息](https://s1.ax1x.com/2023/05/28/p9OZvAs.png)
 
 ```vue
 <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4090818_d2g9yyp0e4e.css">

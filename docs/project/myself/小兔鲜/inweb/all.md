@@ -382,7 +382,7 @@ const { cartList } = storeToRefs(useCarttStore());
 
 项目完成后需要打包部署，放到 `gitee pages` 上代理。在部署的时候勾选了 “强制使用 HTTPS” 的选项，部署完后接口请求被拦截了，并报了以下的错误：
 
-[![pCZ92wR.png](https://s1.ax1x.com/2023/06/11/pCZ92wR.png)](https://imgse.com/i/pCZ92wR)
+![图片信息](https://s1.ax1x.com/2023/06/11/pCZ92wR.png)
 
 原因：
 
