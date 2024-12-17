@@ -31,16 +31,19 @@ jobs:
           node-version: 20
           cache: yarn
       
-      # 设置 Yarn Berry
+      # 设置 Yarn
       - name: Setup Yarn
         run: |
           corepack enable
           yarn set version stable
           yarn config set nodeLinker node-modules
+          yarn config set enableGlobalCache false
       
-      # 安装依赖 (使用新的 immutable 标志)
+      # 安装依赖
       - name: Install dependencies
-        run: yarn install --immutable
+        run: |
+          yarn install --no-immutable
+          yarn cache clean
       
       # 构建
       - name: Build
