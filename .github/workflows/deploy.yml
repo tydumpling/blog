@@ -47,7 +47,9 @@ jobs:
       
       # 构建
       - name: Build
-        run: yarn build
+        run: |
+          npm run build
+          touch dist/.nojekyll  # 重要：防止 GitHub Pages 忽略下划线开头的文件
       
       # 上传构建产物
       - name: Upload artifact
