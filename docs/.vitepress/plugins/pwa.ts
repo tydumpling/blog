@@ -44,7 +44,7 @@ export const pwa: Partial<VitePWAOptions> = {
     ],
   },
   devOptions: {
-    enabled: false, // 开发环境禁用 PWA
+    enabled: false, // 开发环境禁用 PWA 需要测试pwa可以打开
     type: 'module',
   },
   workbox: {
