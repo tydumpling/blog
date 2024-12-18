@@ -3,9 +3,21 @@ import fs from 'fs-extra'
 import Git from 'simple-git'
 import { $fetch } from 'ohmyfetch'
 
+/* utils.ts
+功能：提供一些通用的工具函数，包括路径处理、文件操作、Git 操作和贡献者更新。
+
+具体函数：
+
+git：初始化 simple - git 实例。
+DOCS_URL：定义文档网站的 URL。
+DIR_ROOT 和 DIR_SRC：定义项目根目录和文档目录的路径。
+replacer：替换代码中的特定部分，支持头部、尾部插入或不插入。
+uniq：去重数组。
+fetchContributors：异步获取 GitHub 仓库的贡献者列表，排除特定的机器人账户，并添加额外的贡献者。
+updateContributors：更新 contributors.json 文件，包含最新的贡献者列表。 */
 export const git = Git()
 
-export const DOCS_URL = 'https://tydumpling.cn'
+export const DOCS_URL = 'https://chodocs.cn'
 
 export const DIR_ROOT = resolve(__dirname, '..')
 export const DIR_SRC = resolve(__dirname, '../docs')
@@ -37,7 +49,7 @@ async function fetchContributors(page = 1) {
   const additional = ['duoluodexiaoxiaoyuan', 'mengqiuleo', 'isolcat', 'YYHCOPPOLO', 'fyjbts']
 
   const collaborators: string[] = []
-  const data = await $fetch<{ login: string }[]>(`https://api.github.com/repos/tydumpling/tydumpling/contributors?per_page=100&page=${page}`, {
+  const data = await $fetch<{ login: string }[]>(`https://api.github.com/repos/chodocs/chodocs/contributors?per_page=100&page=${page}`, {
     method: 'get',
     headers: {
       'content-type': 'application/json',
