@@ -1,19 +1,19 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import { generateSitemap as sitemap } from 'sitemap-ts'
-import nav from './nav'
-import sidebar from './sidebar.mjs'
-import rewrites from './rewrites'
-import { description, docsVersion, github, keywords, name, site } from './meta'
+import nav from './vitepressConfig/nav'
+import sidebar from './vitepressConfig/sidebar.mjs'
+import rewrites from './vitepressConfig/rewrites'
 import { pwa } from './plugins/pwa'
 import { genFeed } from './plugins/genFeed'
+import head from './vitepressConfig/head'
 
 // 'packages/:pkg/src/(.*)': ':pkg/index.md'
 // packages这是路径的固定部分，base路径
 // :pkg：这是一个动态参数，表示匹配的路径中的一部分可以是任意值，并且这个值会被捕获并命名为 :pkg。例如，如果路径是 packages/vue/src/some-file.md，那么 :pkg 的值就是 vue。
 // 这是路径的另一个固定部分，表示匹配的路径必须包含 src/。
 // .*这是一个正则表达式，表示匹配任意.的文件
-import socialLinks from './link.ts'
+import socialLinks from './vitepressConfig/link.ts'
 
 export default withPwa(defineConfig({
   pwa,
@@ -24,37 +24,7 @@ export default withPwa(defineConfig({
   description: 'tydumpling博客',
   // 打包目录
   // dest: './dist',
-  head: [
-    ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
-    ['meta', { name: 'keywords', content: keywords }],
-    ['meta', { name: 'author', content: 'Yuan Tang' }],
-    ['meta', { property: 'og:type', content: 'article' }],
-    ['meta', { name: 'application-name', content: name }],
-    ['meta', { name: 'apple-mobile-web-app-title', content: name }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
-    ['link', { rel: 'shortcut icon', href: '/blog/favicon.ico' }],
-    ['link', { rel: 'icon', href: '/blog/favicon.ico' }],
-    ['link', { rel: 'icon', type: 'image/x-icon', href: '/blog/favicon.ico' }],
-    ['link', { rel: 'mask-icon', href: '/blog/favicon.png', color: '#06f' }],
-    ['meta', { name: 'theme-color', content: '#06f' }],
-
-    ['link', { rel: 'apple-touch-icon', sizes: '120x120', href: '/images/icons/apple-touch-icon.png' }],
-
-    // webfont
-    ['link', { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' }],
-    ['link', { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' }],
-    ['link', { rel: 'preconnect', crossorigin: 'anonymous', href: 'https://fonts.googleapis.com' }],
-    ['link', { rel: 'preconnect', crossorigin: 'anonymous', href: 'https://fonts.gstatic.com' }],
-    // og
-    ['meta', { property: 'og:description', content: description }],
-    ['meta', { property: 'og:url', content: site }],
-    ['meta', { property: 'og:locale', content: 'zh_CN' }],
-    // analytics
-    ['script', { 'async': '', 'defer': '', 'data-website-id': `${process.env.UMAMI_WEBSITE_ID || ''}`, 'src': `${process.env.UMAMI_ENDPOINT || ''}` }],
-    ['link', { rel: 'manifest', href: '/blog/manifest.webmanifest' }],
-    ['meta', { name: 'theme-color', content: '#06f' }],
-    ['link', { rel: 'apple-touch-icon', href: '/blog/images/icons/apple-touch-120x120.png' }],
-  ],
+  head,
   async buildEnd(siteConfig) {
     await sitemap({ hostname: 'https://tydumpling.cn/' })
     await genFeed(siteConfig)

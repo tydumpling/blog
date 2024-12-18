@@ -5,6 +5,8 @@ import type { UserConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+
+// 自动注册组件
 import Components from 'unplugin-vue-components/vite'
 import { MarkdownTransform } from './.vitepress/plugins/markdownTransform'
 
@@ -27,6 +29,7 @@ export default defineConfig(async () => {
       MarkdownTransform(),
       // plugins
       Components({
+        // 自动注册这里指定了只扫描这个目录
         dirs: resolve(__dirname, '.vitepress/theme/components'),
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
         resolvers: [

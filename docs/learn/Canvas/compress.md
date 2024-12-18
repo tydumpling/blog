@@ -11,9 +11,9 @@
 使用 `drawImage` 绘制图片，语法如下：
 
 ```js
-context.drawImage(image, dx, dy);
-context.drawImage(image, dx, dy, dWidth, dHeight);
-context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+context.drawImage(image, dx, dy)
+context.drawImage(image, dx, dy, dWidth, dHeight)
+context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ```
 
 参数解释：
@@ -33,21 +33,21 @@ context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 下面是几个示例，展示了如何使用 `drawImage` 方法：
 
 ```js
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('myCanvas')
+const ctx = canvas.getContext('2d')
 
 // 例子1: 在画布上绘制一个图像
-const image = new Image();
-image.src = 'image.png';
-image.onload = function() {
-  ctx.drawImage(image, 0, 0);
-};
+const image = new Image()
+image.src = 'image.png'
+image.onload = function () {
+  ctx.drawImage(image, 0, 0)
+}
 
 // 例子2: 绘制图像的一部分，并指定目标宽度和高度
-ctx.drawImage(image, 10, 10, 50, 50, 100, 100, 50, 50);
+ctx.drawImage(image, 10, 10, 50, 50, 100, 100, 50, 50)
 
 // 例子3: 使用剪裁区域绘制图像
-ctx.drawImage(image, 20, 20, 100, 100, 0, 0, 50, 50);
+ctx.drawImage(image, 20, 20, 100, 100, 0, 0, 50, 50)
 ```
 
 > 注意
@@ -59,7 +59,7 @@ ctx.drawImage(image, 20, 20, 100, 100, 0, 0, 50, 50);
 通过 `canvas` 中的 `toBlob()` 转换为一个 Blob 对象，基本语法如下所示：
 
 ```js
-canvas.toBlob(callback, type, quality);
+canvas.toBlob(callback, type, quality)
 ```
 
 参数解释：
@@ -73,18 +73,18 @@ canvas.toBlob(callback, type, quality);
 以下是一个示例，展示了如何使用 `toBlob()` 方法将 `<canvas>` 元素的内容转换为 Blob 对象：
 
 ```js
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('myCanvas')
+const ctx = canvas.getContext('2d')
 
 // 绘制画布内容
-ctx.fillStyle = 'red';
-ctx.fillRect(0, 0, 100, 100);
+ctx.fillStyle = 'red'
+ctx.fillRect(0, 0, 100, 100)
 
 // 将画布内容转换为 Blob 对象
-canvas.toBlob(function(blob) {
+canvas.toBlob((blob) => {
   // 在回调函数中处理生成的 Blob 对象
   // 可以将它上传到服务器或进行其他操作
-}, 'image/png');
+}, 'image/png')
 ```
 
 在示例中，首先获取到 `<canvas>` 元素的上下文对象 `ctx`，接着使用绘图方法绘制画布内容（这里绘制一个红色的矩形）。然后，使用 `toBlob()` 方法将画布内容转换为 Blob 对象，并在回调函数中进行处理。
@@ -99,27 +99,27 @@ canvas.toBlob(function(blob) {
 
 ```vue
 <script setup>
-    import { ref } from 'vue'
-    
-    const imgUrl = ref('')
-    const onChangeFn = e => {
-        // 获取用户上传的文件
-        const file = e.target.files[0]
-        
-        // 预览文件
-        let fr = new FileReader()
-        fr.readAsDataURL(file)
-        
-        // 获取图片读完的图片结果（非同步，需要在onload获取）
-        fr.onload = () => {
-            imgUrl.value = fr.result
-        }
-    }
+import { ref } from 'vue'
+
+const imgUrl = ref('')
+function onChangeFn(e) {
+  // 获取用户上传的文件
+  const file = e.target.files[0]
+
+  // 预览文件
+  const fr = new FileReader()
+  fr.readAsDataURL(file)
+
+  // 获取图片读完的图片结果（非同步，需要在onload获取）
+  fr.onload = () => {
+    imgUrl.value = fr.result
+  }
+}
 </script>
 
 <template>
-	<input type="file" @change="onChangeFn" />
-	<img :src="imgUrl" />
+  <input type="file" @change="onChangeFn">
+  <img :src="imgUrl">
 </template>
 ```
 
@@ -137,34 +137,32 @@ canvas.toBlob(function(blob) {
 ```js
 import { saveAs } from 'file-saver'
 
-const onChangeFn = e => {
-    const imgRef = ref(null) // img DOM 节点
-    // ...
-    fr.onload = () => {
-        imgUrl.value = fr.result
-        
-        // 创建canvas真实dom元素
-        let canvas = document.createElement('canvas')
-        canvas.height = imgRef.value.height
-        canvas.width = imgRef.value.width
-            
-        // 创建2d上下文
-        let ctx = canvas.getContext('2d')
-        setTimeout(() => {
-            ctx.drawImage(imgRef.value, 0, 0, imgRef.value.width, imgRef.value.height)
-            
-            // 把canvas转为blob格式
-            canvas.toBlob((blob) => {
-                // saveAs(blob, 'img.jpeg')
-                let form = new FormData()
-                form.append('file', blob)
-                axios.post('xxx', form)
-            }, 'image/jpeg', 0.4)
-        }, 1000)
-    }
+function onChangeFn(e) {
+  const imgRef = ref(null) // img DOM 节点
+  // ...
+  fr.onload = () => {
+    imgUrl.value = fr.result
+
+    // 创建canvas真实dom元素
+    const canvas = document.createElement('canvas')
+    canvas.height = imgRef.value.height
+    canvas.width = imgRef.value.width
+
+    // 创建2d上下文
+    const ctx = canvas.getContext('2d')
+    setTimeout(() => {
+      ctx.drawImage(imgRef.value, 0, 0, imgRef.value.width, imgRef.value.height)
+
+      // 把canvas转为blob格式
+      canvas.toBlob((blob) => {
+        // saveAs(blob, 'img.jpeg')
+        const form = new FormData()
+        form.append('file', blob)
+        axios.post('xxx', form)
+      }, 'image/jpeg', 0.4)
+    }, 1000)
+  }
 }
 ```
 
 
-## 总体效果
-<Iframe url="https://duyidao.github.io/blogweb/#/info/canvas/compress" />

@@ -18,7 +18,13 @@ if (inBrowser)
 
 const theme: Theme = {
   ...DefaultTheme,
-  enhanceApp({ router }: EnhanceAppContext) {
+  enhanceApp({ app, router }: EnhanceAppContext) {
+    // 方式一：手动注册指定组件
+    // app.component('Iframe', components.Iframe)
+    // 全局注册所有组件
+    //     componentList.forEach(({ name, component }) => {
+    //   app.component(name, component)
+    // })
     googleAnalytics({
       id: 'G-0F3DLK5BSG',
     })

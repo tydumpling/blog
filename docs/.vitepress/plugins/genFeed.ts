@@ -6,8 +6,8 @@ import { site as baseUrl, description, name } from '../meta'
 
 function reName(name: string) {
   if (!name)
-    name = 'Choi Yang'
-  return name === 'Choi Yang' ? 'Chocolate1999' : name
+    name = 'Yuan Tang'
+  return name === 'Yuan Tang' ? 'Chocolate1999' : name
 }
 
 function getGithubLink(name: string) {
@@ -50,7 +50,7 @@ export async function genFeed(config: SiteConfig) {
       content: html,
       author: [
         {
-          name: frontmatter?.author || 'Choi Yang',
+          name: frontmatter?.author || 'Yuan Tang',
           link: frontmatter?.author
             ? getGithubLink(frontmatter?.author)
             : undefined,

@@ -1,5 +1,5 @@
 ---
-author: "Choi Yang"
+author: "Yuan Tang"
 ---
 
 # 欢迎参与贡献，提 PR
@@ -35,7 +35,7 @@ pnpm dev
 
 ```bash
 ---
-author: Choi Yang
+author: Yuan Tang
 contributors: [HearLing]
 date: 2023-01-01
 ---

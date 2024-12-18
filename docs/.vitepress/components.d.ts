@@ -20,6 +20,8 @@ declare module 'vue' {
     'Fe:youtube': typeof import('~icons/fe/youtube')['default']
     HomeContributors: typeof import('./theme/components/HomeContributors.vue')['default']
     'IconPark:addWeb': typeof import('~icons/icon-park/add-web')['default']
+    Iframe: typeof import('./theme/components/Iframe.vue')['default']
+    IframeContainer: typeof import('./theme/components/Iframe.vue')['default']
     'Logos:reactQueryIcon': typeof import('~icons/logos/react-query-icon')['default']
     NavCard: typeof import('./theme/components/NavCard.vue')['default']
     'Octicon:feedPerson16': typeof import('~icons/octicon/feed-person16')['default']

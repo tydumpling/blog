@@ -1,11 +1,8 @@
----
-author: "Choi Yang"
-date: 2023-04-18
----
 
-# tydumpling 的 VitePress 插件折腾记录
 
-如果你也想拥有和 [tydumpling.cn](https://tydumpling.cn/) 一样的 vitepress 文档效果，不妨从这篇文章看起。
+# tydumpling 在VitePress中使用的插件
+
+如果你想拥有本网站 [tydumpling](https://tydumpling.github.io/blog/) 一样的 vitepress 文档效果，不妨从这篇文章看起。
 
 > 事先声明：在自己配置之前查看一下是否版本和我目前是一致的，一般而言版本号相差个位数影响不大，如果相差较大建议升级一下 vitepress 版本并结合官方文档修改。
 
@@ -24,7 +21,7 @@ date: 2023-04-18
 
 核心文件源代码在这里:
 
-[vite.config.ts 源码](https://github.com/tydumpling/tydumpling/blob/main/docs/vite.config.ts)
+[vite.config.ts 源码](https://github.com/tydumpling/blog/tree/main/docs/vite.config.ts)
 
 ### 示例代码
 
@@ -95,7 +92,7 @@ export default defineConfig(async () => {
 
 核心文件源代码在这里，可以点击查看:
 
-[markdownTransform.ts](https://github.com/tydumpling/tydumpling/blob/main/docs/.vitepress/plugins/markdownTransform.ts)
+[markdownTransform.ts](https://github.com/tydumpling/blog/tree/main/docs/.vitepress/plugins/markdownTransform.ts)
 
 ### 示例代码
 
@@ -167,19 +164,19 @@ import Components from 'unplugin-vue-components/vite'
 
 这个组件是用来显示贡献者信息的，核心文件源代码在这里：
 
-[Contributors.vue](https://github.com/tydumpling/tydumpling/blob/main/docs/.vitepress/theme/components/Contributors.vue)
+[Contributors.vue](https://github.com/tydumpling/blog/tree/main/docs/.vitepress/theme/components/Contributors.vue)
 
 ### CopyRight 组件
 
 这个组件是用来显示版权信息的，核心文件源代码在这里：
 
-[CopyRight.vue](https://github.com/tydumpling/tydumpling/blob/main/docs/.vitepress/theme/components/CopyRight.vue)
+[CopyRight.vue](https://github.com/tydumpling/blog/tree/main/docs/.vitepress/theme/components/CopyRight.vue)
 
 ## 文档页面的顶部信息组件
 
 这个组件用来显示阅读时间和字数等，核心文件源代码在这里：
 
-[PageInfo.vue](https://github.com/tydumpling/tydumpling/blob/main/docs/.vitepress/theme/components/PageInfo.vue)
+[PageInfo.vue](https://github.com/tydumpling/blog/tree/main/docs/.vitepress/theme/components/PageInfo.vue)
 
 ## 文章阅读数统计
 
@@ -255,7 +252,7 @@ export default theme
 
 pwa 使用的是 `vite-plugin-pwa`，具体引入方式可见这里:
 
-[plugins/pwa.ts](https://github.com/tydumpling/tydumpling/blob/main/docs/.vitepress/theme/plugins/pwa.ts)
+[plugins/pwa.ts](https://github.com/tydumpling/blog/tree/main/docs/.vitepress/theme/plugins/pwa.ts)
 
 ```ts
 import fg from 'fast-glob'
@@ -380,7 +377,7 @@ export const pwa: Partial<VitePWAOptions> = {
 
 核心代码可见这里:
 
-[genFeed.ts](https://github.com/tydumpling/tydumpling/blob/main/docs/.vitepress/plugins/genFeed.ts)
+[genFeed.ts](https://github.com/tydumpling/blog/tree/main/docs/.vitepress/plugins/genFeed.ts)
 
 以下是示例代码：
 
@@ -393,8 +390,8 @@ import { site as baseUrl, description, name } from '../meta'
 
 function reName(name: string) {
   if (!name)
-    name = 'Choi Yang'
-  return name === 'Choi Yang' ? 'Chocolate1999' : name
+    name = 'Yuan Tang'
+  return name === 'Yuan Tang' ? 'Chocolate1999' : name
 }
 
 function getGithubLink(name: string) {
@@ -436,7 +433,7 @@ export async function genFeed(config: SiteConfig) {
       content: html,
       author: [
         {
-          name: frontmatter?.author || 'Choi Yang',
+          name: frontmatter?.author || 'Yuan Tang',
           link: frontmatter?.author
             ? getGithubLink(frontmatter?.author)
             : undefined,

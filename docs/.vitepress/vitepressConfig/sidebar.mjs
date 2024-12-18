@@ -18,9 +18,9 @@ function generateSidebarItems(arr) {
 // 前端canvas的数组
 const CanvasSidebar = [
   {
-    text: 'Canvas',
+    text: 'Canvas属性详解',
     collapsible: true,
-    // collapsed: true,
+    collapsed: true,
     items: [
       { text: 'canvas', link: '/Canvas/index' },
       { text: '图片压缩', link: '/Canvas/compress' },
@@ -690,7 +690,7 @@ const ProjectSidebar = [
   {
     text: '项目',
     items: [
-      { text: '🧟 中科星图', link: '/lingsi/' },
+      { text: '🧟 中科星图', link: '/geovis/' },
       { text: '⛷️百度外包', link: '/baidu/' },
       { text: '🔪 tydumpling博客', link: '/tydumpling/' },
       { text: '📜 自主学习', link: '/myself/' },
@@ -699,16 +699,16 @@ const ProjectSidebar = [
 ]
 
 // 中科星图的数组
-const LingsiSidebar = [
+const geovisSidebar = [
   {
     text: '🧟 中科星图',
     items: [
-      { text: '🎶 音果云音', link: '/lingsi/music/' },
-      { text: '🔧 职技网', link: '/lingsi/职技网/' },
-      { text: '💴 视频分销', link: '/lingsi/sale/' },
-      { text: '🧫 华润水泥', link: '/lingsi/水泥/' },
-      { text: '🔍 CRM', link: '/lingsi/crm/' },
-      { text: '🎲 ELK', link: '/lingsi/elk/' },
+      { text: '🎶 音果云音', link: '/geovis/music/' },
+      { text: '🔧 职技网', link: '/geovis/职技网/' },
+      { text: '💴 视频分销', link: '/geovis/sale/' },
+      { text: '🧫 华润水泥', link: '/geovis/水泥/' },
+      { text: '🔍 CRM', link: '/geovis/crm/' },
+      { text: '🎲 ELK', link: '/geovis/elk/' },
       { text: '🗑 返回', link: '/project/' },
     ],
   },
@@ -720,24 +720,24 @@ const MusicSidebar = [
     text: '📱 APP',
     collapsible: true,
     items: [
-      { text: '登录', link: '/lingsi/music/APP/login' },
-      { text: 'tabbar', link: '/lingsi/music/APP/tabbar' },
-      { text: '详情', link: '/lingsi/music/APP/detail' },
-      { text: '分享', link: '/lingsi/music/APP/share' },
-      { text: '测试', link: '/lingsi/music/APP/test' },
-      { text: '操作', link: '/lingsi/music/APP/do' },
-      { text: '商品', link: '/lingsi/music/APP/sku' },
-      { text: '支付', link: '/lingsi/music/APP/pay' },
-      { text: '更新', link: '/lingsi/music/APP/update' },
-      { text: '个人', link: '/lingsi/music/APP/userinfo' },
+      { text: '登录', link: '/geovis/music/APP/login' },
+      { text: 'tabbar', link: '/geovis/music/APP/tabbar' },
+      { text: '详情', link: '/geovis/music/APP/detail' },
+      { text: '分享', link: '/geovis/music/APP/share' },
+      { text: '测试', link: '/geovis/music/APP/test' },
+      { text: '操作', link: '/geovis/music/APP/do' },
+      { text: '商品', link: '/geovis/music/APP/sku' },
+      { text: '支付', link: '/geovis/music/APP/pay' },
+      { text: '更新', link: '/geovis/music/APP/update' },
+      { text: '个人', link: '/geovis/music/APP/userinfo' },
     ],
   },
   {
     text: '💻 H5',
     collapsible: true,
     items: [
-      { text: '海报页', link: '/lingsi/music/H5/' },
-      { text: '🗑 返回', link: '/lingsi/' },
+      { text: '海报页', link: '/geovis/music/H5/' },
+      { text: '🗑 返回', link: '/geovis/' },
     ],
   },
 ]
@@ -748,15 +748,15 @@ const JobSidebar = [
     text: '🔧 职技网',
     collapsible: true,
     items: [
-      { text: '介绍', link: '/lingsi/职技网/' },
-      { text: '项目创建', link: '/lingsi/职技网/项目创建' },
+      { text: '介绍', link: '/geovis/职技网/' },
+      { text: '项目创建', link: '/geovis/职技网/项目创建' },
       {
         text: 'vant组件二次封装',
-        link: '/lingsi/职技网/vant组件二次封装',
+        link: '/geovis/职技网/vant组件二次封装',
       },
-      { text: '微信授权', link: '/lingsi/职技网/微信授权' },
-      { text: '下载附件', link: '/lingsi/职技网/下载附件' },
-      { text: '🗑 返回', link: '/lingsi/' },
+      { text: '微信授权', link: '/geovis/职技网/微信授权' },
+      { text: '下载附件', link: '/geovis/职技网/下载附件' },
+      { text: '🗑 返回', link: '/geovis/' },
     ],
   },
 ]
@@ -767,17 +767,17 @@ const SaleSidebar = [
     text: '💴 视频分销',
     collapsible: true,
     items: [
-      { text: '简介', link: '/lingsi/sale/' },
-      { text: '请求封装', link: '/lingsi/sale/request' },
-      { text: 'token刷新', link: '/lingsi/sale/token' },
-      { text: '微信授权快捷登录', link: '/lingsi/sale/获取手机号' },
-      { text: '附件下载', link: '/lingsi/sale/preview' },
-      { text: '分享', link: '/lingsi/sale/分享' },
-      { text: '商城', link: '/lingsi/sale/商城' },
-      { text: '视频轮播', link: '/lingsi/sale/video' },
-      { text: '图片上传组件封装', link: '/lingsi/sale/upload' },
-      { text: '关注公众号', link: '/lingsi/sale/关注公众号' },
-      { text: '🗑 返回', link: '/lingsi/' },
+      { text: '简介', link: '/geovis/sale/' },
+      { text: '请求封装', link: '/geovis/sale/request' },
+      { text: 'token刷新', link: '/geovis/sale/token' },
+      { text: '微信授权快捷登录', link: '/geovis/sale/获取手机号' },
+      { text: '附件下载', link: '/geovis/sale/preview' },
+      { text: '分享', link: '/geovis/sale/分享' },
+      { text: '商城', link: '/geovis/sale/商城' },
+      { text: '视频轮播', link: '/geovis/sale/video' },
+      { text: '图片上传组件封装', link: '/geovis/sale/upload' },
+      { text: '关注公众号', link: '/geovis/sale/关注公众号' },
+      { text: '🗑 返回', link: '/geovis/' },
     ],
   },
 ]
@@ -788,31 +788,31 @@ const CementSidebar = [
     text: '🧫 华润水泥',
     collapsible: true,
     items: [
-      { text: '引言', link: '/lingsi/水泥/' },
+      { text: '引言', link: '/geovis/水泥/' },
       {
         text: '图片对比可拖拽轮子',
-        link: '/lingsi/水泥/图片对比可拖拽轮子',
+        link: '/geovis/水泥/图片对比可拖拽轮子',
       },
-      { text: 'vue_color', link: '/lingsi/水泥/vue_color' },
+      { text: 'vue_color', link: '/geovis/水泥/vue_color' },
       {
         text: '🎭 jeecg',
         collapsible: true,
         items: [
           {
             text: '表格行选中',
-            link: '/lingsi/水泥/jeecg/表格行选中',
+            link: '/geovis/水泥/jeecg/表格行选中',
           },
           {
             text: '树组件默认展开',
-            link: '/lingsi/水泥/jeecg/树组件默认展开',
+            link: '/geovis/水泥/jeecg/树组件默认展开',
           },
           {
             text: 'j-vxe-table搭配其他组件',
-            link: '/lingsi/水泥/jeecg/j-vxe-table搭配其他组件',
+            link: '/geovis/水泥/jeecg/j-vxe-table搭配其他组件',
           },
         ],
       },
-      { text: '🗑 返回', link: '/lingsi/' },
+      { text: '🗑 返回', link: '/geovis/' },
     ],
   },
 ]
@@ -823,17 +823,17 @@ const ELKSidebar = [
     text: '🎲 ELK',
     collapsible: true,
     items: [
-      { text: '简介', link: '/lingsi/elk/' },
+      { text: '简介', link: '/geovis/elk/' },
       {
         text: '接收后端返回的二进制流文件',
-        link: '/lingsi/elk/blob',
+        link: '/geovis/elk/blob',
       },
-      { text: 'vue-core的使用', link: '/lingsi/elk/vue_core' },
-      { text: 'Canvas绘制表格图', link: '/lingsi/elk/canvas_table' },
-      { text: 'DIV可编辑文本', link: '/lingsi/elk/edit_div' },
-      { text: 'JSON编辑器', link: '/lingsi/elk/edit_JSON' },
-      { text: '导出PDF', link: '/lingsi/elk/pdf' },
-      { text: '🗑 返回', link: '/lingsi/' },
+      { text: 'vue-core的使用', link: '/geovis/elk/vue_core' },
+      { text: 'Canvas绘制表格图', link: '/geovis/elk/canvas_table' },
+      { text: 'DIV可编辑文本', link: '/geovis/elk/edit_div' },
+      { text: 'JSON编辑器', link: '/geovis/elk/edit_JSON' },
+      { text: '导出PDF', link: '/geovis/elk/pdf' },
+      { text: '🗑 返回', link: '/geovis/' },
     ],
   },
 ]
@@ -844,18 +844,18 @@ const CRMSidebar = [
     text: '🔍 crm',
     collapsible: true,
     items: [
-      { text: '简介', link: '/lingsi/crm/' },
-      { text: '拨打电话', link: '/lingsi/crm/call' },
-      { text: 'navigateBack传参', link: '/lingsi/crm/navigateBack' },
-      { text: '域名配置', link: '/lingsi/crm/部署' },
-      { text: '微信授权', link: '/lingsi/crm/微信授权' },
-      { text: '🗑 返回', link: '/lingsi/' },
+      { text: '简介', link: '/geovis/crm/' },
+      { text: '拨打电话', link: '/geovis/crm/call' },
+      { text: 'navigateBack传参', link: '/geovis/crm/navigateBack' },
+      { text: '域名配置', link: '/geovis/crm/部署' },
+      { text: '微信授权', link: '/geovis/crm/微信授权' },
+      { text: '🗑 返回', link: '/geovis/' },
     ],
   },
 ]
 
 // tydumpling博客的数组
-const tydumplingSidebar = [
+const tydumpgeovisdebar = [
   {
     text: '🔪 tydumpling博客',
     collapsible: true,
@@ -1149,6 +1149,8 @@ const VitePressSidebar = [
       { text: '🎁 打包', link: '/vitePress/Build' },
       { text: '⏳ 部署', link: '/vitePress/Deploy' },
       { text: '✨ 拓展', link: '/vitePress/Know' },
+      { text: '🗿 插件', link: '/vitePress/plugin' },
+
     ],
   },
 ]
@@ -1180,7 +1182,7 @@ const AboutSidebar = [
       { text: '🧑 关于我', link: '/about/' },
       { text: '🔪 关于tydumpling博客', link: '/about/blog' },
       { text: '📑 关于学习准则', link: '/about/furtrue' },
-      { text: '🧟 关于中科星图', link: '/about/lingsi' },
+      { text: '🧟 关于中科星图', link: '/about/geovis' },
       { text: '⛷️ 关于百度', link: '/about/baidu' },
     ],
   },
@@ -1299,14 +1301,14 @@ export default {
   '/面试鸭/面试问': generateSidebarItems(AskSidebar),
   '/面试鸭/面试算法': generateSidebarItems(LeedCodeSidebar),
   '/project': generateSidebarItems(ProjectSidebar),
-  '/lingsi': generateSidebarItems(LingsiSidebar),
-  '/lingsi/sale': generateSidebarItems(SaleSidebar),
-  '/lingsi/职技网': generateSidebarItems(JobSidebar),
-  '/lingsi/水泥': generateSidebarItems(CementSidebar),
-  '/lingsi/music': generateSidebarItems(MusicSidebar),
-  '/lingsi/elk': generateSidebarItems(ELKSidebar),
-  '/lingsi/crm': generateSidebarItems(CRMSidebar),
-  '/tydumpling/': generateSidebarItems(tydumplingSidebar),
+  '/geovis': generateSidebarItems(geovisSidebar),
+  '/geovis/sale': generateSidebarItems(SaleSidebar),
+  '/geovis/职技网': generateSidebarItems(JobSidebar),
+  '/geovis/水泥': generateSidebarItems(CementSidebar),
+  '/geovis/music': generateSidebarItems(MusicSidebar),
+  '/geovis/elk': generateSidebarItems(ELKSidebar),
+  '/geovis/crm': generateSidebarItems(CRMSidebar),
+  '/tydumpling/': generateSidebarItems(tydumpgeovisdebar),
   '/baidu/': generateSidebarItems(BaiduSidebar),
   '/baidu/layer/': generateSidebarItems(LayerSidebar),
   '/baidu/fokai/': generateSidebarItems(FokaiSidebar),

@@ -119,5 +119,3 @@ import {signProp} from './signProp.jsx'
 
 注意的是，有一些场景可能用不到 `cancel` 之类的按钮点击事件，没有传对应的函数方法，需要有良好的代码健壮性意识，添加非空判断，避免代码报错。
 
-## 总体效果
-<Iframe url="https://duyidao.github.io/blogweb/#/detail/learn/repeat" />

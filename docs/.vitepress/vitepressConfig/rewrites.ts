@@ -17,7 +17,7 @@ export default {
   'learn/TypeScript/(.*)': 'TypeScript/(.*)',
   'learn/Node/(.*)': 'TypeScript/(.*)',
   'learn/study/(.*)': 'study/(.*)',
-  'project/lingsi/(.*)': 'lingsi/(.*)',
+  'project/geovis/(.*)': 'geovis/(.*)',
   'project/tydumpling/(.*)': 'tydumpling/(.*)',
   'project/baidu/(.*)': 'baidu/(.*)',
   'project/myself/(.*)': 'myself/(.*)',

@@ -19,5 +19,3 @@ img {
 
 这样就能够实现效果了。
 
-## 总体效果
-<Iframe url="https://duyidao.github.io/blogweb/#/detail/css/vmin" />

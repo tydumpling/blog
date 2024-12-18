@@ -69,5 +69,3 @@
 </script>
 ```
 
-## 总体效果
-<Iframe url="https://duyidao.github.io/blogweb/#/info/canvas/screenshot" />
