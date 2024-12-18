@@ -2,16 +2,18 @@
 defineProps({
   url: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 
 <template>
-  <iframe width="100%"
+  <iframe
+    width="100%"
     height="600"
     frameborder="0"
-    :src="url"></iframe>
+    :src="url"
+  />
 </template>
 
 <style scoped></style>

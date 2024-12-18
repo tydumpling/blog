@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import type { navItem } from '../../../favorites/types'
+interface navItem {
+  id: string | number
+  text: string
+  desc?: string
+  link: string
+  icon?: string
+}
 
 defineProps<{
   navData: navItem[]

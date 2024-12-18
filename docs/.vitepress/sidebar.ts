@@ -1,6 +1,6 @@
 import autoSidebar from './theme/plugins/autoSidebarBeta'
 
-export default {
+const sidebar = {
   '/': [
     {
       text: '开始阅读',
@@ -111,5 +111,7 @@ export default {
     },
   ],
   '/essay/': autoSidebar({ base: 'essay' }),
+  '/面试鸭/': autoSidebar({ base: 'essay' }),
   // '/interview/': sidebarInterview(),
 }
+export default sidebar
