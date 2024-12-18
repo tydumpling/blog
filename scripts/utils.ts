@@ -17,7 +17,7 @@ fetchContributors：异步获取 GitHub 仓库的贡献者列表，排除特定�
 updateContributors：更新 contributors.json 文件，包含最新的贡献者列表。 */
 export const git = Git()
 
-export const DOCS_URL = 'https://chodocs.cn'
+export const DOCS_URL = 'https://tydumpling.github.io/blog'
 
 export const DIR_ROOT = resolve(__dirname, '..')
 export const DIR_SRC = resolve(__dirname, '../docs')

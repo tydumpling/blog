@@ -1,7 +1,7 @@
 {
   "name": "tydumplingDocs",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "前端内容网站，包括学习路线、知识体系",
   "author": "Yuan Tang<https://github.com/tydumpling>",
