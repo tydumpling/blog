@@ -63,7 +63,7 @@ console.log(hd instanceof User) // true
 
 ```js
 const hd = 'tydumpling'
-const cms = new String('duyidao')
+const cms = new String('tydumpling')
 console.log(typeof hd, typeof cms) // string object
 ```
 
@@ -71,7 +71,7 @@ console.log(typeof hd, typeof cms) // string object
 
 ```js
 const hd = 'tydumpling'
-const cms = new String('duyidao')
+const cms = new String('tydumpling')
 console.log(hd.length) // 9
 console.log(cms.length) // 5
 ```
@@ -134,8 +134,8 @@ console.log(`${name}成立于${year}年`)
 
 ```js
 let web = 'tydumpling'
-web += '网址：duyidao.com'
-console.log(web) // tydumpling网址：duyidao.com
+web += '网址：tydumpling.com'
+console.log(web) // tydumpling网址：tydumpling.com
 ```
 
 #### 模板字面量
@@ -144,7 +144,7 @@ console.log(web) // tydumpling网址：duyidao.com
 
 ```js
 const url = 'tydumpling.com'
-console.log(`tydumpling网址是${url}`) // tydumpling网址是duyidao.com
+console.log(`tydumpling网址是${url}`) // tydumpling网址是tydumpling.com
 ```
 
 支持换行操作不会产生错误
@@ -248,7 +248,7 @@ console.log('tydumpling.com'.length)
 将字符转换成大写格式
 
 ```js
-console.log('tydumpling.com'.toUpperCase()) // duyidao.COM
+console.log('tydumpling.com'.toUpperCase()) // tydumpling.COM
 ```
 
 转字符为小写格式
@@ -380,8 +380,8 @@ console.log(status)
 
 ```js
 const name = 'tydumpling.com'
-web = name.replace('tydumpling', 'duyidao')
-console.log(web) // duyidao.com
+web = name.replace('tydumpling', 'tydumpling')
+console.log(web) // tydumpling.com
 ```
 
 默认只替换一次，如果全局替换需要使用正则（更强大的使用会在正则表达式章节介绍）
@@ -434,7 +434,7 @@ console.log(phone.slice(0, -3) + '*'.repeat(3)) // 98765432***
 分隔字母
 
 ```js
-const name = 'duyidao'
+const name = 'tydumpling'
 console.log(name.split(''))
 ```
 
@@ -464,7 +464,7 @@ js 中大部分类型都是对象，可以使用类方法 `toString`转化为字
 const hd = 99
 console.log(typeof hd.toString()) // string
 
-const arr = ['duyidao', 'tydumpling']
+const arr = ['tydumpling', 'tydumpling']
 console.log(typeof arr.toString()) // string
 ```
 
@@ -636,7 +636,7 @@ if (Number.isNaN(res))
 也可以使用 `Object.is` 方法判断两个值是否完全相同
 
 ```js
-const res = 2 / 'duyidao'
+const res = 2 / 'tydumpling'
 console.log(Object.is(res, Number.NaN)) // true
 ```
 
@@ -647,7 +647,7 @@ console.log(Object.is(res, Number.NaN)) // true
 使用 Number 函数基本上可以转换所有类型
 
 ```js
-console.log(Number('duyidao')) // NaN
+console.log(Number('tydumpling')) // NaN
 console.log(Number(true))	// 1
 console.log(Number(false))	// 0
 console.log(Number('9'))	// 9
@@ -662,7 +662,7 @@ console.log(Number({}))	// NaN
 提取字符串开始去除空白后的数字转为整数。
 
 ```js
-console.log(Number.parseInt('  99duyidao'))	// 99
+console.log(Number.parseInt('  99tydumpling'))	// 99
 console.log(Number.parseInt('18.55'))	// 18
 ```
 
@@ -671,7 +671,7 @@ console.log(Number.parseInt('18.55'))	// 18
 转换字符串为浮点数，忽略字符串前面空白字符。
 
 ```js
-console.log(Number.parseFloat('  99duyidao'))	// 99
+console.log(Number.parseFloat('  99tydumpling'))	// 99
 console.log(Number.parseFloat('18.55'))	// 18.55
 ```
 

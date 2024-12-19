@@ -12,9 +12,9 @@
 - 登录页
 - 支付页
 
-线上完整项目：[tydumpling小兔鲜](https://duyidao.gitee.io/rabit/)
+线上完整项目：[tydumpling小兔鲜](https://tydumpling.github.io/rabit/)
 
-项目仓库以及打包方式指路：[tydumpling小兔鲜仓库](https://gitee.com/duyidao/rabit)
+项目仓库以及打包方式指路：[tydumpling小兔鲜仓库](https://github.com/tydumpling/rabit)
 
 ## 项目亮点
 
@@ -380,7 +380,7 @@ const { cartList } = storeToRefs(useCarttStore());
 
 ### 部署
 
-项目完成后需要打包部署，放到 `gitee pages` 上代理。在部署的时候勾选了 “强制使用 HTTPS” 的选项，部署完后接口请求被拦截了，并报了以下的错误：
+项目完成后需要打包部署，放到 `github pages` 上代理。在部署的时候勾选了 “强制使用 HTTPS” 的选项，部署完后接口请求被拦截了，并报了以下的错误：
 
 ![图片信息](https://s1.ax1x.com/2023/06/11/pCZ92wR.png)
 

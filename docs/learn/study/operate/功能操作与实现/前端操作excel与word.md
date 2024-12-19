@@ -91,7 +91,7 @@ export default {
       const data = [
         { name: 'tydumpling', age: 18 },
         { name: 'xiaodao', age: 20 },
-        { name: 'duyidao', age: 23 },
+        { name: 'tydumpling', age: 23 },
       ]
       const ws = utils.json_to_sheet(data)
       const wb = utils.book_new()

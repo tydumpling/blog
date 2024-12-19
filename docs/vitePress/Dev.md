@@ -131,8 +131,7 @@ features:
   3. `details`: 专栏简介
   4. `link`: 点击后跳转页面的路由。可选，不设置的话鼠标悬停没有特殊样式，没有点击事件。
 
-整体如下图所示。
-![整体效果](https://s1.ax1x.com/2023/02/01/pSBKRVe.png)
+
 
 ## 配置文件配置
 修改 `docs/.vitepress/config.js` 的内容，老规矩，先放总体代码，想先看效果的可以复制粘贴。后面对每项进行详细介绍。
@@ -152,7 +151,7 @@ module.exports = {
     ['meta', { property: 'og:site_name', content: 'tydumpling博客' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:description', content: '前端教程' }],
-    ['meta', { property: 'og:url', content: 'https://duyidao.gitee.io/tydumpling/' }],
+    ['meta', { property: 'og:url', content: 'https://tydumpling.github.io/tydumpling/' }],
   ],
   // 使用插件
   plugins: [
@@ -188,7 +187,7 @@ module.exports = {
     },
     // 社交链接
     socialLinks: [
-      { icon: 'github', link: 'https://gitee.com/tydumpling' }
+      { icon: 'github', link: 'https://github.com/tydumpling' }
     ],
     // 页脚
     footer: {
@@ -241,7 +240,7 @@ module.exports = {
     ['meta', { property: 'og:site_name', content: 'tydumpling博客' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:description', content: '前端教程' }],
-    ['meta', { property: 'og:url', content: 'https://duyidao.gitee.io/tydumpling/' }],
+    ['meta', { property: 'og:url', content: 'https://tydumpling.github.io/tydumpling/' }],
   ]
 }
 ```

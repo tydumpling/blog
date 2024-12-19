@@ -121,7 +121,7 @@ console.log(sum(1, 2, 3))
   ```js
   'use strict';
   (function () {
-    const web = 'duyidao'
+    const web = 'tydumpling'
   })()
   console.log(web) // web is not defined
   ```
@@ -130,17 +130,17 @@ console.log(sum(1, 2, 3))
 
   ```js
   (function (window) {
-    const web = 'duyidao'
+    const web = 'tydumpling'
     window.webout = web
   })(window)
-  console.log(webout) // duyidao
+  console.log(webout) // tydumpling
   ```
 
 - 使用 `let/const` 有块作用域特性，所以使用以下方式也可以产生私有作用域
 
   ```js
   {
-    const web = 'duyidao'
+    const web = 'tydumpling'
   }
   console.log(web) // web is not defined
   ```
@@ -149,10 +149,10 @@ console.log(sum(1, 2, 3))
 
   ```js
   {
-    const web = 'duyidao'
+    const web = 'tydumpling'
     window.webout = web
   }
-  console.log(webout) // duyidao
+  console.log(webout) // tydumpling
   ```
 
   
@@ -511,9 +511,9 @@ console.log(sum(0.1, 100, 300, 299))
 ```js
 function hd(str, ...values) {
   console.log(str) // ["站点", "-", "", raw: Array(3)]
-  console.log(values) // ["tydumpling", "duyidao.com"]
+  console.log(values) // ["tydumpling", "tydumpling.com"]
 }
-const name = 'tydumpling'; const url = 'duyidao.com'
+const name = 'tydumpling'; const url = 'tydumpling.com'
 hd`站点${name}-${url}`
 ```
 
@@ -856,7 +856,7 @@ const learn = new Learn()
 console.log(learn.axios({ id: 1, name: 'tydumpling' })) // /learn/js?id=1&name=tydumpling
 
 const product = new Product()
-console.log(product.axios({ id: 2, name: 'duyidao' })) // /product/music?id=2&name=duyidao
+console.log(product.axios({ id: 2, name: 'tydumpling' })) // /product/music?id=2&name=tydumpling
 ```
 
 制作显示隐藏面板
@@ -964,7 +964,7 @@ console.log(newFunc(2))
     "click",
     function(event) {
       console.log(event.target.innerHTML + this.url);
-    }.bind({ url: "duyidao.com" })
+    }.bind({ url: "tydumpling.com" })
   );
 </script>
 ```
@@ -994,7 +994,7 @@ console.log(newFunc(2))
   }
 </style>
 <body>
-  duyidao.com
+  tydumpling.com
 </body>
 <script>
   function Color(elem) {

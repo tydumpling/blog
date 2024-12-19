@@ -10,7 +10,7 @@ description tydumpling博客的制作
 
 ## 网址
 
-[tydumpling小站](https://duyidao.gitee.io/blogweb/)
+[tydumpling小站](https://tydumpling.github.io/blogweb/)
 
 ## 项目搭建
 

@@ -487,7 +487,7 @@ createElement({
 function hd([a, b]) {
   console.log(a, b)
 }
-hd(['tydumpling', 'duyidao'])
+hd(['tydumpling', 'tydumpling'])
 ```
 
 对象参数使用方法

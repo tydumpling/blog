@@ -191,7 +191,7 @@ import { createServer } from 'node:http'
 
 const service = createServer((req, res) => {
   res.statusCode = 301
-  res.setHeader('Location', 'https://duyidao.gitee.io/tydumpling/')
+  res.setHeader('Location', 'https://tydumpling.github.io/tydumpling/')
   res.end()
 })
 

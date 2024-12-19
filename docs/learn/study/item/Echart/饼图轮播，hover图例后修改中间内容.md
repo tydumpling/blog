@@ -176,4 +176,4 @@ onMounted(() => {
 
 ## 总体效果
 
-<Iframe url="https://duyidao.github.io/blogweb/#/info/echart/pieCast" />
+<Iframe url="https://tydumpling.github.io/blogweb/#/info/echart/pieCast" />

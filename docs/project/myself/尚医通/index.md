@@ -4,7 +4,7 @@ title 尚义通项目创建
 
 # 项目创建
 
-项目正式地址：[尚医通]([tydumpling医院 (gitee.io)](http://duyidao.gitee.io/doctor/)) 。
+项目正式地址：[尚医通]([tydumpling医院 (github.io)](http://tydumpling.github.io/doctor/)) 。
 
 ## 前置工作
 

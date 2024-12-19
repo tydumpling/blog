@@ -82,7 +82,7 @@ let x = 1
 hd = 'tydumpling'
 function run() {
   console.log(hd) // Cannot access 'hd' before initialization
-  let hd = 'duyidao'
+  let hd = 'tydumpling'
 }
 run()
 ```
@@ -201,8 +201,8 @@ console.log($.web)
 
 ```js
 if (true) {
-  const web = 'duyidao'; const url = 'tydumpling.com'
-  console.log(web) // duyidao
+  const web = 'tydumpling'; const url = 'tydumpling.com'
+  console.log(web) // tydumpling
 }
 console.log(web) // web is not defined
 ```
@@ -227,8 +227,8 @@ console.log(user) // tydumpling
 function run() {
   hd = 'tydumpling'
   if (true) {
-    const hd = 'duyidao'
-    console.log(hd) // duyidao
+    const hd = 'tydumpling'
+    console.log(hd) // tydumpling
   }
   console.log(hd) // tydumpling
 }
@@ -251,7 +251,7 @@ run()
 ```js
 try {
   const URL = 'https://www.tydumpling.com'
-  URL = 'https://www.duyidao.com' // 产生错误
+  URL = 'https://www.tydumpling.com' // 产生错误
 }
 catch (error) {
   throw new Error(error)
@@ -262,11 +262,11 @@ catch (error) {
 
 ```js
 const INFO = {
-  url: 'https://duyidao.gitee.com',
+  url: 'https://tydumpling.github.com',
   port: '8080'
 }
 INFO.port = '443'
-console.log(INFO) // {url:'https://duyidao.gitee.com',port: '443'}
+console.log(INFO) // {url:'https://tydumpling.github.com',port: '443'}
 ```
 
 在不同作用域中可以重名定义常量，如下所示
@@ -275,10 +275,10 @@ console.log(INFO) // {url:'https://duyidao.gitee.com',port: '443'}
 const NAME = 'tydumpling'
 
 function show() {
-  const NAME = 'duyidao'
+  const NAME = 'tydumpling'
   return NAME
 }
-console.log(show()) // duyidao
+console.log(show()) // tydumpling
 console.log(NAME) // tydumpling
 ```
 
@@ -345,7 +345,7 @@ console.log(`商品价格是:${price}`)
 `let` 全局声明的变量不存在于 `window`对象中，这与`var`声明不同
 
 ```js
-const hd = 'duyidao'
+const hd = 'tydumpling'
 console.log(window.hd) // undefined
 ```
 

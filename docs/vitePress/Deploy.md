@@ -2,11 +2,11 @@
 title 部署
 ---
 # 部署
-本次部署以 `gitee` 为例。
+本次部署以 `github` 为例。
 
 ## 创建仓库
 重点：
-- 如果第二阶段打包时 `base` 参数为 `/` ，仓库名称应为 `gitee用户名.gitee.io`。（以我的账号为例，应为 `duyidao.gitee.io`）
+- 如果第二阶段打包时 `base` 参数为 `/` ，仓库名称应为 `github用户名.github.io`。（以我的账号为例，应为 `tydumpling.github.io`）
 - 如果参数为 `/一个单词/` ，仓库名称也要取对应的名称。（如第二阶段我的代码是 `base: '/tydumpling/'`，仓库名称如下图所示）
 
 ![创建仓库](https://s1.ax1x.com/2023/02/01/pSBXbdg.png)
@@ -14,8 +14,8 @@ title 部署
 ## 设置开源
 把仓库设为开源
 
-## 选择 Gitee Pages 服务
-1. 点击服务选择 `Gitee Pages` 服务。
+## 选择 github Pages 服务
+1. 点击服务选择 `github Pages` 服务。
 
     ![选择服务](https://s1.ax1x.com/2023/02/01/pSBvp9A.png)
 

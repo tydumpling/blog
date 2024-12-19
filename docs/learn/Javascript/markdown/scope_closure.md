@@ -52,7 +52,7 @@ function a() {
   const hd = 'tydumpling.com'
 
   function b() {
-    const cms = 'duyidao.com'
+    const cms = 'tydumpling.com'
     console.log(hd)
     console.log(site)
   }
@@ -171,8 +171,8 @@ function hd() {
   	return name
   }
 }
-const duyidao = hd()
-console.log(duyidao()) // tydumpling
+const tydumpling = hd()
+console.log(tydumpling()) // tydumpling
 ```
 
 使用闭包返回数组区间元素
@@ -192,7 +192,7 @@ console.log(arr.filter(between(3, 5))) // 相当于 arr.filter(gunction(v) { ret
 ```html
 <body>
   <button message="tydumpling">button</button>
-  <button message="duyidao">button</button>
+  <button message="tydumpling">button</button>
 </body>
 <script>
   var btns = document.querySelectorAll("button");
@@ -218,7 +218,7 @@ console.log(arr.filter(between(3, 5))) // 相当于 arr.filter(gunction(v) { ret
     }
   </style>
   <button message="tydumpling">tydumpling</button>
-  <!-- <button message="duyidao">duyidao</button> -->
+  <!-- <button message="tydumpling">tydumpling</button> -->
 </body>
 <script>
   let btns = document.querySelectorAll("button");
@@ -279,7 +279,7 @@ console.table(lessons.sort(order('price')))
 ```html
 <body>
   <div desc="tydumpling">在线学习</div>
-  <div desc="duyidao">开源产品</div>
+  <div desc="tydumpling">开源产品</div>
 </body>
 <script>
   let divs = document.querySelectorAll("div");

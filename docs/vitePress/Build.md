@@ -11,7 +11,7 @@ title 打包
 base: '/tydumpling/'
 ```
 
-如果仓库名称为 `github用户名.github.io` 或者 `gitee用户名.gitee.io` ，则视为默认路径，斜杆即可。
+如果仓库名称为 `github用户名.github.io` 或者 `github用户名.github.io` ，则视为默认路径，斜杆即可。
 ```js
 base: '/'
 ```

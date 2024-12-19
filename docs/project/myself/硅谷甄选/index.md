@@ -4,7 +4,7 @@ title 甄选项目初始化
 
 # 项目初始化
 
-项目在线地址：[甄选](http://duyidao.gitee.io/selection/#/login?redirect=/home) 。
+项目在线地址：[甄选](http://tydumpling.github.io/selection/#/login?redirect=/home) 。
 
 ## 项目创建
 
@@ -463,7 +463,7 @@ pnpm commitlint
 
 ### 集成element-plus
 
-官网地址:https://element-plus.gitee.io/zh-CN/
+官网地址:https://element-plus.github.io/zh-CN/
 
 ```
 pnpm install element-plus @element-plus/icons-vue

@@ -15,22 +15,22 @@ console.log([1, 'tydumpling', 'tydumpling']) // [1, "tydumpling", "tydumpling"]
 使用字面量创建是推荐的简单作法
 
 ```js
-const array = ['duyidao', 'tydumpling']
+const array = ['tydumpling', 'tydumpling']
 ```
 
 多维数组定义
 
 ```js
-const array = [['duyidao'], ['tydumpling']]
+const array = [['tydumpling'], ['tydumpling']]
 console.log(array[1][0]) // tydumpling
 ```
 
 数组是引用类型可以使用`const`声明并修改它的值
 
 ```js
-const array = ['duyidao', 'tydumpling']
+const array = ['tydumpling', 'tydumpling']
 array.push('xiaodao')
-console.log(array) // ["duyidao", "tydumpling", "xiaodao"]
+console.log(array) // ["tydumpling", "tydumpling", "xiaodao"]
 ```
 
 使用原型的 `length`属性可以获取数组元素数量
@@ -189,7 +189,7 @@ hd('tydumpling', 1, 2, 3)
 ```html
 <body>
     <button message="tydumpling">button</button>
-    <button message="duyidao">button</button>
+    <button message="tydumpling">button</button>
 </body>
 
 <script>
@@ -205,7 +205,7 @@ hd('tydumpling', 1, 2, 3)
 ```html
 <body>
   <div>tydumpling</div>
-  <div>duyidao</div>
+  <div>tydumpling</div>
 </body>
 
 <script>
@@ -223,7 +223,7 @@ hd('tydumpling', 1, 2, 3)
 ```html
 <body>
     <button message="tydumpling">button</button>
-    <button message="duyidao">button</button>
+    <button message="tydumpling">button</button>
 </body>
 
 <script>
@@ -254,7 +254,7 @@ console.log(name) // tydumpling
 
 ```js
 function hd() {
-  return ['tydumpling', 'duyidao']
+  return ['tydumpling', 'tydumpling']
 }
 const [a, b] = hd()
 console.log(a) // tydumpling
@@ -263,15 +263,15 @@ console.log(a) // tydumpling
 剩余解构指用一个变量来接收剩余参数
 
 ```js
-const [a, ...b] = ['tydumpling', 'duyidao', 'xiaodao']
-console.log(b) // ['duyidao', 'xiaodao']
+const [a, ...b] = ['tydumpling', 'tydumpling', 'xiaodao']
+console.log(b) // ['tydumpling', 'xiaodao']
 ```
 
 如果变量已经初始化过，就要使用`()` 定义赋值表达式，严格模式会报错所以不建议使用。
 
 ```js
 let web = 'tydumpling';
-[web, url] = ['duyidao.com', 'tydumpling.com']
+[web, url] = ['tydumpling.com', 'tydumpling.com']
 console.log(web)
 ```
 
@@ -356,9 +356,9 @@ console.log(arr) // [1, "tydumpling", "tydumpling", "tydumpling.com"]
 
 ```js
 const arr = ['tydumpling', 'tydumpling']
-const hd = ['duyidao']
+const hd = ['tydumpling']
 hd.push(...arr)
-console.log(hd) // ["duyidao", "tydumpling", "tydumpling"]
+console.log(hd) // ["tydumpling", "tydumpling", "tydumpling"]
 ```
 
 ### push
@@ -367,8 +367,8 @@ console.log(hd) // ["duyidao", "tydumpling", "tydumpling"]
 
 ```js
 const arr = ['tydumpling', 'tydumpling']
-console.log(arr.push('tydumpling', 'duyidao')) // 4
-console.log(arr) // ["tydumpling", "tydumpling", "tydumpling", "duyidao"]
+console.log(arr.push('tydumpling', 'tydumpling')) // 4
+console.log(arr) // ["tydumpling", "tydumpling", "tydumpling", "tydumpling"]
 ```
 
 根据区间创建新数组
@@ -410,8 +410,8 @@ console.log(arr) // ["tydumpling"]
 
 ```js
 const arr = ['tydumpling', 'tydumpling']
-console.log(arr.unshift('tydumpling', 'duyidao')) // 4
-console.log(arr) // ["tydumpling", "duyidao", "tydumpling", "tydumpling"]
+console.log(arr.unshift('tydumpling', 'tydumpling')) // 4
+console.log(arr) // ["tydumpling", "tydumpling", "tydumpling", "tydumpling"]
 ```
 
 ### fill
@@ -687,7 +687,7 @@ find 方法找到后会把值返回出来
 返回第一次找到的值，不继续查找
 
 ```js
-const arr = ['tydumpling', 'duyidao', 'xiaodao']
+const arr = ['tydumpling', 'tydumpling', 'xiaodao']
 
 const find = arr.find((item) => {
   return item == 'tydumpling'
@@ -969,7 +969,7 @@ for (const key of arr.keys())
 使用 while 遍历
 
 ```js
-const arr = ['tydumpling', 'duyidao']
+const arr = ['tydumpling', 'tydumpling']
 while (({ value, done } = values.keys()) && done === false)
   console.log(value)
 ```
@@ -979,7 +979,7 @@ while (({ value, done } = values.keys()) && done === false)
 通过迭代对象获取值
 
 ```js
-const hd = ['tydumpling', 'duyidao']
+const hd = ['tydumpling', 'tydumpling']
 const values = hd.values()
 console.log(values.next())
 console.log(values.next())
@@ -1009,7 +1009,7 @@ for (const [key, value] of arr.entries())
 解构获取内容
 
 ```js
-const hd = ['tydumpling', 'duyidao']
+const hd = ['tydumpling', 'tydumpling']
 const iterator = hd.entries()
 
 const { done, value: [k, v] } = iterator.next()

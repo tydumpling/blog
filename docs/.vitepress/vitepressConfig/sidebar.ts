@@ -91,7 +91,7 @@ const sidebar = {
       collapsed: false,
       items: [
         {
-          text: '🏆 从大一到大三，我与服务外包大赛',
+          text: '🏆 从大一到大三，我与服务Apollo大赛',
           link: '/green/hl-contest/',
         },
       ],

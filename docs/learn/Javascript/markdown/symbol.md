@@ -71,7 +71,7 @@ console.log(hd == edu) // true
 const hd = Symbol.for('tydumpling')
 console.log(Symbol.keyFor(hd)) // tydumpling
 
-const edu = Symbol('duyidao')
+const edu = Symbol('tydumpling')
 console.log(Symbol.keyFor(edu)) // undefined
 ```
 
@@ -143,7 +143,7 @@ console.log(Cache.get(user.key))
 const symbol = Symbol('tydumpling')
 const obj = {
   name: 'tydumpling.com',
-  [symbol]: 'duyidao.com'
+  [symbol]: 'tydumpling.com'
 }
 
 for (const key in obj)

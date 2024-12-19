@@ -373,7 +373,7 @@ div()
 const name = '视频'
 switch (name) {
   case '产品':
-    console.log('duyidao.com')
+    console.log('tydumpling.com')
     break
   case '视频':
     console.log('tydumpling.com') // 执行此条
@@ -569,9 +569,9 @@ for (let i = 1; i <= 10; i++) {
 
 ```js
 tydumpling: for (let i = 1; i <= 10; i++) {
-  duyidao: for (let n = 1; n <= 10; n++) {
+  tydumpling: for (let n = 1; n <= 10; n++) {
     if (n % 2 != 0)
-      continue duyidao
+      continue tydumpling
 
     console.log(i, n)
     if (i + n > 15)
@@ -654,7 +654,7 @@ for (const iterator of str)
 使用迭代特性遍历数组（后面章节会介绍迭代器）
 
 ```js
-const hd = ['duyidao', 'tydumpling']
+const hd = ['tydumpling', 'tydumpling']
 
 for (const [key, value] of hd.entries())
   console.log(key, value) // 这样就可以遍历了

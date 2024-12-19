@@ -48,14 +48,14 @@ features:
     title: 阅读之旅
     details: 书籍是人类进步的阶梯，读本好书吧
     link: /read/index
-  - icon:  🦆
-    title: 面试鸭
+  - icon:  🎫
+    title:  面经
     details: 面经
     link: /面试鸭/面试典/js/(a==1&&a==2&&a==3)
   - icon:  📘
     title: tydumpling小站
     details: tydumpling博客效果展示，功能实现，不容错过
-    link: https://duyidao.github.io/blogweb/#/
+    link: https://tydumpling.github.io/blogweb/#/
   - icon:  🎈️
     title: 持续更新中~
     details: 尽情期待~
