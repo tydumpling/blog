@@ -1,3 +1,4 @@
+import autoSidebar from '../theme/plugins/autoSidebarBeta'
 import AboutSidebar from './AboutSidebar'
 import AskSidebar from './AskSidebar'
 import BackstageSidebar from './BackstageSidebar'
@@ -46,7 +47,6 @@ export { default as sidebarAlgorithm } from './algorithm'
 export { default as sidebarPartterns } from './partterns'
 export { default as sidebarProgram } from './program'
 export { default as exeryWeek } from './exeryweek'
-
 export default {
   '/Canvas': CanvasSidebar,
   '/CSS': CssSidebar,
@@ -55,6 +55,11 @@ export default {
   '/vue2': Vue2Sidebar,
   '/Vue3': Vue3Sidebar,
   '/React': ReactSidebar,
+  '/Angular/': autoSidebar({
+    base: 'learn/Angular',
+    // title: 'Angular', // 可选：侧边栏标题
+    // collapsed: false,
+  }),
   '/TypeScript': TsSidebar,
   '/Node': NodeSidebar,
   '/Git': GitSidebar,

@@ -1,6 +1,6 @@
 import { description, docsVersion, github, keywords, name, site } from '../meta'
 
-export default [
+const head = [
   ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
   ['meta', { name: 'keywords', content: keywords }],
   ['meta', { name: 'author', content: 'Yuan Tang' }],
@@ -31,3 +31,4 @@ export default [
   ['meta', { name: 'theme-color', content: '#06f' }],
   ['link', { rel: 'apple-touch-icon', href: '/blog/images/icons/apple-touch-120x120.png' }],
 ]
+export default head

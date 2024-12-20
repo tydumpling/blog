@@ -14,7 +14,7 @@ import algolia from './vitepressConfig/algolia'
 // :pkg：这是一个动态参数，表示匹配的路径中的一部分可以是任意值，并且这个值会被捕获并命名为 :pkg。例如，如果路径是 packages/vue/src/some-file.md，那么 :pkg 的值就是 vue。
 // 这是路径的另一个固定部分，表示匹配的路径必须包含 src/。
 // .*这是一个正则表达式，表示匹配任意.的文件
-import socialLinks from './vitepressConfig/link.ts'
+import socialLinks from './vitepressConfig/link'
 
 export default withPwa(defineConfig({
   pwa,
@@ -25,7 +25,7 @@ export default withPwa(defineConfig({
   description: 'tydumpling博客',
   // 打包目录
   // dest: './dist',
-  head,
+  head: head as Array<[string, Record<string, string>]>,
   async buildEnd(siteConfig) {
     await sitemap({ hostname: 'https://tydumpling.cn/' })
     await genFeed(siteConfig)
@@ -59,13 +59,7 @@ export default withPwa(defineConfig({
       include: ['vue'],
     },
   },
-  // 使用插件
-  plugins: [
-    '@vuepress/active-header-links', // 页面滚动时自动激活侧边栏链接的插件
-    '@vuepress/back-to-top', // 返回顶部插件
-    '@vuepress/medium-zoom', // 图片预览插件
-    '@vuepress/nprogress', // 页面顶部进度条
-  ],
+
   // 忽略死链检查（指向一个不存在页面或资源）
   ignoreDeadLinks: true,
 
@@ -76,7 +70,7 @@ export default withPwa(defineConfig({
       lazyLoading: true,
     },
     // 启用或禁用代码标签页功能Markdown 文件中创建带有标页的代码块。
-    codeTabs: true,
+    // codeTabs: true,
     // 文档中的所有 `details` 容器都会显示为`详细信息`。。
 
     container: {
@@ -105,14 +99,14 @@ export default withPwa(defineConfig({
       formatOptions: {
         dateStyle: 'medium',
         timeStyle: 'short',
-        locale: 'zh-CN',
+        // locale: 'zh-CN',
       },
     },
     siteTitle: '『 tydumpling博客 』',
     outlineTitle: '导航~',
     outline: [0, 6],
     // 启用页面丝滑滚动
-    smoothScroll: true,
+    // smoothScroll: true,
     // 头部导航栏配置
     nav,
     // 设置搜索框的样式

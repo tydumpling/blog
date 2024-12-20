@@ -21,6 +21,9 @@
     "docs",
     "docs/.vitepress/components/*.vue",
     "docs/.vitepress/*.ts",
-    "docs/.vitepress/config.mjs", "docs/.vitepress/nav.ts", "docs/.vitepress/vitepressConfig/link.ts", "docs/.vitepress/vitepressConfig/algolia.ts"],
-  "exclude": ["**/node_modules/**", "**/dist/**"]
+    "docs/.vitepress/config.ts", "docs/.vitepress/nav.ts", "docs/.vitepress/vitepressConfig/link.ts", "docs/.vitepress/vitepressConfig/algolia.ts"],
+  "exclude": ["**/node_modules/**", "**/dist/**"],
+  "rules": {
+    "no-console": "off"
+  }
 }

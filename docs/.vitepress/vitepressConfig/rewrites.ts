@@ -14,6 +14,7 @@ export default {
   'learn/vue2/(.*)': 'vue2/(.*)',
   'learn/Vue3/(.*)': 'Vue3/(.*)',
   'learn/React/(.*)': 'React/(.*)',
+  'learn/Angular/(.*)': 'Angular/(.*)',
   'learn/TypeScript/(.*)': 'TypeScript/(.*)',
   'learn/Node/(.*)': 'TypeScript/(.*)',
   'learn/study/(.*)': 'study/(.*)',
