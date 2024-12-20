@@ -2,7 +2,7 @@
 const CementSidebar = [
   {
     text: '🧫 华润水泥',
-    collapsible: true,
+    
     items: [
       { text: '引言', link: '/geovis/水泥/' },
       {
@@ -12,7 +12,7 @@ const CementSidebar = [
       { text: 'vue_color', link: '/geovis/水泥/vue_color' },
       {
         text: '🎭 jeecg',
-        collapsible: true,
+        
         items: [
           {
             text: '表格行选中',

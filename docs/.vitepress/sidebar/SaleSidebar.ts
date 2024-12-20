@@ -2,7 +2,7 @@
 const SaleSidebar = [
   {
     text: '💴 视频分销',
-    collapsible: true,
+    
     items: [
       { text: '简介', link: '/geovis/sale/' },
       { text: '请求封装', link: '/geovis/sale/request' },

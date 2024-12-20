@@ -2,7 +2,7 @@
 const ConsultationSidebar = [
   {
     text: '👨‍⚕️ 优医问诊',
-    collapsible: true,
+    
     items: [
       { text: '项目初始化', link: '/myself/优医问诊/' },
       { text: '登录模块', link: '/myself/优医问诊/login' },

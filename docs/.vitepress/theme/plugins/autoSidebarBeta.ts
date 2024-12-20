@@ -2,6 +2,7 @@ import { join, resolve } from 'node:path'
 import matter from 'gray-matter'
 import fg from 'fast-glob'
 import fs from 'fs-extra'
+import { BASE } from '../../meta'
 
 export interface Options {
   base: string
@@ -49,13 +50,14 @@ function getMdTitle(filePath: string): string {
     return ''
   }
 }
-
+// 路径生成
 function getSidebar(dir: string, title: string | undefined) {
   const curDir = resolve(DIR_SRC, dir)
   const files = fastGlobSync('file', curDir)
 
   const items = files.map((file) => {
     const fullPath = resolve(curDir, file)
+    // 使用实际的文件路径
     const relativePath = join('/', dir, file)
 
     return {
@@ -64,32 +66,20 @@ function getSidebar(dir: string, title: string | undefined) {
       collapsed: false,
     }
   })
-
-  // 如果有 index.md，将其移到最前面
-  const indexItem = items.find(item => item.link.endsWith('/index'))
-  if (indexItem) {
-    items.splice(items.indexOf(indexItem), 1)
-    items.unshift(indexItem)
-  }
-
   return [{
     text: title || dir.split('/').pop() || '',
     items,
     collapsed: false,
   }]
 }
-
 export default (options: Options) => {
-  console.log('Generating sidebar for:', options.base)
-
   try {
-    const relativePath = options.base.replace(/^\//, '')
+    // 简化路径处理
+    const relativePath = options.base.replace(/^\//, '').replace(/\/$/, '')
     const sidebar = getSidebar(relativePath, options.title)
-    console.log('Generated sidebar:', JSON.stringify(sidebar, null, 2))
     return sidebar
   }
   catch (e) {
-    console.error('Error generating sidebar:', e)
     return []
   }
 }

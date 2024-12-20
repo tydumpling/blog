@@ -2,7 +2,7 @@
 const LayerSidebar = [
   {
     text: '🗺 图层',
-    collapsible: true,
+    
     items: [
       { text: '💡 介绍', link: '/baidu/layer/index' },
       { text: '📦 封装', link: '/baidu/layer/封装' },

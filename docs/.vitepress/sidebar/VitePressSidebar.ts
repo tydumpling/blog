@@ -5,7 +5,7 @@
 const VitePressSidebar = [
   {
     text: '🧊 部署',
-    collapsible: true,
+    
     items: [
       { text: '🌩️ 引言', link: '/vitePress/' },
       { text: '🧩 搭建', link: '/vitePress/Dev' },

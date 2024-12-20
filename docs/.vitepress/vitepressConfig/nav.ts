@@ -7,12 +7,12 @@ const nav = [
         text: '🗡️ 基础',
         items: [
           { text: 'Canvas', link: '/Canvas/index' },
-          { text: 'CSS', link: '/CSS/属性详解/-webkit-box-reflect' },
+          { text: 'CSS', link: '/CSS/' },
           { text: 'JavaScript', link: '/Javascript/markdown/' },
         ],
       },
       {
-        text: '🧺 框架',
+        text: '🎡 框架',
         items: [
           { text: 'Vue', link: '/vue2/指令' },
           { text: 'React', link: '/React/' },
@@ -26,6 +26,7 @@ const nav = [
           { text: 'Git', link: '/Git/潜在的BUG/大小写规则' },
           { text: '正则表达式', link: '/Reg/knowledge/index' },
           { text: 'Node', link: '/Node/' },
+          { text: 'NPM', link: '/NPM/nvm' },
         ],
       },
       {

@@ -40,6 +40,7 @@ import tydumpgeovisdebar from './tydumpgeovisdebar'
 import VitePressSidebar from './VitePressSidebar'
 import Vue2Sidebar from './Vue2Sidebar'
 import Vue3Sidebar from './Vue3Sidebar'
+import NPMSidebar from './NPMSidebar'
 import exeryWeek from './exeryweek'
 
 export { default as sidebarInterview } from './interview'
@@ -56,12 +57,13 @@ export default {
   '/Vue3': Vue3Sidebar,
   '/React': ReactSidebar,
   '/Angular/': autoSidebar({
-    base: 'learn/Angular/',
+    base: '/learn/Angular/',
     // title: 'Angular', // 可选：侧边栏标题
     // collapsed: false,
   }),
   '/TypeScript': TsSidebar,
   '/Node': NodeSidebar,
+  '/NPM': NPMSidebar,
   '/Git': GitSidebar,
   '/study': StudySidebar,
   '/study/knowledge': StudyKnowledgeSidebar,

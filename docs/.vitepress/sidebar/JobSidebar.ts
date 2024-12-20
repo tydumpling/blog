@@ -2,7 +2,7 @@
 const JobSidebar = [
   {
     text: '🔧 职技网',
-    collapsible: true,
+    
     items: [
       { text: '介绍', link: '/geovis/职技网/' },
       { text: '项目创建', link: '/geovis/职技网/项目创建' },

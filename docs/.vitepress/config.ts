@@ -8,6 +8,7 @@ import { pwa } from './plugins/pwa'
 import { genFeed } from './plugins/genFeed'
 import head from './vitepressConfig/head'
 import algolia from './vitepressConfig/algolia'
+import { BASE } from './meta'
 
 // 'packages/:pkg/src/(.*)': ':pkg/index.md'
 // packages这是路径的固定部分，base路径
@@ -99,7 +100,6 @@ export default withPwa(defineConfig({
       formatOptions: {
         dateStyle: 'medium',
         timeStyle: 'short',
-        // locale: 'zh-CN',
       },
     },
     siteTitle: '『 tydumpling博客 』',

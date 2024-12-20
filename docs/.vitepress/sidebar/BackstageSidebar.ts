@@ -2,7 +2,7 @@
 const BackstageSidebar = [
   {
     text: '🎎 react后台',
-    collapsible: true,
+    
     items: [
       { text: '项目初始化', link: '/myself/react后台/' },
       { text: '菜单栏配置', link: '/myself/react后台/menu' },

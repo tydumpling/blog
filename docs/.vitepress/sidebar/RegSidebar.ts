@@ -2,11 +2,11 @@
 const RegSidebar = [
   {
     text: '正则',
-    collapsible: true,
+    
     items: [
       {
         text: '知识点',
-        collapsible: true,
+        
         items: [
           { text: '正则表达式', link: '/Reg/knowledge/index' },
           { text: '元子字符', link: '/Reg/knowledge/元子字符' },
@@ -18,7 +18,7 @@ const RegSidebar = [
       },
       {
         text: '实操演练',
-        collapsible: true,
+        
         items: [
           {
             text: '运用前瞻实现密码强度检测',
@@ -28,7 +28,7 @@ const RegSidebar = [
       },
       {
         text: '潜在BUG',
-        collapsible: true,
+        
         items: [
           { text: '正则中的lastIndex', link: '/Reg/BUG/lastIndex' },
         ],

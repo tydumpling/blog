@@ -2,7 +2,7 @@
 const CRMSidebar = [
   {
     text: '🔍 crm',
-    collapsible: true,
+    
     items: [
       { text: '简介', link: '/geovis/crm/' },
       { text: '拨打电话', link: '/geovis/crm/call' },

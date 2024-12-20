@@ -2,7 +2,7 @@
 const CssSidebar = [
   {
     text: '属性详解',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: '-webkit-box-reflect 实现倒影', link: '/CSS/属性详解/-webkit-box-reflect' },
@@ -18,7 +18,7 @@ const CssSidebar = [
   },
   {
     text: '效果提升',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: '变量', link: '/CSS/效果提升/变量' },
@@ -34,8 +34,17 @@ const CssSidebar = [
     ],
   },
   {
+    text: 'css预处理器',
+
+    collapsed: true,
+    items: [
+      { text: 'less', link: '/CSS/css预处理器/Less' },
+
+    ],
+  },
+  {
     text: '知识拓展',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: '空白节点', link: '/CSS/知识拓展/空白节点' },

@@ -2,7 +2,7 @@
 const AskSidebar = [
   {
     text: '👨‍⚖️ 面试问答',
-    collapsible: true,
+    
     items: [
       {
         text: '面试历程',

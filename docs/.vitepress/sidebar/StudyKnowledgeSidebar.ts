@@ -2,7 +2,7 @@
 const StudyKnowledgeSidebar = [
   {
     text: '🔏 JS相关',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       {
@@ -45,7 +45,7 @@ const StudyKnowledgeSidebar = [
   },
   {
     text: '🎡 Promise相关',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       {
@@ -72,7 +72,7 @@ const StudyKnowledgeSidebar = [
   },
   {
     text: '☸️ Vue相关',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       {
@@ -115,7 +115,7 @@ const StudyKnowledgeSidebar = [
   },
   {
     text: '📈 项目相关',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       { text: 'HBuilder使用模拟器调试', link: '/study/knowledge/项目相关/HBuilder使用模拟器调试' },
@@ -143,7 +143,7 @@ const StudyKnowledgeSidebar = [
   },
   {
     text: '🚢 优化相关',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       {

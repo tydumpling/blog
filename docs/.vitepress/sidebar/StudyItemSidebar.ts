@@ -2,7 +2,7 @@
 const StudyItemSidebar = [
   {
     text: '🎰 Echart',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       {
@@ -33,7 +33,7 @@ const StudyItemSidebar = [
   },
   {
     text: '👔 Js',
-    collapsible: true,
+    
     items: [
       {
         text: '数组对象遍历',
@@ -43,7 +43,7 @@ const StudyItemSidebar = [
   },
   {
     text: '🧺 Vue',
-    collapsible: true,
+    
     items: [
       {
         text: '自定义事件封装',

@@ -2,7 +2,7 @@
 const StudyOperateeSidebar = [
   {
     text: '⚙ 功能操作与实现',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       {
@@ -45,7 +45,7 @@ const StudyOperateeSidebar = [
   },
   {
     text: '🎁 组件封装与二开',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       {

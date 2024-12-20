@@ -2,7 +2,7 @@
 const tydumpgeovisdebar = [
   {
     text: '🔪 tydumpling博客',
-    collapsible: true,
+    
     items: [
       { text: '🔪 引言', link: '/tydumpling/' },
       { text: '🦌 自动路由', link: '/tydumpling/router' },

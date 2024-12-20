@@ -5,7 +5,7 @@
 const CanvasSidebar = [
   {
     text: 'Canvas属性详解',
-    collapsible: true,
+    
     collapsed: true,
     items: [
       { text: 'canvas', link: '/Canvas/index' },

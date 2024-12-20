@@ -2,7 +2,7 @@
 const NodeSidebar = [
   {
     text: 'Node',
-    collapsible: true,
+    
     items: [
       { text: 'node', link: '/Node/' },
       { text: 'fs', link: '/Node/fs' },

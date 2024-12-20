@@ -2,7 +2,7 @@
 const JsSidebar = [
   {
     text: '🖇 Javascript 基础知识',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: 'Javascript', link: '/Javascript/markdown/' },
@@ -12,7 +12,8 @@ const JsSidebar = [
       { text: '函数', link: '/Javascript/markdown/function' },
       { text: '对象', link: '/Javascript/markdown/object' },
       { text: '作用域与闭包', link: '/Javascript/markdown/scope_closure' },
-      { text: '原型与原型链', link: '/Javascript/markdown/原型与原型链' },
+      { text: 'Data', link: '/Javascript/markdown/时间对象' },
+
       { text: '类', link: '/Javascript/markdown/类' },
       { text: '模块化', link: '/Javascript/markdown/模块化' },
       { text: 'Promise', link: '/Javascript/markdown/Promise' },
@@ -20,6 +21,8 @@ const JsSidebar = [
         text: '任务管理与Promise核心',
         link: '/Javascript/markdown/Promise核心',
       },
+      { text: 'Number & Array', link: '/Javascript/markdown/数组和数字' },
+      { text: '原型与原型链', link: '/Javascript/markdown/原型与原型链' },
       { text: 'Set', link: '/Javascript/markdown/set' },
       { text: 'Map', link: '/Javascript/markdown/map' },
       { text: 'Symbol', link: '/Javascript/markdown/symbol' },
@@ -27,7 +30,7 @@ const JsSidebar = [
   },
   {
     text: '⚙ Web API',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {

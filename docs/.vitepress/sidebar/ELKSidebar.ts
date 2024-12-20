@@ -2,7 +2,7 @@
 const ELKSidebar = [
   {
     text: '🎲 ELK',
-    collapsible: true,
+    
     items: [
       { text: '简介', link: '/geovis/elk/' },
       {

@@ -5,11 +5,11 @@
 const DictionarySidebar = [
   {
     text: '📔 面试题典',
-    collapsible: true,
+    
     items: [
       {
         text: 'Javascript',
-        collapsible: true,
+        
         items: [
           {
             text: '(a==1&&a==2&&a==3)',
@@ -30,7 +30,7 @@ const DictionarySidebar = [
       },
       {
         text: '项目',
-        collapsible: true,
+        
         items: [
           {
             text: '前端面试项目亮点和难点',

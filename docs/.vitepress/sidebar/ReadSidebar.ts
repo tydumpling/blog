@@ -5,16 +5,16 @@
 const ReadSidebar = [
   {
     text: '📖 阅读',
-    collapsible: true,
+    
     items: [
       { text: '✨ 索引', link: '/read/' },
       {
         text: 'Javascript',
-        collapsible: true,
+        
         items: [
           {
             text: 'ES6标准入门',
-            collapsible: true,
+            
             collapsed: true,
             items: [
               { text: '索引', link: '/read/javascript/ES6标准入门/index' },
@@ -35,7 +35,7 @@ const ReadSidebar = [
       },
       {
         text: 'Vue',
-        collapsible: true,
+        
         collapsed: true,
         items: [
           { text: 'Vue.js设计与实现', link: '/read/Vue/Vue.js设计与实现.md' },

@@ -2,7 +2,7 @@
 const SelectSidebar = [
   {
     text: '🐂 硅谷甄选',
-    collapsible: true,
+    
     items: [
       { text: '项目初始化', link: '/myself/硅谷甄选/' },
       { text: '路由模块', link: '/myself/硅谷甄选/路由' },

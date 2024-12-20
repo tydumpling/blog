@@ -19,7 +19,7 @@ function generateSidebarItems(arr) {
 const CanvasSidebar = [
   {
     text: 'Canvas属性详解',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: 'canvas', link: '/Canvas/index' },
@@ -37,7 +37,7 @@ const CanvasSidebar = [
 const CssSidebar = [
   {
     text: '属性详解',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: '-webkit-box-reflect 实现倒影', link: '/CSS/属性详解/-webkit-box-reflect' },
@@ -53,7 +53,7 @@ const CssSidebar = [
   },
   {
     text: '效果提升',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: '变量', link: '/CSS/效果提升/变量' },
@@ -70,7 +70,7 @@ const CssSidebar = [
   },
   {
     text: '知识拓展',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: '空白节点', link: '/CSS/知识拓展/空白节点' },
@@ -84,7 +84,7 @@ const CssSidebar = [
 const JsSidebar = [
   {
     text: '🖇 Javascript 基础知识',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: 'Javascript', link: '/Javascript/markdown/' },
@@ -109,7 +109,7 @@ const JsSidebar = [
   },
   {
     text: '⚙ Web API',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {
@@ -172,18 +172,18 @@ const JsSidebar = [
 const GitSidebar = [
   {
     text: 'Git',
-    collapsible: true,
+
     items: [
       {
         text: '🏋️ 实战训练',
-        collapsible: true,
+
         items: [
           { text: '根据Change-id合并部分提交', link: '/Git/实战训练/根据ChangeId合并部分提交' },
         ],
       },
       {
         text: '🚢 潜在的BUG',
-        collapsible: true,
+
         items: [
           { text: '大小写规则检测', link: '/Git/潜在的BUG/大小写规则' },
         ],
@@ -196,11 +196,11 @@ const GitSidebar = [
 const RegSidebar = [
   {
     text: '正则',
-    collapsible: true,
+
     items: [
       {
         text: '知识点',
-        collapsible: true,
+
         items: [
           { text: '正则表达式', link: '/Reg/knowledge/index' },
           { text: '元子字符', link: '/Reg/knowledge/元子字符' },
@@ -212,7 +212,7 @@ const RegSidebar = [
       },
       {
         text: '实操演练',
-        collapsible: true,
+
         items: [
           {
             text: '运用前瞻实现密码强度检测',
@@ -222,7 +222,7 @@ const RegSidebar = [
       },
       {
         text: '潜在BUG',
-        collapsible: true,
+
         items: [
           { text: '正则中的lastIndex', link: '/Reg/BUG/lastIndex' },
         ],
@@ -235,7 +235,7 @@ const RegSidebar = [
 const Vue2Sidebar = [
   {
     text: 'Vue2',
-    collapsible: true,
+
     items: [
       { text: '指令', link: '/vue2/指令' },
       {
@@ -267,7 +267,7 @@ const Vue2Sidebar = [
 const Vue3Sidebar = [
   {
     text: 'Vue3',
-    collapsible: true,
+
     items: [
       { text: 'vue3项目创建', link: '/Vue3/vue3项目创建' },
       { text: 'vue3的使用', link: '/Vue3/vue3的使用' },
@@ -286,7 +286,7 @@ const Vue3Sidebar = [
 const ReactSidebar = [
   {
     text: 'React',
-    collapsible: true,
+
     items: [
       { text: '无脚手架项目创建', link: '/React/' },
       { text: 'Diff算法', link: '/React/react的diff算法' },
@@ -303,7 +303,7 @@ const ReactSidebar = [
 const TsSidebar = [
   {
     text: 'TypeScript',
-    collapsible: true,
+
     items: [
       { text: '环境配置', link: '/TypeScript/环境配置' },
       { text: '类型', link: '/TypeScript/类型' },
@@ -320,7 +320,7 @@ const TsSidebar = [
 const NodeSidebar = [
   {
     text: 'Node',
-    collapsible: true,
+
     items: [
       { text: 'node', link: '/Node/' },
       { text: 'fs', link: '/Node/fs' },
@@ -337,7 +337,7 @@ const NodeSidebar = [
 const StudySidebar = [
   {
     text: '🚴 学而时习之',
-    collapsible: true,
+
     items: [
       { text: '引言', link: '/study/' },
       { text: '学无止境', link: '/study/knowledge/JS相关/垃圾回收与console.log内存泄漏.md' },
@@ -357,7 +357,7 @@ const StudySidebar = [
 const StudyKnowledgeSidebar = [
   {
     text: '🔏 JS相关',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {
@@ -400,7 +400,7 @@ const StudyKnowledgeSidebar = [
   },
   {
     text: '🎡 Promise相关',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {
@@ -427,7 +427,7 @@ const StudyKnowledgeSidebar = [
   },
   {
     text: '☸️ Vue相关',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {
@@ -470,7 +470,7 @@ const StudyKnowledgeSidebar = [
   },
   {
     text: '📈 项目相关',
-    collapsible: true,
+
     collapsed: true,
     items: [
       { text: 'HBuilder使用模拟器调试', link: '/study/knowledge/项目相关/HBuilder使用模拟器调试' },
@@ -498,7 +498,7 @@ const StudyKnowledgeSidebar = [
   },
   {
     text: '🚢 优化相关',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {
@@ -533,7 +533,7 @@ const StudyKnowledgeSidebar = [
 const StudyItemSidebar = [
   {
     text: '🎰 Echart',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {
@@ -564,7 +564,7 @@ const StudyItemSidebar = [
   },
   {
     text: '👔 Js',
-    collapsible: true,
+
     items: [
       {
         text: '数组对象遍历',
@@ -574,7 +574,7 @@ const StudyItemSidebar = [
   },
   {
     text: '🧺 Vue',
-    collapsible: true,
+
     items: [
       {
         text: '自定义事件封装',
@@ -592,7 +592,7 @@ const StudyItemSidebar = [
 const StudyOperateeSidebar = [
   {
     text: '⚙ 功能操作与实现',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {
@@ -635,7 +635,7 @@ const StudyOperateeSidebar = [
   },
   {
     text: '🎁 组件封装与二开',
-    collapsible: true,
+
     collapsed: true,
     items: [
       {
@@ -718,7 +718,7 @@ const geovisSidebar = [
 const MusicSidebar = [
   {
     text: '📱 APP',
-    collapsible: true,
+
     items: [
       { text: '登录', link: '/geovis/music/APP/login' },
       { text: 'tabbar', link: '/geovis/music/APP/tabbar' },
@@ -734,7 +734,7 @@ const MusicSidebar = [
   },
   {
     text: '💻 H5',
-    collapsible: true,
+
     items: [
       { text: '海报页', link: '/geovis/music/H5/' },
       { text: '🗑 返回', link: '/geovis/' },
@@ -746,7 +746,7 @@ const MusicSidebar = [
 const JobSidebar = [
   {
     text: '🔧 职技网',
-    collapsible: true,
+
     items: [
       { text: '介绍', link: '/geovis/职技网/' },
       { text: '项目创建', link: '/geovis/职技网/项目创建' },
@@ -765,7 +765,7 @@ const JobSidebar = [
 const SaleSidebar = [
   {
     text: '💴 视频分销',
-    collapsible: true,
+
     items: [
       { text: '简介', link: '/geovis/sale/' },
       { text: '请求封装', link: '/geovis/sale/request' },
@@ -786,7 +786,7 @@ const SaleSidebar = [
 const CementSidebar = [
   {
     text: '🧫 华润水泥',
-    collapsible: true,
+
     items: [
       { text: '引言', link: '/geovis/水泥/' },
       {
@@ -796,7 +796,7 @@ const CementSidebar = [
       { text: 'vue_color', link: '/geovis/水泥/vue_color' },
       {
         text: '🎭 jeecg',
-        collapsible: true,
+
         items: [
           {
             text: '表格行选中',
@@ -821,7 +821,7 @@ const CementSidebar = [
 const ELKSidebar = [
   {
     text: '🎲 ELK',
-    collapsible: true,
+
     items: [
       { text: '简介', link: '/geovis/elk/' },
       {
@@ -842,7 +842,7 @@ const ELKSidebar = [
 const CRMSidebar = [
   {
     text: '🔍 crm',
-    collapsible: true,
+
     items: [
       { text: '简介', link: '/geovis/crm/' },
       { text: '拨打电话', link: '/geovis/crm/call' },
@@ -858,7 +858,7 @@ const CRMSidebar = [
 const tydumpgeovisdebar = [
   {
     text: '🔪 tydumpling博客',
-    collapsible: true,
+
     items: [
       { text: '🔪 引言', link: '/tydumpling/' },
       { text: '🦌 自动路由', link: '/tydumpling/router' },
@@ -878,7 +878,7 @@ const tydumpgeovisdebar = [
 const BaiduSidebar = [
   {
     text: '⛷️ 百度',
-    collapsible: true,
+
     items: [
       { text: '⛷️ 引言', link: '/baidu/' },
       { text: '🗺 图层', link: '/baidu/layer/index' },
@@ -892,7 +892,7 @@ const BaiduSidebar = [
 const LayerSidebar = [
   {
     text: '🗺 图层',
-    collapsible: true,
+
     items: [
       { text: '💡 介绍', link: '/baidu/layer/index' },
       { text: '📦 封装', link: '/baidu/layer/封装' },
@@ -912,11 +912,11 @@ const LayerSidebar = [
 const FokaiSidebar = [
   {
     text: '🎞️ 佛开',
-    collapsible: true,
+
     items: [
       {
         text: '🖥 平台',
-        collapsible: true,
+
         items: [
           { text: '💡 介绍', link: '/baidu/fokai/platform/index' },
           { text: '👣 组件', link: '/baidu/fokai/platform/component' },
@@ -925,7 +925,7 @@ const FokaiSidebar = [
       },
       {
         text: '💡 LED大屏',
-        collapsible: true,
+
         items: [
           { text: '💡 介绍', link: '/baidu/fokai/LED/index' },
           { text: '🟥 样式', link: '/baidu/fokai/LED/style' },
@@ -943,7 +943,7 @@ const FokaiSidebar = [
 const SelfstudySidebar = [
   {
     text: '📕 自主学习',
-    collapsible: true,
+
     items: [
       { text: '📕 引言', link: '/myself/' },
       { text: '🐇 小兔鲜', link: '/myself/小兔鲜/inweb/all' },
@@ -961,11 +961,11 @@ const SelfstudySidebar = [
 const RabitSidebar = [
   {
     text: '🐇 小兔鲜',
-    collapsible: true,
+
     items: [
       {
         text: '💻 Web 端',
-        collapsible: true,
+
         items: [
           { text: '项目介绍', link: '/myself/小兔鲜/inweb/all' },
           { text: '项目创建', link: '/myself/小兔鲜/inweb/' },
@@ -980,7 +980,7 @@ const RabitSidebar = [
       },
       {
         text: '📱 uniapp 跨端',
-        collapsible: true,
+
         items: [
           { text: '项目初始化', link: '/myself/小兔鲜/inuni/' },
           { text: '首页', link: '/myself/小兔鲜/inuni/home' },
@@ -1000,7 +1000,7 @@ const RabitSidebar = [
 const SelectSidebar = [
   {
     text: '🐂 硅谷甄选',
-    collapsible: true,
+
     items: [
       { text: '项目初始化', link: '/myself/硅谷甄选/' },
       { text: '路由模块', link: '/myself/硅谷甄选/路由' },
@@ -1018,7 +1018,7 @@ const SelectSidebar = [
 const DoctorSidebar = [
   {
     text: '⛑ 尚医通',
-    collapsible: true,
+
     items: [
       { text: '项目初始化', link: '/myself/尚医通/' },
       { text: '🗑 返回', link: '/myself/' },
@@ -1030,7 +1030,7 @@ const DoctorSidebar = [
 const BackstageSidebar = [
   {
     text: '🎎 react后台',
-    collapsible: true,
+
     items: [
       { text: '项目初始化', link: '/myself/react后台/' },
       { text: '菜单栏配置', link: '/myself/react后台/menu' },
@@ -1045,11 +1045,11 @@ const BackstageSidebar = [
 const PaperSidebar = [
   {
     text: '📰 知乎日报',
-    collapsible: true,
+
     items: [
       {
         text: 'React版',
-        collapsible: true,
+
         items: [
           { text: '项目初始化', link: '/myself/知乎日报/react版/' },
           {
@@ -1066,7 +1066,7 @@ const PaperSidebar = [
       },
       {
         text: 'Vue3+TS版',
-        collapsible: true,
+
         items: [],
       },
       { text: '🗑 返回', link: '/myself/' },
@@ -1078,7 +1078,7 @@ const PaperSidebar = [
 const ConsultationSidebar = [
   {
     text: '👨‍⚕️ 优医问诊',
-    collapsible: true,
+
     items: [
       { text: '项目初始化', link: '/myself/优医问诊/' },
       { text: '登录模块', link: '/myself/优医问诊/login' },
@@ -1095,16 +1095,16 @@ const ConsultationSidebar = [
 const ReadSidebar = [
   {
     text: '📖 阅读',
-    collapsible: true,
+
     items: [
       { text: '✨ 索引', link: '/read/' },
       {
         text: 'Javascript',
-        collapsible: true,
+
         items: [
           {
             text: 'ES6标准入门',
-            collapsible: true,
+
             collapsed: true,
             items: [
               { text: '索引', link: '/read/javascript/ES6标准入门/index' },
@@ -1125,7 +1125,7 @@ const ReadSidebar = [
       },
       {
         text: 'Vue',
-        collapsible: true,
+
         collapsed: true,
         items: [
           { text: 'Vue.js设计与实现', link: '/read/Vue/Vue.js设计与实现.md' },
@@ -1142,7 +1142,7 @@ const ReadSidebar = [
 const VitePressSidebar = [
   {
     text: '🧊 部署',
-    collapsible: true,
+
     items: [
       { text: '🌩️ 引言', link: '/vitePress/' },
       { text: '🧩 搭建', link: '/vitePress/Dev' },
@@ -1162,7 +1162,7 @@ const VitePressSidebar = [
 const HelpSidebar = [
   {
     text: '📴 有用的帮助',
-    collapsible: true,
+
     items: [
       { text: '🎃 开发帮助', link: '/help/' },
       { text: '📕 官方文档', link: '/help/官方文档' },
@@ -1177,7 +1177,7 @@ const HelpSidebar = [
 const AboutSidebar = [
   {
     text: '⭐ 关于',
-    collapsible: true,
+
     items: [
       { text: '🧑 关于我', link: '/about/' },
       { text: '🔪 关于tydumpling博客', link: '/about/blog' },
@@ -1195,11 +1195,11 @@ const AboutSidebar = [
 const DictionarySidebar = [
   {
     text: '📔 面试题典',
-    collapsible: true,
+
     items: [
       {
         text: 'Javascript',
-        collapsible: true,
+
         items: [
           {
             text: '(a==1&&a==2&&a==3)',
@@ -1220,7 +1220,7 @@ const DictionarySidebar = [
       },
       {
         text: '项目',
-        collapsible: true,
+
         items: [
           {
             text: '前端面试项目亮点和难点',
@@ -1236,7 +1236,7 @@ const DictionarySidebar = [
 const AskSidebar = [
   {
     text: '👨‍⚖️ 面试问答',
-    collapsible: true,
+
     items: [
       {
         text: '面试历程',
@@ -1258,7 +1258,7 @@ const AskSidebar = [
 const LeedCodeSidebar = [
   {
     text: '简单题',
-    collapsible: true,
+
     items: [
       { text: '罗马转数字', link: '/面试鸭/面试算法/简单题/罗马转数字.md' },
       { text: '合并两个有序数组', link: '/面试鸭/面试算法/简单题/合并两个有序数组.md' },
@@ -1267,13 +1267,13 @@ const LeedCodeSidebar = [
   },
   {
     text: '中等题',
-    collapsible: true,
+
     items: [
     ],
   },
   {
     text: '困难题',
-    collapsible: true,
+
     items: [
     ],
   },

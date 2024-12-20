@@ -201,7 +201,7 @@ function getLearnSidebar() {
   return [
     {
       text: 'CSS',
-      collapsible: true,
+      
       items: [
         { text: '基础', link: '/CSS/' },
       ]
@@ -329,7 +329,7 @@ function getLearnSidebar() {
   return [
     {
       text: 'HTML',
-      collapsible: true,
+      
       items: [
         { text: '基础', link: '/learn/HTML/' },
         { text: '进阶', link: '/learn/HTML/advanced' },
@@ -337,7 +337,7 @@ function getLearnSidebar() {
     },
     {
       text: 'CSS',
-      collapsible: true,
+      
       items: [
         { text: '基础', link: '/learn/CSS/' },
         { text: '进阶', link: '/learn/CSS/advanced' },
@@ -345,7 +345,7 @@ function getLearnSidebar() {
     },
     {
       text: 'Javascript',
-      collapsible: true,
+      
       items: [
         { text: '基础', link: '/learn/Javascript/' },
         { text: '进阶', link: '/learn/Javascript/advanced' },
@@ -353,7 +353,7 @@ function getLearnSidebar() {
     },
     {
       text: 'Vue',
-      collapsible: true,
+      
       items: [
         { text: '基础', link: '/learn/Vue/' },
         { text: '进阶', link: '/learn/Vue/advanced' },
@@ -401,7 +401,7 @@ function getLearnSidebar() {
   return [
     {
       text: 'HTML',
-      collapsible: true,
+      
       items: [
         { text: '基础', link: '/learn/HTML/' },
         { text: '进阶', link: '/learn/HTML/advanced' },
@@ -409,7 +409,7 @@ function getLearnSidebar() {
     },
     {
       text: 'CSS',
-      collapsible: true,
+      
       items: [
         { text: '基础', link: '/learn/CSS/' },
         { text: '进阶', link: '/learn/CSS/advanced' },
@@ -423,7 +423,7 @@ function getProjectSidebar() {
   return [
     {
       text: '📖 项目笔记',
-      collapsible: true,
+      
       items: [
         { text: '🎶 音果云音', link: '/project/Music/' },
         { text: '🛒 视频分销', link: '/project/Sale/' },
