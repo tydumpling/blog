@@ -56,7 +56,7 @@ export default {
   '/Vue3': Vue3Sidebar,
   '/React': ReactSidebar,
   '/Angular/': autoSidebar({
-    base: 'learn/Angular',
+    base: 'learn/Angular/',
     // title: 'Angular', // 可选：侧边栏标题
     // collapsed: false,
   }),
