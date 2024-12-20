@@ -79,7 +79,7 @@ const members = [
     links: [
       { icon: 'github', link: 'https://github.com/tydumpling' },
       {
-       icon: { svg: icons.bilibili } ,link: "https://space.bilibili.com/201738571",
+       icon: { svg: icons.bilibili } ,link: "https://space.bilibili.com/1913053858",
       },
       // { icon: 'youtube', link: 'https://www.youtube.com/@tydumpling'},
     ]
@@ -92,7 +92,7 @@ const members = [
     links: [
       { icon: 'github', link: 'https://github.com/tydumplings' },
       {
-       icon: { svg: icons.bilibili } ,link: "https://space.bilibili.com/201738571",
+       icon: { svg: icons.bilibili } ,link: "https://space.bilibili.com/1913053858",
       },
     ]
   },

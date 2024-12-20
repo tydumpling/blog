@@ -8,7 +8,7 @@ export const keywords = '前端专栏、学习路线、面试手册、知识体�
 export const description = '前端内容网站，学习路线、知识体系，跟随前沿技术，深广度学习，React 与 Vue 生态。'
 export const BASE = 'blog'
 // social link
-export const bilibili = 'https://space.bilibili.com/201738571'
+export const bilibili = 'https://space.bilibili.com/1913053858'
 export const github = 'https://github.com/tydumpling/tydumpling'
 
 // docs version
