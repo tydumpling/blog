@@ -7,6 +7,7 @@ import rewrites from './vitepressConfig/rewrites'
 import { pwa } from './plugins/pwa'
 import { genFeed } from './plugins/genFeed'
 import head from './vitepressConfig/head'
+import algolia from './vitepressConfig/algolia'
 
 // 'packages/:pkg/src/(.*)': ':pkg/index.md'
 // packages这是路径的固定部分，base路径
@@ -116,23 +117,9 @@ export default withPwa(defineConfig({
     nav,
     // 设置搜索框的样式
     search: {
-      provider: 'local',
-      options: {
-        translations: {
-          button: {
-            buttonText: '搜索文档',
-            buttonAriaLabel: '搜索文档',
-          },
-          modal: {
-            noResultsText: '无法找到相关结果',
-            resetButtonTitle: '清除查询条件',
-            footer: {
-              selectText: '选择',
-              navigateText: '切换',
-            },
-          },
-        },
-      },
+      provider: 'algolia',
+      options: algolia,
+
     },
 
     // 左侧导航栏

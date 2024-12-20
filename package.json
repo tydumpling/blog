@@ -68,5 +68,8 @@
     "vite-plugin-pwa": "^0.16.7",
     "vitepress": "^1.4.2",
     "vue": "^3.4.31"
+  },
+  "dependencies": {
+    "algoliasearch": "^5.18.0"
   }
 }
