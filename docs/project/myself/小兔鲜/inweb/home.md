@@ -62,6 +62,7 @@ import homeProduct from './components/HomeProduct.vue'
 <HomePanel title="新鲜好物" subTitle="新鲜好物，好多商品">
   <div>新鲜好物的插槽</div>
 </HomePanel>
+
 <HomePanel title="人气推荐" subTitle="人气推荐，猜你喜欢">
   <div>人气推荐的插槽</div>
 </HomePanel>
@@ -86,10 +87,10 @@ import { useIntersectionObserver } from '@vueuse/core'
 
 // 图片懒加载自定义指令
 app.directive('img-lazy', {
-  mounted (el, binding) {
+  mounted(el, binding) {
     // el：指令绑定的元素
     // binding：指令等号后的值
-    console.log(el, binding);
+    console.log(el, binding)
     const { stop } = useIntersectionObserver(
       el,
       ([{ isIntersecting }]) => {
@@ -131,7 +132,7 @@ app.directive('img-lazy', {
         mounted(el, binding) {
           // el：指令绑定的元素
           // binding：指令等号后的值
-          console.log(el, binding);
+          console.log(el, binding)
           const { stop } = useIntersectionObserver(
             el,
             ([{ isIntersecting }]) => {
@@ -153,7 +154,7 @@ app.directive('img-lazy', {
 
   ```js
   // 引入懒加载指令插件并且注册
-  import { lazyPlugin } from "@/directives"
+  import { lazyPlugin } from '@/directives'
   
   const app = createApp(App)
   
@@ -189,7 +190,7 @@ app.directive('img-lazy', {
 
    ```js
    // 获取产品列表的数据
-   export const getGoodsAPI = () => {
+   export function getGoodsAPI() {
      return http({
        url: '/home/goods'
      })

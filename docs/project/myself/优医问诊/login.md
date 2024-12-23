@@ -13,11 +13,10 @@ title 登录模块
 
 ```js
 // 判断历史记录中是否有回退
-if (history.state?.back) {
+if (history.state?.back)
   router.back()
-} else {
+else
   router.push('/')
-}
 ```
 
 ## 组件类型
@@ -100,8 +99,9 @@ declare module 'vue' {
    最终代码如下所示：
 
    ```js
+   import path from 'node:path'
    import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-   import path from 'path'
+   
    // ...
    
    export default defineConfig({

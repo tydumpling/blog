@@ -43,23 +43,23 @@ title 登录页
 由于这个方法经常使用，且字段较多容易写错，更推荐把本地存储的方法抽取出来封装为几个函数使用：
 
 ```js
-const setItem = (key, data) => {
-	return uni.setStorageSync(key, data)
+function setItem(key, data) {
+  return uni.setStorageSync(key, data)
 }
-const getItem = (key) => {
-	return uni.getStorageSync(key)
+function getItem(key) {
+  return uni.getStorageSync(key)
 }
-const removeItem = (key) => {
-	return uni.removeStorageSync(key)
+function removeItem(key) {
+  return uni.removeStorageSync(key)
 }
-const clearItem = () => {
-	return uni.clearStorageSync()
+function clearItem() {
+  return uni.clearStorageSync()
 }
 export {
-	setItem,
-	getItem,
-	removeItem,
-	clearItem
+  setItem,
+  getItem,
+  removeItem,
+  clearItem
 }
 ```
 
@@ -71,11 +71,11 @@ export {
 经过查询，发现原生 `plus` 有一个获取设备 uuid 的方法，返回的结果是一个16进制的字符串，符合要求。
 
 ```js
-export const getDeviceId = () => {
-	return new Promise((resolve, reject) => {
-		let uuid = plus.device.getDeviceId();
-		resolve(uuid)
-	})
+export function getDeviceId() {
+  return new Promise((resolve, reject) => {
+    const uuid = plus.device.getDeviceId()
+    resolve(uuid)
+  })
 }
 ```
 
@@ -84,12 +84,12 @@ export const getDeviceId = () => {
 ```js
 onLoad((val) => {
   // 传递type，做修改密码业务，修改标题
-	if (val.type) {
-		type.value = val.type
-		uni.setNavigationBarTitle({
-			title: '修改密码'
-		})
-	}
+  if (val.type) {
+    type.value = val.type
+    uni.setNavigationBarTitle({
+      title: '修改密码'
+    })
+  }
 })
 ```
 
@@ -119,16 +119,16 @@ onLoad((val) => {
 
 ```js
 uni.login({
-    provider: 'weixin',
-    success: function (loginRes) {
-        // 登录成功
-        console.log(loginRes)
-    },
-    fail: function (err) {
-        // 登录授权失败  
-        // err.code是错误码
-    }
-});
+  provider: 'weixin',
+  success(loginRes) {
+    // 登录成功
+    console.log(loginRes)
+  },
+  fail(err) {
+    // 登录授权失败
+    // err.code是错误码
+  }
+})
 ```
 
 打印的结果如下图所示：
@@ -138,40 +138,40 @@ uni.login({
 授权登录成功后可以获取用户信息，通过 `uni.getUserInfo` 方法。该方法可以获取用户的头像、昵称、性别等字段。
 
 ```js
-const wxLoginFn = () => {
-	//其他勾选框校验
-	if (!checkBox.value) {
-		uni.showToast({
-			title: '请阅读服务条款与隐私协议',
-			icon: 'none'
-		});
-		return;
-	}
-    
-	uni.showLoading()
-	uni.login({
-		provider: 'weixin',
-		success: function(loginRes) {
-			// 登录成功
-			uni.getUserInfo({
-				provider: 'weixin',
-				success: async function(info) {
-					uni.hideLoading()
-					// 获取用户信息成功, info.authResult保存用户信息
-                    console.log(info)
-				}
-			})
-		},
-		fail: function(err) {
-			// 登录授权失败  
-			// err.code是错误码
-			uni.showToast({
-				title: err,
-				icon: 'none'
-			})
-			uni.hideLoading()
-		}
-	});
+function wxLoginFn() {
+  // 其他勾选框校验
+  if (!checkBox.value) {
+    uni.showToast({
+      title: '请阅读服务条款与隐私协议',
+      icon: 'none'
+    })
+    return
+  }
+
+  uni.showLoading()
+  uni.login({
+    provider: 'weixin',
+    success(loginRes) {
+      // 登录成功
+      uni.getUserInfo({
+        provider: 'weixin',
+        async success(info) {
+          uni.hideLoading()
+          // 获取用户信息成功, info.authResult保存用户信息
+          console.log(info)
+        }
+      })
+    },
+    fail(err) {
+      // 登录授权失败
+      // err.code是错误码
+      uni.showToast({
+        title: err,
+        icon: 'none'
+      })
+      uni.hideLoading()
+    }
+  })
 }
 ```
 

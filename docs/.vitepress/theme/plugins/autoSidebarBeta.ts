@@ -2,7 +2,6 @@ import { join, resolve } from 'node:path'
 import matter from 'gray-matter'
 import fg from 'fast-glob'
 import fs from 'fs-extra'
-import { BASE } from '../../meta'
 
 export interface Options {
   base: string

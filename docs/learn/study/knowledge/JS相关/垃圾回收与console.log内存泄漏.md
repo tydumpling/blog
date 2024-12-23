@@ -7,14 +7,14 @@
 之所以需要学习垃圾回收和内存泄漏，是因为垃圾回收器做不到完美的垃圾回收。下面看一段代码：
 
 ```js
-let user = [
-    {name: 'join', age: 24},
-    {name: 'amy', age: 25},
-    {name: 'cat', age: 23},
+const user = [
+  { name: 'join', age: 24 },
+  { name: 'amy', age: 25 },
+  { name: 'cat', age: 23 },
 ]
 
 const avgAge = user
-	.reduce((sum, user) => sum + user.age, 0)
+  .reduce((sum, user) => sum + user.age, 0)
 	/ user.length
 
 console.log(avgAge)
@@ -25,14 +25,14 @@ console.log(avgAge)
 但是垃圾回收器知道有一样东西一定是垃圾，就是我们都无法引用的东西。下面加一段代码：
 
 ```js
-let user = [
-    {name: 'join', age: 24},
-    {name: 'amy', age: 25},
-    {name: 'cat', age: 23},
+const user = [
+  { name: 'join', age: 24 },
+  { name: 'amy', age: 25 },
+  { name: 'cat', age: 23 },
 ]
 
 const avgAge = user
-	.reduce((sum, user) => sum + user.age, 0)
+  .reduce((sum, user) => sum + user.age, 0)
 	/ user.length
 
 users = null // [!code ++]
@@ -58,8 +58,8 @@ console.log(avgAge)
 举一个代码例子：
 
 ```js
-var a = {b: 1}
-a = {c: 3}
+let a = { b: 1 }
+a = { c: 3 }
 ```
 
 此时只能访问触达到 `{c: 3}` ，原本的 `{b: 1}` 无法触达，变为垃圾空间，后续会被回收。
@@ -68,16 +68,16 @@ a = {c: 3}
 
 ```js
 function createIncrease() {
-    let count = 0
-    return function () {
-        return count++
-    }
+  let count = 0
+  return function () {
+    return count++
+  }
 }
-let increase = createIncrease()
-    
-let handler = function () {
-    const n = increase()
-    console.log(n)
+const increase = createIncrease()
+
+const handler = function () {
+  const n = increase()
+  console.log(n)
 }
 
 window.addEventListener('click', handler)
@@ -87,20 +87,20 @@ window.addEventListener('click', handler)
 
 ```js
 function createIncrease() {
-    let count = 0
-    return function () {
-        return count++
-    }
+  let count = 0
+  return function () {
+    return count++
+  }
 }
-let increase = createIncrease()
-    
-let handler = function () {
-    const n = increase()
-    if (n === 3) { // [!code ++]
-        window.removeListener('click', handler) // [!code ++]
-        return // [!code ++]
-    } // [!code ++]
-    console.log(n)
+const increase = createIncrease()
+
+const handler = function () {
+  const n = increase()
+  if (n === 3) { // [!code ++]
+    window.removeListener('click', handler) // [!code ++]
+    return // [!code ++]
+  } // [!code ++]
+  console.log(n)
 }
 
 window.addEventListener('click', handler)
@@ -112,22 +112,22 @@ window.addEventListener('click', handler)
 
 ```js
 function createIncrease() {
-    let count = 0
-    return function () {
-        return count++
-    }
+  let count = 0
+  return function () {
+    return count++
+  }
 }
 let increase = createIncrease()
-    
+
 let handler = function () {
-    const n = increase()
-    if (n === 3) {
-        window.removeListener('click', handler)
-        increase = null // [!code ++]
-        handler = null // [!code ++]
-        return
-    }
-    console.log(n)
+  const n = increase()
+  if (n === 3) {
+    window.removeListener('click', handler)
+    increase = null // [!code ++]
+    handler = null // [!code ++]
+    return
+  }
+  console.log(n)
 }
 
 window.addEventListener('click', handler)
@@ -156,39 +156,40 @@ window.addEventListener('click', handler)
 如果是 `vue-cli` 配置的项目，它内部已经支持该工具的使用，无需再 `npm i` 引入。在 `vue.config.js` 文件中做相应的配置处理。
 
 ```js
-const { defineConfig } = require('@vue/cli-service');
+const { defineConfig } = require('@vue/cli-service')
+
 module.exports = defineConfig({
-    transpileDependencies: true,
-    terser: {
-        terserOptions: {
-            // 压缩的方式
-            compress: {
-                drop_console: true,
-                drop_debugger: true,
-            }
-        }
+  transpileDependencies: true,
+  terser: {
+    terserOptions: {
+      // 压缩的方式
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      }
     }
+  }
 })
 ```
 
 如果项目用的是 Vue3 的 `vite` ，也是可以做到的。在 `vite.config.js` 文件做相应的配置即可。
 
 ```js
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-    plugin: [vue()],
-    build: {
-        minify: 'terser',
-        terserOptions: {
-            // 压缩的方式
-            compress: {
-                drop_console: true,
-                drop_debugger: true,
-            }
-        }
+  plugin: [vue()],
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      // 压缩的方式
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      }
     }
+  }
 })
 ```
 

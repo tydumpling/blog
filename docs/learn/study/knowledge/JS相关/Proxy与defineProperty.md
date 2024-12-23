@@ -21,15 +21,15 @@
 - 方法调用
 
 ```js
-let obj = {};
-console.log(obj.a);
-obj.b = 2;
-'c' in obj;
-delete obj.a;
-for(const k in obj) {
-    console.log(k);
-}
-obj.c();
+const obj = {}
+console.log(obj.a)
+obj.b = 2
+'c' in obj
+delete obj.a
+for (const k in obj)
+  console.log(k)
+
+obj.c()
 ```
 
 这些写法是为了方便开发者的简便写法，其内部会调用对应的函数。如读值操作 `obj.a` ，它内部会调用一个 `get` 函数；赋值操作 `obj.b = 2` ，它内部会调用一个 `set` 函数；查找操作 `'c' in obj` ，它内部会调用一个 `has` 函数；删除操作 `delete obj.a` ，它内部会调用 `delete` 函数；枚举操作 `for(const k in obj)` ，它内部会调用一个 `ownKeys` 函数。
@@ -50,12 +50,12 @@ obj.c();
 
 ```js
 const obj = {
-    a: 1,
-    b: 2,
-    c: {
-        tree: 1,
-        flower: 2
-    }
+  a: 1,
+  b: 2,
+  c: {
+    tree: 1,
+    flower: 2
+  }
 }
 ```
 
@@ -65,16 +65,16 @@ const obj = {
 
 ```js
 Object.defineProperty(obj, 'a', {
-    get() {
-        console.log('读取a:', a)
-        return a
-    },
-    set(val) {
-        if(val !== obj.a) {
-            console.log('更改a:', a)
-            obj.a = val
-        }
+  get() {
+    console.log('读取a:', a)
+    return a
+  },
+  set(val) {
+    if (val !== obj.a) {
+      console.log('更改a:', a)
+      obj.a = val
     }
+  }
 })
 ```
 
@@ -84,26 +84,27 @@ Object.defineProperty(obj, 'a', {
 
 ```js
 function _isObject(v) {
-    return typeof v === 'object' && v !== null
+  return typeof v === 'object' && v !== null
 }
 
 function observe(obj) {
-    for(const k in obj) {
-        let v = obj[k]
-        if(_isObject(v)) observe(v)
+  for (const k in obj) {
+    const v = obj[k]
+    if (_isObject(v))
+      observe(v)
+  }
+  Object.defineProperty(obj, k, {
+    get() {
+      console.log('读取:', k)
+      return v
+    },
+    set(val) {
+      if (val !== v) {
+        console.log('更改:', k)
+        v = val
+      }
     }
-    Object.defineProperty(obj, k, {
-        get() {
-            console.log('读取:', k)
-            return v
-        },
-        set(val) {
-            if(val !== v) {
-                console.log('更改:', k)
-                v = val
-            }
-        }
-    })
+  })
 }
 ```
 
@@ -119,17 +120,17 @@ function observe(obj) {
 
 ```js
 const newObj = new Proxy(obj, {
-    get(target, k) {
-        let v = target[k]
-        console.log(k, 'read')
-        return v
-    },
-    set(target, k, val) {
-        let v = target[k]
-        if(target[k] !== val) {
-            target[k] = val
-        }
-    }
+  get(target, k) {
+    const v = target[k]
+    console.log(k, 'read')
+    return v
+  },
+  set(target, k, val) {
+    const v = target[k]
+    if (target[k] !== val)
+      target[k] = val
+
+  }
 })
 ```
 
@@ -137,27 +138,27 @@ const newObj = new Proxy(obj, {
 
 ```js
 function _isObject(v) {
-    return typeof v === 'object' && v !== null
+  return typeof v === 'object' && v !== null
 }
 
 function observe(obj) {
-    const newObj = new Proxy(obj, {
-        get(target, k) {
-            let v = target[k]
-            if(_isObject(v)) {
-                v = observe(v)
-            }
-            console.log(k, 'read')
-            return v
-        },
-        set(target, k, val) {
-            let v = target[k]
-            if(target[k] !== val) {
-                target[k] = val
-            }
-        }
-    })
-    return newObj
+  const newObj = new Proxy(obj, {
+    get(target, k) {
+      let v = target[k]
+      if (_isObject(v))
+        v = observe(v)
+
+      console.log(k, 'read')
+      return v
+    },
+    set(target, k, val) {
+      const v = target[k]
+      if (target[k] !== val)
+        target[k] = val
+
+    }
+  })
+  return newObj
 }
 ```
 

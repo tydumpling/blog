@@ -22,24 +22,24 @@ title 更新
 示例代码：
 
 ```js
-const getAppInfo = () => {
-	plus.runtime.getProperty( plus.runtime.appid, function ( wgtinfo ) {
-		//appid属性
-		var wgtStr = "appid:"+wgtinfo.appid;
-		//version属性
-		wgtStr += "<br/>version:"+wgtinfo.version;
-		//name属性
-		wgtStr += "<br/>name:"+wgtinfo.name;
-		//description属性
-		wgtStr += "<br/>description:"+wgtinfo.description;
-		//author属性
-		wgtStr += "<br/>author:"+wgtinfo.author;
-		//email属性
-		wgtStr += "<br/>email:"+wgtinfo.email;
-		//features 属性
-		wgtStr += "<br/>features:"+wgtinfo.features;
-		console.log( wgtStr );
-	} );
+function getAppInfo() {
+  plus.runtime.getProperty(plus.runtime.appid, (wgtinfo) => {
+    // appid属性
+    let wgtStr = `appid:${wgtinfo.appid}`
+    // version属性
+    wgtStr += `<br/>version:${wgtinfo.version}`
+    // name属性
+    wgtStr += `<br/>name:${wgtinfo.name}`
+    // description属性
+    wgtStr += `<br/>description:${wgtinfo.description}`
+    // author属性
+    wgtStr += `<br/>author:${wgtinfo.author}`
+    // email属性
+    wgtStr += `<br/>email:${wgtinfo.email}`
+    // features 属性
+    wgtStr += `<br/>features:${wgtinfo.features}`
+    console.log(wgtStr)
+  })
 }
 ```
 
@@ -60,15 +60,15 @@ const getAppInfo = () => {
 
 ```js
 plus.runtime.install(
-	//安装软件
-	软件的下载地址, {
-		force: true
-	},
-    // 成功回调
-	function(res) {
-		plus.runtime.restart();
-	}
-);
+  // 安装软件
+  软件的下载地址, {
+    force: true
+  },
+  // 成功回调
+  (res) => {
+    plus.runtime.restart()
+  }
+)
 ```
 
 ### restart
@@ -76,7 +76,7 @@ plus.runtime.install(
 重启当前的应用。
 
 ```js
-plus.runtime.restart();
+plus.runtime.restart()
 ```
 
 应用热重启，重新启动进入首页。
@@ -86,7 +86,7 @@ plus.runtime.restart();
 退出应用。
 
 ```js
-plus.runtime.quit();
+plus.runtime.quit()
 ```
 
 ## 实现思路
@@ -99,83 +99,85 @@ plus.runtime.quit();
 
 ```js
 // 检测版本更新
-const checkUpdates = async () => {
-	// #ifdef APP-PLUS
-	//调用接口获取后台版本信息，检查是否需要更新
-	const versionInfo = await getAppInfo();
-	console.log('获取后台版本信息', versionInfo);
-	// 待更新版本
-	const currentVersion = versionInfo.result.versionName;
-	console.log('后台需要更新版本', currentVersion);
-	// 更新地址
-	let androidUrl = 后端返回的地址;
-	
-	//  比较版本是否不同 当前版本：plus.runtime.version
-	const localVersion = version.value.split('.');
-	const current = currentVersion.split('.');
-	// 默认是同一个版本，不需要更新
-	let flag = false;
-	current.forEach((item, i) => {
-		if (parseInt(item) > parseInt(localVersion[i])) {
-			// 检测到版本不同，需要更新
-			flag = true;
-		}
-	});
+async function checkUpdates() {
+  // #ifdef APP-PLUS
+  // 调用接口获取后台版本信息，检查是否需要更新
+  const versionInfo = await getAppInfo()
+  console.log('获取后台版本信息', versionInfo)
+  // 待更新版本
+  const currentVersion = versionInfo.result.versionName
+  console.log('后台需要更新版本', currentVersion)
+  // 更新地址
+  const androidUrl = 后端返回的地址
 
-	if (flag) {
-		uni.showModal({
-			// 更新提醒
-			title: '发现新版本，是否更新',
-			content: '待更新版本号：' + currentVersion,
-			// showCancel: showCancel,
-			success: res => {
-				if (res.confirm) {
-					doUpData(androidUrl);
-				} else if (res.cancel) {
-					// 不更新强制退出app
-					// if (showCancel) {
-					// 	console.log('不更新强制退出app');
-					// 	plus.runtime.quit();
-					// }
-				}
-			}
-		});
-	} else {
-		uni.showToast({
-			title: '当前已是最新版本',
-			icon: 'none'
-		})
-	}
-	// #endif
+  //  比较版本是否不同 当前版本：plus.runtime.version
+  const localVersion = version.value.split('.')
+  const current = currentVersion.split('.')
+  // 默认是同一个版本，不需要更新
+  let flag = false
+  current.forEach((item, i) => {
+    if (Number.parseInt(item) > Number.parseInt(localVersion[i])) {
+      // 检测到版本不同，需要更新
+      flag = true
+    }
+  })
+
+  if (flag) {
+    uni.showModal({
+      // 更新提醒
+      title: '发现新版本，是否更新',
+      content: `待更新版本号：${currentVersion}`,
+      // showCancel: showCancel,
+      success: (res) => {
+        if (res.confirm) {
+          doUpData(androidUrl)
+        }
+        else if (res.cancel) {
+          // 不更新强制退出app
+          // if (showCancel) {
+          // 	console.log('不更新强制退出app');
+          // 	plus.runtime.quit();
+          // }
+        }
+      }
+    })
+  }
+  else {
+    uni.showToast({
+      title: '当前已是最新版本',
+      icon: 'none'
+    })
+  }
+  // #endif
 }
-const doUpData = (Url) => {
-	uni.showLoading({
-		title: '更新中……'
-	});
-	const downloadTask = uni.downloadFile({
-		//执行下载
-		url: Url, //下载地址
-		timeout: 1000 * 30, //30秒超时时间
-		success: downloadResult => {
-			//下载成功
-			console.log(downloadResult);
-			uni.hideLoading();
-			if (downloadResult.statusCode == 200) {
-				plus.runtime.install(
-					//安装软件
-					downloadResult.tempFilePath, {
-						force: true
-					},
-					function(res) {
-						plus.runtime.restart();
-					}
-				);
-			}
-		},
-		complete: com => {
-			uni.hideLoading();
-		}
-	});
+function doUpData(Url) {
+  uni.showLoading({
+    title: '更新中……'
+  })
+  const downloadTask = uni.downloadFile({
+    // 执行下载
+    url: Url, // 下载地址
+    timeout: 1000 * 30, // 30秒超时时间
+    success: (downloadResult) => {
+      // 下载成功
+      console.log(downloadResult)
+      uni.hideLoading()
+      if (downloadResult.statusCode == 200) {
+        plus.runtime.install(
+          // 安装软件
+          downloadResult.tempFilePath, {
+            force: true
+          },
+          (res) => {
+            plus.runtime.restart()
+          }
+        )
+      }
+    },
+    complete: (com) => {
+      uni.hideLoading()
+    }
+  })
 }
 ```
 

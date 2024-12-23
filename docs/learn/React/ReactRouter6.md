@@ -28,15 +28,15 @@
 
 示例代码：
 ```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
   <BrowserRouter>
     {/* 整体结构（通常为App组件） */}
-  </BrowserRouter>,root
-);
+  </BrowserRouter>, root
+)
 ```
 
 ###  `<HashRouter>`
@@ -66,7 +66,7 @@ ReactDOM.render(
       <Route path="test1" element={<Test/>}></Route>
       <Route path="test2" element={<Test2/>}></Route>
         </Route>
-    
+
         //Route也可以不写element属性, 这时就是用于展示嵌套的路由 .所对应的路径是/users/xxx
     <Route path="users">
        <Route path="xxx" element={<Demo />} />
@@ -93,14 +93,14 @@ ReactDOM.render(
 
 示例代码：
 ```jsx
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 function Test() {
   return (
     <div>
         <Link to="/路径">按钮</Link>
     </div>
-  );
+  )
 }
 ```
 
@@ -116,8 +116,8 @@ function Test() {
 <NavLink
     to="login"
     className={({ isActive }) => {
-        console.log('home', isActive)
-        return isActive ? 'base one' : 'base'
+      console.log('home', isActive)
+      return isActive ? 'base one' : 'base'
     }}
 >login</NavLink>
 ```
@@ -154,19 +154,19 @@ function componentClassName({ isActive }) {
 
 示例代码：
 ```jsx
-import React,{useState} from 'react'
-import {Navigate} from 'react-router-dom'
+import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
 export default function Home() {
-    const [sum,setSum] = useState(1)
-    return (
+  const [sum, setSum] = useState(1)
+  return (
         <div>
             <h3>我是Home的内容</h3>
             {/* 根据sum的值决定是否切换视图 */}
             {sum === 1 ? <h4>sum的值为{sum}</h4> : <Navigate to="/about" replace={true}/>}
-            <button onClick={()=>setSum(2)}>点我将sum变为2</button>
+            <button onClick={() => setSum(2)}>点我将sum变为2</button>
         </div>
-    )
+  )
 }
 ```
 
@@ -176,34 +176,34 @@ export default function Home() {
 
 示例代码：
 ```jsx
-//根据路由表生成对应的路由规则
+// 根据路由表生成对应的路由规则
+// Home.js
+import React from 'react'
+import { NavLink, Outlet } from 'react-router-dom'
+
 const element = useRoutes([
   {
-    path:'/about',
-    element:<About/>
+    path: '/about',
+    element: <About/>
   },
   {
-    path:'/home',
-    element:<Home/>,
-    children:[
+    path: '/home',
+    element: <Home/>,
+    children: [
       {
-        path:'news',
-        element:<News/>
+        path: 'news',
+        element: <News/>
       },
       {
-        path:'message',
-        element:<Message/>,
+        path: 'message',
+        element: <Message/>,
       }
     ]
   }
 ])
 
-//Home.js
-import React from 'react'
-import {NavLink,Outlet} from 'react-router-dom'
-
 export default function Home() {
-    return (
+  return (
         <div>
             <h2>Home组件内容</h2>
             <div>
@@ -219,7 +219,7 @@ export default function Home() {
                 <Outlet />
             </div>
         </div>
-    )
+  )
 }
 ```
 
@@ -234,23 +234,23 @@ export default function Home() {
 - 路由表配置：src/routes/index.js
 
   ```js
+  import { Navigate } from 'react-router-dom'
   import About from '../pages/About'
   import Home from '../pages/Home'
-  import {Navigate} from 'react-router-dom'
   
   export default [
-      {
-          path:'/about',
-          element:<About/>
-      },
-      {
-          path:'/home',
-          element:<Home/>
-      },
-      {
-          path:'/',
-          element:<Navigate to="/about"/>
-      }
+    {
+      path: '/about',
+      element: <About/>
+    },
+    {
+      path: '/home',
+      element: <Home/>
+    },
+    {
+      path: '/',
+      element: <Navigate to="/about"/>
+    }
   ]
   ```
 
@@ -258,20 +258,20 @@ export default function Home() {
 
   ```jsx
   import React from 'react'
-  import {NavLink,useRoutes} from 'react-router-dom'
+  import { NavLink, useRoutes } from 'react-router-dom'
   import routes from './routes'
   
   export default function App() {
-      //根据路由表生成对应的路由规则
-      const element = useRoutes(routes)
-      return (
+    // 根据路由表生成对应的路由规则
+    const element = useRoutes(routes)
+    return (
           <div>
               ......
         {/* 注册路由 */}
         {element}
             ......
           </div>
-      )
+    )
   }
   ```
 
@@ -291,20 +291,20 @@ export default function Home() {
 示例代码如下：
 ```jsx
 import React from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Demo() {
   const navigate = useNavigate()
   const handle = () => {
-    //第一种使用方式：指定具体的路径
+    // 第一种使用方式：指定具体的路径
     navigate('/login', {
       replace: false,
-      state: {a:1, b:2}
-    }) 
-    //第二种使用方式：传入数值进行前进或后退，类似于5.x中的 history.go()方法
+      state: { a: 1, b: 2 }
+    })
+    // 第二种使用方式：传入数值进行前进或后退，类似于5.x中的 history.go()方法
     navigate(-1)
   }
-  
+
   return (
     <div>
       <button onClick={handle}>按钮</button>
@@ -324,13 +324,13 @@ export default function Demo() {
 在 `ReactRouter6` 中，通过 `useParams` 获取对象解构出需要的参数。代码如下所示：
 
 ```jsx
-import React from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
+import React from 'react'
+import { Route, Routes, useParams } from 'react-router-dom'
 import User from './pages/User.jsx'
 
 function ProfilePage() {
   // 获取URL中携带过来的params参数
-  let { id } = useParams();
+  const { id } = useParams()
 }
 
 function App() {
@@ -338,7 +338,7 @@ function App() {
     <Routes>
       <Route path="users/:id" element={<User />}/>
     </Routes>
-  );
+  )
 }
 ```
 
@@ -359,25 +359,24 @@ function App() {
 
 ```jsx
 import React from 'react'
-import {useSearchParams} from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 export default function Detail() {
-    const [search,setSearch] = useSearchParams()
-    const id = search.get('id')
-    const title = search.get('title')
-    const content = search.get('content')
-    return (
+  const [search, setSearch] = useSearchParams()
+  const id = search.get('id')
+  const title = search.get('title')
+  const content = search.get('content')
+  return (
         <ul>
             <li>
-                <button onClick={()=>setSearch('id=008&title=哈哈&content=嘻嘻')}>点我更新一下收到的search参数</button>
+                <button onClick={() => setSearch('id=008&title=哈哈&content=嘻嘻')}>点我更新一下收到的search参数</button>
             </li>
             <li>消息编号：{id}</li>
             <li>消息标题：{title}</li>
             <li>消息内容：{content}</li>
         </ul>
-    )
+  )
 }
-
 ```
 
 ### useLocation()
@@ -393,13 +392,13 @@ export default function Detail() {
 示例代码：
 ```jsx
 import React from 'react'
-import {useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 export default function Detail() {
-    const x = useLocation()
-    console.log('@',x)
-  // x就是location对象: 
-    /*
+  const x = useLocation()
+  console.log('@', x)
+  // x就是location对象:
+  /*
         {
       hash: "",
       key: "ah9nv6sz",
@@ -408,18 +407,14 @@ export default function Detail() {
       state: {a: 1, b: 2}
     }
     */
-    return (
+  return (
         <ul>
             <li>消息编号：{id}</li>
             <li>消息标题：{title}</li>
             <li>消息内容：{content}</li>
         </ul>
-    )
+  )
 }
-
-  
-
-
 ```
 
 ### useMatch()

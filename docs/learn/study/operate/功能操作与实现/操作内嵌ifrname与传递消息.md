@@ -20,8 +20,8 @@
 - 参数二：传递到哪里去。可传 `*` ，视为传递到任何地方。如果填入 `localhost:8080` ，则会传给对应的已启动的本地项目
 
 ```js
-let ifrnamedom = this.$refs.ifrnamedom
-let _window = ifrnamedom.contentWindow
+const ifrnamedom = this.$refs.ifrnamedom
+const _window = ifrnamedom.contentWindow
 _window.popostMessage(e, '*')
 ```
 
@@ -47,9 +47,9 @@ mounted() {
 解决方法：传递的数据不直接传数据，而是模仿其形式传一个对象，如 `{type: 'insertTo', data: e}` 
 
 ```js
-let ifrnamedom = this.$refs.ifrnamedom
-let _window = ifrnamedom.contextWindow
-_window.popostMessage({type: 'insertTo', text: e}, '*')
+const ifrnamedom = this.$refs.ifrnamedom
+const _window = ifrnamedom.contextWindow
+_window.popostMessage({ type: 'insertTo', text: e }, '*')
 ```
 
 这样就可以在接收数据的时候通过判断 `type` 来决定什么时候获取数据并赋值（不一定是要用 `type` ，其他字段也行，只要能用于判断唯一性即可）
@@ -149,14 +149,14 @@ document.domain = 'localhost'
 获取光标数据如何保存？可以通过自定义事件。原生 `js` 中 `setAttribute` 可以设置自定义参数，保存数据，`getAttribute` 获取。
 
 ```js
-let ifrnamedom = this.$refs.ifrnamedom
+const ifrnamedom = this.$refs.ifrnamedom
 
 ifrnamedom.onload = () => {
-	let _document = ifrnamedom.contentDocument
-	let textarea = _document.querySelector('textarea')
-    textarea.addEventListener('blur', (e) => {
-        textarea.setAttribute('data-pos', e.target.selectionStart)
-    })
+  const _document = ifrnamedom.contentDocument
+  const textarea = _document.querySelector('textarea')
+  textarea.addEventListener('blur', (e) => {
+    textarea.setAttribute('data-pos', e.target.selectionStart)
+  })
 }
 ```
 

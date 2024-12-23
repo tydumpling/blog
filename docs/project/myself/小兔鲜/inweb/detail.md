@@ -36,26 +36,30 @@ Uncaught (in promise) TypeError: Cannot read properties of undefined (reading '0
 
 ```js
 // 获取鼠标位置
-const target = ref(null);
-const { x, y, isOutside } = useMouseInElement(target);
+const target = ref(null)
+const { x, y, isOutside } = useMouseInElement(target)
 
 const left = ref(0)
 const top = ref(0)
 watch([x, y, isOutside], () => {
-  if(isOutside.value) return
+  if (isOutside.value)
+    return
   // 有效范围内横向和纵向控制
-  if(x.value > 100 && x.value < 300) {
+  if (x.value > 100 && x.value < 300)
     left.value = x.value - 100
-  }
-  if(y.value > 400 && y.value < 600) {
+
+  if (y.value > 400 && y.value < 600)
     top.value = y.value - 400
-  }
 
   // 处理边界
-  if(x.value > 300) left.value = 200
-  if(x.value < 100) left.value = 0
-  if(y.value > 600) top.value = 200
-  if(y.value < 400) top.value = 0
+  if (x.value > 300)
+    left.value = 200
+  if (x.value < 100)
+    left.value = 0
+  if (y.value > 600)
+    top.value = 200
+  if (y.value < 400)
+    top.value = 0
 })
 ```
 
@@ -103,7 +107,8 @@ export const componentsPlugin = {
 
 ```js
 // 引入全局组件插件并注册
-import { componentsPlugin } from "@/components"
+import { componentsPlugin } from '@/components'
+
 app.use(componentsPlugin)
 ```
 

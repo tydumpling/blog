@@ -11,8 +11,8 @@
      这也说明，`react` 状态的更新是异步的。直接获取无法获取到最新的值，需要通过回调函数获取，代码如下所示：
      ```jsx
      add = () => {
-       const {count} = this.state
-       this.setState({count: count + 1}, () => {
+       const { count } = this.state
+       this.setState({ count: count + 1 }, () => {
          console.log('new', this.state.count) // new, 2
        })
        console.log('old', this.state.count) // old, 1
@@ -23,7 +23,7 @@
    - `updater` 可以接收到 `state` 和 `props` 
      ```jsx
      add = () => {
-       this.setState(state => ({count: state.count + 1}))
+       this.setState(state => ({ count: state.count + 1 }))
      }
      ```
    - `callback` 是可选的回调函数，它在状态更新完毕、界面更新（`render` 调用）后触发
@@ -121,9 +121,8 @@ export default function App() {
   }
 
   React.useEffect(() => {
-    console.log('@');
+    console.log('@')
   }, [name])
-
 
   return (
     <>
@@ -150,9 +149,9 @@ export default function App() {
   const [name, setName] = React.useState('tydumpling')
 
   React.useEffect(() => {
-    let timer = setInterval(() => {
+    const timer = setInterval(() => {
       setCount(count => count + 1)
-    }, 1000);
+    }, 1000)
 
     return () => {
       clearInterval(timer)
@@ -209,9 +208,9 @@ import React from 'react'
 
 export default function App() {
   const myRef = React.useRef()
-  
+
   function show() {
-    console.log(myRef.current.value);
+    console.log(myRef.current.value)
   }
 
   return (
@@ -290,14 +289,14 @@ const MyContext = React.createContext()
 const { Provider } = MyContext
 
 export default class A extends Component {
-  state = {username: 'A', age: 23}
-  
+  state = { username: 'A', age: 23 }
+
   render() {
-    const {username, age} = this.state
+    const { username, age } = this.state
     return (
       <>
         <div>A</div>
-        <Provider value={{username, age}}> // 外面的 {} 是分隔符，里面的 {} 是对象
+        <Provider value={{ username, age }}> // 外面的 {} 是分隔符，里面的 {} 是对象
           <B />
         </Provider>
       </>
@@ -307,7 +306,7 @@ export default class A extends Component {
 
 class B extends Component {
   static contextType = MyContext // 可以这么使用，但没必要。父子组件直接使用props即可。最简单方便
-  
+
   render() {
     return (
       <>
@@ -321,9 +320,9 @@ class B extends Component {
 
 class C extends Component {
   static contextType = MyContext // 必须声明接收才可使用
-  
+
   render() {
-    const {username} = this.context
+    const { username } = this.context
     return (
       <>
         <div>C</div>
@@ -430,7 +429,7 @@ function C() {
 > 
 > ```jsx
 > changeFn = () => {
->   let obj = this.state
+>   const obj = this.state
 >   obj.name = 'A' // 错误写法
 >   this.setState(obj) // 错误写法
 > }
@@ -537,19 +536,19 @@ class B extends Component {
 > 父组件通过下方语句调用 render 把子组件放到自身组件内
 > 
 > ```jsx
-> {this.props.render(内部state数据)}
+> { this.props.render(内部state数据) }
 > ```
 > 
 > 子组件通过下方语句显示获取到的数据
 > 
 > ```jsx
-> {this.props.data}
+> { this.props.data }
 > ```
 > 
 > 在顶层标签属性中传递 render
 > 
 > ```jsx
-> <父组件 render={(data) => <子组件 data={data}></子组件>} />
+> <父组件 render={data => <子组件 data={data}></子组件>} />
 > ```
 > 
 > 注意：render 并不是写死的，可以随便起其他名字，如 `xiaozhupeiqi={}` ，`this.props.xiaozhupeiqi(state)` 。只不过用 `render` 更加有语义化。

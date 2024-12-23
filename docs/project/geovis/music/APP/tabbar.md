@@ -16,32 +16,33 @@ title tabbar页
 
 - 点击轮播图路由跳转
 ```js
-const swiperToPage = e => {
+function swiperToPage(e) {
   // 如果有参数再跳转
-	if (!e) return
-	uni.navigateTo({
-		url: `/pages/routerWebView/RouterWebView?src=${e}`
-	})
+  if (!e)
+    return
+  uni.navigateTo({
+    url: `/pages/routerWebView/RouterWebView?src=${e}`
+  })
 }
 ```
 
 - 拿到链接参数赋给 src 属性
 ```vue
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 const webviewStyles = ref({
-	top: 0
+  top: 0
 })
 const src = ref('')
 
 onLoad((val) => {
-	src.value = val.src
+  src.value = val.src
 })
 </script>
 
 <template>
-	<web-view :webview-styles="webviewStyles" :src="src"></web-view>
+  <web-view :webview-styles="webviewStyles" :src="src" />
 </template>
 ```
 更多 `webview` 使用技巧可参考官网文档、DCloud上的问答 [在web-view加载的本地及远程HTML中调用uni的API及网页和vue页面通讯](https://ask.dcloud.net.cn/article/35083) 与这两篇文章 [在uniapp中优雅地使用WebView](https://www.kancloud.cn/xiaoyulive/uniapp/1849196) 、 [webview使用](https://blog.csdn.net/qq_40716795/article/details/127576627) 。
@@ -54,26 +55,26 @@ onLoad((val) => {
 
 ```js
 onShow(() => {
-	setTimeout(() => {
-		if (如果有复制到优惠券码) {
-			uni.hideTabBar()
-			id.value = uni.getStorageSync('couponShow')
-			// 做其他处理
-		}
-	}, 500)
+  setTimeout(() => {
+    if (如果有复制到优惠券码) {
+      uni.hideTabBar()
+      id.value = uni.getStorageSync('couponShow')
+      // 做其他处理
+    }
+  }, 500)
 })
 
-const closeFn = () => {
-	// 移出本地存储，清除复制的内容，隐藏弹窗
-	uni.removeStorageSync('couponShow')
-	uni.setClipboardData({
-		data: '',
-		showToast: false,
-		success: function() {
-		}
-	});
-	show.value = false
-	uni.showTabBar()
+function closeFn() {
+  // 移出本地存储，清除复制的内容，隐藏弹窗
+  uni.removeStorageSync('couponShow')
+  uni.setClipboardData({
+    data: '',
+    showToast: false,
+    success() {
+    }
+  })
+  show.value = false
+  uni.showTabBar()
 }
 ```
 

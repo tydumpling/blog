@@ -21,25 +21,25 @@ import useMapStore from '@/store/index.js'
 const { map } = storeToRefs(useMapStore())
 
 const props = defineProps({
-    list: {
-        type: Array,
-        default: () => []
-    }
+  list: {
+    type: Array,
+    default: () => []
+  }
 })
 
 onMounted(() => {
-    // 画线
-    props.list.forEach((v, i) => {
-        let polyline = new BMapGL.Polyline(
-            v.map(e => new BMapGL.Point(...e)),
-            {
-                strokeColor: BusStatus.get(i + 1) || "rgba(134, 255, 0, 0.98)",
-                strokeWeight: 8,
-                strokeOpacity: 0.7
-            }
-        );
-        map.value.addOverlay(polyline);
-    });
+  // 画线
+  props.list.forEach((v, i) => {
+    const polyline = new BMapGL.Polyline(
+      v.map(e => new BMapGL.Point(...e)),
+      {
+        strokeColor: BusStatus.get(i + 1) || 'rgba(134, 255, 0, 0.98)',
+        strokeWeight: 8,
+        strokeOpacity: 0.7
+      }
+    )
+    map.value.addOverlay(polyline)
+  })
 })
 ```
 
@@ -59,17 +59,17 @@ onMounted(() => {
 2. 参数二：文本属性对象，如 `position` 位置坐标，`offset` 偏移量等
 
 ```js
-let point = new BMapGL.Point(lng, lat);
-let label = new BMapGL.Label(content, {       // 创建文本标注
-    position: point,                          // 设置标注的地理位置
-    offset: new BMapGL.Size(25, -30)           // 设置标注的偏移量
+const point = new BMapGL.Point(lng, lat)
+const label = new BMapGL.Label(content, { // 创建文本标注
+  position: point, // 设置标注的地理位置
+  offset: new BMapGL.Size(25, -30) // 设置标注的偏移量
 })
-map.value.addOverlay(label);                        // 将标注添加到地图中
-label.setStyle({                              // 设置label的样式
-    color: '#fff',
-    fontSize: '20px',
-    backgroundColor: 'red',
-    padding: '0 5px'
+map.value.addOverlay(label) // 将标注添加到地图中
+label.setStyle({ // 设置label的样式
+  color: '#fff',
+  fontSize: '20px',
+  backgroundColor: 'red',
+  padding: '0 5px'
 })
 ```
 
@@ -85,40 +85,40 @@ label.setStyle({                              // 设置label的样式
 
 ```js
 const cusLayer = new BMapGL.CustomHtmlLayer(
-    () => {
-        const img = document.createElement('img');
-        img.style.height = '68px';
-        img.style.width = '60px';
-        img.src = iconImg;
-        img.draggable = false;
-        return img;
-    },
-    {
-        offsetX: 0,
-        offsetY: 0,
-        minZoom: 1,
-        maxZoom: 100,
-        enablePick: true
-    }
-);
+  () => {
+    const img = document.createElement('img')
+    img.style.height = '68px'
+    img.style.width = '60px'
+    img.src = iconImg
+    img.draggable = false
+    return img
+  },
+  {
+    offsetX: 0,
+    offsetY: 0,
+    minZoom: 1,
+    maxZoom: 100,
+    enablePick: true
+  }
+)
 const data = {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [lng, lat]
-            },
-            "properties": { "prop0": "value0" }
-        }
-    ]
-};
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [lng, lat]
+      },
+      properties: { prop0: 'value0' }
+    }
+  ]
+}
 // 设置图层数据
-cusLayer.setData(data);
+cusLayer.setData(data)
 
 // 将自定义html图层添加到地图上
-map.value.addCustomHtmlLayer(cusLayer);
+map.value.addCustomHtmlLayer(cusLayer)
 
 // 覆盖物绑定点击事件
 // cusLayer.addEventListener('click', function (e) {

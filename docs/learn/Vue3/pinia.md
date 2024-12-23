@@ -27,14 +27,15 @@
 4. 使用
 
    ```vue
-   vue复制代码<script setup>
-   import { useRoute } from "vue-router";
+   <script setup>
+   import { useRoute } from 'vue-router'
+   
    const route = useRoute()
    
-   console.log(route);
-   console.log(route.path);
-   console.log(route.fullPath);
-   console.log(route.query);
+   console.log(route)
+   console.log(route.path)
+   console.log(route.fullPath)
+   console.log(route.query)
    </script>
    
    <template>
@@ -175,8 +176,12 @@ const counter = useCounterStore()
 
 <template>
   <h1>根组件---{{ counter.count }}</h1>
-  <button @click="counter.increment">加1</button>
-  <button @click="counter.incrementAsync">异步加1</button>
+  <button @click="counter.increment">
+    加1
+  </button>
+  <button @click="counter.incrementAsync">
+    异步加1
+  </button>
 </template>
 ```
 
@@ -220,8 +225,13 @@ export default useCounterStore
 #### 在组件中使用
 
 ```vue
-<h1>根组件---{{ counter.count }}</h1>
-<h3>{{ counter.double }}</h3>
+<h1>
+根组件---{{ counter.count }}
+</h1>
+
+<h3>
+{{ counter.double }}
+</h3>
 ```
 
 ### pinia模块化
@@ -266,6 +276,7 @@ export default function useStore() {
 <script setup>
 import { storeToRefs } from 'pinia'
 import useStore from './store'
+
 const { counter } = useStore()
 
 // 使用storeToRefs可以保证解构出来的数据也是响应式的

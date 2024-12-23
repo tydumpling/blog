@@ -123,22 +123,25 @@ export const arrayMethods = Object.create(arrayProto);
 #### 将拦截器挂载到数组上面
 
 ```js
-import { arrayMethods } from "./array"; // 处理好的Array原型对象
+import { arrayMethods } from './array'
+
+// 处理好的Array原型对象
 // __proto__是否可用
-const hasProto = "__proto__" in {};
+const hasProto = '__proto__' in {}
 // 所有属性名，不论是否可枚举（与Object.keys的区别）
-const arrayKeys = Object.getOwnPropertyNames(arrayMethods);
+const arrayKeys = Object.getOwnPropertyNames(arrayMethods)
 
 export class Observe {
   // 将value转为响应式
   constructor(value) {
-    this.value = value;
+    this.value = value
 
     if (Array.isArray(value)) {
-      const augment = hasProto ? protoAugment : copyAugment;
-      augment(value, arrayMethods, arrayKeys);
-    } else {
-      this.walk(value); // Object的响应式处理，在其他文章中
+      const augment = hasProto ? protoAugment : copyAugment
+      augment(value, arrayMethods, arrayKeys)
+    }
+    else {
+      this.walk(value) // Object的响应式处理，在其他文章中
     }
   }
 }
@@ -148,7 +151,7 @@ export class Observe {
  * 将target对象的原型对象替换为src
  */
 function protoAugment(target, src, keys) {
-  target.__proto__ = src;
+  target.__proto__ = src
 }
 
 /**
@@ -157,8 +160,8 @@ function protoAugment(target, src, keys) {
  */
 function copyAugment(target, src, keys) {
   for (let i = 0, len = keys.length; i < len; i++) {
-    const key = keys[i];
-    def(target, key, src[key]);
+    const key = keys[i]
+    def(target, key, src[key])
   }
 }
 
@@ -169,7 +172,7 @@ function def(obj, key, val, enumerable) {
     enumerable: !!enumerable,
     writable: true,
     configurable: true,
-  });
+  })
 }
 ```
 
@@ -179,36 +182,39 @@ function def(obj, key, val, enumerable) {
 
 ```js
 function defineReactive(data, key, val) {
-  let childOb = observe(val);
-  let dep = new Dep(); // 存储依赖
+  const childOb = observe(val)
+  const dep = new Dep() // 存储依赖
   Object.defineProperty(data, key, {
     enumerable: true,
     configurable: true,
-    get: function () {
-      dep.depend();
+    get() {
+      dep.depend()
 
-      if (childOb) childOb.dep.depend(); // 收集
-      return val;
+      if (childOb)
+        childOb.dep.depend() // 收集
+      return val
     },
-    set: function (newVal) {
-      if (val === newVal) return;
-      dep.notify();
-      val = newVal;
+    set(newVal) {
+      if (val === newVal)
+        return
+      dep.notify()
+      val = newVal
     },
-  });
+  })
 }
 
 // 返回val的响应式对象
 function observe(val, asRootData) {
-  if (!isObject(value)) return;
-  let ob;
+  if (!isObject(value))
+    return
+  let ob
   // 避免重复侦测
-  if (hasOwn(value, "__ob__") && value.__ob__ instanceof observer) {
-    ob = value.__ob__;
-  } else {
-    ob = new Observe(value);
-  }
-  return ob;
+  if (hasOwn(value, '__ob__') && value.__ob__ instanceof observer)
+    ob = value.__ob__
+  else
+    ob = new Observe(value)
+
+  return ob
 }
 ```
 
@@ -227,33 +233,33 @@ Reflect 方法可以对源对象的属性进行操作
 简单的方法如下所示：
 
 ```js
-let person = {
-  name: "张三",
+const person = {
+  name: '张三',
   age: 18,
-};
+}
 const p = new Proxy(person, {
-  //有人读取p的某个属性时调用
+  // 有人读取p的某个属性时调用
   get(target, prop, receiver) {
-    console.log(target, prop);
-    //return target[p]
-    return Reflect.get(target, prop);
+    console.log(target, prop)
+    // return target[p]
+    return Reflect.get(target, prop)
   },
-  //有人修改、增加p的某个属性时调用
+  // 有人修改、增加p的某个属性时调用
   set(target, p, value, receiver) {
-    console.log(`有人修改了p身上的${p}，我要去更新界面了`);
-    //target[p] = value
-    Reflect.set(target, p, value);
+    console.log(`有人修改了p身上的${p}，我要去更新界面了`)
+    // target[p] = value
+    Reflect.set(target, p, value)
   },
-  //有人删除p的某个属性时调用
+  // 有人删除p的某个属性时调用
   deleteProperty(target, p) {
-    console.log(`有人删除了p身上的${p}，我要去更新界面了`);
-    //return delete target[p]
-    return Reflect.deleteProperty(target, p);
+    console.log(`有人删除了p身上的${p}，我要去更新界面了`)
+    // return delete target[p]
+    return Reflect.deleteProperty(target, p)
   },
-});
+})
 
-console.log((p.age = 23));
-console.log(person);
+console.log((p.age = 23))
+console.log(person)
 ```
 
 ### hook
@@ -431,22 +437,22 @@ const Component = {
 - 在 Vue2 中，使用的是选项式 API，优点是初学者简单易懂，缺点是相关模块十分分散，不易于大型项目的维护。代码如下：
 
   ```vue
-  <template>
-    <div>......</div>
-  </template>
-
   <script>
   export default {
     // 数据
     data() {
-      return {};
+      return {}
     },
+    computed: {},
     mounted() {},
     // 方法
     methods: {},
-    computed: {},
-  };
+  }
   </script>
+  
+  <template>
+    <div>......</div>
+  </template>
   ```
 
 - 在 Vue3 中，使用的组合式 API，代码如下：

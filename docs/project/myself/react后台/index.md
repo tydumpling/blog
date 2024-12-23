@@ -52,7 +52,7 @@ title react后台项目初始化
    在 `main.jsx` 入口文件引入使用
 
    ```jsx
-   import "reset.css";
+   import 'reset.css'
    ```
 
 > 注意
@@ -100,8 +100,8 @@ title react后台项目初始化
 3. 引入
 
    ```jsx
-   import "reset-css";
-   import "./assets/style/global.scss";
+   import 'reset-css'
+   import './assets/style/global.scss'
    import App from './App.jsx'
    ```
 
@@ -112,9 +112,9 @@ title react后台项目初始化
 在 `vite.config.js` 文件中配置路径别名，代码如下：
 
 ```js
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -125,7 +125,6 @@ export default defineConfig({
     }
   }
 })
-
 ```
 
 > 注意
@@ -141,7 +140,7 @@ export default defineConfig({
 > 如果下载后还是有报错，应该是 `vite` 的版本，上方引入的代码可以换为如下形式解决：
 >
 > ```js
-> import * as path from "path";
+> import * as path from 'node:path'
 > ```
 
 ### 添加提示
@@ -213,8 +212,8 @@ export default defineConfig({
 
    ```jsx
    import React from 'react'
-   import { Button } from 'antd';
-   import { StepForwardOutlined } from '@ant-design/icons';
+   import { Button } from 'antd'
+   import { StepForwardOutlined } from '@ant-design/icons'
    
    export default function Test() {
      return (
@@ -224,7 +223,6 @@ export default defineConfig({
        </div>
      )
    }
-   
    ```
 
 > 注意
@@ -232,7 +230,9 @@ export default defineConfig({
 > 1. Antd5 版本无需引入样式文件也能正常渲染，4及4以下的版本需要引入样式文件，官网网址指路：[示例]([Ant Design of React - Ant Design](https://4x.ant.design/docs/react/introduce-cn))
 >
 >    ```jsx
->    import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+>    import 'antd/dist/antd.css'
+>    
+>    // or 'antd/dist/antd.less'
 >    ```
 >
 > 2. Antd5 版本无需其他操作也能实现样式按需引入，4及4以下的版本按需引入需要做额外操作，官网文档指路：[按需引入]()
@@ -277,13 +277,13 @@ export default defineConfig({
 创建路由：
 
 ```jsx
-import App from "../App.jsx";
-import Home from "../views/Home.jsx";
-import About from "../views/About.jsx";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import App from '../App.jsx'
+import Home from '../views/Home.jsx'
+import About from '../views/About.jsx'
 
-const baseRouter = () => (
-  <BrowserRouter>
+function baseRouter() {
+  return <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
         <Route path="/home" element={<Home />}></Route>
@@ -291,30 +291,31 @@ const baseRouter = () => (
       </Route>
     </Routes>
   </BrowserRouter>
-);
+}
 
-export default baseRouter;
+export default baseRouter
 ```
 
 入口文件中导入使用：
 
 ```jsx
-import React from "react";
-import ReactDOM from "react-dom/client";
-// import App from '@/App.jsx'
-import Router from "@/router/index.jsx";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+// import App from '@/App.jsx'
+import Router from '@/router/index.jsx'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router />
   </React.StrictMode>
-);
+)
 ```
 
 `App.jsx` 根组件中设置占位组件：
 
 ```jsx
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
 
 function App() {
   return (
@@ -322,10 +323,10 @@ function App() {
       {/* 占位符组件，类似于窗口，用于展示组件，类似于router-view */}
       <Outlet />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
 ```
 
 > 踩坑提示
@@ -335,7 +336,7 @@ export default App;
 #### 编程式导航
 
 ```jsx
-import { Outlet, Link } from "react-router-dom";
+import { Link, Outlet } from 'react-router-dom'
 
 function App() {
   return (
@@ -345,17 +346,17 @@ function App() {
       {/* 占位符组件，类似于窗口，用于展示组件，类似于router-view */}
       <Outlet />
     </>
-  );
+  )
 }
 ```
 
 #### 重定向
 
 ```jsx
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
-const baseRouter = () => (
-  <BrowserRouter>
+function baseRouter() {
+  return <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
         {/* 用户访问的时候，重定向到home */}
@@ -365,7 +366,7 @@ const baseRouter = () => (
       </Route>
     </Routes>
   </BrowserRouter>
-);
+}
 ```
 
 ### 路由表写法
@@ -375,41 +376,41 @@ const baseRouter = () => (
 此时需要修改 `router/index.jsx` 中设置一个路由数组并导出：
 
 ```jsx
-import Home from "../views/Home.jsx";
-import About from "../views/About.jsx";
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom'
+import Home from '../views/Home.jsx'
+import About from '../views/About.jsx'
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     element: <Navigate to="/home" />,
   },
   {
-    path: "/home",
+    path: '/home',
     element: <Home />,
   },
   {
-    path: "/about",
+    path: '/about',
     element: <About />,
   },
-];
+]
 
-export default routes;
+export default routes
 ```
 
 由于不再导出组件，因此入口文件报错，需要恢复回来：
 
 ```jsx
-import App from "@/App.jsx";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom'
+import App from '@/App.jsx'
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>
-);
+)
 ```
 
 > 注意
@@ -419,20 +420,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 在根组件中使用路由 `hook` 配置路由：
 
 ```jsx
-import { Link, useRoutes } from "react-router-dom";
-import routes from "./router";
+import { Link, useRoutes } from 'react-router-dom'
+import routes from './router'
 
 function App() {
-  const outlet = useRoutes(routes);
+  const outlet = useRoutes(routes)
 
   return (
     <>
       <Link to="/home">Home</Link>
       <Link to="/about">about</Link>
-    
+
       {outlet}
     </>
-  );
+  )
 }
 ```
 
@@ -441,9 +442,9 @@ function App() {
 通过 `react` 提供的 `lazy` 方法实现路由懒加载，配置方法如下：
 
 ```jsx
-import { lazy } from "react";
+import { lazy } from 'react'
 
-const About = lazy(() => import("../views/About.jsx"));
+const About = lazy(() => import('../views/About.jsx'))
 ```
 
 然后运行报错，提示如下：
@@ -453,20 +454,20 @@ const About = lazy(() => import("../views/About.jsx"));
 懒加载的写法，外层需要使用 `React` 的 `Suspense` 方法，该方法中有一个 `fallback` 属性，用于懒加载时组件未引入时显示的内容，可以是组件，也可以是 JSX 标签。代码如下：
 
 ```jsx
-import React, { lazy } from "react";
+import React, { lazy } from 'react'
 
-const About = lazy(() => import("../views/About.jsx"));
+const About = lazy(() => import('../views/About.jsx'))
 
 const routes = [
   // ...
   // 懒加载需要配合Suspense属性使用
   {
-    path: "/about",
+    path: '/about',
     element: <React.Suspense fallback={<div>Loading...</div>}>
     <About />
     </React.Suspense>,
   },
-];
+]
 ```
 
 #### 懒加载组件抽离
@@ -474,17 +475,17 @@ const routes = [
 把懒加载的组件抽离出来方便复用，代码如下：
 
 ```jsx
-const withLoadingComponent = (comp) => (
-  <React.Suspense fallback={<div>Loading...</div>}>{comp}</React.Suspense>
-);
+function withLoadingComponent(comp) {
+  return <React.Suspense fallback={<div>Loading...</div>}>{comp}</React.Suspense>
+}
 
 const routes = [
   // ...
   {
-    path: "/about",
+    path: '/about',
     element: withLoadingComponent(<About />),
   },
-];
+]
 ```
 
 使用时只需要传对应组件即可。
@@ -503,40 +504,40 @@ const routes = [
 代码如下所属：
 
 ```jsx
-import Home from "../views/Home.jsx";
-import { Navigate } from "react-router-dom";
-import React, { lazy } from "react";
+import { Navigate } from 'react-router-dom'
+import React, { lazy } from 'react'
+import Home from '../views/Home.jsx'
 
-const Vue = lazy(() => import("../views/Vue/index.jsx"));
-const ReactJSX = lazy(() => import("../views/React/index.jsx"));
+const Vue = lazy(() => import('../views/Vue/index.jsx'))
+const ReactJSX = lazy(() => import('../views/React/index.jsx'))
 
 // 懒加载组件
-const withLoadingComponent = (comp) => (
-  <React.Suspense fallback={<div>Loading...</div>}>{comp}</React.Suspense>
-);
+function withLoadingComponent(comp) {
+  return <React.Suspense fallback={<div>Loading...</div>}>{comp}</React.Suspense>
+}
 
 const routes = [
   // 这里是重定向到二级路由 /vue，即页面打开默认显示 /vue 的内容
   {
-    path: "/",
+    path: '/',
     element: <Navigate to="/Vue" />,
   },
   // 一级路由
   {
-    path: "/",
+    path: '/',
     element: <Home />,
     // 二级路由
     children: [
       {
-        path: "/vue",
+        path: '/vue',
         element: withLoadingComponent(<Vue />),
       },
       {
-        path: "/react",
+        path: '/react',
         element: withLoadingComponent(<ReactJSX />),
       },
     ],
   },
-];
+]
 ```
 

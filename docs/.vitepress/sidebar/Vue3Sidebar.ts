@@ -2,7 +2,7 @@
 const Vue3Sidebar = [
   {
     text: 'Vue3',
-    
+
     items: [
       { text: 'vue3项目创建', link: '/Vue3/vue3项目创建' },
       { text: 'vue3的使用', link: '/Vue3/vue3的使用' },

@@ -30,7 +30,7 @@
 ```vue
 <template>
   <div id="app">
-    <el-calendar v-model="value"></el-calendar>
+    <el-calendar v-model="value" />
   </div>
 </template>
 
@@ -79,10 +79,48 @@
 接下来获取数据循环遍历即可，再通过其 `state` 状态来动态添加类名。
 
 ```vue
+<script>
+export default {
+  data() {
+    return {
+      value: '',
+      deadlineList: [
+        {
+          time: '2023-05-16',
+          state: 'finish',
+          list: ['tings1', 'tings2', 'tings3'],
+        },
+        {
+          time: '2023-05-17',
+          state: 'unfinish',
+          list: ['tings1', 'tings2', 'tings3'],
+        },
+      ],
+    }
+  },
+  methods: {
+    returnClass(v) {
+      const classObj = {}
+      this.deadlineList.forEach((e) => {
+        if (e.time === v) {
+          classObj.hastate = true
+          // 进一步判断是已完成还是未完成
+          e.state === 'finish'
+            ? (classObj.finish = true)
+            : (classObj.unfinish = true)
+        }
+      })
+
+      return classObj
+    },
+  },
+}
+</script>
+
 <template>
   <div id="app">
     <el-calendar v-model="value">
-      <template v-slot:dateCell="obj">
+      <template #dateCell="obj">
         <div :class="returnClass(obj.data.day)">
           {{ obj.data.day.split("-")[2] }}
         </div>
@@ -93,44 +131,6 @@
     </el-calendar>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      value: "",
-      deadlineList: [
-        {
-          time: "2023-05-16",
-          state: "finish",
-          list: ["tings1", "tings2", "tings3"],
-        },
-        {
-          time: "2023-05-17",
-          state: "unfinish",
-          list: ["tings1", "tings2", "tings3"],
-        },
-      ],
-    };
-  },
-  methods: {
-    returnClass(v) {
-      let classObj = {};
-      this.deadlineList.forEach((e) => {
-        if (e.time === v) {
-          classObj.hastate = true;
-          // 进一步判断是已完成还是未完成
-          e.state === "finish"
-            ? (classObj.finish = true)
-            : (classObj.unfinish = true);
-        }
-      });
-
-      return classObj;
-    },
-  },
-};
-</script>
 
 <style>
 /* .... */
@@ -170,7 +170,6 @@ export default {
   display: block;
 }
 </style>
-
 ```
 
 > 注意：
@@ -199,7 +198,7 @@ export default {
 ```vue
 <script>
 export default {
-  name: "dateTd",
+  name: 'DateTd',
   props: {
     day: {
       type: String,
@@ -209,11 +208,11 @@ export default {
     },
   },
   render(h) {
-    let classObj = {};
-    let list = [];
+    const classObj = {}
+    let list = []
 
     function createList(list) {
-      let arr = list.map(v => {
+      const arr = list.map((v) => {
         return h('p', v)
       })
       return arr
@@ -221,25 +220,26 @@ export default {
 
     this.deadlineList.forEach((e) => {
       if (e.time === this.day) {
-        classObj.hastate = true;
+        classObj.hastate = true
         list = createList(e.list)
         // 进一步判断是已完成还是未完成
-        e.state === "finish"
+        e.state === 'finish'
           ? (classObj.finish = true)
-          : (classObj.unfinish = true);
+          : (classObj.unfinish = true)
       }
-    });
+    })
     // 参数1：要渲染的元素；参数2：其属性，如类名；参数3，其内容
     if (list && list.length > 0) {
-      return h("div", { class: classObj }, [
-        this.day.split("-")[2],
-        h("div", { class: 'toolTip' }, [...list]),
-      ]);
-    } else {
-      return h("div", { class: classObj }, this.day.split("-")[2])
+      return h('div', { class: classObj }, [
+        this.day.split('-')[2],
+        h('div', { class: 'toolTip' }, [...list]),
+      ])
+    }
+    else {
+      return h('div', { class: classObj }, this.day.split('-')[2])
     }
   },
-};
+}
 </script>
 ```
 

@@ -21,28 +21,28 @@
 - 动态添加到 `router` 内
 
 ```js
-let routeArr = []
+const routeArr = []
 function parseRoute(arr) {
-    // 返回一个 Promise，后续异步获取数据
-    return new Promise((resolve) => {
-        	arr.forEach(item => {
-            	let newItem = Object.assign({}, item)
-            	let str = item.component
+  // 返回一个 Promise，后续异步获取数据
+  return new Promise((resolve) => {
+        	arr.forEach((item) => {
+            	const newItem = Object.assign({}, item)
+            	const str = item.component
             	newItem.component = () => {
                 	// return require([`@/views${str}`])
                 	return import(`@/views${str}`)
             	}
             	routeArr.push(newItem)
         	})
-        return routeArr
-	})
+    return routeArr
+  })
 }
 
-if(如果有用户id) {
-    // 把数据保存到state中
-    axios.get('接口').then(res => {
-    	let newArr = parseRoute(res.data.data)
-        commit('SET_ROUTES', newArr)
+if (如果有用户id) {
+  // 把数据保存到state中
+  axios.get('接口').then((res) => {
+    	const newArr = parseRoute(res.data.data)
+    commit('SET_ROUTES', newArr)
    	})
 }
 ```
@@ -52,7 +52,7 @@ if(如果有用户id) {
 > 1. 格式化 `component` 时不能先赋值给字符串变量，再放进去，如：
 >
 >    ```js
->    let str = `@/views${item}`
+>    const str = `@/views${item}`
 >    return import(str)
 >    ```
 >
@@ -78,38 +78,41 @@ if(如果有用户id) {
 const routerArr = store.state.login.routerArr
 
 router.beforeEach(async (to, from, next) => {
-    const token = Cookies.get('token')
-    if(token) {
-        if(to.path === '/login') {
-            next('/')
-        } else {
-            // 判断是否发请求获取路由规则
-            if(routerArr.length == 0) {
-                // 没有，掉请求
-                const _routerArr = await store.dispatch('getRouter')
-                
-                _routerArr.forEach(item => {
-                    router.addRoute(item)
-                })
-                
-                next(to.path) // 继续跳转
-            } else {
-                // 有了，判断当前用户是否有该路由的权限
-                if(to.matched.length !== 0) {
-                    next() // 有直接跳转
-                } else {
-                    next(from.path) // 没有返回来的页面
-                }
-            }
-        }
-    } else {
-        // 未登录，判断是否在白名单内
-        if(whileList.indexOf(to.path) !== -1) {
-            next() // 在白名单内，可以访问
-        } else {
-            next('/login') // 不在白名单内，返回登录页
-        }
+  const token = Cookies.get('token')
+  if (token) {
+    if (to.path === '/login') {
+      next('/')
     }
+    else {
+      // 判断是否发请求获取路由规则
+      if (routerArr.length == 0) {
+        // 没有，掉请求
+        const _routerArr = await store.dispatch('getRouter')
+
+        _routerArr.forEach((item) => {
+          router.addRoute(item)
+        })
+
+        next(to.path) // 继续跳转
+      }
+      else {
+        // 有了，判断当前用户是否有该路由的权限
+        if (to.matched.length !== 0)
+          next() // 有直接跳转
+        else
+          next(from.path) // 没有返回来的页面
+
+      }
+    }
+  }
+  else {
+    // 未登录，判断是否在白名单内
+    if (whileList.includes(to.path))
+      next() // 在白名单内，可以访问
+    else
+      next('/login') // 不在白名单内，返回登录页
+
+  }
 })
 ```
 
@@ -118,16 +121,16 @@ router.beforeEach(async (to, from, next) => {
 > 老版本可以使用 `addRoutes()` ，放入路由数组；新版已经弃用，只能使用 `addRoute()` ，放入单个路由对象，因此需要使用数组遍历的形式。
 >
 > ```js
-> let arr = [
->     {
->         name: 'page',
->         path: '/page',
->         component: () => import('')
->     }
+> const arr = [
+>   {
+>     name: 'page',
+>     path: '/page',
+>     component: () => import('')
+>   }
 > ]
 > 
-> arr.forEach(item => {
->     router.addRoute(item)
+> arr.forEach((item) => {
+>   router.addRoute(item)
 > })
 > ```
 
@@ -139,10 +142,10 @@ router.beforeEach(async (to, from, next) => {
 
 ```js
 export function resetRoute() {
-    const newRouter = new VueRouter({
-        routes: initRoutes
-    })
-    router.matcher = newRouter.matcher
+  const newRouter = new VueRouter({
+    routes: initRoutes
+  })
+  router.matcher = newRouter.matcher
 }
 ```
 
@@ -171,14 +174,14 @@ getCode() {
 
 ```js
 const initRoutes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: () => import('@/views/home'),
-        meta: {
-        	whileList: ['admin','test01']
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('@/views/home'),
+    meta: {
+        	whileList: ['admin', 'test01']
     	}
-    }
+  }
 ]
 ```
 

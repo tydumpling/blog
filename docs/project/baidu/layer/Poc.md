@@ -21,31 +21,31 @@ Poc迁移是把这个广东省数据的项目迁移一份给北京总部那边�
 子组件代码如下：
 
 ```vue
-<template>
-	<div>
-    {{ value }}
-  </div>
-</template>
-
 <script>
 export default {
+  model: {
+    prop: 'value',
+    event: 'update:value',
+  },
   props: {
     value: {
       type: String,
       default: ''
     }
   },
-  model: {
-      prop: 'value',
-      event: 'update:value',
-  },
   setup() {
     function update(value) {
-      emit('update:value', value);
+      emit('update:value', value)
     }
   }
 }
 </script>
+
+<template>
+  <div>
+    {{ value }}
+  </div>
+</template>
 ```
 
 ## 侦听器
@@ -54,10 +54,11 @@ export default {
 
 ```vue
 <script>
-import {type} from '@/store/index.js'
+import { type } from '@/store/index.js'
+
 export default {
   watch: {
-    type: function(newVal) {
+    type(newVal) {
       console.log(newVal)
       this.fn()
     }
@@ -78,7 +79,8 @@ Vue2.7 中，`this` 可以调用 `$watch` 方法侦听，效果与 `watch` 是�
 代码如下所示：
 
 ```js
-import {type} from '@/store/index'
+import { type } from '@/store/index'
+
 export default {
   created() {
     this.$watch(() => type.value, (newVaal) => {
@@ -100,15 +102,16 @@ export default {
 <son ref="sonRef" />
 
 <script>
-import {ref, nextTick} from 'vue'
+import { nextTick, ref } from 'vue'
+
 export default {
   setup() {
     const sonRef = ref(null)
-    
+
     nextTick(() => {
       console.log(sonRef.value.xxx)
     })
-    
+
     return {
       sonRef
     }

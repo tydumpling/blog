@@ -55,34 +55,36 @@ module.exports = (vm) => {
 
 ```js
 uni.$u.http.interceptors.request.use((config) => {
-	uni.showLoading()
-	if (config.custom.type) {
-		config.header['Content-Type'] = 'application/json'
-	} else {
-		config.header['Content-Type'] = 'application/x-www-form-urlencoded'
-	}
+  uni.showLoading()
+  if (config.custom.type)
+    config.header['Content-Type'] = 'application/json'
+	 else
+    config.header['Content-Type'] = 'application/x-www-form-urlencoded'
 
-	// 设置token，正常请求，把得到的token带过去
-	config.header['X-Access-Token'] = uni.getStorageSync('token');
+  // 设置token，正常请求，把得到的token带过去
+  config.header['X-Access-Token'] = uni.getStorageSync('token')
 
-	// 可以对某个url进行特别处理
-	if (config.url.indexOf('user/login') !== -1) config.header['X-Access-Token'] = '1';
+  // 可以对某个url进行特别处理
+  if (config.url.includes('user/login'))
+    config.header['X-Access-Token'] = '1'
 
-	return config
-}, config => { // 可使用async await 做异步操作
-	uni.hideLoading()
-	return Promise.reject(config)
+  return config
+}, (config) => { // 可使用async await 做异步操作
+  uni.hideLoading()
+  return Promise.reject(config)
 })
 ```
 
 使用的时候可以通过如下方法设置：
 
 ```js
-export const createOrderAPI = (data) => http.post('/order/create', data, {
-	custom: {
-		type: 'json'
-	}
-})
+export function createOrderAPI(data) {
+  return http.post('/order/create', data, {
+    custom: {
+      type: 'json'
+    }
+  })
+}
 ```
 
 现在该接口就是 POST 请求的 JSON 格式。

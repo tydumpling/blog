@@ -9,7 +9,7 @@
 首先说说 `proxy` 的基本概念，`Proxy`  这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。
 
 ```js
-let d=new Proxy(target,handle);
+const d = new Proxy(target, handle)
 ```
 
 `Proxy` 对象的所有用法，都是上面这种形式，不同的只是 `handler` 参数的写法。`Proxy` 可以理解成，在目标对象（可以是任何类型的对象，包括原生数组，函数，甚至另一个代理）之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
@@ -42,12 +42,12 @@ let d=new Proxy(target,handle);
 
 ```js
 function model() {
-  let proxy = new Proxy({}, {
+  const proxy = new Proxy({}, {
     get(obj, prop) {
-      console.log(obj, prop);
+      console.log(obj, prop)
     },
     set(obj, prop, value) {
-      console.log(obj, prop, value);
+      console.log(obj, prop, value)
     }
   })
 }
@@ -61,10 +61,10 @@ function model() {
 
 ```js
 this.init = () => {
-  document.querySelectorAll('[v-model]').forEach(item => {
-    item.addEventListener('keyup', function() {
-      console.log(this.getAttribute);
-      console.log(this.getAttribute('v-model'));
+  document.querySelectorAll('[v-model]').forEach((item) => {
+    item.addEventListener('keyup', function () {
+      console.log(this.getAttribute)
+      console.log(this.getAttribute('v-model'))
       proxy[this.getAttribute('v-model')] = this.value
     })
   })
@@ -74,14 +74,14 @@ this.init = () => {
 触发代理后获取所有 `v-model` 和 `v-bind` 绑定的 `dom` 元素，为其赋值即可。
 
 ```js
-let proxy = new Proxy({}, {
+const proxy = new Proxy({}, {
   get(obj, prop) {
-    console.log(obj, prop);
+    console.log(obj, prop)
   },
   set(obj, prop, value) {
-    console.log(obj, prop, value);
+    console.log(obj, prop, value)
     obj[prop] = value
-    document.querySelectorAll(`[v-model='${prop}'],[v-bind='${prop}']`).forEach(item => {
+    document.querySelectorAll(`[v-model='${prop}'],[v-bind='${prop}']`).forEach((item) => {
       item.value = value
       item.innerHTML = value
     })
@@ -151,7 +151,7 @@ let proxy = new Proxy({}, {
 
 <!-- 实际上可以转变为以下形式 -->
 
-<son :value="a" @input="(e) => {a=e.target.value}" />
+<son :value="a" @input="(e) => {a = e.target.value}" />
 ```
 
 在 Vue3 中，代码如下：
@@ -161,7 +161,7 @@ let proxy = new Proxy({}, {
 
 <!-- 实际上可以转变为以下形式 -->
 
-<son :modelValue="a" @update:modelValue="(e) => {a=e.target.value}" />
+<son :modelValue="a" @update:modelValue="(e) => {a = e.target.value}" />
 ```
 
 下面来实际业务中使用一下：

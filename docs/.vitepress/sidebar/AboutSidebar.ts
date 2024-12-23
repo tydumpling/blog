@@ -5,7 +5,7 @@
 const AboutSidebar = [
   {
     text: '⭐ 关于',
-    
+
     items: [
       { text: '🧑 关于我', link: '/about/' },
       { text: '🔪 关于tydumpling博客', link: '/about/blog' },

@@ -118,30 +118,29 @@ img {
 ```js
 const tb = document.querySelector('feTurbulence')
 const tl = new gsap.timeline({
-    paused: true,
-    onUpdate() {
-        console.log(val.value);
-        tb.setAttribute('baseFrequency', `0 ${val.value}`)
-    }
-});
+  paused: true,
+  onUpdate() {
+    console.log(val.value)
+    tb.setAttribute('baseFrequency', `0 ${val.value}`)
+  }
+})
 const val = {
-    value: 0.4
+  value: 0.4
 }
 tl.to(val, {
-    value: 0.001,
-    duration: 0.2,
+  value: 0.001,
+  duration: 0.2,
 })
 tl.to(val, {
-    value: 0.4,
-    duration: 0.2,
+  value: 0.4,
+  duration: 0.2,
 })
 
 const img = document.querySelector('img')
 img.onload = () => {
-    tl.play();
+  tl.play()
 }
-if(img.complete) {
-    tl.play();
-}
+if (img.complete)
+  tl.play()
 ```
 

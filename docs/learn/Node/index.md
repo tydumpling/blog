@@ -54,7 +54,7 @@ node -v
 下面编写 `index.js` 内容如下
 
 ```js
-console.log("hello node.js");
+console.log('hello node.js')
 ```
 
 然后在命令行执行该文件，好可以查看到当前目录的 node.js 执行结果

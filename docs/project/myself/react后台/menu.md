@@ -11,37 +11,37 @@ title react后台菜单封装
 菜单子组件设置菜单子组件，首先能够渲染静态数组数据，代码如下：
 
 ```jsx
-import React from "react";
-import { Menu } from "antd";
+import React from 'react'
+import { Menu } from 'antd'
 import {
   DesktopOutlined,
   PieChartOutlined,
   UserOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons'
 
 const items = [
   {
-    key: "/vue",
-    label: "Vue",
+    key: '/vue',
+    label: 'Vue',
     icon: <PieChartOutlined />,
   },
   {
-    key: "/react",
-    label: "React",
+    key: '/react',
+    label: 'React',
     icon: <DesktopOutlined />,
   },
   {
-    key: "/ts",
-    label: "TS",
+    key: '/ts',
+    label: 'TS',
     icon: <UserOutlined />,
     children: [
       {
-        label: "emun",
-        key: "/ts/emun",
+        label: 'emun',
+        key: '/ts/emun',
       },
     ],
   },
-];
+]
 
 export default function MainMenu() {
   return (
@@ -50,20 +50,19 @@ export default function MainMenu() {
       mode="inline"
       items={items}
     />
-  );
+  )
 }
-
 ```
 
 Home父组件引入挂载使用：
 
 ```jsx
-import MainMenu from "@/components/MainMenu/index.jsx";
+import MainMenu from '@/components/MainMenu/index.jsx'
 
 // ....
-const Home = () => {
+function Home() {
   return (
-    // ...
+  // ...
   	<MainMenu />
   )
 }
@@ -80,8 +79,8 @@ export default function MainMenu() {
   const handleMenuFn = (e) => {
     // 路由跳转
     console.log(e)
-  };
-  
+  }
+
   return (
     <Menu
       theme="dark"
@@ -89,7 +88,7 @@ export default function MainMenu() {
       items={items}
       onClick={handleMenuFn}
     />
-  );
+  )
 }
 ```
 
@@ -108,18 +107,20 @@ export default function MainMenu() {
 函数式组件中，想要实现路由跳转，需要配合 `useNavigate` hook 方法，代码如下所示：
 
 ```jsx
-import React from "react";
-import { Menu } from "antd";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from 'react'
+import { Menu } from 'antd'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 // ...
 
 export default function MainMenu() {
-  const navigateTo = useNavigate();
+  const navigateTo = useNavigate()
 
   const handleMenuFn = (e) => {
     // 路由跳转
-    if (e.key) navigateTo(e.key);
-  };
+    if (e.key)
+      navigateTo(e.key)
+  }
 
   return (
     <Menu
@@ -128,7 +129,7 @@ export default function MainMenu() {
       items={items}
       onClick={handleMenuFn}
     />
-  );
+  )
 }
 ```
 
@@ -142,16 +143,17 @@ export default function MainMenu() {
 // ...
 
 export default function MainMenu() {
-  const navigateTo = useNavigate();
+  const navigateTo = useNavigate()
 
   const handleMenuFn = (e) => {
     // 路由跳转
-    if (e.key) navigateTo(e.key);
-  };
+    if (e.key)
+      navigateTo(e.key)
+  }
 
   const handleOpenChangeFn = (keys) => {
     console.log(keys)
-  };
+  }
 
   return (
     <Menu
@@ -161,7 +163,7 @@ export default function MainMenu() {
       onClick={handleMenuFn}
       onOpenChange={handleOpenChangeFn}
     />
-  );
+  )
 }
 ```
 
@@ -173,23 +175,24 @@ export default function MainMenu() {
 // ...
 
 export default function MainMenu() {
-  const navigateTo = useNavigate();
+  const navigateTo = useNavigate()
 
   const handleMenuFn = (e) => {
     // 路由跳转
-    if (e.key) navigateTo(e.key);
-  };
+    if (e.key)
+      navigateTo(e.key)
+  }
 
-  const [openKeys, setOpenKeys] = useState(['']);
+  const [openKeys, setOpenKeys] = useState([''])
 
   const handleOpenChangeFn = (keys) => {
     // 切换展开项，默认只展开最新两个侧边栏
-    if (keys.length > 2) {
-      setOpenKeys(keys.filter((e, i) => i !== 0));
-    } else {
-      setOpenKeys(keys);
-    }
-  };
+    if (keys.length > 2)
+      setOpenKeys(keys.filter((e, i) => i !== 0))
+    else
+      setOpenKeys(keys)
+
+  }
 
   return (
     <Menu
@@ -200,7 +203,7 @@ export default function MainMenu() {
       onClick={handleMenuFn}
       onOpenChange={handleOpenChangeFn}
     />
-  );
+  )
 }
 ```
 
@@ -211,28 +214,30 @@ export default function MainMenu() {
 此时需要获取当前的路由了，函数式组件通过 `useLocation` 方法获取，返回的是一个对象，其中 `pathname` 属性为当前路由，因此代码可以写成如下形式：
 
 ```jsx
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom'
+
 // ...
 
 export default function MainMenu() {
-  const navigateTo = useNavigate();
-  const location = useLocation();
+  const navigateTo = useNavigate()
+  const location = useLocation()
 
   const handleMenuFn = (e) => {
     // 路由跳转
-    if (e.key) navigateTo(e.key);
-  };
+    if (e.key)
+      navigateTo(e.key)
+  }
 
-  const [openKeys, setOpenKeys] = useState(['']);
+  const [openKeys, setOpenKeys] = useState([''])
 
   const handleOpenChangeFn = (keys) => {
     // 切换展开项，默认只展开最新两个侧边栏
-    if (keys.length > 2) {
-      setOpenKeys(keys.filter((e, i) => i !== 0));
-    } else {
-      setOpenKeys(keys);
-    }
-  };
+    if (keys.length > 2)
+      setOpenKeys(keys.filter((e, i) => i !== 0))
+    else
+      setOpenKeys(keys)
+
+  }
 
   return (
     <Menu
@@ -244,7 +249,7 @@ export default function MainMenu() {
       onClick={handleMenuFn}
       onOpenChange={handleOpenChangeFn}
     />
-  );
+  )
 }
 ```
 
@@ -257,41 +262,43 @@ export default function MainMenu() {
 代码如下：
 
 ```jsx
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom'
+
 // ...
 
 export default function MainMenu() {
-  const navigateTo = useNavigate();
-  const location = useLocation();
+  const navigateTo = useNavigate()
+  const location = useLocation()
 
   const handleMenuFn = (e) => {
     // 路由跳转
-    if (e.key) navigateTo(e.key);
-  };
+    if (e.key)
+      navigateTo(e.key)
+  }
 
   // 定义默认展开
-  let firstKey = "";
+  let firstKey = ''
   for (let i = 0; i < items.length; i++) {
     // 如果他有children属性才需要默认展开，判断其children数组内的每条数据的key是否与路由匹配
     if (
-      items[i]["children"] &&
-      items[i]["children"].length > 0 &&
-      items[i]["children"].find((obj) => obj.key === location.pathname)
+      items[i].children
+      && items[i].children.length > 0
+      && items[i].children.find(obj => obj.key === location.pathname)
     ) {
-      firstKey = items[i].key;
-      break;
+      firstKey = items[i].key
+      break
     }
   }
-  const [openKeys, setOpenKeys] = useState([firstKey]);
+  const [openKeys, setOpenKeys] = useState([firstKey])
 
   const handleOpenChangeFn = (keys) => {
     // 切换展开项，默认只展开最新两个侧边栏
-    if (keys.length > 2) {
-      setOpenKeys(keys.filter((e, i) => i !== 0));
-    } else {
-      setOpenKeys(keys);
-    }
-  };
+    if (keys.length > 2)
+      setOpenKeys(keys.filter((e, i) => i !== 0))
+    else
+      setOpenKeys(keys)
+
+  }
 
   return (
     <Menu
@@ -303,7 +310,7 @@ export default function MainMenu() {
       onClick={handleMenuFn}
       onOpenChange={handleOpenChangeFn}
     />
-  );
+  )
 }
 ```
 

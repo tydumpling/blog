@@ -67,45 +67,48 @@ title sku商品规格
 const choseNames = ref([]) // 选中的名称
 const btnWord = ref('请选择规格') // 按钮的文本
 const choseId = ref('') // 最终选择的商品id
-const handleChoseFn = (item, index) => {
-	// 如果该规格已选,则去除
-	if (choseNames.value[index] && item.name === choseNames.value[index]) {
-		choseNames.value[index] = ''
-		btnWord.value = '请选择规格'
-	} else {
-        // 未选择的情况下把该索引设为该值
-		choseNames.value[index] = item.name
-		if(choseNames.value.length === props.data.length) {
-            // 由于存在取消规格的情况，也存在用户从后面选起的可能，因此判断每一项都要有内容
-            if(choseNames.value.includes(undefined) || choseNames.value.includes(null) || choseNames.value.includes('')) return
-			let obj = props.saleList.find(item => {
-				let arr = JSON.parse(item.sku)
-				for(let i = 0; i < arr.length; i++) {
-					if(!choseNames.value.includes(arr[i])) break // 只要有一项没在sku数组内，就结束当前循环判断开始下一次的循环判断
-                      // 长度一致且判断到最后一项（即全部相等）则返回该对象
-					if(arr.length === choseNames.value.length && i === arr.length - 1) {
-						return item
-					}
-				}
-			})
-			
-             // 如果有数据，返回想要的数据
-			if(obj) {
-				showCover.value = obj.cover
-				showMoney.value = obj.salesPrice
-				showStock.value = obj.stock
-				btnWord.value = obj.stock ? '立即购买' : '库存不足'
-				choseId.value = obj.id
-				return
-			}
-            
-             // 否则返回库存不足等占位符
-			btnWord.value = '库存不足'
-			showCover.value = '-'
-			showMoney.value = '-'
-			showStock.value = 0
-		}
-	}
+function handleChoseFn(item, index) {
+  // 如果该规格已选,则去除
+  if (choseNames.value[index] && item.name === choseNames.value[index]) {
+    choseNames.value[index] = ''
+    btnWord.value = '请选择规格'
+  }
+  else {
+    // 未选择的情况下把该索引设为该值
+    choseNames.value[index] = item.name
+    if (choseNames.value.length === props.data.length) {
+      // 由于存在取消规格的情况，也存在用户从后面选起的可能，因此判断每一项都要有内容
+      if (choseNames.value.includes(undefined) || choseNames.value.includes(null) || choseNames.value.includes(''))
+        return
+      const obj = props.saleList.find((item) => {
+        const arr = JSON.parse(item.sku)
+        for (let i = 0; i < arr.length; i++) {
+          if (!choseNames.value.includes(arr[i]))
+            break // 只要有一项没在sku数组内，就结束当前循环判断开始下一次的循环判断
+          // 长度一致且判断到最后一项（即全部相等）则返回该对象
+          if (arr.length === choseNames.value.length && i === arr.length - 1)
+            return item
+
+        }
+      })
+
+      // 如果有数据，返回想要的数据
+      if (obj) {
+        showCover.value = obj.cover
+        showMoney.value = obj.salesPrice
+        showStock.value = obj.stock
+        btnWord.value = obj.stock ? '立即购买' : '库存不足'
+        choseId.value = obj.id
+        return
+      }
+
+      // 否则返回库存不足等占位符
+      btnWord.value = '库存不足'
+      showCover.value = '-'
+      showMoney.value = '-'
+      showStock.value = 0
+    }
+  }
 }
 ```
 

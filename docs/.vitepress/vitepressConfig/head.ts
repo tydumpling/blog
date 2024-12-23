@@ -1,4 +1,4 @@
-import { description, docsVersion, github, keywords, name, site } from '../meta'
+import { description, keywords, name, site } from '../meta'
 
 const head = [
   ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],

@@ -90,7 +90,7 @@ vue最终是通过webpack打包，并且会在 `webpack` 配置文件中编写�
    > 将会被编译到：
    >
    > ```js
-   > h('img', { attrs: { src: require('./image.png') }})
+   > h('img', { attrs: { src: require('./image.png') } })
    > ```
    >
    > 态引入一张图片的时候，src后面的属性值，实际上是一个变量。`webpack` 会根据 `v-bind` 指令去解析src后面的属性值。并不会通过 `reuqire` 引入资源路径。因此需要手动的添加 `require` 。
@@ -110,8 +110,8 @@ vue最终是通过webpack打包，并且会在 `webpack` 配置文件中编写�
 
 ```js
 const path = ref('')
-const changeImgFn = (e) => {
-    path.value = `./assets/${e}.jpg`
+function changeImgFn(e) {
+  path.value = `./assets/${e}.jpg`
 }
 ```
 
@@ -121,11 +121,11 @@ const changeImgFn = (e) => {
 
 ```js
 const path = ref('')
-const changeImgFn = (e) => {
-    import(`./assets/${e}.jpg`).then(res => {
-        console.log(res)
+function changeImgFn(e) {
+  import(`./assets/${e}.jpg`).then((res) => {
+    console.log(res)
     	path.value = res.default
-    })
+  })
 }
 ```
 
@@ -141,9 +141,9 @@ const changeImgFn = (e) => {
 
 ```js
 const path = ref('')
-const changeImgFn = (e) => {
-    const url = new URL(`./assets/${e}.jpg`, import.meta.url)
-    console.log(url)
+function changeImgFn(e) {
+  const url = new URL(`./assets/${e}.jpg`, import.meta.url)
+  console.log(url)
 }
 ```
 

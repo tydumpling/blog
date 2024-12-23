@@ -38,9 +38,10 @@ yarn add @vueuse/core
 
 ```vue
 <script setup>
-import LayoutHeaderUl from './LayoutHeaderUl.vue'
-// vueUse
 import { useScroll } from '@vueuse/core'
+import LayoutHeaderUl from './LayoutHeaderUl.vue'
+
+// vueUse
 const { y } = useScroll(window)
 </script>
 
@@ -66,7 +67,7 @@ nav 组件和 fixed 组件都要请求获取导航列表，这样要调用两次
     const list = ref([]) // 导航列表数据
   
     const getCategoryFn = () => {
-      getCategoryAPI().then(res => {
+      getCategoryAPI().then((res) => {
         console.log('pinia', res)
         list.value = res.result
       })
@@ -81,6 +82,7 @@ nav 组件和 fixed 组件都要请求获取导航列表，这样要调用两次
   ```js
   // pinia获取导航数据
   import { useLayoutStore } from '@/stores/layout'
+  
   const layoutStore = useLayoutStore()
   
   onMounted(() => {

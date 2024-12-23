@@ -20,38 +20,38 @@
 表格子组件：通过延时器模拟接口返回数据的场景。
 
 ```vue
-<template>
-  <div>
-    <el-table v-myscroll="20" :data="tableData" height="300" style="width: 100%">
-      <el-table-column prop="date" label="索引" width="180"> </el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
-      <el-table-column prop="address" label="地址"> </el-table-column>
-    </el-table>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'MyTable',
   data() {
     return {
       tableData: [],
-    };
+    }
   },
   mounted() {
     setTimeout(() => {
       for (let i = 0; i < 200; i++) {
         this.tableData.push({
           date: i + 1,
-          name: "tydumpling",
-          address: "哈哈哈",
-        });
+          name: 'tydumpling',
+          address: '哈哈哈',
+        })
       }
-    }, 1000);
+    }, 1000)
   },
   methods: {},
-};
+}
 </script>
+
+<template>
+  <div>
+    <el-table v-myscroll="20" :data="tableData" height="300" style="width: 100%">
+      <el-table-column prop="date" label="索引" width="180" />
+      <el-table-column prop="name" label="姓名" width="180" />
+      <el-table-column prop="address" label="地址" />
+    </el-table>
+  </div>
+</template>
 ```
 
 自定义指令：通过 `Vue.directive` 设置自定义指令。
@@ -59,7 +59,7 @@ export default {
 ```js
 Vue.directive('myscroll', {
   bind(el, bind, vnode) {
-    console.log(el, bind, vnode);
+    console.log(el, bind, vnode)
   }
 })
 ```
@@ -76,10 +76,11 @@ Vue.directive('myscroll', {
 
     // 绑定滚动事件
     target.addEventListener('scroll', () => {
-      if(target.scrollTop + target.clientHeight >= target.scrollHeight) {
+      if (target.scrollTop + target.clientHeight >= target.scrollHeight) {
         // 如果最后的数据大于等于总数居，则不再执行
-        if(that.over >= that.tableData.length) return
-  
+        if (that.over >= that.tableData.length)
+          return
+
         that.over += 20
       }
     })
@@ -96,11 +97,11 @@ const mixin = {
       start: 0, // 起始位置
       over: 0, // 终止位置
       tableHeight: 300, // 默认高度
-    };
+    }
   },
   mounted() {},
   methods: {},
-};
+}
 
 export default mixin
 ```
@@ -122,7 +123,7 @@ const mixin = {
     return {
       tableHeight: 300, // 表单默认高度
       scrollTop: 288, // 表单顶部被卷曲的高度
-    };
+    }
   },
   computed: {
     // 计算起始位置的索引。最大值为0，不能有负数。
@@ -141,7 +142,7 @@ const mixin = {
     },
   },
   methods: {},
-};
+}
 ```
 
 自定义指令中为表格整体设置样式内边距；实时获取对应的表格高度与被卷曲的高度即可。
@@ -155,12 +156,12 @@ Vue.directive('myscroll', {
 
     target.addEventListener('scroll', () => {
       setTimeout(() => {
-        table.style.paddingTop = that.padding[0] + 'px'
-        table.style.paddingBottom = that.padding[1] + 'px'
+        table.style.paddingTop = `${that.padding[0]}px`
+        table.style.paddingBottom = `${that.padding[1]}px`
 
         that.scrollTop = target.scrollTop
         that.tableHeight = target.clientHeight
-      }, 200);
+      }, 200)
     })
   }
 })

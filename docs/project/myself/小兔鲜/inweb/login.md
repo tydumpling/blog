@@ -46,13 +46,13 @@ export const useUserStore = defineStore('user', () => {
 
 ```js
 // axios请求拦截器
-http.interceptors.request.use(config => {
+http.interceptors.request.use((config) => {
   const { userinfo } = useUserStore()
   // 获取token
   const token = userinfo.token
-  if (token) {
+  if (token)
     config.headers.Authorization = `Bearer ${token}`
-  }
+
   return config
 }, e => Promise.reject(e))
 ```
@@ -66,14 +66,14 @@ http.interceptors.request.use(config => {
 
 ```js
 // axios响应式拦截器
-http.interceptors.response.use(res => res.data, e => {
+http.interceptors.response.use(res => res.data, (e) => {
   ElMessage({ type: 'error', message: e.response.data.message })
-  
+
   // 401错误处理
-  if(e.response.status === '401' || e.response.status === '403') {
+  if (e.response.status === '401' || e.response.status === '403') {
     const { logoutFn } = useUserStore()
     logoutFn()
-    useRouter.replace({path: '/login'})
+    useRouter.replace({ path: '/login' })
   }
 
   return Promise.reject(e)

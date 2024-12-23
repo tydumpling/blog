@@ -214,7 +214,7 @@ export default config
 ```
 ::: code-group
 ```js
-```
+``
 ```html
 ```
 :::
@@ -241,7 +241,7 @@ import type { UserConfig } from 'vitepress'
 const config: UserConfig = {
   // ...
 }
-  
+
 export default config
 ```
 

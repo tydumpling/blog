@@ -21,9 +21,9 @@
       将第三步中获取的样式ID作为setMapStyleV2方法的参数。(注意：发布的styleID需要与ak为同一个用户)
 
       ```js
-      map.setMapStyleV2({     
+      map.setMapStyleV2({
         styleId: '3d71dc5a4ce6222d3396801dee06622d'
-      });
+      })
       ```
 
 2. 通过样式 JSON 文件调用样式
@@ -44,9 +44,9 @@
       const { map } = storeToRefs(useMapStore())
       
       onMounted(() => {
-          map.value = new BMapGL.Map(container.value)
-          // ...
-          map.value.setMapStyleV2({ styleJson: styleJson }); // 地图自定义样式
+        map.value = new BMapGL.Map(container.value)
+        // ...
+        map.value.setMapStyleV2({ styleJson }) // 地图自定义样式
       })
       ```
 

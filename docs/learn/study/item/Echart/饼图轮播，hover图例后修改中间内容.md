@@ -12,20 +12,20 @@
 
   ```js
   myChart.value.dispatchAction({
-      type: 'highlight',
-      seriesIndex: 0, // setOption中series数组内第几索引的对象
-      dataIndex: 1, // setOption中series数组对象中data第几项数据
-  });
+    type: 'highlight',
+    seriesIndex: 0, // setOption中series数组内第几索引的对象
+    dataIndex: 1, // setOption中series数组对象中data第几项数据
+  })
   ```
 
 - `downplay` 用于取消高亮指定的图形，用法如下：
 
   ```js
   myChart.value.dispatchAction({
-      type: 'downplay',
-      seriesIndex: 0, // setOption中series数组内第几索引的对象
-      dataIndex: 1, // setOption中series数组对象中data第几项数据
-  });
+    type: 'downplay',
+    seriesIndex: 0, // setOption中series数组内第几索引的对象
+    dataIndex: 1, // setOption中series数组对象中data第几项数据
+  })
   ```
 
 
@@ -36,10 +36,10 @@
 为 `echart` 绑定 `highlight` 方法后，能够在内容激活后触发该事件。
 
 ```js
-const myChart = documment.querySelector('.echart');
+const myChart = documment.querySelector('.echart')
 
 myChart.on('highlight', (e) => {
-  console.log(e);
+  console.log(e)
 })
 ```
 

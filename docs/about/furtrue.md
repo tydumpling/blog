@@ -82,8 +82,12 @@
   </script>
   
   <template>
-  	<div v-if="status === 'status1'">你没权限</div>
-  	<div v-if="status === 'status2'">你有权限</div>
+    <div v-if="status === 'status1'">
+      你没权限
+    </div>
+    <div v-if="status === 'status2'">
+      你有权限
+    </div>
   </template>
   ```
 
@@ -99,9 +103,15 @@
   </script>
   
   <template>
-  	<div v-if="status === ''">正在查询权限</div>
-  	<div v-if="status === 'status1'">你没权限</div>
-  	<div v-if="status === 'status2'">你有权限</div>
+    <div v-if="status === ''">
+      正在查询权限
+    </div>
+    <div v-if="status === 'status1'">
+      你没权限
+    </div>
+    <div v-if="status === 'status2'">
+      你有权限
+    </div>
   </template>
   ```
 
@@ -128,10 +138,10 @@
    例如后端返回的数据对象中有一个数组，前端需要循环数组拿数据，如果接口没报错直接点拿到自然没问题，但是需要考虑后端接口没返回该数据，或该数据为 `null` 的风险。后端返回的数据前端没法控制，前端能做到的是添加可选链，或非空判断，减少报错。
 
    ```js
-   let a = ref({})
+   const a = ref({})
    
    watch(() => {
-     a.value.arr?.forEach(item => {
+     a.value.arr?.forEach((item) => {
        console.log(item)
      })
    }, a)

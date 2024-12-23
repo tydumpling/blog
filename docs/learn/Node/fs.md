@@ -33,27 +33,28 @@ hello
 - 成功情况
 
   ```js
-  const fs = require("fs");
-  fs.readFile("./1.txt", "utf8", function (err, dataStr) {
-    console.log(err); // null
-    console.log(dataStr); // hello
-  });
+  const fs = require('node:fs')
+  fs.readFile('./1.txt', 'utf8', (err, dataStr) => {
+    console.log(err) // null
+    console.log(dataStr) // hello
+  })
   ```
 
 - 失败情况
 
   ```js
-  const fs = require("fs");
-  fs.readFile("./11.txt", "utf8", function (err, dataStr) {
-    console.log(err);
+  const fs = require('node:fs')
+  
+  fs.readFile('./11.txt', 'utf8', (err, dataStr) => {
+    console.log(err)
     // {
     //	errno: -4058,
     //	code: 'ENOENT',
     //	syscall: 'open',
     //	path: 'C:\\Users\\Administrator\\Desktop\\blog\\node\\11.txt'
     // }
-    console.log(dataStr); // undefined
-  });
+    console.log(dataStr) // undefined
+  })
   ```
 
 ### 写入文件
@@ -74,27 +75,27 @@ fs.writeFile(file, data[, options], callback)
 - 成功状态
 
   ```js
-  const fs = require("fs");
+  const fs = require('fs');
 
-  fs.writeFile("./1.txt", "add", "utf8", function (err) {
-    console.log(err); // null
-  });
+  fs.writeFile("'./1.txt' "'add' "'utf8' f(err) =>{
+    console.log(err)) // null
+  };
   ```
 
 - 失败状态
 
   ```js
-  const fs = require("fs");
+  const fs = require('fs');
 
-  fs.writeFile("./11.txt", "add", "utf8", function (err) {
-    console.log(err);
+  fs.writeFile("'./11.txt' "'add' "'utf8' f(err) =>{
+    console.log(err))
     // {
     //  errno: -4058,
     //  code: 'ENOENT',
     //  syscall: 'open',
     //  path: 'C:\\Users\\Administrator\\Desktop\\blog\\abc\\1.txt'
     // }
-  });
+  };
   ```
 
 ### 案例
@@ -119,26 +120,25 @@ tydumpling：150
 代码：
 
 ```js
-const fs = require("fs");
+const fs = require('node:fs')
 
-fs.readFile("./1.txt", "utf8", function (err, dataStr) {
+fs.readFile('./1.txt', 'utf8', (err, dataStr) => {
   // 判断读取是否成功
-  if (err) {
-    return console.log("读取文件失败，", err);
-  }
+  if (err)
+    return console.log('读取文件失败，', err)
 
   // 把获取到的字符串中的 = 正则替换为：，空格替换为换行
-  const arr = dataStr.replace(/\=/g, "：").replace(/ /g, "\r\n");
+  const arr = dataStr.replace(/\=/g, '：').replace(/ /g, '\r\n')
 
-  fs.writeFile("./2.txt", arr, "utf8", function (err) {
+  fs.writeFile('./2.txt', arr, 'utf8', (err) => {
     // 判断写入是否成功
-    if (err) {
-      console.log("成绩写入失败");
-    } else {
-      console.log("成绩写入成功");
-    }
-  });
-});
+    if (err)
+      console.log('成绩写入失败')
+    else
+      console.log('成绩写入成功')
+
+  })
+})
 ```
 
 ## 同步操作
@@ -399,10 +399,11 @@ rmdir('hd')
 下面是递归删除目录，非空目录也可以一次删除
 
 ```js
-import { rmdir } from "fs";
+import { rmdir } from 'node:fs'
 
-rmdir("hd", { recursive: true }, (error) => {
-  if (error) throw error;
-  console.log("目录删除成功");
-});
+rmdir('hd', { recursive: true }, (error) => {
+  if (error)
+    throw error
+  console.log('目录删除成功')
+})
 ```

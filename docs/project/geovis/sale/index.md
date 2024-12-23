@@ -93,22 +93,22 @@ title 项目简介
   ```js
   // 防抖
   export function debounce(fn, delay = 500) {
-  	let timer = null;
-  	return function() {
-  		if (timer) {
-  			clearTimeout(timer);
-  		}
-  		timer = setTimeout(() => {
-  			fn.apply(this, arguments);
-  		}, delay)
-  	}
+    let timer = null
+    return function () {
+      if (timer)
+        clearTimeout(timer)
+  
+      timer = setTimeout(() => {
+        fn.apply(this, arguments)
+      }, delay)
+    }
   }
   ```
 
 - 函数导入
 
   ```js
-  import {debounce} from '@/utils/utils.js'
+  import { debounce } from '@/utils/utils.js'
   ```
 
 - 函数使用
@@ -130,10 +130,10 @@ title 项目简介
 `uniapp` 中没有路由的概念，可以通过 `getCurrentPages()` 方法获取当前的页面栈，为数组对象的形式，第一项为当前的页面，第二项为上一页。`route` 属性的值是该页面的路由，因此可以获取然后跳转页面。
 
 ```js
-const pages = getCurrentPages() //获取加载的页面，数组形式，route是页面栈的路由
-const url = pages[pages.length - 2].route === 'pages/login/Login' ? pages[pages.length - 3].route : pages[pages.length - 2].route; // 上个来登录页的页面，有可能会跳两次登录页，因此判断上一个页面是否为登录页，如果是登录页则再向上上个页面获取
+const pages = getCurrentPages() // 获取加载的页面，数组形式，route是页面栈的路由
+const url = pages[pages.length - 2].route === 'pages/login/Login' ? pages[pages.length - 3].route : pages[pages.length - 2].route // 上个来登录页的页面，有可能会跳两次登录页，因此判断上一个页面是否为登录页，如果是登录页则再向上上个页面获取
 uni.navigateTo({
-	url
+  url
 })
 ```
 

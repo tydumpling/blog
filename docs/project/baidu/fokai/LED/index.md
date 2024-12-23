@@ -43,18 +43,18 @@ const { map } = storeToRefs(useMapStore())
 const container = ref(null)
 
 onMounted(() => {
-    map.value = new BMapGL.Map(container.value)
-    let point = new BMapGL.Point(113.024568, 22.788965);
-    map.value.centerAndZoom(point, 16.5); // 设置中心点
-    map.value.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-    // map.value.setTilt(73); //设置地图的倾斜角度
-    // 设置地图的偏转角度（旋转角度），顺时针为正方向
-    map.value.setHeading(50); // 设置地图旋转角度为60度
+  map.value = new BMapGL.Map(container.value)
+  const point = new BMapGL.Point(113.024568, 22.788965)
+  map.value.centerAndZoom(point, 16.5) // 设置中心点
+  map.value.enableScrollWheelZoom(true) // 开启鼠标滚轮缩放
+  // map.value.setTilt(73); //设置地图的倾斜角度
+  // 设置地图的偏转角度（旋转角度），顺时针为正方向
+  map.value.setHeading(50) // 设置地图旋转角度为60度
 })
 </script>
 
 <template>
-    <div ref="container" id="map_container"></div>
+  <div id="map_container" ref="container" />
 </template>
 ```
 

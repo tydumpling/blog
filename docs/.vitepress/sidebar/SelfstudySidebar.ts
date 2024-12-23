@@ -2,7 +2,7 @@
 const SelfstudySidebar = [
   {
     text: '📕 自主学习',
-    
+
     items: [
       { text: '📕 引言', link: '/myself/' },
       { text: '🐇 小兔鲜', link: '/myself/小兔鲜/inweb/all' },

@@ -43,7 +43,7 @@ export default {
   // ...
   "main": "index.js",
   "module": "index.module.js",
-  "broswer": "index.broswer.js",
+  "broswer": "index.broswer.js"
 }
 ```
 
@@ -66,7 +66,8 @@ module.exports = {
 引入该文件。
 
 ```js
-let test = require('./test')
+const test = require('./test')
+
 console.log(test)
 ```
 
@@ -116,8 +117,12 @@ export default {
 在之前没有 `exports` 时导出的是 `broswer` ，现在有了之后导出的是 `exports` 的值。
 
 ```js
-import exports from 'test' // {msg: 'exports'}
-import exportStyle from 'test/style' // {msg: 'style'}
+import exports from 'test'
+
+// {msg: 'exports'}
+import exportStyle from 'test/style'
+
+// {msg: 'style'}
 ```
 
 若直接 `import` `test` 模块，走默认的 `.` ，同时支持路径定义引入。
@@ -171,9 +176,8 @@ export * from './index.js'
 ```js
 'use strict'
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production')
   module.exports = require('./dist/vue.cjs.prod.js')
-} else {
+else
   module.exports = require('./dist/vue.cjs.js')
-}
 ```

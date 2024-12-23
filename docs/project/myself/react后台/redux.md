@@ -21,16 +21,16 @@ title react后台仓库配置
 const defaultState = {
   num: 20,
   age: 30,
-};
+}
 
 // 准备数据，返回state的形式
-let reducer = (state = defaultState,) => {
-  let newState = JSON.parse(JSON.stringify(state));
+function reducer(state = defaultState) {
+  const newState = JSON.parse(JSON.stringify(state))
 
-  return newState;
-};
+  return newState
+}
 
-export default reducer;
+export default reducer
 ```
 
 创建一个 `index` 文件，通过 `redux` 提供的 `legacy_createStore` 方法创建数据仓库，再全部导出。其中：
@@ -41,16 +41,16 @@ export default reducer;
 代码如下所示：
 
 ```js
-import { legacy_createStore } from "redux";
-import reducer from "./reducer";
+import { legacy_createStore } from 'redux'
+import reducer from './reducer'
 
 // 创建数据仓库，创建配置项使其能让浏览器正常使用react-redux-devtools扩展插件调试
 const store = legacy_createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+)
 
-export default store;
+export default store
 ```
 
 ## 仓库注册
@@ -65,10 +65,10 @@ export default store;
 ```jsx
 // ...
 // 状态管理
-import { Provider } from "react-redux";
-import store from "./store";
+import { Provider } from 'react-redux'
+import store from './store'
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
@@ -76,7 +76,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </BrowserRouter>
     </React.StrictMode>
   </Provider>
-);
+)
 ```
 
 ## 数据使用
@@ -84,22 +84,22 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 通过 `react-redux` 中的 `useSelector` hook 获取仓库内的数据，方法传入一个函数，函数形参为仓库内的数据对象。通过解构获取数据，代码如下所示：
 
 ```jsx
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 export default function Vue() {
   // 获取仓库数据
-  const { num, age } = useSelector((state) => ({
+  const { num, age } = useSelector(state => ({
     num: state.num,
     age: state.age,
-  }));
+  }))
 
   return (
     <div>
       <p>{num}</p>
       <p>{age}</p>
     </div>
-  );
+  )
 }
 ```
 
@@ -110,29 +110,29 @@ export default function Vue() {
 这里以增加数字为例，`type` 设置为 `add` 。代码如下所示：
 
 ```jsx
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Vue() {
   // 获取仓库数据
-  const { num, age } = useSelector((state) => ({
+  const { num, age } = useSelector(state => ({
     num: state.num,
     age: state.age,
-  }));
+  }))
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleChangeFn = () => {
     // dispatch({type: '字符串（认为是一个记号）'，val：3}) type是固定的，val是自定义的
-    dispatch({ type: "add", val: 3 });
-  };
+    dispatch({ type: 'add', val: 3 })
+  }
   return (
     <div>
       <p>{num}</p>
       <p>{age}</p>
       <button onClick={handleChangeFn}>click me</button>
     </div>
-  );
+  )
 }
 ```
 
@@ -143,25 +143,25 @@ export default function Vue() {
 const defaultState = {
   num: 20,
   age: 30,
-};
+}
 
 // 准备数据，返回state的形式
-let reducer = (state = defaultState, action) => {
+function reducer(state = defaultState, action) {
   // dispatch调用这里的代码也会执行
-  let newState = JSON.parse(JSON.stringify(state));
+  const newState = JSON.parse(JSON.stringify(state))
 
   switch (action.type) {
-    case "add":
-      newState.num += action.val;
-      break;
+    case 'add':
+      newState.num += action.val
+      break
     default:
-      break;
+      break
   }
 
-  return newState;
-};
+  return newState
+}
 
-export default reducer;
+export default reducer
 ```
 
 ## 模块化
@@ -173,15 +173,15 @@ export default reducer;
 2. 在 `index.js` 文件中引入，并通过 `redux` 提供的 `combineReducers` API 实现模块化
 
    ```js
-   import { legacy_createStore, combineReducers } from "redux";
+   import { combineReducers, legacy_createStore } from 'redux'
    
-   import reducerB from "./reducerB";
-   import reducerA from "./reducerA";
+   import reducerB from './reducerB'
+   import reducerA from './reducerA'
    
    const reducers = combineReducers({
      reducerA,
      reducerB,
-   });
+   })
    ```
 
 3. `legacy_createStore` 创建数据仓库时参数一改为合并后的仓库
@@ -190,7 +190,7 @@ export default reducer;
    const store = legacy_createStore(
      reducers,
      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-   );
+   )
    ```
 
 此时运行，刷新页面，可以发现页面上的数据没了。这是因为之前没做模块化，所有的数据都是在一个对象内，如下所示：
@@ -248,22 +248,22 @@ export default reducer;
   import indexA from './indexA.js'
   
   // 直接通过解构的形式把初始值赋值给参数一的 state 形参
-  let reducer = (state = { ...indexA.state }, action) => {
+  function reducer(state = { ...indexA.state }, action) {
     // dispatch调用这里的代码也会执行
-    let newState = JSON.parse(JSON.stringify(state));
+    const newState = JSON.parse(JSON.stringify(state))
   
     switch (action.type) {
       case indexA.actionNames.add:
         indexA.actions[indexA.actionNames.add](newState, action)
-        break;
+        break
       default:
-        break;
+        break
     }
   
-    return newState;
-  };
+    return newState
+  }
   
-  export default reducer;
+  export default reducer
   ```
 
 ### switch优化
@@ -277,22 +277,22 @@ export default reducer;
 import indexA from './indexA.js'
 
 // 直接通过解构的形式把初始值赋值给参数一的 state 形参
-let reducer = (state = { ...indexA.state }, action) => {
+function reducer(state = { ...indexA.state }, action) {
   // dispatch调用这里的代码也会执行
-  let newState = JSON.parse(JSON.stringify(state));
+  const newState = JSON.parse(JSON.stringify(state))
 
-  for(let key in indexA.actionName) {
+  for (const key in indexA.actionName) {
     // key为对象的键。判断键是否与当前的action.type相等
-    if(action.type === indexA.actionName[key]) {
+    if (action.type === indexA.actionName[key]) {
       // 相等则调用对应名称的方法
       indexA.actions[indexA.actionName[key]](newState, action)
     }
   }
 
-  return newState;
-};
+  return newState
+}
 
-export default reducer;
+export default reducer
 ```
 
 此时可以不用再去考虑 `reducerA.js` 文件的修改，只需要看 `indexA.js` 中的 `state` 与 `actions` 。
@@ -320,9 +320,8 @@ const store = {
 }
 
 // 遍历action设置值
-for(let key in store.actions[key]) {
+for (const key in store.actions[key])
   store.actionName[key] = key
-}
 
 export default store
 ```
@@ -344,8 +343,9 @@ export default store
   不能在 `action` 中使用，其只能使用同步的方法，需要配置 `react-thunk` 。前往 `store/index.js` 文件中配置
 
   ```js
-  import { legacy_createStore, combineReducers, compose } from "redux";
+  import { combineReducers, compose, legacy_createStore } from 'redux'
   import reduxThunk from 'redux-thunk'
+  
   // ...
   
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__({}) : compose
@@ -354,9 +354,9 @@ export default store
   const store = legacy_createStore(
     reducers,
     composeEnhancers(applyMiddleware(reduxThunk))
-  );
+  )
   
-  export default store;
+  export default store
   ```
 
 ### 使用
@@ -364,21 +364,21 @@ export default store
 `react-thunk` 方法需要传递一个函数，函数形参可使用 `dispatch` 的方法。代码如下所示：
 
 ```js
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Vue() {
   // ...
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleChangeFn = () => {
     // 异步方法
     dispatch((dis) => {
       setTimeout(() => {
-        dis({ type: "addTime", val: 3 })
+        dis({ type: 'addTime', val: 3 })
       }, 1000)
-    });
-  };
+    })
+  }
   // ...
 }
 ```
@@ -405,7 +405,7 @@ const store = {
   asyncActions: {
     asyncAdd(dispatch) {
       setTimeout(() => {
-        dispatch({type: 'add'})
+        dispatch({ type: 'add' })
       }, 1000)
     }
   },
@@ -413,9 +413,8 @@ const store = {
 }
 
 // 遍历action设置值
-for(let key in store.actions[key]) {
+for (const key in store.actions[key])
   store.actionName[key] = key
-}
 
 export default store
 ```
@@ -423,13 +422,13 @@ export default store
 则 `index.js` 只需要引入对应的方法并且调用即可。代码如下：
 
 ```js
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import indexA from '@/store/indexA.js'
 
 export default function Vue() {
   // ...
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleChangeFn = () => {
     // 异步方法
@@ -438,8 +437,8 @@ export default function Vue() {
     //     dis({ type: "addTime", val: 3 })
     //   }, 1000)
     // });
-    dispatch(indexA.asyncActions.asyncAdd);
-  };
+    dispatch(indexA.asyncActions.asyncAdd)
+  }
   // ...
 }
 ```
@@ -467,9 +466,8 @@ const store = {
 }
 
 // 遍历action设置值
-for(let key in store.actions[key]) {
+for (const key in store.actions[key])
   store.actionName[key] = key
-}
 
 export default store
 ```
@@ -481,22 +479,22 @@ export default store
 import index from './reducerA.js'
 
 // 直接通过解构的形式把初始值赋值给参数一的 state 形参
-let reducer = (state = { ...indexA.state }, action) => {
+function reducer(state = { ...indexA.state }, action) {
   // dispatch调用这里的代码也会执行
-  let newState = JSON.parse(JSON.stringify(state));
+  const newState = JSON.parse(JSON.stringify(state))
 
-  for(let key in indexA.actionName) {
+  for (const key in indexA.actionName) {
     // key为对象的键。判断键是否与当前的action.type相等
-    if(action.type === indexA.actionName[key]) {
+    if (action.type === indexA.actionName[key]) {
       // 相等则调用对应名称的方法
       indexA.actions[indexA.actionName[key]](newState, action)
     }
   }
 
-  return newState;
-};
+  return newState
+}
 
-export default reducer;
+export default reducer
 ```
 
 需要使用时引入对应的 `index.js` 文件使用即可，其中：
@@ -507,27 +505,26 @@ export default reducer;
 代码如下：
 
 ```js
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import indexA from '@/store/indexA.js'
 
 export default function Vue() {
   // 获取仓库数据
-  const { num, age } = useSelector((state) => ({
+  const { num, age } = useSelector(state => ({
     num: state.indexA.num,
     age: state.indexA.age,
-  }));
-  
-  const dispatch = useDispatch();
+  }))
+
+  const dispatch = useDispatch()
 
   const handleChangeFn = () => {
     // 同步方法
-    dispatch({ type: "add", val: 3 });
+    dispatch({ type: 'add', val: 3 })
 
-    
     // 异步方法
-    dispatch(indexA.asyncActions.方法名);
-  };
+    dispatch(indexA.asyncActions.方法名)
+  }
   // ...
 }
 ```

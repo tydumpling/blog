@@ -25,7 +25,7 @@ SPU 管理模块页面效果如下所示：
 <script setup ts>
 // 计算出当前还未拥有的销售属性
 const unSelectAttrList = computed(() => {
-  let unSelectArr = spuAttrList.value.filter((item) => {
+  const unSelectArr = spuAttrList.value.filter((item) => {
     return spuHasAttrList.value.every((item1) => {
       // 当该item项都不匹配，返回true，被filter过滤除去
       return item.name !== item1.saleAttrName
@@ -49,6 +49,7 @@ const unSelectAttrList = computed(() => {
     {{ item.name }}
   </el-option>
 </el-select>
+
 <el-button
   :disabled="!saleChoseAttrVal && typeIsInfo"
   type="primary"
@@ -70,7 +71,7 @@ const unSelectAttrList = computed(() => {
 
      ```js
      spuAttrList.value.forEach((item) => {
-       let flag = spuHasAttrList.value.every((item1) => item.name !== item1.saleAttrName)
+       const flag = spuHasAttrList.value.every(item1 => item.name !== item1.saleAttrName)
      })
      ```
 
@@ -79,8 +80,8 @@ const unSelectAttrList = computed(() => {
    - 过滤魏村在的数据为新的数组
 
      ```js
-     let arr = spuAttrList.value.filter((item) => {
-       let flag = spuHasAttrList.value.every((item1) => item.name !== item1.saleAttrName)
+     const arr = spuAttrList.value.filter((item) => {
+       const flag = spuHasAttrList.value.every(item1 => item.name !== item1.saleAttrName)
        return flag
      })
      ```
@@ -94,11 +95,11 @@ const unSelectAttrList = computed(() => {
 ```js
 // 销售属性选择
 const saleChoseAttrVal = ref('')
-const addAttrFn = () => {
+function addAttrFn() {
   console.log(saleChoseAttrVal.value)
   // 准备初始化新的对象
   const [baseSaleAttrId, saleAttrName] = saleChoseAttrVal.value.split(':')
-  let newSaleAttr: spuSaleItemType = {
+  const newSaleAttr: spuSaleItemType = {
     baseSaleAttrId,
     saleAttrName,
     spuSaleAttrValueList: [],
@@ -114,22 +115,22 @@ const addAttrFn = () => {
 
 ```js
 // 输入框失焦事件
-const handleBlurFn = (row: spuSaleItemType) => {
+function handleBlurFn(row: spuSaleItemType) {
   const { saleAttrValue, baseSaleAttrId } = row
   // 如果为空，返回
-  if(!saleAttrValue?.trim()) {
+  if (!saleAttrValue?.trim()) {
     ElMessage.warning('属性值不能为空')
     return
   }
 
   // 判断属性值是否在数组中存在
   const obj = row.spuSaleAttrValueList.find(item => item.saleAttrValueName === saleAttrValue)
-  if(obj) {
+  if (obj) {
     ElMessage.warning('已存在相同的属性值，请更换')
     return
   }
 
-  let newSaleAttrValue: spuSaleAttrValueListType = {
+  const newSaleAttrValue: spuSaleAttrValueListType = {
     baseSaleAttrId,
     saleAttrValueName: saleAttrValue!
   }
@@ -150,7 +151,7 @@ const handleBlurFn = (row: spuSaleItemType) => {
 在编辑数据时通过为编辑按钮绑定点击事件，传递当前项的对象数据来获取被选中的数据项，代码如下所示：
 
 ```js
-const handleEditFn = (row) => {
+function handleEditFn(row) {
   show.value = true
   initAttrData.value = row
 }
@@ -171,9 +172,9 @@ const handleEditFn = (row) => {
 `Object.assign`默认是对对象进行深拷贝的，但是我们需要注意的是，它只对最外层的进行深拷贝，也就是当对象内嵌套有对象的时候，被嵌套的对象进行的还是浅拷贝；
 
 ```js
-function cloneDeepAssign(obj){
-  return Object.assign({},obj)
-  //Object.assign({},obj)
+function cloneDeepAssign(obj) {
+  return Object.assign({}, obj)
+  // Object.assign({},obj)
 }
 ```
 
@@ -188,7 +189,7 @@ function cloneDeepAssign(obj){
 这是我们最最最常提到的一种深拷贝的方式，一般大部分的深拷贝都可以用`JSON`的方式进行解决，本质是因为`JSON`会自己去构建新的内存来存放新对象。
 
 ```js
-function cloneDeepJson(obj){
+function cloneDeepJson(obj) {
   return JSON.parse(JSON.stringify(obj))
 }
 ```
@@ -205,17 +206,17 @@ function cloneDeepJson(obj){
 ```js
 function deepCopy(obj) {
   return new Promise((resolve) => {
-    const {port1, port2} = new MessageChannel();
-    port2.onmessage = ev => resolve(ev.data);
-    port1.postMessage(obj);
-  });
+    const { port1, port2 } = new MessageChannel()
+    port2.onmessage = ev => resolve(ev.data)
+    port1.postMessage(obj)
+  })
 }
 
-deepCopy(obj).then((copy) => {// 异步的
-    let copyObj = copy;
-    console.log(copyObj, obj)
-    console.log(copyObj == obj)
-});
+deepCopy(obj).then((copy) => { // 异步的
+  const copyObj = copy
+  console.log(copyObj, obj)
+  console.log(copyObj == obj)
+})
 ```
 
 （个人感觉这种方法还挺有意思的，如果面试的讲出来的话，应该会给面试官一个小惊喜🙌）
@@ -227,19 +228,20 @@ deepCopy(obj).then((copy) => {// 异步的
 ### 递归实现
 
 ```js
-function cloneDeepDi(obj){
-  const newObj = {};
-  let keys = Object.keys(obj);
-  let key = null;
-  let data = null;
-  for(let i = 0; i<keys.length;i++){
-    key = keys[i];
-    data = obj[key];
-    if(data && typeof data === 'object'){
+function cloneDeepDi(obj) {
+  const newObj = {}
+  const keys = Object.keys(obj)
+  let key = null
+  let data = null
+  for (let i = 0; i < keys.length; i++) {
+    key = keys[i]
+    data = obj[key]
+    if (data && typeof data === 'object')
       newObj[key] = cloneDeepDi(data)
-    }else{
-      newObj[key] = data;
-    }
+
+    else
+      newObj[key] = data
+
   }
   return newObj
 }
@@ -295,14 +297,15 @@ js复制代码function deepCopy(obj, parent = null) {
 ### [lodash](https://link.juejin.cn/?target=https%3A%2F%2Flodash.com%2F)的_.cloneDeep()
 
 ```js
-var _ = require('lodash');
-var obj1 = {
-    a: 1,
-    b: { f: { g: 1 } },
-    c: [1, 2, 3]
-};
-var obj2 = _.cloneDeep(obj1);
-console.log(obj1.b.f === obj2.b.f);// false
+const _ = require('lodash')
+
+const obj1 = {
+  a: 1,
+  b: { f: { g: 1 } },
+  c: [1, 2, 3]
+}
+const obj2 = _.cloneDeep(obj1)
+console.log(obj1.b.f === obj2.b.f)// false
 ```
 
 这是最最最最完美的深拷贝的方式，它已经将会出现问题的各种情况都考虑在内了，所以在日常项目开发当中，建议使用这种成熟的解决方案；关于原理分析，鄙人无能，只能为各位大佬指个路:
@@ -326,33 +329,34 @@ console.log(obj1.b.f === obj2.b.f);// false
 ##### 对象各种方法的应用
 
 ```js
-let deepClone = function (obj) {
-    let copy = Object.create(Object.getPrototypeOf(obj));
-    let propNames = Object.getOwnPropertyNames(obj);
-    propNames.forEach(function (items) {
-        let item = Object.getOwnPropertyDescriptor(obj, items);
-        Object.defineProperty(copy, items, item);
+const deepClone = function (obj) {
+  const copy = Object.create(Object.getPrototypeOf(obj))
+  const propNames = Object.getOwnPropertyNames(obj)
+  propNames.forEach((items) => {
+    const item = Object.getOwnPropertyDescriptor(obj, items)
+    Object.defineProperty(copy, items, item)
 
-    });
-    return copy;
-};
+  })
+  return copy
+}
 ```
 
 ##### for..in.与Object.create结合实现
 
 ```js
-function deepClone(initalObj, finalObj) {   
-    var obj = finalObj || {};   
-    for(var i in initalObj) {       
-	var prop = initalObj[i];        // 避免相互引用对象导致死循环，如initalObj.a = initalObj的情况
-	if(prop === obj)  continue;      
-	if(typeof prop === 'object') {
-            obj[i] = (prop.constructor === Array) ? [] : Object.create(prop);
-        } else {
-          obj[i] = prop;
-        }
-    }   
-    return obj;
+function deepClone(initalObj, finalObj) {
+  const obj = finalObj || {}
+  for (const i in initalObj) {
+    const prop = initalObj[i] // 避免相互引用对象导致死循环，如initalObj.a = initalObj的情况
+    if (prop === obj)
+      continue
+    if (typeof prop === 'object')
+      obj[i] = (prop.constructor === Array) ? [] : Object.create(prop)
+    else
+      obj[i] = prop
+
+  }
+  return obj
 }
 ```
 
@@ -362,20 +366,20 @@ function deepClone(initalObj, finalObj) {
 
 ```js
 function structuralClone(obj) {
-   const oldState = history.state;
-   const copy;
-   history.replaceState(obj, document.title);
-   copy = history.state;
-   history.replaceState(oldState, document.title); 
-   return copy;
+  const oldState = history.state
+  const copy
+  history.replaceState(obj, document.title)
+  copy = history.state
+  history.replaceState(oldState, document.title)
+  return copy
 }
 
-var obj = {};
-var b = {obj};
+const obj = {}
+const b = { obj }
 obj.b = b
 
-var copy = structuralClone(obj);
-console.log(copy);
+const copy = structuralClone(obj)
+console.log(copy)
 ```
 
 这个方法的优点是。能解决循环对象的问题，也支持许多内置类型的克隆。并且是同步的。但是缺点就是有的浏览器对调用频率有限制。比如Safari 30 秒内只允许调用 100 次
@@ -385,14 +389,14 @@ console.log(copy);
 这个api主要是用于桌面通知的。如果你使用Facebook的时候，你肯定会发现时常在浏览器的右下角有一个弹窗，对就是这家伙。我们也可以利用这个api实现js对象的深拷贝。
 
 ```js
-function structuralClone(obj) { 
-  return new Notification('', {data: obj, silent: true}).data;
+function structuralClone(obj) {
+  return new Notification('', { data: obj, silent: true }).data
 }
-var obj = {};
-var b = {obj};
+const obj = {}
+const b = { obj }
 obj.b = b
 
-var copy = structuralClone(obj);
+const copy = structuralClone(obj)
 console.log(copy)
 ```
 

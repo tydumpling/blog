@@ -15,7 +15,7 @@
 
 ```js
 window.addEventListener('storage', (e) => {
-    console.log(e)
+  console.log(e)
 })
 ```
 
@@ -33,26 +33,26 @@ window.addEventListener('storage', (e) => {
 
 ```js
 export function sendMsg(type, payload) {
-    localStorage.setItem(
-        '@@' + type,
-        JSON.stringify({
-            payload,
-            temp: Date.now()
-        })
-    )
+  localStorage.setItem(
+    `@@${type}`,
+    JSON.stringify({
+      payload,
+      temp: Date.now()
+    })
+  )
 }
 
 export function listenMsg(handler) {
-    const storageHandler = (e) => {
-        const data = JSON.parse(e.newValue)
-        handler(e.key.substring(2), data.payload)
-    }
-    
-    window.addEventListener('storage', storageHandler)
-    
-    return () => {
-        window.removeEventListener('storage', storageHandler)
-    }
+  const storageHandler = (e) => {
+    const data = JSON.parse(e.newValue)
+    handler(e.key.substring(2), data.payload)
+  }
+
+  window.addEventListener('storage', storageHandler)
+
+  return () => {
+    window.removeEventListener('storage', storageHandler)
+  }
 }
 ```
 
@@ -61,26 +61,26 @@ export function listenMsg(handler) {
 ```js
 let unHandler
 onMounted(() => {
-    unHandler = listenMsg((type, payload) => {
-        console.log(type, payload)
-        if(type === 'xxxx') {
-            // 满足自定义的键名说明改动了相应模块的本地存储
-            arr.value.push(payload)
-        }
-    })
+  unHandler = listenMsg((type, payload) => {
+    console.log(type, payload)
+    if (type === 'xxxx') {
+      // 满足自定义的键名说明改动了相应模块的本地存储
+      arr.value.push(payload)
+    }
+  })
 })
 
 onUnMounted(() => {
-    unHandler && unHandler()
+  unHandler && unHandler()
 })
 ```
 
 保存信息时，在相应的方法函数内调用 `sendMsg` 方法保存数据，代码如下：
 
 ```js
-const addFn = () => {
-    // ...
-    sendMsg('add-emp', emp.value)
+function addFn() {
+  // ...
+  sendMsg('add-emp', emp.value)
 }
 ```
 

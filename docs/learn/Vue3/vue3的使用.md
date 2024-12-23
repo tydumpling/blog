@@ -9,15 +9,9 @@ setup 函数是一个新的组件选项, 作为组件中 `compositionAPI` 的起
 3. 在模版中需要使用的数据和函数，需要在 `setup` 中 `return` 返回，只有返回的值才能在模板中使用。
 
 ```vue
-<template>
-  <div class="container">
-    <h1 @click="say()">{{msg}}</h1>
-  </div>
-</template>
-
 <script>
 export default {
-  setup () {
+  setup() {
     console.log('setup执行了')
     console.log(this)
     // 定义数据和函数
@@ -26,7 +20,7 @@ export default {
       console.log(msg)
     }
 
-    return { msg , say}
+    return { msg, say }
   },
   beforeCreate() {
     console.log('beforeCreate执行了')
@@ -34,6 +28,14 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div class="container">
+    <h1 @click="say()">
+      {{ msg }}
+    </h1>
+  </div>
+</template>
 ```
 
 ## `reactive`
@@ -44,17 +46,11 @@ export default {
 在传入一个复杂数据类型，需要将复杂类型数据, 转换成响应式数据 （返回该对象的响应式代理）
 
 ```vue
-<template>
-  <div>{{ obj.name }}</div>
-  <div>{{ obj.age }}</div>
-  <button @click="add">改值</button>
-</template>
-
 <script>
 import { reactive } from 'vue'
 
 export default {
-  setup () {
+  setup() {
     // 1. setup 需要返回值, 返回的值才能在模板中使用
     // 2. 默认的普通的值不是响应式的, 需要用 reactive 函数
     const obj = reactive({
@@ -69,12 +65,19 @@ export default {
   methods: {
     add() {
       this.obj.age += 1
-      console.log(this.obj);
+      console.log(this.obj)
     }
   }
 }
 </script>
 
+<template>
+  <div>{{ obj.name }}</div>
+  <div>{{ obj.age }}</div>
+  <button @click="add">
+    改值
+  </button>
+</template>
 ```
 
 >  `reactive()` 的局限性
@@ -107,7 +110,8 @@ export default {
 
 ```vue
 <script>
-import { ref } from "vue";
+import { ref } from 'vue'
+
 export default {
   setup() {
     const num = ref(0)
@@ -116,16 +120,17 @@ export default {
       num.value += 1
     }
 
-    return {num, add}
+    return { num, add }
   }
 }
 </script>
 
 <template>
-	<h1>{{num}}</h1>
-	<button @click="add">+</button>
+  <h1>{{ num }}</h1>
+  <button @click="add">
+    +
+  </button>
 </template>
-
 ```
 
 ref 和 reactive 的最佳使用方式：
@@ -147,21 +152,22 @@ ref 和 reactive 的最佳使用方式：
 
 ```vue
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-console.log('setup钩子执行啦');
+console.log('setup钩子执行啦')
 const num = ref(100)
 
-const add = () => {
+function add() {
   num.value += 100
 }
 </script>
 
 <template>
-  <h1>{{num}}</h1>
-  <button @click="add">+</button>
+  <h1>{{ num }}</h1>
+  <button @click="add">
+    +
+  </button>
 </template>
-
 ```
 
 ## v-model
@@ -253,12 +259,12 @@ defineEmits(['update:firstName', 'update:lastName'])
     type="text"
     :value="firstName"
     @input="$emit('update:firstName', $event.target.value)"
-  />
+  >
   <input
     type="text"
     :value="lastName"
     @input="$emit('update:lastName', $event.target.value)"
-  />
+  >
 </template>
 ```
 
@@ -291,7 +297,7 @@ console.log(props.modelModifiers) // { capitalize: true }
     type="text"
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
-  />
+  >
 </template>
 ```
 
@@ -310,15 +316,15 @@ const emit = defineEmits(['update:modelValue'])
 
 function emitValue(e) {
   let value = e.target.value
-  if (props.modelModifiers.capitalize) {
+  if (props.modelModifiers.capitalize)
     value = value.charAt(0).toUpperCase() + value.slice(1)
-  }
+
   emit('update:modelValue', value)
 }
 </script>
 
 <template>
-  <input type="text" :value="modelValue" @input="emitValue" />
+  <input type="text" :value="modelValue" @input="emitValue">
 </template>
 ```
 
@@ -344,11 +350,11 @@ console.log(props.titleModifiers) // { capitalize: true }
 
 ```vue
 <script setup>
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue'
 
 const myAge = ref(21)
 
-const nextAge = computed(()=> {
+const nextAge = computed(() => {
   return myAge.value + 1
 })
 
@@ -363,15 +369,14 @@ const theAge = computed({
 </script>
 
 <template>
-<div>this year <input type="text" v-model.number="myAge" /></div>
-<div>next year {{nextAge}}</div>
-<div>two years ago <input type="text" v-model="theAge"></div>
+  <div>this year <input v-model.number="myAge" type="text"></div>
+  <div>next year {{ nextAge }}</div>
+  <div>two years ago <input v-model="theAge" type="text"></div>
 </template>
 
 <style>
 
 </style>
-
 ```
 
 > 注意：
@@ -396,66 +401,68 @@ const theAge = computed({
 
 ```vue
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 
 const money = ref(10000)
 
-const cost = () => {
+function cost() {
   return money.value -= 520
 }
 
-watch(money, ()=> {
-  console.log('花钱了');
+watch(money, () => {
+  console.log('花钱了')
 })
 </script>
 
 <template>
-  <div>{{money}}</div>
-  <button @click="cost">花费</button>
+  <div>{{ money }}</div>
+  <button @click="cost">
+    花费
+  </button>
 </template>
 
 <style>
 
 </style>
-
 ```
 
 #### 侦听多个数据
 
 ```vue
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 
 const money = ref(10000)
 const love = ref(0)
 
-const cost = () => {
+function cost() {
   return money.value -= 520, love.value += 1
 }
 
-watch([money, love], ([newMoney, newLove], [oldMoney, oldLove])=> {
-  console.log('花钱了，好感度上升了');
-  console.log(newMoney, newLove);
-  console.log(oldMoney, oldLove);
+watch([money, love], ([newMoney, newLove], [oldMoney, oldLove]) => {
+  console.log('花钱了，好感度上升了')
+  console.log(newMoney, newLove)
+  console.log(oldMoney, oldLove)
 })
 </script>
 
 <template>
-  <div>{{money}}，{{love}}</div>
-  <button @click="cost">花费</button>
+  <div>{{ money }}，{{ love }}</div>
+  <button @click="cost">
+    花费
+  </button>
 </template>
 
 <style>
 
 </style>
-
 ```
 
 ### 复杂数据类型的侦听器
 
 ```vue
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 
 const user = ref({
   age: 21,
@@ -464,8 +471,8 @@ const user = ref({
 
 watch(
   user,
-  (value)=> {
-    console.log('user对象发生变化');
+  (value) => {
+    console.log('user对象发生变化')
   },
   {
     deep: true,
@@ -475,24 +482,27 @@ watch(
 </script>
 
 <template>
-  <div>{{user}}</div>
-  <div>{{user.name}}</div>
-  <button @click="user.name = 'tie'">改名</button>
-  <div>{{user.age}}</div>
-  <button @click="user.age += 1">长大了</button>
+  <div>{{ user }}</div>
+  <div>{{ user.name }}</div>
+  <button @click="user.name = 'tie'">
+    改名
+  </button>
+  <div>{{ user.age }}</div>
+  <button @click="user.age += 1">
+    长大了
+  </button>
 </template>
 
 <style>
 
 </style>
-
 ```
 
 #### 侦听对象单个数据
 
 ```vue
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 
 const user = ref({
   age: 21,
@@ -500,11 +510,11 @@ const user = ref({
 })
 
 watch(
-  ()=>{
+  () => {
     return user.value.age
   },
-  (value)=> {
-    console.log('user年龄发生变化');
+  (value) => {
+    console.log('user年龄发生变化')
   },
   {
     deep: true,
@@ -514,17 +524,20 @@ watch(
 </script>
 
 <template>
-  <div>{{user}}</div>
-  <div>{{user.name}}</div>
-  <button @click="user.name = 'tie'">改名</button>
-  <div>{{user.age}}</div>
-  <button @click="user.age += 1">长大了</button>
+  <div>{{ user }}</div>
+  <div>{{ user.name }}</div>
+  <button @click="user.name = 'tie'">
+    改名
+  </button>
+  <div>{{ user.age }}</div>
+  <button @click="user.age += 1">
+    长大了
+  </button>
 </template>
 
 <style>
 
 </style>
-
 ```
 
 ### watchEffect()

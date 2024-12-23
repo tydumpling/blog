@@ -30,7 +30,7 @@ const divPosition = ref([
 ])
 
 const lastX = 0 // 保存上一次的鼠标x轴
-const moveFn = e => {
+function moveFn(e) {
   if (lastX - e.clientX > 0) {
     // 左移动
     divPosition.value[0] -= 2
@@ -41,16 +41,20 @@ const moveFn = e => {
     divPosition.value[0] += 2
     divPosition.value[4] += 10
   }
-  
+
   lastX = e.clientX
 }
 </script>
 
 <template>
-	<div class="banner" @mousemove="moveFn">
-    <div v-for="(item, index) in divPosition" :key="index" :style="{
+  <div class="banner" @mousemove="moveFn">
+    <div
+      v-for="(item, index) in divPosition" :key="index" :style="{
          transform: translate(`${divPosition[index]}px`, 50px)
-    }">{{ item }}</div>
+    }"
+    >
+      {{ item }}
+    </div>
   </div>
   </div>
 </template>
@@ -60,7 +64,7 @@ const moveFn = e => {
     position: relavite;
     width: 100vw;
     height: 200px;
-    
+
     div {
       position: absoulute;
       top: 0;

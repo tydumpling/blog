@@ -74,9 +74,9 @@ input {
 
 ```vue
 <template>
-	<MyInput>
-    	<input class="input_success" />
-    </MyInput>
+  <MyInput>
+    <input class="input_success">
+  </MyInput>
 </template>
 ```
 
@@ -130,10 +130,10 @@ input {
 如果以上方案例关闭弹窗为例，父组件需要做到关闭前做特定处理，关闭后做特点处理，此时需要子组件传递自定义事件时拆分周期分别传递。如：
 
 ```js
-const close = () => {
-    emit('beforeColse')
-    show.value = false
-    emit('afterClose')
+function close() {
+  emit('beforeColse')
+  show.value = false
+  emit('afterClose')
 }
 ```
 

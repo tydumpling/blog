@@ -23,31 +23,31 @@
 下面来看一个例子：有一个动态循环渲染数组的数据，点击按钮后在最开始添加一条新数据，此时页面会重新渲染了。分为两个 `key` ，一个索引，一个 `id` 。代码如下：
 
 ```jsx
-  class Person extends React.Component{
+class Person extends React.Component {
 
-		state = {
-			persons:[
-				{id:1,name:'小张',age:18},
-				{id:2,name:'小李',age:19},
-			]
-		}
+  state = {
+    persons: [
+      { id: 1, name: '小张', age: 18 },
+      { id: 2, name: '小李', age: 19 },
+    ]
+  }
 
-		add = ()=>{
-			const {persons} = this.state
-			const p = {id:persons.length+1,name:'小王',age:20}
-			this.setState({persons:[p,...persons]})
-		}
+  add = () => {
+    const { persons } = this.state
+    const p = { id: persons.length + 1, name: '小王', age: 20 }
+    this.setState({ persons: [p, ...persons] })
+  }
 
-		render(){
-			return (
+  render() {
+    return (
 				<div>
 					<h2>展示人员信息</h2>
 					<button onClick={this.add}>添加一个小王</button>
 					<h3>使用index（索引值）作为key</h3>
 					<ul>
 						{
-							this.state.persons.map((personObj,index)=>{
-								return <li key={index}>{personObj.name}---{personObj.age}<input type="text"/></li>
+							this.state.persons.map((personObj, index) => {
+							  return <li key={index}>{personObj.name}---{personObj.age}<input type="text"/></li>
 							})
 						}
 					</ul>
@@ -56,15 +56,15 @@
 					<h3>使用id（数据的唯一标识）作为key</h3>
 					<ul>
 						{
-							this.state.persons.map((personObj)=>{
-								return <li key={personObj.id}>{personObj.name}---{personObj.age}<input type="text"/></li>
+							this.state.persons.map((personObj) => {
+							  return <li key={personObj.id}>{personObj.name}---{personObj.age}<input type="text"/></li>
 							})
 						}
 					</ul>
 				</div>
-			)
-		}
-	}
+    )
+  }
+}
 ```
 
 点击新增按钮时，它们各自做了以下操作：

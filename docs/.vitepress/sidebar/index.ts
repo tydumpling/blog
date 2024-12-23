@@ -41,7 +41,6 @@ import VitePressSidebar from './VitePressSidebar'
 import Vue2Sidebar from './Vue2Sidebar'
 import Vue3Sidebar from './Vue3Sidebar'
 import NPMSidebar from './NPMSidebar'
-import exeryWeek from './exeryweek'
 
 export { default as sidebarInterview } from './interview'
 export { default as sidebarAlgorithm } from './algorithm'

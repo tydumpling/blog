@@ -34,10 +34,10 @@
 
 ```js
 function sum(a, b) {
-  return a + b;
+  return a + b
 }
 
-console.log("sum.js module");
+console.log('sum.js module')
 ```
 
 ### 模块加载
@@ -48,14 +48,14 @@ console.log("sum.js module");
 - 导入的模块会自动执行
 
 ```js
-require("./hd.js");
+require('./hd.js')
 ```
 
 导入官方或第三方模块：使用 `require` 函数通过名称导入模块
 
 ```js
-require("fs");
-require("moment");
+require('node:fs')
+require('moment')
 ```
 
 > 注意：
@@ -69,19 +69,19 @@ require("moment");
 执行下面命令可以得到，`node` 会从哪些目录中尝试找到模块
 
 ```js
-console.log(module.paths);
+console.log(module.paths)
 ```
 
 结果为
 
 ```js
 [
-  "/Users/hd/code/node/node_modules",
-  "/Users/hd/code/node_modules",
-  "/Users/hd/node_modules",
-  "/Users/node_modules",
-  "/node_modules",
-];
+  '/Users/hd/code/node/node_modules',
+  '/Users/hd/code/node_modules',
+  '/Users/hd/node_modules',
+  '/Users/node_modules',
+  '/node_modules',
+]
 ```
 
 ## 模块管理
@@ -97,29 +97,29 @@ console.log(module.paths);
 a.js
 
 ```js
-const name = "a.js";
-console.log(name);
+const name = 'a.js'
+console.log(name)
 ```
 
 b.js
 
 ```js
-const name = "b.js";
-console.log(name);
+const name = 'b.js'
+console.log(name)
 ```
 
 index.js
 
 ```js
-require("./a.js");
-require("./b.js");
+require('./a.js')
+require('./b.js')
 ```
 
 输出结果为
 
 ```js
-a.js;
-b.js;
+a.js
+b.js
 ```
 
 ### 导出方式
@@ -136,12 +136,12 @@ b.js;
 
 ```js
 function sum(a, b) {
-  return a + b;
+  return a + b
 }
 
-console.log("sum.js module");
+console.log('sum.js module')
 
-module.exports = sum;
+module.exports = sum
 ```
 
 然后在 `index.js` 中使用使用该模块
@@ -149,10 +149,10 @@ module.exports = sum;
 - 这是默认导出模块，所以可以使用任何变量来接收，`const sum` 可以换为 `const hd`
 
 ```js
-const sum = require("./hd.js");
+const sum = require('./hd.js')
 
-console.log(sum(1, 3));
-console.log(sum(3, 5));
+console.log(sum(1, 3))
+console.log(sum(3, 5))
 ```
 
 **属性导出**
@@ -160,14 +160,15 @@ console.log(sum(3, 5));
 通过 exports 属性导出
 
 ```js
-module.exports.sum = (a, b) => a + b;
+module.exports.sum = (a, b) => a + b
 ```
 
 使用的时候要像这样
 
 ```js
-const hd = require("./hd");
-console.log(hd.sum(1, 4));
+const hd = require('./hd')
+
+console.log(hd.sum(1, 4))
 ```
 
 **直接导出**
@@ -175,7 +176,7 @@ console.log(hd.sum(1, 4));
 下面是直接将函数导出
 
 ```js
-module.exports = (a, b) => a + b;
+module.exports = (a, b) => a + b
 ```
 
 **对象导出**
@@ -183,19 +184,20 @@ module.exports = (a, b) => a + b;
 也可以导出的接口放在对象中统一导出
 
 ```js
-const sum = (a, b) => a + b;
-const webname = "houdunren.com";
+const sum = (a, b) => a + b
+const webname = 'houdunren.com'
 module.exports = {
   sum,
   webname,
-};
+}
 ```
 
 使用的时候可以使用结构语法获取接口
 
 ```js
-const { webname, sum } = require("./hd");
-console.log(sum(1, 4), webname);
+const { webname, sum } = require('./hd')
+
+console.log(sum(1, 4), webname)
 ```
 
 ### module.exports 与 exports
@@ -204,22 +206,23 @@ console.log(sum(1, 4), webname);
 
 ```js
 (function (exports, require, module, __filename, __dirname) {
-  //模块文件代码
-});
+  // 模块文件代码
+})
 ```
 
 所以我们可以简化导出，省略掉 module 前缀
 
 ```js
-const sum = (a, b) => a + b;
-exports.sum = sum;
+const sum = (a, b) => a + b
+exports.sum = sum
 ```
 
 使用时也没有区别
 
 ```js
-const { sum } = require("./hd");
-console.log(sum(1, 4));
+const { sum } = require('./hd')
+
+console.log(sum(1, 4))
 ```
 
 但是因为 node.js 最终导出是使用 module.exports 对象的，如果直接使用 exports 导出一个对象，这时 exports 变量就不与 module.exports 使用相同的内存引用，就不会导出成功。
@@ -227,15 +230,15 @@ console.log(sum(1, 4));
 下面的写法将不会正确导出
 
 ```js
-const sum = (a, b) => a + b;
-exports = { sum };
+const sum = (a, b) => a + b
+exports = { sum }
 ```
 
 而应用使用这样，因为 nodejs 内部最终使用的是 module.exports 变量
 
 ```js
-const sum = (a, b) => a + b;
-module.exports = { sum };
+const sum = (a, b) => a + b
+module.exports = { sum }
 ```
 
 你可以使用 vscode 的断点调试查看到清晰的结果
@@ -257,8 +260,8 @@ module.exports = { sum };
 
 ```js
 (function (exports, require, module, __filename, __dirname) {
-  //模块文件代码
-});
+  // 模块文件代码
+})
 ```
 
 ### 模块缓存
@@ -266,7 +269,7 @@ module.exports = { sum };
 Commonjs 加载的模块会被缓存起来，再有文件使用该模块时将从缓存中获取
 
 ```js
-console.log(require.cache);
+console.log(require.cache)
 ```
 
 下例中的 hd.js 模块被 index.js 第一次 require 时就会缓存了，在第二次 require 时直接使用缓存的模块，所以两次打印结果都是 houdunren.com。
@@ -275,36 +278,38 @@ hd.js
 
 ```js
 class Hd {
-  name = "向军大叔";
+  name = '向军大叔'
 
   setName(name) {
-    this.name = name;
+    this.name = name
   }
+
   getName() {
-    return this.name;
+    return this.name
   }
 }
 
-module.exports = new Hd();
+module.exports = new Hd()
 ```
 
 index.js
 
 ```js
-const obj1 = require("./hd.js");
+const obj1 = require('./hd.js')
 
-obj1.setName("houdunren.com");
-console.log(obj1.getName());
+obj1.setName('houdunren.com')
+console.log(obj1.getName())
 
-const obj2 = require("./hd.js");
-console.log(obj2.getName());
+const obj2 = require('./hd.js')
+
+console.log(obj2.getName())
 ```
 
 输出结果
 
 ```js
-houdunren.com;
-houdunren.com;
+houdunren.com
+houdunren.com
 ```
 
 你可以使用 vscode 的断点调试，更直观的体验到结果
@@ -318,30 +323,31 @@ houdunren.com;
 
 ```js
 class Hd {
-  name = "向军大叔";
+  name = '向军大叔'
 
   setName(name) {
-    this.name = name;
+    this.name = name
   }
+
   getName() {
-    return this.name;
+    return this.name
   }
 }
 
-module.exports = Hd;
+module.exports = Hd
 ```
 
 然后在 index.js 中使用时 new 出不同的实例即可
 
 ```js
-const Hd = require("./hd.js");
+const Hd = require('./hd.js')
 
-const obj1 = new Hd();
-obj1.setName("obj1");
-console.log(obj1.getName());
+const obj1 = new Hd()
+obj1.setName('obj1')
+console.log(obj1.getName())
 
-const obj2 = new Hd();
-console.log(obj2.getName());
+const obj2 = new Hd()
+console.log(obj2.getName())
 ```
 
 ### JSON
@@ -375,17 +381,17 @@ console.log(data)
 下面定义 hd.mjs 支持 ESM 的模块文件
 
 ```js
-const sum = (a, b) => a + b;
+const sum = (a, b) => a + b
 
-export default sum;
+export default sum
 ```
 
 然后在 index.mjs 中使用 ESM 语法导入模块
 
 ```js
-import sum from "./hd.mjs";
+import sum from './hd.mjs'
 
-console.log(sum(4, 2));
+console.log(sum(4, 2))
 ```
 
 要使用 ES6 模块管理请在 **package.json** 定义 **type** 属性。
@@ -416,7 +422,7 @@ console.log(sum(4, 2));
 这样我们就可以在文件中引入 JSON 了
 
 ```js
-import data from "./hd.json";
+import data from './hd.json'
 ```
 
 ## 第三方模块

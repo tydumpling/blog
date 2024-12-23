@@ -27,14 +27,14 @@
 通过该方法获取绑定的元素节点是否出现在页面视图上，使用方法如下：
 
 ```js
-const targetRef = ref(null); // 需要绑定的dom节点
+const targetRef = ref(null) // 需要绑定的dom节点
 
 const { stop } = useIntersectionObserver(targetRef, ([{ isIntersecting }]) => {
-  console.log(isIntersecting);
+  console.log(isIntersecting)
   if (isIntersecting) {
     // 进入视口区域
   }
-});
+})
 ```
 
 其中传递两个参数：
@@ -63,38 +63,38 @@ const { stop } = useIntersectionObserver(targetRef, ([{ isIntersecting }]) => {
 
 ```js
 // 定义懒加载插件
-import { useIntersectionObserver } from "@vueuse/core";
+import { useIntersectionObserver } from '@vueuse/core'
 
 export const lazyPlugin = {
   install(app) {
     // 懒加载指令逻辑
     // 图片懒加载自定义指令
-    app.directive("img-lazy", {
+    app.directive('img-lazy', {
       mounted(el, binding) {
         // el：指令绑定的元素
         // binding：指令等号后的值
         const { stop } = useIntersectionObserver(el, ([{ isIntersecting }]) => {
           if (isIntersecting) {
             // 进入视口区域
-            el.src = binding.value; // binding.value获取到vue组件中 ="" 内的值，此时给 src属性赋值，让其渲染图片
-            stop();
+            el.src = binding.value // binding.value获取到vue组件中 ="" 内的值，此时给 src属性赋值，让其渲染图片
+            stop()
           }
-        });
+        })
       },
-    });
+    })
   },
-};
+}
 ```
 
 `main.js`：
 
 ```js
 // 引入懒加载指令插件并且注册
-import { lazyPlugin } from "@/directives";
+import { lazyPlugin } from '@/directives'
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(lazyPlugin);
+app.use(lazyPlugin)
 ```
 
 使用：
@@ -131,16 +131,16 @@ app.use(lazyPlugin);
 `Vue-router` 提供一个方法 `onBeforeRouteUpdate()` ，当路由发生变化时就会触发，其参数一可接收最新的路由数据，因此可以通过该参数获取最新的路由参数，单独调用分类模块的接口，做到数据刷新即可。
 
 ```js
-import { onBeforeRouteUpdate } from "vue-router";
+import { onBeforeRouteUpdate } from 'vue-router'
 
 /**
  * 侦听路由变化，重新调用接口
  * to：当前最新路由参数
- * */
+ */
 onBeforeRouteUpdate((to) => {
   // 存在问题：使用最新的路由参数请求最新的分类数据
-  getTopCategoryFn(to.params.id);
-});
+  getTopCategoryFn(to.params.id)
+})
 ```
 
 ### 业务逻辑拆分
@@ -150,35 +150,35 @@ onBeforeRouteUpdate((to) => {
 > 命名采取 `useXxxx` 的 `use + 功能名` 驼峰命名规范
 
 ```js
-import { onMounted, ref } from "vue";
-import { getBannerAPI } from "@api/layout";
+import { onMounted, ref } from 'vue'
+import { getBannerAPI } from '@api/layout'
 
 export function useBanner() {
-  const bannerList = ref([]); // 轮播图数组
+  const bannerList = ref([]) // 轮播图数组
 
   const getBannerFn = async () => {
     const res = await getBannerAPI({
-      distributionSite: "2",
-    });
-    bannerList.value = res.result;
-  };
+      distributionSite: '2',
+    })
+    bannerList.value = res.result
+  }
 
   onMounted(() => {
-    getBannerFn();
-  });
+    getBannerFn()
+  })
 
   return {
     bannerList,
-  };
+  }
 }
 ```
 
 在 `.vue` 组件中导入该函数，通过解构获取其 `return` 返回的值，代码如下所示：
 
 ```js
-import { useBanner } from "./composables/useBanner";
+import { useBanner } from './composables/useBanner'
 
-const { bannerList } = useBanner();
+const { bannerList } = useBanner()
 ```
 
 这样有利于代码的维护，后续新增功能时只需前往对应的 `useXxxx.js` 文件新添功能即可。
@@ -204,24 +204,23 @@ const { bannerList } = useBanner();
       type: Boolean,
       default: false,
     },
-  });
-
-  const emit = defineEmits(["update:modelValue"]);
-
-  const handleCloseFn = () => {
-    emit("update:modelValue", false);
-  };
+  })
+  
+  constemit = defineEmits(["'update:modelValue'))
+  
+  constandleCloseFn = () => {
+    emit("u'update:modelValue'false);)
+  }
   </script>
 
   <template>
     <el-dialog
-      :modelValue="show"
+      :mo:model-valuehow"
       title="切换收货地址"
       width="30%"
       center
       @close="handleCloseFn"
-    ></el-dialog>
-  </template>
+    ><//>/template>
   ```
 
 ### 倒计时封装
@@ -238,45 +237,46 @@ const { bannerList } = useBanner();
 
 ```js
 // 封装倒计时逻辑函数
-import { computed, ref, onUnmounted } from "vue";
-import dayjs from "dayjs";
+import { computed, onUnmounted, ref } from 'vue'
+import dayjs from 'dayjs'
 
-export const useCountDown = () => {
+export function useCountDown() {
   // 1.响应式数据
-  const time = ref(0);
+  const time = ref(0)
   // 格式化为时间xx分xx秒的形式（可用计算属性）
-  const formatTime = computed(() => dayjs.unix(time.value).format("mm分ss秒"));
+  const formatTime = computed(() => dayjs.unix(time.value).format('mm分ss秒'))
 
-  let timer = null;
+  let timer = null
 
   // 2.开启倒计时的函数
   const start = (currentTime) => {
     // 先赋值
-    time.value = currentTime;
+    time.value = currentTime
     // 每隔一秒钟就自减一
     timer = setInterval(() => {
-      time.value -= 1;
-    }, 1000);
-  };
+      time.value -= 1
+    }, 1000)
+  }
 
   // 组件销毁时取消定时器
   onUnmounted(() => {
-    timer && clearInterval(timer);
-    timer = null;
-  });
+    timer && clearInterval(timer)
+    timer = null
+  })
 
-  return { formatTime, start };
-};
+  return { formatTime, start }
+}
 ```
 
 使用：
 
 ```vue
 <script setup>
-import { useCountDown } from "@/hooks/useCountDown";
-const { formatTime, start } = useCountDown();
+import { useCountDown } from '@/hooks/useCountDown'
 
-start(60);
+const { formatTime, start } = useCountDown()
+
+start(60)
 </script>
 ```
 
@@ -291,10 +291,10 @@ start(60);
   result: {
     list: [
       {
-        img: "xxx",
-        name: "xxx",
+        img: 'xxx',
+        name: 'xxx',
       },
-    ];
+    ]
   }
 }
 ```
@@ -315,7 +315,7 @@ start(60);
 ```js
 {
   {
-    res.result.list?.[0].name;
+    res.result.list?.[0].name
   }
 }
 ```
@@ -360,9 +360,9 @@ export const useCarttStore = defineStore('cart', () => {
 在页面中通过导入该函数方法并解构出对应的函数和变量来使用，代码如下所示：
 
 ```js
-import { useCarttStore } from "@/stores/cart";
+import { useCarttStore } from '@/stores/cart'
 
-const { cartList } = useCarttStore();
+const { cartList } = useCarttStore()
 ```
 
 但是在使用时发现数据没能做到响应式，在做增加或删除处理时 `vue` 插件和本地存储的数据已经是新的数据了，而页面中还是旧的数据，手动刷新后才能获取到最新的数据。
@@ -370,10 +370,10 @@ const { cartList } = useCarttStore();
 这是因为通过上方的方法获取到 `pinia` 内的数据不是响应式的，因此不会响应发生变化，使用的 `storeToRefs` 方法后把变量变为响应式，代码如下：
 
 ```js
-import { useCarttStore } from "@/stores/cart";
-import { storeToRefs } from "pinia";
+import { storeToRefs } from 'pinia'
+import { useCarttStore } from '@/stores/cart'
 
-const { cartList } = storeToRefs(useCarttStore());
+const { cartList } = storeToRefs(useCarttStore())
 ```
 
 保存运行后数据能够响应式的变化。更多详细功能可前往 [购物车](/project/myself/小兔鲜/inweb/购物车) 模块查看。

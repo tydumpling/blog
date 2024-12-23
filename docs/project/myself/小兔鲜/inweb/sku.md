@@ -14,16 +14,16 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
+
 // 商品数据
 const goods = ref({})
-const getGoods = async () => {
+async function getGoods() {
   // 1135076  初始化就有无库存的规格
   // 1369155859933827074 更新之后有无库存项（蓝色-20cm-中国）
   const res = await axios.get('http://pcapi-xiaotuxian-front-devtest.itheima.net/goods?id=1369155859933827074')
   goods.value = res.data.result
 }
 onMounted(() => getGoods())
-
 </script>
 
 <template>
@@ -111,16 +111,16 @@ onMounted(() => getGoods())
 // 省略代码
 
 // 选中和取消选中实现
-const changeSku = (item, val) => {
+function changeSku(item, val) {
   // 点击的是未选中，把同一个规格的其他取消选中，当前点击项选中，点击的是已选中，直接取消
   if (val.selected) {
     val.selected = false
-  } else {
+  }
+  else {
     item.values.forEach(valItem => valItem.selected = false)
     val.selected = true
   }
 }
-
 </script>
 
 <template>
@@ -129,14 +129,18 @@ const changeSku = (item, val) => {
       <dt>{{ item.name }}</dt>
       <dd>
         <template v-for="val in item.values" :key="val.name">
-          <img v-if="val.picture" 
-            @click="changeSku(item, val)" 
-            :class="{ selected: val.selected }" 
+          <img
+            v-if="val.picture"
+            :class="{ selected: val.selected }"
             :src="val.picture"
-            :title="val.name">
-          <span v-else 
-            @click="changeSku(val)" 
-            :class="{ selected: val.selected }">{{ val.name }}</span>
+            :title="val.name"
+            @click="changeSku(item, val)"
+          >
+          <span
+            v-else
+            :class="{ selected: val.selected }"
+            @click="changeSku(val)"
+          >{{ val.name }}</span>
         </template>
       </dd>
     </dl>

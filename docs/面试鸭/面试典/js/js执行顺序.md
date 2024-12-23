@@ -10,9 +10,9 @@ js执行顺序如下图所示：
 
 ```js
 new Promise(() => {
-    // 同步任务
+  // 同步任务
 }).then(() => {
-    // 异步任务：微任务
+  // 异步任务：微任务
 }).catch(() => {})
 ```
 
@@ -39,27 +39,27 @@ a和b两个异步获取的结果，相加得c。最终计算出c的结果
 ```js
 // 此时a和b是同时执行的，都在异步队列内
 function a() {
-    return new Promise(() => {
-        setTimeout(() => {
-            resolve(1)
-        })
-    }, 1000)
+  return new Promise(() => {
+    setTimeout(() => {
+      resolve(1)
+    })
+  }, 1000)
 }
 
 function b() {
-    return new Promise(() => {
-        setTimeout(() => {
-            resolve(2)
-        })
-    }, 1000)
+  return new Promise(() => {
+    setTimeout(() => {
+      resolve(2)
+    })
+  }, 1000)
 }
 
 function c(v) {
-    return new Promise(() => {
-        setTimeout(() => {
-            resolve(v + 3)
-        }, 2000)
-    })
+  return new Promise(() => {
+    setTimeout(() => {
+      resolve(v + 3)
+    }, 2000)
+  })
 }
 ```
 
@@ -67,9 +67,9 @@ function c(v) {
 
 ```js
 Promise.all([a(), b()]).then((res) => {
-    c(res[0] + res[1]).then((result) => {
-        console.log(result)
-    })
+  c(res[0] + res[1]).then((result) => {
+    console.log(result)
+  })
 })
 ```
 

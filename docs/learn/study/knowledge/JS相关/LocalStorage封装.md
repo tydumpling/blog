@@ -132,9 +132,9 @@ const CryptoJS = require("crypto-js");
 
 ```js
 // 十六位十六进制数作为密钥
-const SECRET_KEY = CryptoJS.enc.Utf8.parse("3333e6e143439161");
+const SECRET_KEY = CryptoJS.enc.Utf8.parse('3333e6e143439161')
 // 十六位十六进制数作为密钥偏移量
-const SECRET_IV = CryptoJS.enc.Utf8.parse("e3bbe7e3ba84431a");
+const SECRET_IV = CryptoJS.enc.Utf8.parse('e3bbe7e3ba84431a')
 ```
 
 封装加密算法：
@@ -146,20 +146,21 @@ const SECRET_IV = CryptoJS.enc.Utf8.parse("e3bbe7e3ba84431a");
  * @returns {string}
  */
 export function encrypt(data) {
-  if (typeof data === "object") {
+  if (typeof data === 'object') {
     try {
-      data = JSON.stringify(data);
-    } catch (error) {
-      console.log("encrypt error:", error);
+      data = JSON.stringify(data)
+    }
+    catch (error) {
+      console.log('encrypt error:', error)
     }
   }
-  const dataHex = CryptoJS.enc.Utf8.parse(data);
+  const dataHex = CryptoJS.enc.Utf8.parse(data)
   const encrypted = CryptoJS.AES.encrypt(dataHex, SECRET_KEY, {
     iv: SECRET_IV,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
-  });
-  return encrypted.ciphertext.toString();
+  })
+  return encrypted.ciphertext.toString()
 }
 ```
 
@@ -172,15 +173,15 @@ export function encrypt(data) {
  * @returns {string}
  */
 export function decrypt(data) {
-  const encryptedHexStr = CryptoJS.enc.Hex.parse(data);
-  const str = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+  const encryptedHexStr = CryptoJS.enc.Hex.parse(data)
+  const str = CryptoJS.enc.Base64.stringify(encryptedHexStr)
   const decrypt = CryptoJS.AES.decrypt(str, SECRET_KEY, {
     iv: SECRET_IV,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
-  });
-  const decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
-  return decryptedStr.toString();
+  })
+  const decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
+  return decryptedStr.toString()
 }
 ```
 
@@ -239,28 +240,28 @@ export const useStorage = () => {
 方法为创建一个变量作为本地存储命名前缀，这样可以一定程度减少命名污染，代码如下：
 
 ```js
-import CryptoJS from "crypto-js";
+import CryptoJS from 'crypto-js'
 import { ref } from 'vue'
 
-export const useStorage = () => {
+export function useStorage() {
   // 前缀名称
   const prefixName = ref('')
-  
+
   // 名称前自动添加前缀
-	const autoAddPrefixName = (key) => {
-    const prefix = prefix ? prefix + '_' : '';
-    return  prefix + key;
-	}
-  
+  const autoAddPrefixName = (key) => {
+    const prefix = prefix ? `${prefix}_` : ''
+    return prefix + key
+  }
+
   // 保存值
   const setItem = (key, value, expire = 60, isEncrypt = false) => {
     // ...
-    
+
     localStorage.setItem(autoAddPrefixName(key), encryptString)
   }
-  
+
   // ...
-  
+
   return {
     prefixName,
     // ...

@@ -14,12 +14,12 @@
 
 ```tsx
 export interface listParams {
-    pageNo: number,
-    PageSize: 10 | 30 | 50
+  pageNo: number
+  PageSize: 10 | 30 | 50
 }
 
-export const getPageFn = (params: listParams) => {
-    return axios.get('xxx', params)
+export function getPageFn(params: listParams) {
+  return axios.get('xxx', params)
 }
 ```
 
@@ -29,8 +29,8 @@ export const getPageFn = (params: listParams) => {
 
 ```tsx
 export interface propsType {
-    a: number,
-    b?: string
+  a: number
+  b?: string
 }
 ```
 
@@ -68,8 +68,8 @@ const list = ref({})
 const listParams = ref({})
 listParams.value.pageNo = 1
 
-getList(listParams).then(res => {
-    list.value = res.data
+getList(listParams).then((res) => {
+  list.value = res.data
 })
 
 console.log(list.value.a)
@@ -81,16 +81,16 @@ console.log(list.value.a)
 
 ```tsx
 interface listData {
-    a: string
+  a: string
 }
 const list = ref<listData>({} as listData)
 const listParams = ref({} as listParamsType)
 
 getList({
-    pageNo: 10,
-    pageSize: 10
-}).then(res => {
-    list.value = res.data
+  pageNo: 10,
+  pageSize: 10
+}).then((res) => {
+  list.value = res.data
 })
 
 console.log(list.value.a)
@@ -101,12 +101,12 @@ console.log(list.value.a)
 比如使用 Vue-router，在函数接收形参时会报错说有隐式 `any` 类型。此时可以鼠标悬停查看其类型，一般正规大型的第三方库可以导出。导出后使用即可。
 
 ```tsx
-import type {RouteRecordRaw} from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 
 function parseRoute(arr: RouteRecordRaw[]) {
-    arr.forEach(item => {
-        router.addRoute(item)
-    })
+  arr.forEach((item) => {
+    router.addRoute(item)
+  })
 }
 ```
 
@@ -120,7 +120,8 @@ function parseRoute(arr: RouteRecordRaw[]) {
 <div @click="(e) => {
              let target = e.target as HTMLElement
              target.innerHTMLElement
-             }">
+             }"
+>
     click me
 </div>
 ```

@@ -59,31 +59,31 @@ ColorThief 可以用于多种场景，比如主题自适应、视觉一致性和
 下载好依赖后获取对应的图片路径，然后使用 `colorthief` 获取图片的颜色值。
 
 ```js
-import ColorThief from 'colorthief';
-const colorThief = new ColorThief();
+import ColorThief from 'colorthief'
 
-const imgs = [];
-for (let i = 0; i < 4; i++) {
-    imgs.push('图片路径')
+const colorThief = new ColorThief()
+
+const imgs = []
+for (let i = 0; i < 4; i++)
+  imgs.push('图片路径')
+
+const hoverIndex = ref(-1)
+const html = document.documentElement
+async function handlerMouseEnter(img, i) {
+  hoverIndex.value = i
+  let colors = await colorThief.getColor(img, 3)
+  console.log('colors', colors)
+  colors = colors.map(e => `rgb(${e[0]}, ${e[1]}, ${e[2]})`)
+  html.style.setProperty('--bg1', colors[0])
+  html.style.setProperty('--bg2', colors[1])
+  html.style.setProperty('--bg3', colors[2])
 }
 
-const hoverIndex = ref(-1);
-const html = document.documentElement;
-const handlerMouseEnter = async (img, i) => {
-    hoverIndex.value = i;
-    let colors = await colorThief.getColor(img, 3);
-    console.log('colors', colors)
-    colors = colors.map(e => `rgb(${e[0]}, ${e[1]}, ${e[2]})`);
-    html.style.setProperty('--bg1', colors[0]);
-    html.style.setProperty('--bg2', colors[1]);
-    html.style.setProperty('--bg3', colors[2]);
-}
-
-const handlerMouseLeave = () => {
-    hoverIndex.value = -1;
-    html.style.setProperty('--bg1', '#fff');
-    html.style.setProperty('--bg2', '#fff');
-    html.style.setProperty('--bg3', '#fff');
+function handlerMouseLeave() {
+  hoverIndex.value = -1
+  html.style.setProperty('--bg1', '#fff')
+  html.style.setProperty('--bg2', '#fff')
+  html.style.setProperty('--bg3', '#fff')
 }
 ```
 

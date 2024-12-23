@@ -28,52 +28,52 @@
 
 ```js
 // 添加icon
-export const addIcon = (coordinates, url, info) => {
-    coordinates = [coordinates?.[0], coordinates?.[1], coordinates?.[2] || 0];
-    const {
+export function addIcon(coordinates, url, info) {
+  coordinates = [coordinates?.[0], coordinates?.[1], coordinates?.[2] || 0]
+  const {
       	width = 92,
-        height = 118,
-        offset = [0, -50],
-        geoData = [
-            {
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'Point',
-                    'coordinates': coordinates,
-                },
-                'properties': {
-                    'icon': url,
-                    'size': 40,
-                },
-            },
-        ],
-        _engine = engine.value,
-    } = info || {};
+    height = 118,
+    offset = [0, -50],
+    geoData = [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates,
+        },
+        properties: {
+          icon: url,
+          size: 40,
+        },
+      },
+    ],
+    _engine = engine.value,
+  } = info || {}
 
-    const icon = _engine.add(new Icon({
-        width,
-        height,
-        vertexSizes: true,
-        vertexIcons: true,
-        transparent: true,
-        offset,
-        depthTest: false, // 深度检测
-    }));
-    GeoJSONDataSource.fromGeoJSON(geoData).then(data => {
-        data.setAttribute('size').setAttribute('icon');
-        icon.dataSource = data;
-    });
+  const icon = _engine.add(new Icon({
+    width,
+    height,
+    vertexSizes: true,
+    vertexIcons: true,
+    transparent: true,
+    offset,
+    depthTest: false, // 深度检测
+  }))
+  GeoJSONDataSource.fromGeoJSON(geoData).then((data) => {
+    data.setAttribute('size').setAttribute('icon')
+    icon.dataSource = data
+  })
 
-    return {
-        icon,
-        _engine,
-    };
-};
+  return {
+    icon,
+    _engine,
+  }
+}
 
 // 删除icon
-export const removeIcon = (icon, _engine = engine.value) => {
-    icon && _engine.remove(icon);
-};
+export function removeIcon(icon, _engine = engine.value) {
+  icon && _engine.remove(icon)
+}
 ```
 
 ### 线
@@ -98,39 +98,40 @@ export const removeIcon = (icon, _engine = engine.value) => {
 
 ```js
 // 添加线
-export const addLine = (coordinates, info, _engine, callback) => {
-    if (!_engine) _engine = engine.value;
-    const {lineWidth, color, opacity} = info || {};
-    const line = _engine.add(new FatLine({
-        vertexColors: true,
-        lineWidth,
-        opacity,
-        keepSize: true,
-        lineJoin: 'round',
-    }));
-    const geojson = {
-        type: 'Feature',
-        geometry: {
-            type: 'LineString',
-            coordinates,
-        },
-        properties: {
-            color: color,
-        },
-    };
-    GeoJSONDataSource.fromGeoJSON(geojson).then(geoData => {
-        geoData.setAttribute('color');
-        line.dataSource = geoData;
-        callback && callback(geojson);
-    });
+export function addLine(coordinates, info, _engine, callback) {
+  if (!_engine)
+    _engine = engine.value
+  const { lineWidth, color, opacity } = info || {}
+  const line = _engine.add(new FatLine({
+    vertexColors: true,
+    lineWidth,
+    opacity,
+    keepSize: true,
+    lineJoin: 'round',
+  }))
+  const geojson = {
+    type: 'Feature',
+    geometry: {
+      type: 'LineString',
+      coordinates,
+    },
+    properties: {
+      color,
+    },
+  }
+  GeoJSONDataSource.fromGeoJSON(geojson).then((geoData) => {
+    geoData.setAttribute('color')
+    line.dataSource = geoData
+    callback && callback(geojson)
+  })
 
-    return {line, _engine};
-};
+  return { line, _engine }
+}
 
 // 删除线
-export const removeLine = (line, _engine = engine.value) => {
-    line && _engine.remove(line);
-};
+export function removeLine(line, _engine = engine.value) {
+  line && _engine.remove(line)
+}
 ```
 
 ### 模型
@@ -146,24 +147,24 @@ export const removeLine = (line, _engine = engine.value) => {
 
 ```js
 // 添加模型
-export const addModel = (url = 'maplayer/assets/models/car-impact.glb', position, scale = 7, callback) => {
-    const loader = new GLTFLoader();
-    const point = engine.value.map.projectPointArr(position);
-    let model = null;
-    loader.load(url, gltf => {
-        model = gltf.scene;
-        model.position.set(point[0], point[1], 0);
-        model.scale.setScalar(scale);
-        model.rotation.x = Math.PI / 2;
-        engine.value.add(model);
-        callback && callback(model);
-    });
-};
+export function addModel(url = 'maplayer/assets/models/car-impact.glb', position, scale = 7, callback) {
+  const loader = new GLTFLoader()
+  const point = engine.value.map.projectPointArr(position)
+  let model = null
+  loader.load(url, (gltf) => {
+    model = gltf.scene
+    model.position.set(point[0], point[1], 0)
+    model.scale.setScalar(scale)
+    model.rotation.x = Math.PI / 2
+    engine.value.add(model)
+    callback && callback(model)
+  })
+}
 
 // 删除模型
-export const removeModel = model => {
-    model && engine.value.remove(model);
-};
+export function removeModel(model) {
+  model && engine.value.remove(model)
+}
 ```
 
 ### 视野漫游动画
@@ -180,39 +181,39 @@ export const removeModel = model => {
 
 ```js
 // 添加视野漫游动画
-export const addPathTracker = options => {
-    const {
-        viewMode = 'unlock',
-        positions,
-        model,
-        duration = 10000,
-        distance = 50,
-        pitch = 70,
-        _engine = engine.value,
-    } = options;
+export function addPathTracker(options) {
+  const {
+    viewMode = 'unlock',
+    positions,
+    model,
+    duration = 10000,
+    distance = 50,
+    pitch = 70,
+    _engine = engine.value,
+  } = options
 
-    const pathTracker = _engine.add(new PathTracker());
-    pathTracker.interpolateDirectThreshold = 50; // 进行方向插值的距离点的阈值
-    pathTracker.track = positions; // 跟踪的路线,为坐标数组或LineString类型的geojson数据
-    pathTracker.start({
-        duration,
-        distance,
-        pitch,
-        heading: 10,
-    });
-    pathTracker.object = model;
-    pathTracker.viewMode = viewMode;
+  const pathTracker = _engine.add(new PathTracker())
+  pathTracker.interpolateDirectThreshold = 50 // 进行方向插值的距离点的阈值
+  pathTracker.track = positions // 跟踪的路线,为坐标数组或LineString类型的geojson数据
+  pathTracker.start({
+    duration,
+    distance,
+    pitch,
+    heading: 10,
+  })
+  pathTracker.object = model
+  pathTracker.viewMode = viewMode
 
-    return {
-        pathTracker,
-        _engine,
-    };
-};
+  return {
+    pathTracker,
+    _engine,
+  }
+}
 
 // 删除视野漫游动画
-export const removePathTracker = (name, _engine = engine.value) => {
-    name && _engine.remove(name);
-};
+export function removePathTracker(name, _engine = engine.value) {
+  name && _engine.remove(name)
+}
 ```
 
 ## 地图方法使用
@@ -255,167 +256,170 @@ export const removePathTracker = (name, _engine = engine.value) => {
 总体示例代码如下所示：
 
 ```js
-import {addBubble, removeBubble, addIcon, removeIcon, addDOMOverlay, removeDOMOverlay} from '../xxx.js';
+import { addBubble, addDOMOverlay, addIcon, removeBubble, removeDOMOverlay, removeIcon } from '../xxx.js'
 
 // 对象映射表，传入扎点类型中文获取对应扎点类型拼音
 const nameMap = {
-    '桥梁': 'qiaoliang',
-    '边坡': 'bianpo',
-    '隧道': 'suidao',
-};
+  桥梁: 'qiaoliang',
+  边坡: 'bianpo',
+  隧道: 'suidao',
+}
 // 计算icon的宽高，获取到label的偏移量
-const getLabelOffset = (labelDom, size) => {
-    if (!labelDom) {
-        return [0, 0];
-    }
-    const {width, height} = labelDom.getBoundingClientRect();
-    const iconWidth = size === 'normal' ? 48 : 32;
-    const iconHeight = size === 'normal' ? 83 : 55;
-    const gapLeft = size === 'normal' ? 10 : 5;
-    const gapTop = size === 'nomal' ? 42 : 28;
-    const offsetLeft = width / 2 + iconWidth / 2 + gapLeft;
-    const offsetTop = -(height / 2 - (iconWidth + gapTop) / 2) - iconHeight;
-    return [offsetLeft, offsetTop];
-};
+function getLabelOffset(labelDom, size) {
+  if (!labelDom)
+    return [0, 0]
+
+  const { width, height } = labelDom.getBoundingClientRect()
+  const iconWidth = size === 'normal' ? 48 : 32
+  const iconHeight = size === 'normal' ? 83 : 55
+  const gapLeft = size === 'normal' ? 10 : 5
+  const gapTop = size === 'nomal' ? 42 : 28
+  const offsetLeft = width / 2 + iconWidth / 2 + gapLeft
+  const offsetTop = -(height / 2 - (iconWidth + gapTop) / 2) - iconHeight
+  return [offsetLeft, offsetTop]
+}
 
 // 获取icon图片路径 'maplayer/assets/image/设备类型(中文拼音)_size_status.png
-const getIconUrl = (type, size = 'normal', status = 'normal', iconUrl) => {
-    if (iconUrl) {
-        return iconUrl;
-    }
-    const getIconStatus = status => {
-        return `_${status}`;
-    };
-    size = size === 'normal' ? '_normal' : '_small';
-    status = getIconStatus(status);
-    type = nameMap[type] || type;
-    return `maplayer/assets/image/${type}${size}${status}.png`;
-};
+function getIconUrl(type, size = 'normal', status = 'normal', iconUrl) {
+  if (iconUrl)
+    return iconUrl
+
+  const getIconStatus = (status) => {
+    return `_${status}`
+  }
+  size = size === 'normal' ? '_normal' : '_small'
+  status = getIconStatus(status)
+  type = nameMap[type] || type
+  return `maplayer/assets/image/${type}${size}${status}.png`
+}
 
 const removeMap = {
-    Icon: removeIcon,
-    DomOverlay: removeDOMOverlay,
-    Text: removeText,
-};
+  Icon: removeIcon,
+  DomOverlay: removeDOMOverlay,
+  Text: removeText,
+}
 
 // 支持绑定的事件
 const eventNameEnum = {
-    click: 'clickCallback',
-    mouseenter: 'onMouseenter',
-    mouseleave: 'onMouseleave',
-};
+  click: 'clickCallback',
+  mouseenter: 'onMouseenter',
+  mouseleave: 'onMouseleave',
+}
 
 // 扎点
 class LayerManager {
-    constructor(engine) {
-        this.layerDomMap = new Map();
-        this.engine = engine;
-    }
-    addLayerDomPoint(name, point, options) {
-        if (this.warningeMap.has(name)) {
-            this.removeLaddLayerDomPointByName(name);
-        }
-        this.options = options;
-        const {
-            labelDom,
-            type = '桥梁',
-            iconUrl,
-            customData,
-            bubbleColor,
-            clickCallback,
-            size = 'normal',
-            status = 'normal',
-        } = options || {};
+  constructor(engine) {
+    this.layerDomMap = new Map()
+    this.engine = engine
+  }
 
-        // 气泡点
-        let {bubble} = addBubble(point, {
-            size: size === 'normal' ? 60 : 40,
-            color: bubbleColor,
-            type: 'Wave',
-            _engine: this.engine,
-        });
+  addLayerDomPoint(name, point, options) {
+    if (this.warningeMap.has(name))
+      this.removeLaddLayerDomPointByName(name)
 
-        // 右侧label dom
-        let {domOverlay} = addDOMOverlay(point, labelDom, {
-            _engine: this.engine,
-            offset: getLabelOffset(labelDom, size),
-        });
+    this.options = options
+    const {
+      labelDom,
+      type = '桥梁',
+      iconUrl,
+      customData,
+      bubbleColor,
+      clickCallback,
+      size = 'normal',
+      status = 'normal',
+    } = options || {}
 
-        // icon small: 32 * 55 normal: 48 * 83(默认)
-        let {icon, _engine} = addIcon(point, getIconUrl(type, size, status, iconUrl), {
-            width: size === 'normal' ? 48 : 32,
-            height: size === 'normal' ? 83 : 55,
-            offset: size === 'normal' ? [0, -42] : [0, -28],
-            customData,
-            _engine: this.engine,
-        });
+    // 气泡点
+    const { bubble } = addBubble(point, {
+      size: size === 'normal' ? 60 : 40,
+      color: bubbleColor,
+      type: 'Wave',
+      _engine: this.engine,
+    })
 
-        this.bind(options, icon);
-        this.layerDomMap.set(name, {
-            'Bubble': bubble, // 气泡点
-            'Label': domOverlay, // 文字 label
-            'Icon': icon, // icon
-        });
-    }
-    removeLayerDomPointByName(name) {
-        const warning = this.warningeMap.get(name);
-        if (!warning) return;
-        this.unbind(warning.Icon);
-        Object.keys(warning).forEach(key => {
-            const remove = removeMap[key];
-            remove(warning[key], this.engine);
-        });
-        this.warning.delete(name);
-    }
+    // 右侧label dom
+    const { domOverlay } = addDOMOverlay(point, labelDom, {
+      _engine: this.engine,
+      offset: getLabelOffset(labelDom, size),
+    })
 
-    // 绑定事件
-    bind(element, type) {
-        const addEventListener = type => {
-            const eventName = eventNameEnum[type];
-            const callback = this.options[eventName];
-            if (callback && typeof callback === 'function') {
-                element.receiveRaycast = true;
-                element[type] = callback;
-                element.engine.event.bind(element, type, callback);
-            }
-        };
+    // icon small: 32 * 55 normal: 48 * 83(默认)
+    const { icon, _engine } = addIcon(point, getIconUrl(type, size, status, iconUrl), {
+      width: size === 'normal' ? 48 : 32,
+      height: size === 'normal' ? 83 : 55,
+      offset: size === 'normal' ? [0, -42] : [0, -28],
+      customData,
+      _engine: this.engine,
+    })
 
-        if (type) {
-            addEventListener(type);
-            return;
-        }
-        Object.keys(eventNameEnum).forEach(eventType => {
-            addEventListener(eventType);
-        });
+    this.bind(options, icon)
+    this.layerDomMap.set(name, {
+      Bubble: bubble, // 气泡点
+      Label: domOverlay, // 文字 label
+      Icon: icon, // icon
+    })
+  }
+
+  removeLayerDomPointByName(name) {
+    const warning = this.warningeMap.get(name)
+    if (!warning)
+      return
+    this.unbind(warning.Icon)
+    Object.keys(warning).forEach((key) => {
+      const remove = removeMap[key]
+      remove(warning[key], this.engine)
+    })
+    this.warning.delete(name)
+  }
+
+  // 绑定事件
+  bind(element, type) {
+    const addEventListener = (type) => {
+      const eventName = eventNameEnum[type]
+      const callback = this.options[eventName]
+      if (callback && typeof callback === 'function') {
+        element.receiveRaycast = true
+        element[type] = callback
+        element.engine.event.bind(element, type, callback)
+      }
     }
 
-    // 移除事件
-    unbind(element, type) {
-        const removeEventListener = type => {
-            element.engine.event.unbind(element, type, element[type]);
-            element[type] = null;
-        };
+    if (type) {
+      addEventListener(type)
+      return
+    }
+    Object.keys(eventNameEnum).forEach((eventType) => {
+      addEventListener(eventType)
+    })
+  }
 
-        if (type) {
-            removeEventListener(type);
-            return;
-        }
-        Object.keys(eventNameEnum).forEach(eventType => {
-            removeEventListener(eventType);
-        });
+  // 移除事件
+  unbind(element, type) {
+    const removeEventListener = (type) => {
+      element.engine.event.unbind(element, type, element[type])
+      element[type] = null
     }
 
-    clear() {
-        [...this.layerDomMap.keys()].forEach(macro => {
-            this.removeLayerDomPointByName(macro);
-        });
-        this.layerDomMap.clear();
+    if (type) {
+      removeEventListener(type)
+      return
     }
+    Object.keys(eventNameEnum).forEach((eventType) => {
+      removeEventListener(eventType)
+    })
+  }
+
+  clear() {
+    [...this.layerDomMap.keys()].forEach((macro) => {
+      this.removeLayerDomPointByName(macro)
+    })
+    this.layerDomMap.clear()
+  }
 }
 
 export {
-    LayerManager,
-};
+  LayerManager,
+}
 ```
 
 ### 视野漫游动画
@@ -432,51 +436,54 @@ export {
 4. 定义一个 `clear()` 方法，方法循环遍历映射表的 `key` 值，依次调用 `removeXxxx()` 方法删除地图
 
 ```js
-import {addPathTracker, addLine, addModel, removePathTracker, removeModel, removeLine} from '../xxx.js';
+import { addLine, addModel, addPathTracker, removeLine, removeModel, removePathTracker } from '../xxx.js'
+
 // 是野蛮懂管理器
 class PathTrackerManager {
-    constructor(engine) {
-        this.pathTrackerMap = new Map();
-        this.engine = engine;
-    }
-    addPathTracker(name, options) {
-        if (this.pathTrackerMap.has(name)) {
-            this.removePathTrackerByName(name);
-        }
-        const {position, positions} = options || {};
-        let {line} = addLine(positions, {
-            lineWidth: 15, color: '#d0a63c', opacity: 1,
-        }, null, geoData => {
-            addModel('maplayer/assets/models/kache.glb', position, 150, model => {
-                addPathTracker({
-                    positions: geoData,
-                    position,
-                    model,
-                });
+  constructor(engine) {
+    this.pathTrackerMap = new Map()
+    this.engine = engine
+  }
 
-                this.pathTrackerMap.set(name, {
-                    'line': line,
-                    'model': model,
-                });
-            });
-        });
-    }
-    removePathTrackerByName(name) {
-        const pathTracker = this.pathTrackerMap.get(name);
-        pathTracker && removeModel(pathTracker.model, this.engine);
-        pathTracker && removeLine(pathTracker.line, this.engine);
-        this.pathTrackerMap.delete(name);
-    }
+  addPathTracker(name, options) {
+    if (this.pathTrackerMap.has(name))
+      this.removePathTrackerByName(name)
 
-    clear() {
-        [...this.pathTrackerMap.keys()].forEach(pathTracker => {
-            this.removePathTrackerByName(pathTracker);
-        });
-        this.pathTrackerMap.clear();
-    }
+    const { position, positions } = options || {}
+    const { line } = addLine(positions, {
+      lineWidth: 15, color: '#d0a63c', opacity: 1,
+    }, null, (geoData) => {
+      addModel('maplayer/assets/models/kache.glb', position, 150, (model) => {
+        addPathTracker({
+          positions: geoData,
+          position,
+          model,
+        })
+
+        this.pathTrackerMap.set(name, {
+          line,
+          model,
+        })
+      })
+    })
+  }
+
+  removePathTrackerByName(name) {
+    const pathTracker = this.pathTrackerMap.get(name)
+    pathTracker && removeModel(pathTracker.model, this.engine)
+    pathTracker && removeLine(pathTracker.line, this.engine)
+    this.pathTrackerMap.delete(name)
+  }
+
+  clear() {
+    [...this.pathTrackerMap.keys()].forEach((pathTracker) => {
+      this.removePathTrackerByName(pathTracker)
+    })
+    this.pathTrackerMap.clear()
+  }
 }
 
 export {
-    PathTrackerManager,
-};
+  PathTrackerManager,
+}
 ```

@@ -53,19 +53,19 @@
 
 ```vue
 <script setup>
-    import html2canvas from 'html2canvas'
-    import { ref } from 'vue'
-    import { saveAs } from 'file-saver'
-    
-    let div1 = ref(null)
-    
-    const saveScreen = () => {
-        html2canvas(div1.value).then(res => {
-            res.toBlob((blob) => {
-                saveAs(blob, 'screen.png')
-            })
-        })
-    }
+import html2canvas from 'html2canvas'
+import { ref } from 'vue'
+import { saveAs } from 'file-saver'
+
+const div1 = ref(null)
+
+function saveScreen() {
+  html2canvas(div1.value).then((res) => {
+    res.toBlob((blob) => {
+      saveAs(blob, 'screen.png')
+    })
+  })
+}
 </script>
 ```
 

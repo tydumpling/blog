@@ -472,12 +472,14 @@ pnpm install element-plus @element-plus/icons-vue
 **入口文件main.ts全局安装element-plus,element-plus默认支持语言英语设置为中文**
 
 ```js
-import ElementPlus from 'element-plus';
+import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-//@ts-ignore 忽略当前文件ts类型的检测否则有红色提示(打包会失败)
+
+// @ts-expect-error 忽略当前文件ts类型的检测否则有红色提示(打包会失败)
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+
 app.use(ElementPlus, {
-    locale: zhCn
+  locale: zhCn
 })
 ```
 
@@ -509,19 +511,20 @@ pnpm install @element-plus/icons-vue
 
 ```js
 // vite.config.ts
-import {defineConfig} from 'vite'
+import path from 'node:path'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import path from 'path'
+
 export default defineConfig({
-    plugins: [vue()],
-    resolve: {
-        alias: {
-            "@": path.resolve("./src"), // 相对路径别名配置，使用 @ 代替 src
-            "@api": path.resolve("./src/api"),
-      		"@comp": path.resolve("./src/components"),
-      		"@v": path.resolve("./src/views")
-        }
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': path.resolve('./src'), // 相对路径别名配置，使用 @ 代替 src
+      '@api': path.resolve('./src/api'),
+      		'@comp': path.resolve('./src/components'),
+      		'@v': path.resolve('./src/views')
     }
+  }
 })
 ```
 
@@ -602,18 +605,18 @@ VITE_APP_BASE_API = '/test-api'
 通过 `import.meta.env` 获取环境变量
 
 ```js
-console.log(import.meta.env);
+console.log(import.meta.env)
 
 // 打印：
 {
-    BASE_URL: "/"
-	DEV: true
-	MODE: "development"
-	PROD: false
-	SSR: false
-	VITE_APP_BASE_API: "/dev-api"
-	VITE_APP_TITLE: "硅谷甄选运营平台"
-	VITE_USER_NODE_ENV: "development"
+  BASE_URL: '/'
+  DEV: true
+  MODE: 'development'
+  PROD: false
+  SSR: false
+  VITE_APP_BASE_API: '/dev-api'
+  VITE_APP_TITLE: '硅谷甄选运营平台'
+  VITE_USER_NODE_ENV: 'development'
 }
 ```
 
@@ -632,8 +635,9 @@ pnpm install vite-plugin-svg-icons -D
 **在`vite.config.ts`中配置插件**
 
 ```js
+import path from 'node:path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import path from 'path'
+
 export default () => {
   return {
     plugins: [
@@ -661,63 +665,66 @@ import 'virtual:svg-icons-register'
 **在src/components目录下创建一个SvgIcon组件:代表如下**
 
 ```vue
-<template>
-  <div>
-    <svg :style="{ width: width, height: height }">
-      <use :xlink:href="prefix + name" :fill="color"></use>
-    </svg>
-  </div>
-</template>
-
 <script setup lang="ts">
 defineProps({
-  //xlink:href属性值的前缀
+  // xlink:href属性值的前缀
   prefix: {
     type: String,
     default: '#icon-'
   },
-  //svg矢量图的名字
+  // svg矢量图的名字
   name: String,
-  //svg图标的颜色
+  // svg图标的颜色
   color: {
     type: String,
-    default: ""
+    default: ''
   },
-  //svg宽度
+  // svg宽度
   width: {
     type: String,
     default: '16px'
   },
-  //svg高度
+  // svg高度
   height: {
     type: String,
     default: '16px'
   }
 })
 </script>
+
+<template>
+  <div>
+    <svg :style="{ width, height }">
+      <use :xlink:href="prefix + name" :fill="color" />
+    </svg>
+  </div>
+</template>
+
 <style scoped></style>
 ```
 
 在src文件夹目录下创建一个 `index.ts` 文件：用于注册 `components` 文件夹内部全部全局组件！！！
 
 ```js
-import SvgIcon from './SvgIcon/index.vue';
-import type { App, Component } from 'vue';
-const components: { [name: string]: Component } = { SvgIcon };
+import type { App, Component } from 'vue'
+import SvgIcon from './SvgIcon/index.vue'
+
+const components: { [name: string]: Component } = { SvgIcon }
 export default {
-    install(app: App) {
-        Object.keys(components).forEach((key: string) => {
-            app.component(key, components[key]);
-        })
-    }
+  install(app: App) {
+    Object.keys(components).forEach((key: string) => {
+      app.component(key, components[key])
+    })
+  }
 }
 ```
 
 在入口文件引入 `src/index.ts` 文件，通过 `app.use` 方法安装自定义插件
 
 ```js
-import gloablComponent from './components/index';
-app.use(gloablComponent);
+import gloablComponent from './components/index'
+
+app.use(gloablComponent)
 ```
 
 #### 拓展
@@ -746,7 +753,7 @@ app.use(gloablComponent);
 
    ```js
    export default {
-       install() {}
+     install() {}
    }
    ```
 
@@ -779,7 +786,7 @@ app.use(gloablComponent);
 在入口文件引入
 
 ```js
-import '@/styles/index.scss';
+import '@/styles/index.scss'
 ```
 
 但是你会发现在 `src/styles/index.scss` 全局样式文件中没有办法使用$变量。因此需要给项目中引入全局变量$.
@@ -817,10 +824,11 @@ pnpm install -D vite-plugin-mock@2.9.6 mockjs
 在 vite.config.js 配置文件启用插件。
 
 ```js
-import { UserConfigExport, ConfigEnv } from 'vite'
+import { ConfigEnv, UserConfigExport } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
 import vue from '@vitejs/plugin-vue'
-export default ({ command })=> {
+
+export default ({ command }) => {
   return {
     plugins: [
       vue(),
@@ -837,74 +845,74 @@ export default ({ command })=> {
 在mock文件夹内部创建一个user.ts文件
 
 ```js
-//用户信息数据
+// 用户信息数据
 function createUserList() {
-    return [
-        {
-            userId: 1,
-            avatar:
+  return [
+    {
+      userId: 1,
+      avatar:
                 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-            username: 'admin',
-            password: '111111',
-            desc: '平台管理员',
-            roles: ['平台管理员'],
-            buttons: ['cuser.detail'],
-            routes: ['home'],
-            token: 'Admin Token',
-        },
-        {
-            userId: 2,
-            avatar:
+      username: 'admin',
+      password: '111111',
+      desc: '平台管理员',
+      roles: ['平台管理员'],
+      buttons: ['cuser.detail'],
+      routes: ['home'],
+      token: 'Admin Token',
+    },
+    {
+      userId: 2,
+      avatar:
                 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-            username: 'system',
-            password: '111111',
-            desc: '系统管理员',
-            roles: ['系统管理员'],
-            buttons: ['cuser.detail', 'cuser.user'],
-            routes: ['home'],
-            token: 'System Token',
-        },
-    ]
+      username: 'system',
+      password: '111111',
+      desc: '系统管理员',
+      roles: ['系统管理员'],
+      buttons: ['cuser.detail', 'cuser.user'],
+      routes: ['home'],
+      token: 'System Token',
+    },
+  ]
 }
 
 export default [
-    // 用户登录接口
-    {
-        url: '/api/user/login',//请求地址
-        method: 'post',//请求方式
-        response: ({ body }) => {
-            //获取请求体携带过来的用户名与密码
-            const { username, password } = body;
-            //调用获取用户信息函数,用于判断是否有此用户
-            const checkUser = createUserList().find(
-                (item) => item.username === username && item.password === password,
-            )
-            //没有用户返回失败信息
-            if (!checkUser) {
-                return { code: 201, data: { message: '账号或者密码不正确' } }
-            }
-            //如果有返回成功信息
-            const { token } = checkUser
-            return { code: 200, data: { token } }
-        },
+  // 用户登录接口
+  {
+    url: '/api/user/login', // 请求地址
+    method: 'post', // 请求方式
+    response: ({ body }) => {
+      // 获取请求体携带过来的用户名与密码
+      const { username, password } = body
+      // 调用获取用户信息函数,用于判断是否有此用户
+      const checkUser = createUserList().find(
+        item => item.username === username && item.password === password,
+      )
+      // 没有用户返回失败信息
+      if (!checkUser)
+        return { code: 201, data: { message: '账号或者密码不正确' } }
+
+      // 如果有返回成功信息
+      const { token } = checkUser
+      return { code: 200, data: { token } }
     },
-    // 获取用户信息
-    {
-        url: '/api/user/info',
-        method: 'get',
-        response: (request) => {
-            //获取请求头携带token
-            const token = request.headers.token;
-            //查看用户信息是否包含有次token用户
-            const checkUser = createUserList().find((item) => item.token === token)
-            //没有返回失败的信息
-            if (!checkUser) {
-                return { code: 201, data: { message: '获取用户信息失败' } }
-            }
-            //如果有返回成功信息
-            return { code: 200, data: {checkUser} }
-        },
+  },
+  // 获取用户信息
+  {
+    url: '/api/user/info',
+    method: 'get',
+    response: (request) => {
+      // 获取请求头携带token
+      const token = request.headers.token
+      // 查看用户信息是否包含有次token用户
+      const checkUser = createUserList().find(item => item.token === token)
+      // 没有返回失败的信息
+      if (!checkUser)
+        return { code: 201, data: { message: '获取用户信息失败' } }
+
+      // 如果有返回成功信息
+      return { code: 200, data: { checkUser } }
     },
+  },
 ]
 ```
 
@@ -930,48 +938,49 @@ pnpm install axios
 在根目录下创建 `utils/request.ts`
 
 ```js
-import axios from "axios";
-import { ElMessage } from "element-plus";
-//创建axios实例
-let request = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_API,
-    timeout: 5000
-})
-//请求拦截器
-request.interceptors.request.use(config => {
-    return config;
-});
-//响应拦截器
-request.interceptors.response.use((response) => {
-    return response.data;
-}, (error) => {
-    //处理网络错误
-    let msg = '';
-    let status = error.response.status;
-    switch (status) {
-        case 401:
-            msg = "token过期";
-            break;
-        case 403:
-            msg = '无权访问';
-            break;
-        case 404:
-            msg = "请求地址错误";
-            break;
-        case 500:
-            msg = "服务器出现问题";
-            break;
-        default:
-            msg = "无网络";
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
-    }
-    ElMessage({
-        type: 'error',
-        message: msg
-    })
-    return Promise.reject(error);
-});
-export default request;
+// 创建axios实例
+const request = axios.create({
+  baseURL: import.meta.env.VITE_APP_BASE_API,
+  timeout: 5000
+})
+// 请求拦截器
+request.interceptors.request.use((config) => {
+  return config
+})
+// 响应拦截器
+request.interceptors.response.use((response) => {
+  return response.data
+}, (error) => {
+  // 处理网络错误
+  let msg = ''
+  const status = error.response.status
+  switch (status) {
+    case 401:
+      msg = 'token过期'
+      break
+    case 403:
+      msg = '无权访问'
+      break
+    case 404:
+      msg = '请求地址错误'
+      break
+    case 500:
+      msg = '服务器出现问题'
+      break
+    default:
+      msg = '无网络'
+
+  }
+  ElMessage({
+    type: 'error',
+    message: msg
+  })
+  return Promise.reject(error)
+})
+export default request
 ```
 
 ### API接口统一管理

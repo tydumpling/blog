@@ -36,17 +36,18 @@ title 尚义通项目创建
 **如果红色语法提示请安装@types/node 是 TypeScript 的一个声明文件包，用于描述 Node.js 核心模块和常用的第三方库的类型信息**
 
 ```js
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import path from 'path';
+
 // https://vitejs.dev/config/
 export default defineConfig({
- plugins: [vue()],
- resolve: {
-  alias: {
-   "@": path.resolve(__dirname, 'src')
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
   }
- }
 })
 ```
 
@@ -86,7 +87,7 @@ export default defineConfig({
 以下是 `scrollIntoView` 方法的基本用法：
 
 ```js
-element.scrollIntoView();
+element.scrollIntoView()
 ```
 
 其中 `element` 是需要滚动到可视区域的元素。
@@ -94,7 +95,7 @@ element.scrollIntoView();
 你还可以提供一个参数对象来指定滚动行为的更多选项。例如，你可以使用以下代码滚动到具有平滑动画效果的元素：
 
 ```js
-element.scrollIntoView({ behavior: 'smooth' });
+element.scrollIntoView({ behavior: 'smooth' })
 ```
 
 `behavior` 属性可以是 ‘auto’、‘smooth’ 或者可选的 `scrollOptions` 对象。‘auto’ 将使用默认的滚动行为，‘smooth’ 将以平滑的动画方式滚动，`scrollOptions` 对象可以提供更多自定义选项。
@@ -106,16 +107,16 @@ element.scrollIntoView({ behavior: 'smooth' });
 #### 使用
 
 ```js
-const handleNavFn = (i: number) => {
-  activeIndex.value = i;
+function handleNavFn(i: number) {
+  activeIndex.value = i
   // 获取右侧科室h1标题
-  let allH1 = document.querySelectorAll("h1");
+  const allH1 = document.querySelectorAll('h1')
   // 滚动到对应位置
   allH1[i].scrollIntoView({
-    behavior: "smooth", // 过度动画效果
-    block: "end",
-  });
-};
+    behavior: 'smooth', // 过度动画效果
+    block: 'end',
+  })
+}
 ```
 
 获取到相应的DOM 元素，点击后通过 `scrollIntoView` 方法实现滚动。
@@ -140,21 +141,21 @@ new QRCode(document.getElementById("qrcode"), "https://www.runoob.com");  // 设
 或者使用一些可选参数设置：
 
 ```js
-var qrcode = new QRCode("test", {
-    text: "https://www.runoob.com",
-    width: 128,
-    height: 128,
-    colorDark : "#000000",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
-});
+const qrcode = new QRCode('test', {
+  text: 'https://www.runoob.com',
+  width: 128,
+  height: 128,
+  colorDark: '#000000',
+  colorLight: '#ffffff',
+  correctLevel: QRCode.CorrectLevel.H
+})
 ```
 
 同样我们可以使用以下方法：
 
 ```js
-qrcode.clear(); // 清除代码
-qrcode.makeCode("https://c.runoob.com"); // 生成另外一个二维码
+qrcode.clear() // 清除代码
+qrcode.makeCode('https://c.runoob.com') // 生成另外一个二维码
 ```
 
 #### 使用
@@ -168,13 +169,13 @@ qrcode.makeCode("https://c.runoob.com"); // 生成另外一个二维码
 - 注册使用
 
   ```js
-  import QRCode from "qrcode";
+  import QRCode from 'qrcode'
   ```
 
 - 生成二维码
 
   ```js
-  imgUrl.value = await QRCode.toDataURL(res.data.codeUrl);
+  imgUrl.value = await QRCode.toDataURL(res.data.codeUrl)
   ```
 
   注意他是异步方法，返回 Promise，因此通过 `await` 或 `.then()` 获取数据

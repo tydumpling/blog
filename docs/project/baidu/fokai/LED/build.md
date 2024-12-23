@@ -13,14 +13,14 @@ Vue3 项目是用的 `vite` 创建，因此无法直接在 `defineConfig` 中获
 最终代码如下：
 
 ```js
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv } from 'vite'
 
-export default defineConfig(({mode}) => {
-    const env = loadEnv(mode, process.cwd());
-    return {
-        base: env.VITE_BASE_URL,
-        // ...
-    };
-});
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd())
+  return {
+    base: env.VITE_BASE_URL,
+    // ...
+  }
+})
 ```
 

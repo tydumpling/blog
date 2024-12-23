@@ -32,6 +32,9 @@
     "release": "esno scripts/release.ts",
     "update": "esno scripts/update.ts"
   },
+  "dependencies": {
+    "algoliasearch": "^5.18.0"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.42.1",
     "@antfu/ni": "^0.21.12",
@@ -68,8 +71,5 @@
     "vite-plugin-pwa": "^0.16.7",
     "vitepress": "^1.4.2",
     "vue": "^3.4.31"
-  },
-  "dependencies": {
-    "algoliasearch": "^5.18.0"
   }
 }

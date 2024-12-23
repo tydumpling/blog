@@ -14,7 +14,7 @@
 1. 把所有的公共组件都写在统一的文件夹内，比如 `components` 文件夹下，并且规范命名规则，以 `model` 开头为例。这样方便管理。可以再创建 `left` 和 `right` 之类的文件夹，用于区分是哪侧的组件。
 2. 在 `components` 文件夹下创建 `index.js`，`import.meta.glob` 导入所有的 `.vue` 文件。
    ```js
-    const routeFiles = import.meta.glob(['./*/*.vue', './*.vue']);
+   const routeFiles = import.meta.glob(['./*/*.vue', './*.vue'])
    ```
    此时就能获取到所有的子组件，并且生成一个对象 `routeFiles`。`routeFiles` 的 `key` 是文件路径，`value` 是 `import` 函数。
 3. 循环遍历对象，过滤出所有需要的组件，即 `model` 开头的组件。然后把组件的名称改为小写。
@@ -41,31 +41,30 @@
 
 ### 总体代码
 ```js
+import { defineAsyncComponent } from 'vue'
 
-import {defineAsyncComponent} from 'vue';
-const routeFiles = import.meta.glob(['./*/*.vue', './*.vue']);
+const routeFiles = import.meta.glob(['./*/*.vue', './*.vue'])
 
-const asyncComponents = {};
-const toLowerCase = s => s[0].toLowerCase() + s.slice(1);
+const asyncComponents = {}
+const toLowerCase = s => s[0].toLowerCase() + s.slice(1)
 
 Object.entries(routeFiles)
-    .filter(([path]) => path.startsWith('./model'))
-    .forEach(([path, component]) => {
-        const name = getCardNameByPath(path); // 获取组件名
+  .filter(([path]) => path.startsWith('./model'))
+  .forEach(([path, component]) => {
+    const name = getCardNameByPath(path) // 获取组件名
 
-        const components = asyncComponents[name] || {};
+    const components = asyncComponents[name] || {}
 
-        components[type] = defineAsyncComponent(component);
+    components[type] = defineAsyncComponent(component)
 
-        asyncComponents[name] = components;
-    });
+    asyncComponents[name] = components
+  })
 
-export default asyncComponents;
-
+export default asyncComponents
 
 function getCardNameByPath(path) {
-    const upperName = path.replaceAll(/^\.\/model([^\/]*)(\/.*|\.vue)$/g, '$1');
-    return toLowerCase(upperName);
+  const upperName = path.replaceAll(/^\.\/model([^\/]*)(\/.*|\.vue)$/g, '$1')
+  return toLowerCase(upperName)
 }
 ```
 
@@ -82,30 +81,30 @@ const dict = {
   // 设备
   emquity: {
     left: [
-        {
-            "component": "home",
-            "size": {
-                "x": 1,
-                "y": 1
-            },
-            "name": "索引",
+      {
+        component: 'home',
+        size: {
+          x: 1,
+          y: 1
         },
-        {
-            "component": "about",
-            "size": {
-                "x": 1,
-                "y": 1
-            },
-            "name": "关于",
+        name: '索引',
+      },
+      {
+        component: 'about',
+        size: {
+          x: 1,
+          y: 1
         },
-        {
-            "component": "info",
-            "size": {
-                "x": 1,
-                "y": 2
-            },
-            "name": "详情",
+        name: '关于',
+      },
+      {
+        component: 'info',
+        size: {
+          x: 1,
+          y: 2
         },
+        name: '详情',
+      },
     ],
     right: [
       // ...
@@ -114,7 +113,7 @@ const dict = {
   // 设施
   facility: {
     left: {
-      //...
+      // ...
     },
     right: {
       // ...
@@ -133,9 +132,9 @@ const dict = {
 
 ```js
 function getSys(configKey) {
-    return configKey.split('.').reduce((p, c) => {
-        return p?.[c];
-    }, dict);
+  return configKey.split('.').reduce((p, c) => {
+    return p?.[c]
+  }, dict)
 };
 ```
 
@@ -174,30 +173,30 @@ const cards = computed(() => {
 ### 组件挂载
 
 ```vue
+<script setup>
+import useCard from './useCard'
+
+const { cards } = useCard('right')
+
+const show = ref(false)
+
+function click() {
+  show.value = !show.value
+}
+</script>
+
 <template>
-	<transition-group
-      enter-active-class="animate__animated animate__fadeIn"
+  <transition-group
+    enter-active-class="animate__animated animate__fadeIn"
   >
-      <component
-          :is="el.asyncComponent"
-          v-for="el in cards"
-          :key="el.component"
-          v-bind="el"
-      />
+    <component
+      :is="el.asyncComponent"
+      v-for="el in cards"
+      :key="el.component"
+      v-bind="el"
+    />
   </transition-group>
 </template>
-
-<script setup>
-import useCard from './useCard';
-
-const {cards} = useCard('right');
-
-const show = ref(false);
-
-const click = () => {
-    show.value = !show.value;
-};
-</script>
 ```
 
 此时子组件已经能够成功显示了。
@@ -209,35 +208,37 @@ const click = () => {
 首先声明一个变量，表示能渲染多少组件，然后通过计算属性过滤数组。每当一个组件挂载成功，让该变量自增一，这样就能一个个挂载，并由于有 `transition-group` ，能够实现动画效果。
 
 ```vue
+<script setup>
+import useCard from './useCard'
+
+const { cards } = useCard('right')
+
+const show = ref(false)
+const getInitIndex = () => (show.value ? 1 : 0) // [!code ++] // 0:未展开 1:展开;
+const renderIndex = ref(getInitIndex()) // [!code ++]
+function mounted() { // [!code ++]
+  renderIndex.value++ // [!code ++]
+} // [!code ++]
+
+function click() {
+  show.value = !show.value
+}
+</script>
+
 <template>
-	<transition-group
-      enter-active-class="animate__animated animate__fadeIn"
+  <transition-group
+    enter-active-class="animate__animated animate__fadeIn"
   >
-      <component
-          :is="el.asyncComponent"
-          v-for="el in cards"
-          :key="el.component"
-          v-bind="el"
-          @vue:mounted="mounted" <!-- [!code ++] -->
+    <component
+      :is="el.asyncComponent"
+      v-for="el in cards"
+      :key="el.component"
+      v-bind="el"
+      <!-- [!code ++] -- @vue:mounted="mounted"
+    >
       />
+    </component>
   </transition-group>
 </template>
-
-<script setup>
-import useCard from './useCard';
-
-const {cards} = useCard('right');
-
-const show = ref(false);
-const getInitIndex = () => (show.value ? 1 : 0); // [!code ++] // 0:未展开 1:展开;
-const renderIndex = ref(getInitIndex()); // [!code ++]
-const mounted = () => { // [!code ++]
-    renderIndex.value++; // [!code ++]
-}; // [!code ++]
-
-const click = () => {
-    show.value = !show.value;
-};
-</script>
 ```
 

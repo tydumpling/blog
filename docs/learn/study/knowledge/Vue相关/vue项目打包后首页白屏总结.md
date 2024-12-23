@@ -52,20 +52,20 @@
   > ```
 
 ```js
-const path = require('path')
+const path = require('node:path')
 
 function resolve(dir) {
-  return path.join(__dirname, dir)
+  return path.join(__dirname, dir)
 }
 
 // vue.config.js
 module.exports = {
-  publicPath: './',
-  outputDir: 'client',
-  productionSourceMap: false,
-  devServer: {
-    disableHostCheck: true,
-  }
+  publicPath: './',
+  outputDir: 'client',
+  productionSourceMap: false,
+  devServer: {
+    disableHostCheck: true,
+  }
 }
 ```
 

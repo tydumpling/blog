@@ -28,12 +28,6 @@
 编写 `.vue` 文件其实最后都会变成一个对象:
 
 ```vue
-<template>
- <div>
-   {{ msg }}
-  </div>
-</template>
-
 <script>
 export default {
   data() {
@@ -43,12 +37,18 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div>
+    {{ msg }}
+  </div>
+</template>
 ```
 
 编译后变成如下形式的对象：
 
 ```js
-let component = {
+const component = {
   template: '<div>{{msg}}</div>',
   data() {
     return {
@@ -147,15 +147,16 @@ JSX 使用方式如下：
      return <>
        {
        	list.map((item) => {
-           if(item.name === '王五' || item.name === '赵六') {
-             return ''
-           } else {
-             return <tr>
+       	  if (item.name === '王五' || item.name === '赵六') {
+       	    return ''
+       	  }
+       	  else {
+       	    return <tr>
                <td>{item.name}</td>
                <td><statusTable>{item.status}</statusTable></td>
              </tr>
-           }
-         })
+       	  }
+       	})
      	}
      </>
    }

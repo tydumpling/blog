@@ -11,92 +11,93 @@ title 图片上传组件封装
 - 通过父组件传递的参数判断是否要显示删除按钮（一般用于详情和编辑功能复用的场景）
 ## 总体代码
 ```vue
-<template>
-	<view>
-		<u-toast ref="uToast" />
-		<u-upload :fileList="fileList" @afterRead="successFn" @delete="removeFn" :deletable="!disabled" name="1" multiple :maxCount="10"></u-upload>
-	</view>
-</template>
-
 <script>
-	import {
-		BASE_URL,
-		IMG_URL
-	} from "../../config";
-	export default {
-		props: {
-			disabled: {
-				type: Boolean,
-				default: false
-			}
-		},
-		data() {
-			return {
-				action: BASE_URL + "/public/save",
-				fileList: [],
-				dataList: [],
-				headers: {
-					"X-Access-Token": uni.getStorageSync('token'),
-				},
-			};
-		},
-		methods: {
-			// 添加图片 + 成功回调
-			async successFn(file) {
-				let length = this.fileList.length
-				this.fileList.push({
-					url: file.file[0].url,
-					status: 'uploading',
-					message: '上传中'
-				});
-				const res = await this.uploadFilePromise(file.file[0].url)
-				if (res.code === 200) {
-					this.$set(this.fileList, length, {
-						url: IMG_URL + res.data,
-						status: 'success',
-						message: '上传成功'
-					})
-					this.$set(this.dataList, length, {
-						url: res.data,
-						status: 'success',
-						message: '上传成功'
-					})
-				}
-				
-				this.$emit('uploadSuccessFn', this.dataList)
-			},
-			// 上传图片
-			uploadFilePromise(url) {
-				return new Promise((resolve, reject) => {
-					uni.uploadFile({
-						url: this.action,
-						filePath: url,
-						name: 'file',
-						header: {
-							"X-Access-Token": uni.getStorageSync('token'),
-						},
-						success: (res) => {
-							setTimeout(() => {
-								resolve(JSON.parse(res.data))
-							}, 1000)
-						},
-						fail: (err) => {
-							setTimeout(() => {
-								reject(err)
-							}, 1000)
-						}
-					});
-				})
-			},
-			// 删除成功回调
-			removeFn(event) {
-				this.fileList.splice(event.index, 1)
-				this.dataList.splice(event.index, 1)
-				this.$emit('uploadSuccessFn', this.dataList)
-			},
-		},
-	};
+import {
+  BASE_URL,
+  IMG_URL
+} from '../../config'
+
+export default {
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      action: `${BASE_URL}/public/save`,
+      fileList: [],
+      dataList: [],
+      headers: {
+        'X-Access-Token': uni.getStorageSync('token'),
+      },
+    }
+  },
+  methods: {
+    // 添加图片 + 成功回调
+    async successFn(file) {
+      const length = this.fileList.length
+      this.fileList.push({
+        url: file.file[0].url,
+        status: 'uploading',
+        message: '上传中'
+      })
+      const res = await this.uploadFilePromise(file.file[0].url)
+      if (res.code === 200) {
+        this.$set(this.fileList, length, {
+          url: IMG_URL + res.data,
+          status: 'success',
+          message: '上传成功'
+        })
+        this.$set(this.dataList, length, {
+          url: res.data,
+          status: 'success',
+          message: '上传成功'
+        })
+      }
+
+      this.$emit('uploadSuccessFn', this.dataList)
+    },
+    // 上传图片
+    uploadFilePromise(url) {
+      return new Promise((resolve, reject) => {
+        uni.uploadFile({
+          url: this.action,
+          filePath: url,
+          name: 'file',
+          header: {
+            'X-Access-Token': uni.getStorageSync('token'),
+          },
+          success: (res) => {
+            setTimeout(() => {
+              resolve(JSON.parse(res.data))
+            }, 1000)
+          },
+          fail: (err) => {
+            setTimeout(() => {
+              reject(err)
+            }, 1000)
+          }
+        })
+      })
+    },
+    // 删除成功回调
+    removeFn(event) {
+      this.fileList.splice(event.index, 1)
+      this.dataList.splice(event.index, 1)
+      this.$emit('uploadSuccessFn', this.dataList)
+    },
+  },
+}
 </script>
+
+<template>
+  <view>
+    <u-toast ref="uToast" />
+    <u-upload :file-list="fileList" :deletable="!disabled" name="1" multiple :max-count="10" @after-read="successFn" @delete="removeFn" />
+  </view>
+</template>
 ```
 ## 知识拓展
 在小程序和app中，无法通过以下方式收集 `formData `形式的数据：

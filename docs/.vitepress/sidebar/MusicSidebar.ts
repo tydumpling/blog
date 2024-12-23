@@ -2,7 +2,7 @@
 const MusicSidebar = [
   {
     text: '📱 APP',
-    
+
     items: [
       { text: '登录', link: '/geovis/music/APP/login' },
       { text: 'tabbar', link: '/geovis/music/APP/tabbar' },
@@ -18,7 +18,7 @@ const MusicSidebar = [
   },
   {
     text: '💻 H5',
-    
+
     items: [
       { text: '海报页', link: '/geovis/music/H5/' },
       { text: '🗑 返回', link: '/geovis/' },

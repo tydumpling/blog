@@ -22,96 +22,104 @@ title 测试页
 
 ```vue
 <script setup>
-	const titleList = ref([]) // 试题数组
-	const initTopic = async (id) => {
-		const res = await getTestList(id)
-		console.log(res)
-		if (res.code) {
-			titleList.value = res.result
-		}
-	}
-	onLoad((val) => {
-		initTopic(val.id)
-	})
+const titleList = ref([]) // 试题数组
+async function initTopic(id) {
+  const res = await getTestList(id)
+  console.log(res)
+  if (res.code)
+    titleList.value = res.result
 
-	/*swiper配置*/
-	let swiperCurrent = ref(0);
+}
+onLoad((val) => {
+  initTopic(val.id)
+})
 
-	/**
-	 * @description 切换题目
-	 * @param e Number 题号
-	 */
-	const onSwiperChange = e => {
-		swiperCurrent.value = e.detail.current;
-	};
+/* swiper配置*/
+const swiperCurrent = ref(0)
 
-	/**
-	 * @description 点击切换题目
-	 * @param e Number e=1,上一题，e=2下一题
-	 */
-	const handleClickCutTopic = async e => {
-		switch (e) {
-			case 1:
-				if (swiperCurrent.value === 0) {
-					return;
-				} else {
-					swiperCurrent.value = swiperCurrent.value - 1;
-				}
-				break;
-			case 2:
-				// 最后一题，提交测试
-				if (swiperCurrent.value == newAnswerOptList.value.length - 1) {
-				} else {
-					swiperCurrent.value = swiperCurrent.value + 1;
-				}
-				break;
-		}
-	}
+/**
+ * @description 切换题目
+ * @param e Number 题号
+ */
+function onSwiperChange(e) {
+  swiperCurrent.value = e.detail.current
+}
+
+/**
+ * @description 点击切换题目
+ * @param e Number e=1,上一题，e=2下一题
+ */
+async function handleClickCutTopic(e) {
+  switch (e) {
+    case 1:
+      if (swiperCurrent.value === 0) {
+
+      }
+      else {
+        swiperCurrent.value = swiperCurrent.value - 1
+      }
+      break
+    case 2:
+      // 最后一题，提交测试
+      if (swiperCurrent.value == newAnswerOptList.value.length - 1) {
+      }
+      else {
+        swiperCurrent.value = swiperCurrent.value + 1
+      }
+      break
+  }
+}
 </script>
 
 <template>
-		<view class="examination-program">
-			<view class="exam-main-area">
-				<swiper class="topic-swiper" @change="onSwiperChange" :current="swiperCurrent">
-					<swiper-item class="topic-swiper-item" v-for="(topicItem, topicIndex) in newAnswerOptList" :key="topicItem.id">
-						<view class="topic-item-page-select">
-							<!--题目内容-->
-							<view class="topic-question-title">
-								<text>【{{ swiperCurrent + 1 }}/{{ newAnswerOptList.length }}】</text>
-								<text>{{ topicItem.topicTitle }}</text>
-							</view>
-							<!--选项-->
-							<view class="topic-answer-option">
-								<template v-for="(answerItem, answerIndex) in topicItem.itemVos">
-									<view :class="{'answer-option-item': true, 'answer-option-item-active': answerItem.isActive}" @tap.stop="onCheckAnswerItem(topicIndex, answerIndex, answerItem)">
-										<!--选项内容-->
-										<text>{{ answerItem.itemNo }}、{{ answerItem.itemTitle }}</text>
-										<uni-icons type="checkmarkempty" size="24" color="#4790DE" v-show="answerItem.isActive"></uni-icons>
-									</view>
-								</template>
-							</view>
-						</view>
-					</swiper-item>
-				</swiper>
-			</view>
-			<!-- 底部按钮 -->
-			<view class="exam-footer-area">
-				<view class="footer-page-main">
-					<view class="footer-prev" @click="handleClickCutTopic(1)">
-						<uni-icons type="arrow-left" size="24" color="#999999" v-show="swiperCurrent > 0">
-						</uni-icons>
-						<text class="footer-text-margin-left">{{ swiperCurrent == 0 ? '当前第一题' : '上一题' }}</text>
-					</view>
+  <view class="examination-program">
+    <view class="exam-main-area">
+      <swiper class="topic-swiper" :current="swiperCurrent" @change="onSwiperChange">
+        <swiper-item v-for="(topicItem, topicIndex) in newAnswerOptList" :key="topicItem.id" class="topic-swiper-item">
+          <view class="topic-item-page-select">
+            <!-- 题目内容 -->
+            <view class="topic-question-title">
+              <text>【{{ swiperCurrent + 1 }}/{{ newAnswerOptList.length }}】</text>
+              <text>{{ topicItem.topicTitle }}</text>
+            </view>
+            <!-- 选项 -->
+            <view class="topic-answer-option">
+              <template v-for="(answerItem, answerIndex) in topicItem.itemVos">
+                <view class="answer-option-item" :class="{ 'answer-option-item-active': answerItem.isActive }" @tap.stop="onCheckAnswerItem(topicIndex, answerIndex, answerItem)">
+                  <!-- 选项内容 -->
+                  <text>{{ answerItem.itemNo }}、{{ answerItem.itemTitle }}</text>
+                  <uni-icons v-show="answerItem.isActive" type="checkmarkempty" size="24" color="#4790DE" />
+                </view>
+              </template>
+            </view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+    <!-- 底部按钮 -->
+    <view class="exam-footer-area">
+      <view class="footer-page-main">
+        <view class="footer-prev" @click="handleClickCutTopic(1)">
+          <uni-icons v-show="swiperCurrent > 0" type="arrow-left" size="24" color="#999999" />
+          <text class="footer-text-margin-left">
+            {{ swiperCurrent == 0 ? '当前第一题' : '上一题' }}
+          </text>
+        </view>
 
-					<view class="footer-next" @click="handleClickCutTopic(2)">
-						<text
-							class="footer-text-margin-right">{{ swiperCurrent == newAnswerOptList.length - 1 ? '提交' : '下一题' }}</text>
-						<uni-icons type="arrow-right" size="24" color="#FFFFFF"
-							v-show="swiperCurrent < newAnswerOptList.length"></uni-icons>
-					</view>
-				</view>
-			</view>
-		</view>
-	</view>
+        <view class="footer-next" @click="handleClickCutTopic(2)">
+          <text
+            class="footer-text-margin-right"
+          >
+            {{ swiperCurrent == newAnswerOptList.length - 1 ? '提交' : '下一题' }}
+          </text>
+          <uni-icons
+            v-show="swiperCurrent < newAnswerOptList.length" type="arrow-right" size="24"
+            color="#FFFFFF"
+          />
+        </view>
+      </view>
+    </view>
+  </view>
+  </view>
 </template>
 ```

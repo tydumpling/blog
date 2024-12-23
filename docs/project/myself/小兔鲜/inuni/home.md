@@ -20,7 +20,7 @@ const { safeAreaInsets } = uni.getSystemInfoSync()
 </script>
 
 <template>
-  <view class="navbar" :style="{ paddingTop: safeAreaInsets.top + 'px' }">
+  <view class="navbar" :style="{ paddingTop: `${safeAreaInsets.top}px` }">
     <!-- ... -->
   </view>
 </template>
@@ -42,7 +42,7 @@ const { safeAreaInsets } = uni.getSystemInfoSync()
       // 自己封装的组件规则配置，以Xtx开头，在components文件查找引入
       "^Xtx(.*)": "@/components/Xtx$1.vue"
     }
-  },
+  }
 }
 ```
 
@@ -146,12 +146,12 @@ const onRefresherrefresh = async () => {
 
 const isTriggered = ref<boolean>(false)
 // 下拉刷新
-const onRefresherrefresh = async () => {
+async function onRefresherrefresh() {
   // 加载数据
   isTriggered.value = true
   await Promise.all(
-    [getBannerFn(), getCategoryFn(), getHotFn()].map((v) =>
-      v.catch((err) => uni.showToast({ icon: 'none', title: err })),
+    [getBannerFn(), getCategoryFn(), getHotFn()].map(v =>
+      v.catch(err => uni.showToast({ icon: 'none', title: err })),
     ),
   )
   guessRef.value?.reset()
@@ -190,7 +190,7 @@ const onRefresherrefresh = async () => {
 
 ```js
 /** 通用分页结果类型 */
-export type PageResult<T> = {
+export interface PageResult<T> {
   /** 列表数据 */
   items: T[]
   /** 总条数 */
@@ -208,7 +208,7 @@ export type PageResult<T> = {
 
 ```js
 /** 猜你喜欢-商品类型 */
-export type GuessItem = {
+export interface GuessItem {
   /** 商品描述 */
   desc: string
   /** 商品折扣 */
@@ -230,8 +230,8 @@ export type GuessItem = {
 
 ```js
 // 首页猜你喜欢
-export const getHomeGuessApi = (pageParams: PageParams) => {
-  return http<PageResult<GuessItem>>({
+export function getHomeGuessApi(pageParams: PageParams) {
+  return http < PageResult < GuessItem >> ({
     method: 'GET',
     url: '/home/goods/guessLike',
     data: pageParams,
@@ -245,7 +245,7 @@ export const getHomeGuessApi = (pageParams: PageParams) => {
 
 ```js
 /** 通用分页参数类型 */
-export type PageParams = {
+export interface PageParams {
   /** 页码：默认值为 1 */
   page?: number
   /** 页大小：默认值为 10 */
@@ -256,7 +256,7 @@ export type PageParams = {
 可以看到，其两个属性类型都是 `number | undefined` ，因此如果为其赋值 `number` 类型的数据，就会出现 `ts` 类型的报错。代码如下：
 
 ```js
-const pageParams = ref<PageParams>({
+const pageParams = ref < PageParams > ({
   page: 1,
   pageSize: 10,
 })
@@ -281,7 +281,7 @@ pageParams.value.page++ // 出现报错
    转为确定类型需要通过 `Required` 设置，代码如下：
 
    ```js
-   const pageParams = ref<Required<PageParams>>({
+   const pageParams = ref < Required < PageParams >> ({
      page: 1,
      pageSize: 10,
    })

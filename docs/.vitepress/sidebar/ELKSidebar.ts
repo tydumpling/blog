@@ -2,7 +2,7 @@
 const ELKSidebar = [
   {
     text: '🎲 ELK',
-    
+
     items: [
       { text: '简介', link: '/geovis/elk/' },
       {

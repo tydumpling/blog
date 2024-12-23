@@ -2,7 +2,7 @@
 const Vue2Sidebar = [
   {
     text: 'Vue2',
-    
+
     items: [
       { text: '指令', link: '/vue2/指令' },
       {

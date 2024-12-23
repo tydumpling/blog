@@ -170,19 +170,19 @@ pnpm i @dcloudio/uni-ui
 在 `stores/index.ts` 文件中，创建 `pinia` 仓库：
 
 ```js
-import { createPinia } from "pinia";
-import persist from "pinia-plugin-persistedstate";
+import { createPinia } from 'pinia'
+import persist from 'pinia-plugin-persistedstate'
 
 // 创建 pinia 实例
-const pinia = createPinia();
+const pinia = createPinia()
 // 使用持久化存储插件
-pinia.use(persist);
+pinia.use(persist)
 
 // 默认导出，给 main.ts 使用
-export default pinia;
+export default pinia
 
 // 模块统一导出
-export * from "./modules/member";
+export * from './modules/member'
 ```
 
 在模块化 `stores/modules/member.ts` 中通过组合式创建模块话仓库：
@@ -225,17 +225,17 @@ export const useMemberStore = defineStore(
 在 `main.ts` 文件中，引入 `pinia` 并注册：
 
 ```js
-import { createSSRApp } from "vue";
-import App from "./App.vue";
-import pinia from "@/stores/index";
+import { createSSRApp } from 'vue'
+import App from './App.vue'
+import pinia from '@/stores/index'
 
 export function createApp() {
-  const app = createSSRApp(App);
-  app.use(pinia);
+  const app = createSSRApp(App)
+  app.use(pinia)
 
   return {
     app,
-  };
+  }
 }
 ```
 
@@ -246,12 +246,12 @@ export function createApp() {
 > 因此，如果使用之前的本地持久化方法 `{ persist: true }` 会无法生效，需要修改持久化的方法。代码如下：
 >
 > ```js
-> import { defineStore } from "pinia";
-> import { ref } from "vue";
+> import { defineStore } from 'pinia';
+> import { ref } from 'vue';
 >
 > // 定义 Store
 > export const useMemberStore = defineStore(
->   "member",
+>   "'member'
 >   () => {
 >     // ...
 >   },
@@ -260,15 +260,15 @@ export function createApp() {
 >     persist: {
 >       storage: {
 >         getItem(key: string) {
->           return uni.getStorageSync(key);
->         },
+>           return uni.getStorageSync(key))
+>         }
 >         setItem(key: string, value: any) {
->           uni.setStorageSync(key, value);
->         },
+>           uni.setStorageSync(key, value))
+>         }
 >       },
 >     },
 >   }
-> );
+> ))
 > ```
 
 ## 请求封装
@@ -305,35 +305,37 @@ export function createApp() {
  *  添加 token 请求体标识
  */
 
-import { useMemberStore } from "@/stores/index";
+import { useMemberStore } from '@/stores/index'
 
 // 基准路径
-const baseURL = "https://pcapi-xiaotuxian-front-devtest.itheima.net";
+const baseURL = 'https://pcapi-xiaotuxian-front-devtest.itheima.net'
 
 // 添加拦截器
 const httpInterceptor = {
   // 拦截前触发
   invoke(options: UniApp.RequestOptions) {
     // 1. 非 http 开通需要拼接地址
-    if (!options.url.startsWith("http")) options.url = baseURL + options.url;
+    if (!options.url.startsWith('http'))
+      options.url = baseURL + options.url
 
     // 2. 请求超时，默认60s，单位为ms
-    options.timeout = 10000;
+    options.timeout = 10000
 
     // 3. 添加小程序端请求头标识
     options.header = {
       ...options.header,
-      "source-client": "miniapp",
-    };
+      'source-client': 'miniapp',
+    }
 
     // 4. 添加 token 请求头
-    const memberStore = useMemberStore();
-    const token = memberStore.profile?.token;
-    if (token) options.header.Authorization = token;
+    const memberStore = useMemberStore()
+    const token = memberStore.profile?.token
+    if (token)
+      options.header.Authorization = token
   },
-};
-uni.addInterceptor("request", httpInterceptor);
-uni.addInterceptor("uploadFile", httpInterceptor);
+}
+uni.addInterceptor('request', httpInterceptor)
+uni.addInterceptor('uploadFile', httpInterceptor)
 ```
 
 ### 请求函数封装
@@ -342,14 +344,14 @@ uni.addInterceptor("uploadFile", httpInterceptor);
 
 ```vue
 <script setup lang="ts">
-import "@/utils/http";
+import '@/utils/http'
 
-const getBanner = () => {
+function getBanner() {
   uni.request({
-    method: "GET",
-    url: "/home/banner",
-  });
-};
+    method: 'GET',
+    url: '/home/banner',
+  })
+}
 </script>
 ```
 
@@ -379,13 +381,13 @@ const getBanner = () => {
  */
 
 interface Data<T> {
-  code: string;
-  msg: string;
-  result: T;
+  code: string
+  msg: string
+  result: T
 }
 
 // 泛型支持
-export const http = <T,>(options: UniApp.RequestOptions) => {
+export function http<T,>(options: UniApp.RequestOptions) {
   // 返回 Promise 对象
   return new Promise<Data<T>>((resolve, reject) => {
     uni.request({
@@ -394,17 +396,17 @@ export const http = <T,>(options: UniApp.RequestOptions) => {
       // 请求成功
       success(res) {
         // 提取核心数据 res.data
-        resolve(res.data as Data<T>);
+        resolve(res.data as Data<T>)
       },
 
       // 请求失败
       fail(err) {
         // 给予轻提示
-        reject(err);
+        reject(err)
       },
-    });
-  });
-};
+    })
+  })
+}
 ```
 
 现在只需要按需导入使用即可。代码如下：
@@ -619,7 +621,7 @@ export const getHomeCategoryApi = () => {
 
 ```js
 // 分类单项类型
-export type CategoryItem = {
+export interface CategoryItem {
   icon: string
   id: string
   name: string

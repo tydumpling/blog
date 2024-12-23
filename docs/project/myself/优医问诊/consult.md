@@ -11,7 +11,7 @@
 enum Direction { Up, Down, Left, Right }
 
 // 使用枚举类型
-const changeDirection = (direction: Direction) => {
+function changeDirection(direction: Direction) {
   console.log(direction)
 }
 
@@ -41,58 +41,58 @@ changeDirection(Direction.Up)
 Vue3 状态管理仓库比起使用 `vuex` ，更推荐使用 `pinia` 。通过 hook 的思想导出变量和方法供外部使用。示例代码如下：
 
 ```js
-import { defineComponent } from 'vue';
-import { useStore } from 'pinia';
+import { defineComponent } from 'vue'
+import { useStore } from 'pinia'
 
 export default defineComponent({
   setup() {
-    const store = useStore();
+    const store = useStore()
 
     return {
       count: store.count,
-    };
+    }
   },
-});
+})
 ```
 
 在项目中，问诊信息分为多个页面获取，把整体变量放到 `pinia` 中，依次导出变量属性修改的函数，需要使用的地方 导入 使用即可。代码如下：
 
 ```js
-import type { ConsultType } from '@/enums'
-import type { PartialConsult } from '@/types/consult'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import type { ConsultType } from '@/enums'
+import type { PartialConsult } from '@/types/consult'
 
 export const useConsultStore = defineStore(
-    'cp-consult',
-    () => {
-        const consult = ref<PartialConsult>({})
-        // 设置问诊类型
-        const setType = (type: ConsultType) => (consult.value.type = type)
-        // 设置极速问诊类型
-        const setIllnessType = (type: 0 | 1) => (consult.value.illnessType = type)
-        // 设置科室
-        const setDep = (id: string) => (consult.value.depId = id)
-        // 设置病情描述
-        const setIllness = (
-            illness: Pick<PartialConsult, 'illnessDesc' | 'illnessTime' | 'consultFlag' | 'pictures'>
-        ) => {
-            consult.value.illnessDesc = illness.illnessDesc
-            consult.value.illnessTime = illness.illnessTime
-            consult.value.consultFlag = illness.consultFlag
-            consult.value.pictures = illness.pictures
-        }
-        // 设置患者
-        const setPatient = (id: string) => (consult.value.patientId = id)
-        // 设置优惠券
-        const setCoupon = (id?: string) => (consult.value.couponId = id)
-        // 清空记录
-        const clear = () => (consult.value = {})
-        return { consult, setType, setIllnessType, setDep, setIllness, setPatient, setCoupon, clear }
-    },
-    {
-        persist: true
+  'cp-consult',
+  () => {
+    const consult = ref < PartialConsult > ({})
+    // 设置问诊类型
+    const setType = (type: ConsultType) => (consult.value.type = type)
+    // 设置极速问诊类型
+    const setIllnessType = (type: 0 | 1) => (consult.value.illnessType = type)
+    // 设置科室
+    const setDep = (id: string) => (consult.value.depId = id)
+    // 设置病情描述
+    const setIllness = (
+      illness: Pick<PartialConsult, 'illnessDesc' | 'illnessTime' | 'consultFlag' | 'pictures'>
+    ) => {
+      consult.value.illnessDesc = illness.illnessDesc
+      consult.value.illnessTime = illness.illnessTime
+      consult.value.consultFlag = illness.consultFlag
+      consult.value.pictures = illness.pictures
     }
+    // 设置患者
+    const setPatient = (id: string) => (consult.value.patientId = id)
+    // 设置优惠券
+    const setCoupon = (id?: string) => (consult.value.couponId = id)
+    // 清空记录
+    const clear = () => (consult.value = {})
+    return { consult, setType, setIllnessType, setDep, setIllness, setPatient, setCoupon, clear }
+  },
+  {
+    persist: true
+  }
 )
 ```
 
@@ -108,6 +108,7 @@ pnpm add socket.io-client
 
 ```js
 import io from 'socket.io-client'
+
 // 参数1：不传默认是当前服务域名，开发中传入服务器地址
 // 参数2：配置参数，根据需要再来介绍
 const socket = io()

@@ -2,11 +2,11 @@
 const RabitSidebar = [
   {
     text: '🐇 小兔鲜',
-    
+
     items: [
       {
         text: '💻 Web 端',
-        
+
         items: [
           { text: '项目介绍', link: '/myself/小兔鲜/inweb/all' },
           { text: '项目创建', link: '/myself/小兔鲜/inweb/' },
@@ -21,7 +21,7 @@ const RabitSidebar = [
       },
       {
         text: '📱 uniapp 跨端',
-        
+
         items: [
           { text: '项目初始化', link: '/myself/小兔鲜/inuni/' },
           { text: '首页', link: '/myself/小兔鲜/inuni/home' },

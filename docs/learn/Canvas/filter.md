@@ -9,7 +9,7 @@
 以下是 `getImageData` 方法的基本语法：
 
 ```js
-const imageData = context.getImageData(x, y, width, height);
+const imageData = context.getImageData(x, y, width, height)
 ```
 
 参数解释：
@@ -24,18 +24,18 @@ const imageData = context.getImageData(x, y, width, height);
 以下是一个示例，展示了如何使用 `getImageData` 方法获取指定区域的像素数据：
 
 ```js
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('myCanvas')
+const ctx = canvas.getContext('2d')
 
 // 获取画布上 (0, 0) 到 (100, 100) 的矩形区域的像素数据
-const imageData = ctx.getImageData(0, 0, 100, 100);
+const imageData = ctx.getImageData(0, 0, 100, 100)
 
 // 访问像素数据
 for (let i = 0; i < imageData.data.length; i += 4) {
-  const red = imageData.data[i];
-  const green = imageData.data[i + 1];
-  const blue = imageData.data[i + 2];
-  const alpha = imageData.data[i + 3];
+  const red = imageData.data[i]
+  const green = imageData.data[i + 1]
+  const blue = imageData.data[i + 2]
+  const alpha = imageData.data[i + 3]
 
   // 对获取的像素数据进行处理（例如修改颜色值）
   // ...
@@ -58,15 +58,15 @@ for (let i = 0; i < imageData.data.length; i += 4) {
 下面是一个示例，演示了如何使用 `clearRect` 清除一个矩形区域：
 
 ```js
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('myCanvas')
+const ctx = canvas.getContext('2d')
 
 // 绘制一个蓝色的矩形
-ctx.fillStyle = "blue";
-ctx.fillRect(0, 0, 200, 200);
+ctx.fillStyle = 'blue'
+ctx.fillRect(0, 0, 200, 200)
 
 // 清除矩形的一部分
-ctx.clearRect(50, 50, 100, 100);
+ctx.clearRect(50, 50, 100, 100)
 ```
 
 在这个例子中，首先通过 `fillRect` 方法绘制一个蓝色的矩形，然后使用 `clearRect` 方法清除了矩形区域的中间部分，留下四个蓝色的角落。
@@ -84,24 +84,24 @@ ctx.clearRect(50, 50, 100, 100);
 下面是一个使用示例：
 
 ```js
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('myCanvas')
+const ctx = canvas.getContext('2d')
 
 // 创建一个 ImageData 对象
-const imageData = ctx.createImageData(200, 200);
+const imageData = ctx.createImageData(200, 200)
 
 // 填充 imageData 对象的像素数据
-const data = imageData.data;
+const data = imageData.data
 for (let i = 0; i < data.length; i += 4) {
   // 设置像素的红、绿、蓝、透明度通道的值
-  data[i] = 255;     // 红色通道
-  data[i + 1] = 0;   // 绿色通道
-  data[i + 2] = 0;   // 蓝色通道
-  data[i + 3] = 255; // 不透明度通道
+  data[i] = 255 // 红色通道
+  data[i + 1] = 0 // 绿色通道
+  data[i + 2] = 0 // 蓝色通道
+  data[i + 3] = 255 // 不透明度通道
 }
 
 // 在指定位置绘制像素数据
-ctx.putImageData(imageData, 50, 50);
+ctx.putImageData(imageData, 50, 50)
 ```
 
 在上面的示例中，我们首先通过 `ctx.createImageData()` 创建了一个指定宽度和高度的 ImageData 对象。然后，通过访问 `imageData.data` 数组来设置每个像素的值。在这个例子中，我们将每个像素设置为纯红色。
@@ -118,34 +118,34 @@ ctx.putImageData(imageData, 50, 50);
 
 ```vue
 <script setup>
-    import { ref } from 'vue'
-    
-    const imgUrl = ref('')
-    const onChangeFn = e => {
-        // 获取用户上传的文件
-        const file = e.target.files[0]
-        
-        // 预览文件
-        let fr = new FileReader()
-        fr.readAsDataURL(file)
-        
-        // 获取图片读完的图片结果（非同步，需要在onload获取）
-        fr.onload = () => {
-            imgUrl.value = fr.result
-        }
-    }
-    
-    const addFn = () => {}
+import { ref } from 'vue'
+
+const imgUrl = ref('')
+function onChangeFn(e) {
+  // 获取用户上传的文件
+  const file = e.target.files[0]
+
+  // 预览文件
+  const fr = new FileReader()
+  fr.readAsDataURL(file)
+
+  // 获取图片读完的图片结果（非同步，需要在onload获取）
+  fr.onload = () => {
+    imgUrl.value = fr.result
+  }
+}
+
+function addFn() {}
 </script>
 
 <template>
-    <div ref="filterRef">
-        <input type="file" @change="onChangeFn" />
-        <img :src="imgUrl" ref="imgRef" />
-        <button @click="addFn">
-            点我添加滤镜
-        </button>
-    </div>
+  <div ref="filterRef">
+    <input type="file" @change="onChangeFn">
+    <img ref="imgRef" :src="imgUrl">
+    <button @click="addFn">
+      点我添加滤镜
+    </button>
+  </div>
 </template>
 ```
 
@@ -162,29 +162,29 @@ ctx.putImageData(imageData, 50, 50);
 ```js
 // ....
 const filterRef = ref(null)
-const addFn = () => {
-    const filterCanvas = document.createElement('canvas')
-    filterCanvas.height = imgRef.value.height
-    filterCanvas.width = imgRef.value.width
-    
-    let ctx = filterCanvas.getContext('2d')
-    filterRef.value.appendChild(filterCanvas)
-    ctx.drawImage(imgRef.value, 0, 0, imgRef.value.width, imgRef.value.height)
-    
-    // 获取像素值
-    let imageData = ctx.getImageData(0, 0, imgRef.value.width, imgRef.value.height)
-    let _len = imageData.data.length
-    for(let i = 0; i < _len; i++) {
-        if(i % 2 === 0) {
-            imageData.data[i] = 0
-        }
-    }
-    
-    // 清空 canvas
-    ctx.clearRect(0, 0, imgRef.value.width, imgRef.value.height)
-    
-    // 重新绘制像素
-    ctx.putImageData(imageData, 0, 0)
+function addFn() {
+  const filterCanvas = document.createElement('canvas')
+  filterCanvas.height = imgRef.value.height
+  filterCanvas.width = imgRef.value.width
+
+  const ctx = filterCanvas.getContext('2d')
+  filterRef.value.appendChild(filterCanvas)
+  ctx.drawImage(imgRef.value, 0, 0, imgRef.value.width, imgRef.value.height)
+
+  // 获取像素值
+  const imageData = ctx.getImageData(0, 0, imgRef.value.width, imgRef.value.height)
+  const _len = imageData.data.length
+  for (let i = 0; i < _len; i++) {
+    if (i % 2 === 0)
+      imageData.data[i] = 0
+
+  }
+
+  // 清空 canvas
+  ctx.clearRect(0, 0, imgRef.value.width, imgRef.value.height)
+
+  // 重新绘制像素
+  ctx.putImageData(imageData, 0, 0)
 }
 ```
 

@@ -2,7 +2,7 @@
 const BaiduSidebar = [
   {
     text: '⛷️ 百度',
-    
+
     items: [
       { text: '⛷️ 引言', link: '/baidu/' },
       { text: '🗺 图层', link: '/baidu/layer/index' },

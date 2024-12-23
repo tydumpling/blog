@@ -31,31 +31,31 @@ title 个人资料页
 
 ```js
 // 上传图片
-const uploadImgFn = async () => {
-	uni.chooseImage({
-		count: 1, //最大可选择数量，默认9
-		sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-		sourceType: ['album', 'camera'], //可以指定从相册选择还是手机拍照，默认二者都有
-		crop: {
-			quality: 100,
-			width: 123,
-			height: 169,
-		},
-		success: function(res) {
-			const tempFilePaths = res.tempFilePaths;
-			// 上传文件
-			uni.uploadFile({
-				url: 上传图片接口路径,
-				filePath: tempFilePaths[0],
-				name: 'file',
-				header: {
-					'X-Access-Token': uni.getStorageSync('token')
-				},
-				success: async (uploadFileRes) => {
-				}
-			});
-		}
-	});
+async function uploadImgFn() {
+  uni.chooseImage({
+    count: 1, // 最大可选择数量，默认9
+    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+    sourceType: ['album', 'camera'], // 可以指定从相册选择还是手机拍照，默认二者都有
+    crop: {
+      quality: 100,
+      width: 123,
+      height: 169,
+    },
+    success(res) {
+      const tempFilePaths = res.tempFilePaths
+      // 上传文件
+      uni.uploadFile({
+        url: 上传图片接口路径,
+        filePath: tempFilePaths[0],
+        name: 'file',
+        header: {
+          'X-Access-Token': uni.getStorageSync('token')
+        },
+        success: async (uploadFileRes) => {
+        }
+      })
+    }
+  })
 }
 ```
 
@@ -71,11 +71,11 @@ const uploadImgFn = async () => {
 
 ```js
 // 预览图片
-const previewImgFn = () => {
-	uni.previewImage({
-		current: 0,
-		urls: [src.value]
-	});
+function previewImgFn() {
+  uni.previewImage({
+    current: 0,
+    urls: [src.value]
+  })
 }
 ```
 

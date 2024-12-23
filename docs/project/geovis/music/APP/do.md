@@ -352,486 +352,499 @@ new DataView(buffer, byteOffset, byteLength)
 ```vue
 <!-- 蓝牙连接 -->
 <script setup>
-	import {
-		onLoad,
-		onReady,
-		onShow,
-		onHide,
-		onUnload,
-		onBackPress
-	} from '@dcloudio/uni-app';
-	import {
-		ref
-	} from 'vue';
+import {
+  onBackPress,
+  onHide,
+  onLoad,
+  onReady,
+  onShow,
+  onUnload
+} from '@dcloudio/uni-app'
+import {
+  ref
+} from 'vue'
 
-	const deviceId = ref('');
+const deviceId = ref('')
 
-	// 错误信息
-	const getErrInfo = err => {
-		switch (err) {
-			case 10000:
-				uni.showToast({
-					title: '未初始化蓝牙适配器',
-					icon: 'none'
-				});
-				break;
-			case 10001:
-				uni.showToast({
-					title: '当前蓝牙适配器不可用',
-					icon: 'none'
-				});
-				break;
-			case 10002:
-				uni.showToast({
-					title: '没有找到指定设备',
-					icon: 'none'
-				});
-				break;
-			case 10003:
-				uni.showToast({
-					title: '连接失败',
-					icon: 'none'
-				});
-				break;
-			case 10004:
-				uni.showToast({
-					title: '没有找到指定服务',
-					icon: 'none'
-				});
-				break;
-			case 10005:
-				uni.showToast({
-					title: '没有找到指定特征值',
-					icon: 'none'
-				});
-				break;
-			case 10006:
-				uni.showToast({
-					title: '当前连接已断开',
-					icon: 'none'
-				});
-				break;
-			case 10007:
-				uni.showToast({
-					title: '当前特征值不支持此操作',
-					icon: 'none'
-				});
-				break;
-			case 10009:
-				uni.showToast({
-					title: '系统版本低于 4.3 不支持 BLE',
-					icon: 'none'
-				});
-				break;
-			case 10010:
-				uni.showToast({
-					title: '已连接',
-					icon: 'none'
-				});
-				break;
-			case 10011:
-				uni.showToast({
-					title: '配对设备需要配对码',
-					icon: 'none'
-				});
-				break;
-			case 10012:
-				uni.showToast({
-					title: '连接超时',
-					icon: 'none'
-				});
-				break;
-			case 10013:
-				uni.showToast({
-					title: '连接 deviceId 为空或者是格式不正确',
-					icon: 'none'
-				});
-				break;
-			default:
-				break;
-		}
-	};
+// 错误信息
+function getErrInfo(err) {
+  switch (err) {
+    case 10000:
+      uni.showToast({
+        title: '未初始化蓝牙适配器',
+        icon: 'none'
+      })
+      break
+    case 10001:
+      uni.showToast({
+        title: '当前蓝牙适配器不可用',
+        icon: 'none'
+      })
+      break
+    case 10002:
+      uni.showToast({
+        title: '没有找到指定设备',
+        icon: 'none'
+      })
+      break
+    case 10003:
+      uni.showToast({
+        title: '连接失败',
+        icon: 'none'
+      })
+      break
+    case 10004:
+      uni.showToast({
+        title: '没有找到指定服务',
+        icon: 'none'
+      })
+      break
+    case 10005:
+      uni.showToast({
+        title: '没有找到指定特征值',
+        icon: 'none'
+      })
+      break
+    case 10006:
+      uni.showToast({
+        title: '当前连接已断开',
+        icon: 'none'
+      })
+      break
+    case 10007:
+      uni.showToast({
+        title: '当前特征值不支持此操作',
+        icon: 'none'
+      })
+      break
+    case 10009:
+      uni.showToast({
+        title: '系统版本低于 4.3 不支持 BLE',
+        icon: 'none'
+      })
+      break
+    case 10010:
+      uni.showToast({
+        title: '已连接',
+        icon: 'none'
+      })
+      break
+    case 10011:
+      uni.showToast({
+        title: '配对设备需要配对码',
+        icon: 'none'
+      })
+      break
+    case 10012:
+      uni.showToast({
+        title: '连接超时',
+        icon: 'none'
+      })
+      break
+    case 10013:
+      uni.showToast({
+        title: '连接 deviceId 为空或者是格式不正确',
+        icon: 'none'
+      })
+      break
+    default:
+      break
+  }
+}
 
-	// 开启蓝牙
-	const openBluetoothAdapter = () => {
-		uni.openBluetoothAdapter({
-			success: res => {
-				startBluetoothDevicesDiscovery();
-			},
-			fail: res => {
-				console.log(res);
-				uni.showModal({
-					title: '提示',
-					content: '请开启本机蓝牙后重进本页面'
-				});
-			}
-		});
-	};
+// 开启蓝牙
+function openBluetoothAdapter() {
+  uni.openBluetoothAdapter({
+    success: (res) => {
+      startBluetoothDevicesDiscovery()
+    },
+    fail: (res) => {
+      console.log(res)
+      uni.showModal({
+        title: '提示',
+        content: '请开启本机蓝牙后重进本页面'
+      })
+    }
+  })
+}
 
-	// 开启蓝牙搜索
-	const startBluetoothDevicesDiscovery = () => {
-		uni.startBluetoothDevicesDiscovery({
-			allowDuplicatesKey: true, //允许重复上报同一个设备
-			success: res => {
-				uni.showLoading({
-					title: '正在搜索设备',
-					duration: 2000
-				});
-				getBluetoothDevices(); //监听新设备事件
-			},
-			fail: err => {
-				console.log(err);
-			}
-		});
-	};
+// 开启蓝牙搜索
+function startBluetoothDevicesDiscovery() {
+  uni.startBluetoothDevicesDiscovery({
+    allowDuplicatesKey: true, // 允许重复上报同一个设备
+    success: (res) => {
+      uni.showLoading({
+        title: '正在搜索设备',
+        duration: 2000
+      })
+      getBluetoothDevices() // 监听新设备事件
+    },
+    fail: (err) => {
+      console.log(err)
+    }
+  })
+}
 
-	const list = ref([]);
-	const isShow = ref(false);
-	const deviceName = ref('')
+const list = ref([])
+const isShow = ref(false)
+const deviceName = ref('')
 
-	// 蓝牙搜索结果
-	const getBluetoothDevices = () => {
-		setTimeout(() => {
-			uni.getBluetoothDevices({
-				success: res => {
-					uni.stopBluetoothDevicesDiscovery({
-						success(res) {
-							console.log('停止搜索---', res);
-						}
-					});
-					uni.hideLoading();
-					// 过滤出音果的设备
-					list.value = res.devices.filter(item => item.localName.indexOf('TGYY') !== -1);
-					isShow.value = true;
-				},
-				fail: err => {
-					console.log(err);
-					uni.stopBluetoothDevicesDiscovery({
-						success(res) {
-							console.log('停止搜索---', res);
-						}
-					});
-					isShow.value = true;
-				}
-			});
-		}, 2000);
-	};
+// 蓝牙搜索结果
+function getBluetoothDevices() {
+  setTimeout(() => {
+    uni.getBluetoothDevices({
+      success: (res) => {
+        uni.stopBluetoothDevicesDiscovery({
+          success(res) {
+            console.log('停止搜索---', res)
+          }
+        })
+        uni.hideLoading()
+        // 过滤出音果的设备
+        list.value = res.devices.filter(item => item.localName.includes('TGYY'))
+        isShow.value = true
+      },
+      fail: (err) => {
+        console.log(err)
+        uni.stopBluetoothDevicesDiscovery({
+          success(res) {
+            console.log('停止搜索---', res)
+          }
+        })
+        isShow.value = true
+      }
+    })
+  }, 2000)
+}
 
-	// 点击蓝牙获取服务
-	const isSearch = ref(true);
-	const searchList = ref([]);
-	const handleBLEFn = item => {
-		deviceId.value = item.deviceId;
-		deviceName.value = item.name;
-		uni.showLoading({
-			title: '正在查询服务',
-			duration: 3000
-		});
-		uni.createBLEConnection({
-			// 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
-			deviceId: item.deviceId,
-			success(res) {
-				setTimeout(() => {
-					// 获取蓝牙设备所有服务(service)。
-					uni.getBLEDeviceServices({
-						deviceId: item.deviceId,
-						success(res) {
-							console.log('device services:', res.services);
-							uni.hideLoading();
-							if (res.services.length === 0) {
-								uni.showToast({
-									title: '暂无服务',
-									icon: 'none'
-								});
-								return;
-							}
-							searchList.value = res.services;
-							isSearch.value = false;
-							handleBLEDeviceFn(res.services[1])
-						},
-						fail(err) {
-							console.log(err);
-							getErrInfo(err.code);
-							uni.hideLoading();
-						}
-					});
-				}, 2500);
-			},
-			fail(err) {
-				console.log(err);
-				getErrInfo(err.code);
-				uni.hideLoading();
-			}
-		});
-	};
+// 点击蓝牙获取服务
+const isSearch = ref(true)
+const searchList = ref([])
+function handleBLEFn(item) {
+  deviceId.value = item.deviceId
+  deviceName.value = item.name
+  uni.showLoading({
+    title: '正在查询服务',
+    duration: 3000
+  })
+  uni.createBLEConnection({
+    // 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
+    deviceId: item.deviceId,
+    success(res) {
+      setTimeout(() => {
+        // 获取蓝牙设备所有服务(service)。
+        uni.getBLEDeviceServices({
+          deviceId: item.deviceId,
+          success(res) {
+            console.log('device services:', res.services)
+            uni.hideLoading()
+            if (res.services.length === 0) {
+              uni.showToast({
+                title: '暂无服务',
+                icon: 'none'
+              })
+              return
+            }
+            searchList.value = res.services
+            isSearch.value = false
+            handleBLEDeviceFn(res.services[1])
+          },
+          fail(err) {
+            console.log(err)
+            getErrInfo(err.code)
+            uni.hideLoading()
+          }
+        })
+      }, 2500)
+    },
+    fail(err) {
+      console.log(err)
+      getErrInfo(err.code)
+      uni.hideLoading()
+    }
+  })
+}
 
-	// 获取蓝牙的特征值
-	const getUUidList = ref(false);
-	const uuidList = ref([]);
-	const uuidStr = ref('');
-	const characteristicId = ref('');
-	const blueType = ref('') // 蓝牙开启状态
-	const blueMove = ref(null) // 蓝牙挡位
-	const content = ref('') // 模态框的内容
-	const showModal = ref(false) // 模态框的显隐
-	const handleBLEDeviceFn = uuid => {
-		uni.showLoading({
-			title: '正在获取特征值',
-			duration: 3000
-		});
-		uuidStr.value = uuid.uuid;
-		uni.getBLEDeviceCharacteristics({
-			// 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
-			deviceId: deviceId.value,
-			// 这里的 serviceId 需要在 getBLEDeviceServices 接口中获取
-			serviceId: uuid.uuid,
-			success(res) {
-				console.log('device getBLEDeviceCharacteristics:', res.characteristics);
-				uni.hideLoading();
-				getUUidList.value = true;
-				for (let i = 0; i < res.characteristics.length; i++) {
-					let item = res.characteristics[i];
-					if (item.properties.read) {
-						// 允许读
-						uni.readBLECharacteristicValue({
-							deviceId: deviceId.value,
-							serviceId: uuid.uuid,
-							characteristicId: item.uuid,
-							success(res) {
-								console.log('读取指令发送胜利', res);
-							},
-							fail(err) {
-								console.log('读取指令发送失败', err);
-							}
-						});
-					}
-					if (item.properties.write) {
-						// 允许写
-						characteristicId.value = item.uuid;
-					}
-					if (item.properties.notify || item.properties.indicate) {
-						// 要开启这个才能监听
-						uni.notifyBLECharacteristicValueChange({
-							deviceId: deviceId.value,
-							serviceId: uuid.uuid,
-							characteristicId: item.uuid,
-							state: true,
-							success(res) {
-								uni.showLoading({
-									title: '连接中',
-									duration: 3000
-								});
-								setTimeout(() => {
-									handleClick('55 AA 04 AA 00 00 A5 5A')
-								}, 1500)
-								// 监听低功耗蓝牙设备的特征值变化事件成功
-								uni.onBLECharacteristicValueChange(characteristic => {
-									var array = new Uint8Array(characteristic.value);
-									console.log('包' + array);
-									let resHex = ab2hex(characteristic.value);
-									console.log(resHex);
-									if (resHex.length >= 25) {
-										blueType.value = resHex.slice(8, 10) === '01' ? '开' :
-											'关'
-										blueMove.value = parseInt(resHex.slice(14, 16), 16)
-										content.value =
-											`当前状态：${blueType.value}；当前档位：${blueMove.value}`
-										showModal.value = true
-									}
-									uni.hideLoading();
-								});
-								setTimeout(() => {
-									uni.hideLoading();
-								}, 3000);
-							},
-							fail(err) {
-								console.log(err);
-								getErrInfo(err.code);
-								uni.hideLoading();
-							}
-						});
-					}
-				}
-			},
-			fail(err) {
-				console.log(err);
-				getErrInfo(err.code);
-				uni.hideLoading();
-			}
-		});
-	};
+// 获取蓝牙的特征值
+const getUUidList = ref(false)
+const uuidList = ref([])
+const uuidStr = ref('')
+const characteristicId = ref('')
+const blueType = ref('') // 蓝牙开启状态
+const blueMove = ref(null) // 蓝牙挡位
+const content = ref('') // 模态框的内容
+const showModal = ref(false) // 模态框的显隐
+function handleBLEDeviceFn(uuid) {
+  uni.showLoading({
+    title: '正在获取特征值',
+    duration: 3000
+  })
+  uuidStr.value = uuid.uuid
+  uni.getBLEDeviceCharacteristics({
+    // 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
+    deviceId: deviceId.value,
+    // 这里的 serviceId 需要在 getBLEDeviceServices 接口中获取
+    serviceId: uuid.uuid,
+    success(res) {
+      console.log('device getBLEDeviceCharacteristics:', res.characteristics)
+      uni.hideLoading()
+      getUUidList.value = true
+      for (let i = 0; i < res.characteristics.length; i++) {
+        const item = res.characteristics[i]
+        if (item.properties.read) {
+          // 允许读
+          uni.readBLECharacteristicValue({
+            deviceId: deviceId.value,
+            serviceId: uuid.uuid,
+            characteristicId: item.uuid,
+            success(res) {
+              console.log('读取指令发送胜利', res)
+            },
+            fail(err) {
+              console.log('读取指令发送失败', err)
+            }
+          })
+        }
+        if (item.properties.write) {
+          // 允许写
+          characteristicId.value = item.uuid
+        }
+        if (item.properties.notify || item.properties.indicate) {
+          // 要开启这个才能监听
+          uni.notifyBLECharacteristicValueChange({
+            deviceId: deviceId.value,
+            serviceId: uuid.uuid,
+            characteristicId: item.uuid,
+            state: true,
+            success(res) {
+              uni.showLoading({
+                title: '连接中',
+                duration: 3000
+              })
+              setTimeout(() => {
+                handleClick('55 AA 04 AA 00 00 A5 5A')
+              }, 1500)
+              // 监听低功耗蓝牙设备的特征值变化事件成功
+              uni.onBLECharacteristicValueChange((characteristic) => {
+                const array = new Uint8Array(characteristic.value)
+                console.log(`包${array}`)
+                const resHex = ab2hex(characteristic.value)
+                console.log(resHex)
+                if (resHex.length >= 25) {
+                  blueType.value = resHex.slice(8, 10) === '01'
+                    ? '开'
+                    : '关'
+                  blueMove.value = Number.parseInt(resHex.slice(14, 16), 16)
+                  content.value
+											= `当前状态：${blueType.value}；当前档位：${blueMove.value}`
+                  showModal.value = true
+                }
+                uni.hideLoading()
+              })
+              setTimeout(() => {
+                uni.hideLoading()
+              }, 3000)
+            },
+            fail(err) {
+              console.log(err)
+              getErrInfo(err.code)
+              uni.hideLoading()
+            }
+          })
+        }
+      }
+    },
+    fail(err) {
+      console.log(err)
+      getErrInfo(err.code)
+      uni.hideLoading()
+    }
+  })
+}
 
-	const handleClick = (str) => {
-		// 向蓝牙设施发送一个0x00的16进制数据
-		const buffer = new ArrayBuffer(16);
-		const dataView = new DataView(buffer);
-		const arr = str.split(' ')
-		for (let i = 0; i < arr.length; i++) {
-			dataView.setUint8(i, parseInt(arr[i], 16))
-		}
-		uni.showLoading({
-			title: '传输协议中',
-			duration: 1000
-		});
-		uni.writeBLECharacteristicValue({
-			// 这里的 deviceId 需要在 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
-			deviceId: deviceId.value,
-			// 这里的 serviceId 需要在 getBLEDeviceServices 接口中获取
-			serviceId: uuidStr.value,
-			// 这里的 characteristicId 需要在 getBLEDeviceCharacteristics 接口中获取
-			characteristicId: characteristicId.value,
-			// 这里的value是ArrayBuffer类型
-			value: buffer,
-			writeType: 'write',
-			success(res) {
-				console.log('writeBLECharacteristicValue success', res);
-			},
-			fail(err) {
-				getErrInfo(err.code);
-				console.log('writeBLECharacteristicValue error', err);
-			}
-		});
-	};
+function handleClick(str) {
+  // 向蓝牙设施发送一个0x00的16进制数据
+  const buffer = new ArrayBuffer(16)
+  const dataView = new DataView(buffer)
+  const arr = str.split(' ')
+  for (let i = 0; i < arr.length; i++)
+    dataView.setUint8(i, Number.parseInt(arr[i], 16))
 
-	// ArrayBuffer转16进度字符串示例
-	const ab2hex = buffer => {
-		const hexArr = Array.prototype.map.call(
-			new Uint8Array(buffer),
-			function(bit) {
-				return ('00' + bit.toString(16)).slice(-2)
-			}
-		)
-		return hexArr.join('')
-	};
+  uni.showLoading({
+    title: '传输协议中',
+    duration: 1000
+  })
+  uni.writeBLECharacteristicValue({
+    // 这里的 deviceId 需要在 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
+    deviceId: deviceId.value,
+    // 这里的 serviceId 需要在 getBLEDeviceServices 接口中获取
+    serviceId: uuidStr.value,
+    // 这里的 characteristicId 需要在 getBLEDeviceCharacteristics 接口中获取
+    characteristicId: characteristicId.value,
+    // 这里的value是ArrayBuffer类型
+    value: buffer,
+    writeType: 'write',
+    success(res) {
+      console.log('writeBLECharacteristicValue success', res)
+    },
+    fail(err) {
+      getErrInfo(err.code)
+      console.log('writeBLECharacteristicValue error', err)
+    }
+  })
+}
 
-	onLoad(() => {
-		openBluetoothAdapter();
-	});
+// ArrayBuffer转16进度字符串示例
+function ab2hex(buffer) {
+  const hexArr = Array.prototype.map.call(
+    new Uint8Array(buffer),
+    (bit) => {
+      return (`00${bit.toString(16)}`).slice(-2)
+    }
+  )
+  return hexArr.join('')
+}
 
-	// 改变挡位
-	const moveVal = ref('')
-	const handleClickChangeMove = type => {
-		console.log(type)
-		switch (type) {
-			case 'add':
-				if (blueMove.value >= 20) {
-					showModal.value = true
-					content.value = '当前档位已经是最大值'
-					return
-				}
-				blueMove.value += 1
-				break;
-			case 'lose':
-				if (blueMove.value <= 0) {
-					showModal.value = true
-					content.value = '当前档位已经是最小值'
-					return
-				}
-				blueMove.value -= 1
-				break;
-			default:
-				break;
-		}
-		console.log(blueMove.value)
-		handleClick(`55 AA 04 A3 00 ${blueMove.value.toString(16)} A5 5A`)
-	}
-	
-	const handlePageFn = () => {
-		uni.closeBluetoothAdapter({
-			success(res) {
-				uni.navigateBack()
-				uni.showToast({
-					title: '蓝牙搜索关闭'
-				})
-			}
-		});
-	}
+onLoad(() => {
+  openBluetoothAdapter()
+})
+
+// 改变挡位
+const moveVal = ref('')
+function handleClickChangeMove(type) {
+  console.log(type)
+  switch (type) {
+    case 'add':
+      if (blueMove.value >= 20) {
+        showModal.value = true
+        content.value = '当前档位已经是最大值'
+        return
+      }
+      blueMove.value += 1
+      break
+    case 'lose':
+      if (blueMove.value <= 0) {
+        showModal.value = true
+        content.value = '当前档位已经是最小值'
+        return
+      }
+      blueMove.value -= 1
+      break
+    default:
+      break
+  }
+  console.log(blueMove.value)
+  handleClick(`55 AA 04 A3 00 ${blueMove.value.toString(16)} A5 5A`)
+}
+
+function handlePageFn() {
+  uni.closeBluetoothAdapter({
+    success(res) {
+      uni.navigateBack()
+      uni.showToast({
+        title: '蓝牙搜索关闭'
+      })
+    }
+  })
+}
 </script>
 
 <template>
-	<u-modal v-model="showModal" :content="content"></u-modal>
-	<!-- 搜索状态 -->
-	<view v-if="list.length > 0" class="list">
-		<template v-if="isSearch">
-			<view v-for="item in list" :key="item.deviceId" class="blue-item" @click="handleBLEFn(item)">
-				<view class="phone">
-					<view>蓝牙设备</view>
-					<view>{{ item.deviceId }}</view>
-				</view>
-				<view class="name">
-					<view>蓝牙名称</view>
-					<view>{{ item.name ? item.name : '暂无' }}</view>
-				</view>
-			</view>
-		</template>
+  <u-modal v-model="showModal" :content="content" />
+  <!-- 搜索状态 -->
+  <view v-if="list.length > 0" class="list">
+    <template v-if="isSearch">
+      <view v-for="item in list" :key="item.deviceId" class="blue-item" @click="handleBLEFn(item)">
+        <view class="phone">
+          <view>蓝牙设备</view>
+          <view>{{ item.deviceId }}</view>
+        </view>
+        <view class="name">
+          <view>蓝牙名称</view>
+          <view>{{ item.name ? item.name : '暂无' }}</view>
+        </view>
+      </view>
+    </template>
 
-		<!-- 点击蓝牙进入其值 -->
-		<template v-else>
-			<template v-if="getUUidList">
-				<view class="close-page" @click="handlePageFn">关闭页面并关闭蓝牙搜索</view>
-				
-				<view class="blue-item">
-					<view class="phone">
-						<view>蓝牙设备</view>
-						<view>{{ deviceId }}</view>
-					</view>
-					<view class="name">
-						<view>蓝牙名称</view>
-						<view>{{ deviceName ? deviceName : '暂无' }}</view>
-					</view>
-				</view>
-				
-				<view class="blue-item">
-					<view>
-						<view>当前档位：</view>
-						<view>{{blueMove}}</view>
-					</view>
-				</view>
+    <!-- 点击蓝牙进入其值 -->
+    <template v-else>
+      <template v-if="getUUidList">
+        <view class="close-page" @click="handlePageFn">
+          关闭页面并关闭蓝牙搜索
+        </view>
 
-				<view class="get-uuid-list">
-					<view class="item-list">
-						<view class="get-uuid-item" @click="handleClick('55 AA 04 A0 00 01 A5 5A')">
-							<i class="iconfont icon-kaiguan"></i>
-							<view class="name">开</view>
-						</view>
-						<view class="get-uuid-item" @click="handleClick('55 AA 04 A0 00 00 A5 5A')">
-							<i class="iconfont icon-kaiguan"></i>
-							<view class="name">关</view>
-						</view>
-					</view>
-				
-					<view class="item-list">
-						<view class="get-uuid-item" @click="handleClick('55 AA 04 AA 00 00 A5 5A')">
-							<u-icon name="search"></u-icon>
-							<view class="name">查询</view>
-						</view>
-					</view>
-				
-					<view class="item-list">
-						<view class="get-uuid-item" @click="handleClickChangeMove('add')">
-							<i class="iconfont icon-jia"></i>
-							<view class="name">档位+</view>
-						</view>
-						<view class="get-uuid-item" @click="handleClickChangeMove('lose')">
-							<i class="iconfont icon-jian"></i>
-							<view class="name">档位-</view>
-						</view>
-					</view>
-				</view>
-			</template>
-		</template>
-	</view>
-	<view v-else>
-		<view v-if="isShow" class="no-blue-teeth">
-			<u-empty text="暂无可连接蓝牙" mode="wifi"></u-empty>
-			<view class="info">
-				<view>提示：</view>
-				<view>1.请确保你开启了蓝牙和定位</view>
-				<view>2.请确保你附近有音果系列的蓝牙设备</view>
-				<view>3.请确保你要连接的蓝牙设备没被其他人连接</view>
-			</view>
-		</view>
-	</view>
+        <view class="blue-item">
+          <view class="phone">
+            <view>蓝牙设备</view>
+            <view>{{ deviceId }}</view>
+          </view>
+          <view class="name">
+            <view>蓝牙名称</view>
+            <view>{{ deviceName ? deviceName : '暂无' }}</view>
+          </view>
+        </view>
+
+        <view class="blue-item">
+          <view>
+            <view>当前档位：</view>
+            <view>{{ blueMove }}</view>
+          </view>
+        </view>
+
+        <view class="get-uuid-list">
+          <view class="item-list">
+            <view class="get-uuid-item" @click="handleClick('55 AA 04 A0 00 01 A5 5A')">
+              <i class="iconfont icon-kaiguan" />
+              <view class="name">
+                开
+              </view>
+            </view>
+            <view class="get-uuid-item" @click="handleClick('55 AA 04 A0 00 00 A5 5A')">
+              <i class="iconfont icon-kaiguan" />
+              <view class="name">
+                关
+              </view>
+            </view>
+          </view>
+
+          <view class="item-list">
+            <view class="get-uuid-item" @click="handleClick('55 AA 04 AA 00 00 A5 5A')">
+              <u-icon name="search" />
+              <view class="name">
+                查询
+              </view>
+            </view>
+          </view>
+
+          <view class="item-list">
+            <view class="get-uuid-item" @click="handleClickChangeMove('add')">
+              <i class="iconfont icon-jia" />
+              <view class="name">
+                档位+
+              </view>
+            </view>
+            <view class="get-uuid-item" @click="handleClickChangeMove('lose')">
+              <i class="iconfont icon-jian" />
+              <view class="name">
+                档位-
+              </view>
+            </view>
+          </view>
+        </view>
+      </template>
+    </template>
+  </view>
+  <view v-else>
+    <view v-if="isShow" class="no-blue-teeth">
+      <u-empty text="暂无可连接蓝牙" mode="wifi" />
+      <view class="info">
+        <view>提示：</view>
+        <view>1.请确保你开启了蓝牙和定位</view>
+        <view>2.请确保你附近有音果系列的蓝牙设备</view>
+        <view>3.请确保你要连接的蓝牙设备没被其他人连接</view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <style lang="scss" scoped>
@@ -842,7 +855,7 @@ new DataView(buffer, byteOffset, byteLength)
 			flex-direction: column;
 			margin: 100rpx auto 0;
 			width: 80%;
-			
+
 			> view {
 				color: #8e8e8e;
 				margin-bottom: 20rpx;
@@ -854,7 +867,7 @@ new DataView(buffer, byteOffset, byteLength)
 		flex-direction: column;
 		padding: 20rpx 30rpx;
 		box-sizing: border-box;
-		
+
 		.close-page {
 			width: 100%;
 			height: 100rpx;

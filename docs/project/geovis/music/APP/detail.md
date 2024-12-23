@@ -25,16 +25,16 @@ title 详情页
 首先查看文档的代码示例，示例代码如下：
 
 ```js
-const innerAudioContext = uni.createInnerAudioContext();
-innerAudioContext.autoplay = true;
-innerAudioContext.src = 'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3';
+const innerAudioContext = uni.createInnerAudioContext()
+innerAudioContext.autoplay = true
+innerAudioContext.src = 'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3'
 innerAudioContext.onPlay(() => {
-  console.log('开始播放');
-});
+  console.log('开始播放')
+})
 innerAudioContext.onError((res) => {
-  console.log(res.errMsg);
-  console.log(res.errCode);
-});
+  console.log(res.errMsg)
+  console.log(res.errCode)
+})
 ```
 
 从示例代码可以得知，使用 `uni.createInnerAudioContext()` 方法创建一个音频对象，通过 `src` 属性接收音频的路径，`autoplay` 为是否自动播放，`onPlay` 开始播放后触发回调函数的方法，`onError` 音频发生错误触发回调函数的方法······
@@ -61,140 +61,147 @@ innerAudioContext.onError((res) => {
 
 ```vue
 <script setup>
-	import {
-		onBeforeUnmount,
-		ref,
-	} from "vue";
-	import {
-		onHide,
-		onLoad,
-	} from '@dcloudio/uni-app';
-	import Loading from "@/components/audioControl/component/Loading";
-	import useMineStore from '@/stores/modules/mine';
-	import {
-		storeToRefs
-	} from 'pinia'
+import {
+  onBeforeUnmount,
+  ref,
+} from 'vue'
+import {
+  onHide,
+  onLoad,
+} from '@dcloudio/uni-app'
+import {
+  storeToRefs
+} from 'pinia'
+import Loading from '@/components/audioControl/component/Loading'
+import useMineStore from '@/stores/modules/mine'
 
-	const mineStore = useMineStore()
-	const {
-		saveMusic
-	} = storeToRefs(mineStore)
+const mineStore = useMineStore()
+const {
+  saveMusic
+} = storeToRefs(mineStore)
 
-	//音频信息
-	//当前音频时长
-	let duration = ref(-1);
-	//当前播放时间
-	let currentTime = ref(0);
-	//当前停止状态 true为停止 false为播放
-	let playStatus = ref(false);
+// 音频信息
+// 当前音频时长
+const duration = ref(-1)
+// 当前播放时间
+const currentTime = ref(0)
+// 当前停止状态 true为停止 false为播放
+const playStatus = ref(false)
 
-	//创建音频上下文
-	let context = ref({});
-	let loading = ref(false)
+// 创建音频上下文
+const context = ref({})
+const loading = ref(false)
 
-	onLoad((val) => {
-		context.value = uni.createInnerAudioContext()
-		loading.value = true
-		context.value.src = saveMusic.value.playUrl;
-		currentTime.value = context.value.currentTime;
-		playStatus.value = context.value.paused;
-		context.value.onCanplay(() => {
-			duration.value = context.value.duration;
-			console.log("音频播放控件准备好了", context.value.buffered, duration.value);
-			loading.value = false
-		});
-		//音频错误时
-		context.value.onError((res) => {
-			uni.showToast({
-				title: res.errMsg,
-				icon: 'none'
-			})
-			loading.value = false
-		});
-		context.value.onTimeUpdate(() => {
-			timeUpdateFn()
-		});
-		
-		context.value.onEnded(() => {
-			ended()
-		})
-	})
-
-	//点击播放暂停
-	const onPlay = () => {
-		if (context.value.paused) {
-			changeType.value = true
-			//播放
-			context.value.play()
-		} else {
-			changeType.value = false
-			//暂停
-			context.value.pause()
-		}
-	};
-    
-	//拖动进度条时
-	let seekChangeType = ref(false);
-	const changingAudioProgress = (e) => {
-	};
-	//进度条拖动结束
-	const changeAudioProgress = (e) => {
-	};
-
-	// 音频播放结束后
-	const ended = async () => {
-		context.value.stop()
-	}
-
-	//音频进度改变时，此回调有原生BUG，音频停止后会继续执行
-	const timeUpdateFn = () => {
-		currentTime.value = context.value.currentTime
-	}
-    
-    onBeforeUnmount(() => {
-        context.value.destroy() // 退出后销毁该音频
+onLoad((val) => {
+  context.value = uni.createInnerAudioContext()
+  loading.value = true
+  context.value.src = saveMusic.value.playUrl
+  currentTime.value = context.value.currentTime
+  playStatus.value = context.value.paused
+  context.value.onCanplay(() => {
+    duration.value = context.value.duration
+    console.log('音频播放控件准备好了', context.value.buffered, duration.value)
+    loading.value = false
+  })
+  // 音频错误时
+  context.value.onError((res) => {
+    uni.showToast({
+      title: res.errMsg,
+      icon: 'none'
     })
+    loading.value = false
+  })
+  context.value.onTimeUpdate(() => {
+    timeUpdateFn()
+  })
+
+  context.value.onEnded(() => {
+    ended()
+  })
+})
+
+// 点击播放暂停
+function onPlay() {
+  if (context.value.paused) {
+    changeType.value = true
+    // 播放
+    context.value.play()
+  }
+  else {
+    changeType.value = false
+    // 暂停
+    context.value.pause()
+  }
+}
+
+// 拖动进度条时
+const seekChangeType = ref(false)
+function changingAudioProgress(e) {
+}
+// 进度条拖动结束
+function changeAudioProgress(e) {
+}
+
+// 音频播放结束后
+async function ended() {
+  context.value.stop()
+}
+
+// 音频进度改变时，此回调有原生BUG，音频停止后会继续执行
+function timeUpdateFn() {
+  currentTime.value = context.value.currentTime
+}
+
+onBeforeUnmount(() => {
+  context.value.destroy() // 退出后销毁该音频
+})
 </script>
 
 <template>
-	<view>
-		<!-- 标题 -->
-		<view class="title">{{saveMusic.title}}</view>
-		
-		<view class="music">
-			<view class="music-box">
-				<!-- 进度条 -->
-				<view class="audio-control-page">
-					<slider :min="0" :max="saveMusic.totalDuration ? saveMusic.totalDuration.toFixed(1) : duration.toFixed(1)" activeColor="#e1a452" backgroundColor="#e2e2e2" block-color="#fff" block-size="12" :value="currentTime.toFixed(1)" :step="0.1" @change="changeAudioProgress" @changing="changingAudioProgress" :disabled='loading' />
-				</view>
-				<!--时间显示-->
-				<view class="audio-time">
-					<template v-if="loading">
-						<text>音频加载中..</text>
-					</template>
-					<template v-else>
-						<text class="">{{ useComputeAudioTime(currentTime) }}</text>
-						<text class="">{{ useComputeAudioTime(saveMusic.totalDuration ? saveMusic.totalDuration : duration) }}</text>
-					</template>
-				</view>
-			</view>
-		
-			<!-- 播放按钮区域 -->
-			<view class="play-btn">
-				<!--  loading  -->
-				<view class="audio-play-btn" v-if="loading">
-					<Loading :loading="true"></Loading>
-				</view>
-				<view class="audio-play-btn" v-else>
-					<!--   暂停   -->
-					<u-icon name="pause" size="50" v-show="!playStatus" @click="onPlay"></u-icon>
-		
-					<!--   开始   -->
-					<u-icon name="play-right-fill" size="50" v-show="playStatus" @click="onPlay"></u-icon>
-				</view>
-			</view>
-		</view>
-	</view>
+  <view>
+    <!-- 标题 -->
+    <view class="title">
+      {{ saveMusic.title }}
+    </view>
+
+    <view class="music">
+      <view class="music-box">
+        <!-- 进度条 -->
+        <view class="audio-control-page">
+          <slider :min="0" :max="saveMusic.totalDuration ? saveMusic.totalDuration.toFixed(1) : duration.toFixed(1)" active-color="#e1a452" background-color="#e2e2e2" block-color="#fff" block-size="12" :value="currentTime.toFixed(1)" :step="0.1" :disabled="loading" @change="changeAudioProgress" @changing="changingAudioProgress" />
+        </view>
+        <!-- 时间显示 -->
+        <view class="audio-time">
+          <template v-if="loading">
+            <text>音频加载中..</text>
+          </template>
+          <template v-else>
+            <text class="">
+              {{ useComputeAudioTime(currentTime) }}
+            </text>
+            <text class="">
+              {{ useComputeAudioTime(saveMusic.totalDuration ? saveMusic.totalDuration : duration) }}
+            </text>
+          </template>
+        </view>
+      </view>
+
+      <!-- 播放按钮区域 -->
+      <view class="play-btn">
+        <!--  loading  -->
+        <view v-if="loading" class="audio-play-btn">
+          <Loading :loading="true" />
+        </view>
+        <view v-else class="audio-play-btn">
+          <!--   暂停   -->
+          <u-icon v-show="!playStatus" name="pause" size="50" @click="onPlay" />
+
+          <!--   开始   -->
+          <u-icon v-show="playStatus" name="play-right-fill" size="50" @click="onPlay" />
+        </view>
+      </view>
+    </view>
+  </view>
 </template>
 ```
 
@@ -287,15 +294,15 @@ innerAudioContext.onError((res) => {
 ##### 代码
 
 ```js
-//拖动进度条时
-const changingAudioProgress = (e) => {
-	currentTime.value = e.detail.value;
-};
-//进度条拖动结束
-const changeAudioProgress = (e) => {
-	context.value.startTime = e.detail.value;
-	context.value.seek(e.detail.value);
-};
+// 拖动进度条时
+function changingAudioProgress(e) {
+  currentTime.value = e.detail.value
+}
+// 进度条拖动结束
+function changeAudioProgress(e) {
+  context.value.startTime = e.detail.value
+  context.value.seek(e.detail.value)
+}
 ```
 
 ##### 优化
@@ -307,22 +314,22 @@ const changeAudioProgress = (e) => {
 知道 BUG 产生的原因修改起来就容易多了，可以设置一个变量，初始值为 `false` ，表示当前并没有拖拽进度条。如果触发了拖拽事件，改为 `true` ，在结束拖拽后再改为 `false` 。而进度条改变 `onTimeUpdate` 方法则添加一个判断，只有不在拖拽的时候才实时赋值修改进度。
 
 ```js
-//拖动进度条时
-let seekChangeType = ref(false);
-const changingAudioProgress = (e) => {
-	currentTime.value = e.detail.value;
-	seekChangeType.value = true
-};
-//进度条拖动结束
-const changeAudioProgress = (e) => {
-	seekChangeType.value = false
-	context.value.startTime = e.detail.value;
-	context.value.seek(e.detail.value);
-};
-const timeUpdateFn = () => {
-	if (!context.value.paused && !seekChangeType.value) {
-		currentTime.value = context.value.currentTime
-	}
+// 拖动进度条时
+const seekChangeType = ref(false)
+function changingAudioProgress(e) {
+  currentTime.value = e.detail.value
+  seekChangeType.value = true
+}
+// 进度条拖动结束
+function changeAudioProgress(e) {
+  seekChangeType.value = false
+  context.value.startTime = e.detail.value
+  context.value.seek(e.detail.value)
+}
+function timeUpdateFn() {
+  if (!context.value.paused && !seekChangeType.value)
+    currentTime.value = context.value.currentTime
+
 }
 ```
 
@@ -400,50 +407,50 @@ const ended = async () => {
 
 ```js
 onLoad((val) => {
-	playId.value = val.id
-	if (!saveMusic.value.id || saveMusic.value.id !== playId.value) {
-		// 否则获取最新的context音频
-		context.value = uni.createInnerAudioContext()
-		loading.value = true
-		context.value.src = saveMusic.value.playUrl;
-		currentTime.value = saveMusic.value.auditionTime ? Math.round(context.value.currentTime) : context.value.currentTime;
-		playStatus.value = context.value.paused;
-	} 
-	else {
-		// 如果保存的正在听的数据与本数据一致，且他是正在播放的状态，则拿保存的context音频
-		context.value = saveMusic.value.context
-		duration.value = context.value.duration; // 如果是获取缓存的值则不会走下面context.value.onCanplay方法，无法给duration赋值
-	}
-	context.value.onCanplay(() => {
-		duration.value = context.value.duration;
-		console.log("音频播放控件准备好了", context.value.buffered, duration.value);
-		loading.value = false
-	});
-	//音频错误时
-	context.value.onError((res) => {
-		uni.showToast({
-			title: res.errMsg,
-			icon: 'none'
-		})
-		loading.value = false
-	});
-	//音频进度改变结束
-	context.value.onSeeked(() => {
-		onPlayAudio();
-	})
-	context.value.onTimeUpdate(() => {
-		timeUpdateFn()
-	});
-	
-	context.value.onEnded(() => {
-		ended()
-	})
-	console.log(context.value)
+  playId.value = val.id
+  if (!saveMusic.value.id || saveMusic.value.id !== playId.value) {
+    // 否则获取最新的context音频
+    context.value = uni.createInnerAudioContext()
+    loading.value = true
+    context.value.src = saveMusic.value.playUrl
+    currentTime.value = saveMusic.value.auditionTime ? Math.round(context.value.currentTime) : context.value.currentTime
+    playStatus.value = context.value.paused
+  }
+  else {
+    // 如果保存的正在听的数据与本数据一致，且他是正在播放的状态，则拿保存的context音频
+    context.value = saveMusic.value.context
+    duration.value = context.value.duration // 如果是获取缓存的值则不会走下面context.value.onCanplay方法，无法给duration赋值
+  }
+  context.value.onCanplay(() => {
+    duration.value = context.value.duration
+    console.log('音频播放控件准备好了', context.value.buffered, duration.value)
+    loading.value = false
+  })
+  // 音频错误时
+  context.value.onError((res) => {
+    uni.showToast({
+      title: res.errMsg,
+      icon: 'none'
+    })
+    loading.value = false
+  })
+  // 音频进度改变结束
+  context.value.onSeeked(() => {
+    onPlayAudio()
+  })
+  context.value.onTimeUpdate(() => {
+    timeUpdateFn()
+  })
 
-	// 首页点击小图标销毁音频
-	uni.$once('监听销毁按钮点击事件', () => {
-		context.value.destroy();
-	})
+  context.value.onEnded(() => {
+    ended()
+  })
+  console.log(context.value)
+
+  // 首页点击小图标销毁音频
+  uni.$once('监听销毁按钮点击事件', () => {
+    context.value.destroy()
+  })
 })
 ```
 
@@ -643,13 +650,13 @@ const timeUpdateFn = () => {
 根据回答，在播放事件中添加下面一句代码即可实现，代码如下：
 
 ```js
-//播放
-const onPlayAudio = () => {
-    context.value.pause()
-    context.value.play();
-    playStatus.value = false;
-    // ...
-};
+// 播放
+function onPlayAudio() {
+  context.value.pause()
+  context.value.play()
+  playStatus.value = false
+  // ...
+}
 ```
 
 ### 代码优化
@@ -660,30 +667,30 @@ const onPlayAudio = () => {
 
 ```js
 import {
-	defineStore
-} from "pinia";
+  defineStore
+} from 'pinia'
 import {
-	ref
-} from 'vue';
+  ref
+} from 'vue'
 
-//全局可控状态hook
-export const useMusicStore = defineStore("music", () => {
-	const context = ref(uni.getBackgroundAudioManager())
-	// ...
+// 全局可控状态hook
+export const useMusicStore = defineStore('music', () => {
+  const context = ref(uni.getBackgroundAudioManager())
+  // ...
 
-	// 销毁
-	const distoryAudioFn = () => {
-		saveMusic.value = {}
-		context.value.src = ''
-		musicFinishFn()
-	}
+  // 销毁
+  const distoryAudioFn = () => {
+    saveMusic.value = {}
+    context.value.src = ''
+    musicFinishFn()
+  }
 
-	return {
-		context,
-		distoryAudioFn,
-        // ...
-	}
-});
+  return {
+    context,
+    distoryAudioFn,
+    // ...
+  }
+})
 ```
 
 ### 其他功能
@@ -705,11 +712,11 @@ export const useMusicStore = defineStore("music", () => {
 
 ```js
 context.value.onPlay(() => {
-    if(!timer.value) {
-        timer.value = setInterval(() => {
-            listerenTime.value += 1
-        }, 1000)
-    }
+  if (!timer.value) {
+    timer.value = setInterval(() => {
+      listerenTime.value += 1
+    }, 1000)
+  }
 })
 ```
 
@@ -745,27 +752,27 @@ context.value.onPlay(() => {
 
 ```js
 // 检测当前是否有网络
-const checkNetworkStatus = () => {
-	uni.getNetworkType({
-		success: function(res) {
-			const networkType = res.networkType;
-			if (networkType === 'none') {
-				// 用户无网络连接
-				uni.showToast({
-					title: '检测到你的网络未连接，请先连接网络',
-					icon: 'none'
-				})
-				context.value.pause()
-			}
-		}
-	});
+function checkNetworkStatus() {
+  uni.getNetworkType({
+    success(res) {
+      const networkType = res.networkType
+      if (networkType === 'none') {
+        // 用户无网络连接
+        uni.showToast({
+          title: '检测到你的网络未连接，请先连接网络',
+          icon: 'none'
+        })
+        context.value.pause()
+      }
+    }
+  })
 }
 
 // 音频进度改变事件回调
 context.value.onTimeUpdate(() => {
-	checkNetworkStatus()
-    //...
-});
+  checkNetworkStatus()
+  // ...
+})
 ```
 
 #### 音频下载
@@ -788,25 +795,25 @@ context.value.onTimeUpdate(() => {
 - `uni.saveFile` 把文件下载到手机内
 
 ```js
-const downloadMusicFn = () => {
-	uni.showLoading({
-		title: '下载中，请稍等'
-	})
-	// 下载临时文件事件
-	uni.downloadFile({
-		url: 音频地址,
-		success: (res) => {
-			if (res.statusCode === 200) {
-				// 临时文件下载到本地
-				uni.saveFile({
-					tempFilePath: res.tempFilePath,
-					success: function(result) {
-						uni.hideLoading()
-					}
-				});
-			}
-		}
-	});
+function downloadMusicFn() {
+  uni.showLoading({
+    title: '下载中，请稍等'
+  })
+  // 下载临时文件事件
+  uni.downloadFile({
+    url: 音频地址,
+    success: (res) => {
+      if (res.statusCode === 200) {
+        // 临时文件下载到本地
+        uni.saveFile({
+          tempFilePath: res.tempFilePath,
+          success(result) {
+            uni.hideLoading()
+          }
+        })
+      }
+    }
+  })
 }
 ```
 
@@ -861,18 +868,18 @@ const downloadMusicFn = () => {
 根据介绍可以通过 `online` 来判断是否有联网，实现逻辑。代码如下：
 
 ```js
-const checkNetworkStatus = () => {
-    if (!navigator.onLine) {
-		uni.showToast({
-			title: '检测到你的网络未连接，请先连接网络',
-			icon: 'none'
-		})
-		context.value.pause()
-    }
+function checkNetworkStatus() {
+  if (!navigator.onLine) {
+    uni.showToast({
+      title: '检测到你的网络未连接，请先连接网络',
+      icon: 'none'
+    })
+    context.value.pause()
+  }
 }
 context.value.onTimeUpdate(() => {
-	checkNetworkStatus()
-});
+  checkNetworkStatus()
+})
 ```
 
 #### 刷新关闭
@@ -898,26 +905,26 @@ context.value.onTimeUpdate(() => {
 在 H5 端，一般的下载方法都是创建 `a` 标签并利用其 `download` 属性实现下载，修改代码：
 
 ```js
-const downloadMusicFn = () => {
-	uni.showLoading({
-		title: '下载中，请稍等'
-	})
-	// #ifdef APP-PLUS
-	uni.downloadFile({
-        // ...
-	});
-	// #endif
-	// #ifdef H5
-	const downloadLink = document.createElement('a');
-	downloadLink.href = '文件路径';
-	downloadLink.download = '文件名称';
-	downloadLink.style.display = 'none';
-	document.body.appendChild(downloadLink);
-	downloadLink.click();
-	downloadLink.remove();
-	uni.hideLoading()
-	document.body.removeChild(downloadLink);
-	// #endif
+function downloadMusicFn() {
+  uni.showLoading({
+    title: '下载中，请稍等'
+  })
+  // #ifdef APP-PLUS
+  uni.downloadFile({
+    // ...
+  })
+  // #endif
+  // #ifdef H5
+  const downloadLink = document.createElement('a')
+  downloadLink.href = '文件路径'
+  downloadLink.download = '文件名称'
+  downloadLink.style.display = 'none'
+  document.body.appendChild(downloadLink)
+  downloadLink.click()
+  downloadLink.remove()
+  uni.hideLoading()
+  document.body.removeChild(downloadLink)
+  // #endif
 }
 ```
 
@@ -955,41 +962,41 @@ const downloadMusicFn = () => {
 没用过 `fetch` ，而 XML 是我们熟悉的 AJAX，因此试一下原生 AJAX 的方法可不可行，代码修改如下形式：
 
 ```js
-const downloadMusicFn = () => {
-	uni.showLoading({
-		title: '下载中，请稍等'
-	})
-	// #ifdef APP-PLUS
-	uni.downloadFile({
-		// ...
-	});
-	// #endif
-	// #ifdef H5
-	const xhr = new XMLHttpRequest();
-	xhr.open('GET', props.detail.playUrl, true);
-	xhr.responseType = 'blob';
-	xhr.setRequestHeader('Accept', 'audio/mpeg'); // 设置 MIME 类型为 audio/mpeg
-	
-	xhr.onload = function() {
+function downloadMusicFn() {
+  uni.showLoading({
+    title: '下载中，请稍等'
+  })
+  // #ifdef APP-PLUS
+  uni.downloadFile({
+    // ...
+  })
+  // #endif
+  // #ifdef H5
+  const xhr = new XMLHttpRequest()
+  xhr.open('GET', props.detail.playUrl, true)
+  xhr.responseType = 'blob'
+  xhr.setRequestHeader('Accept', 'audio/mpeg') // 设置 MIME 类型为 audio/mpeg
+
+  xhr.onload = function () {
 	  if (xhr.status === 200) {
-	    const blob = xhr.response;
-	    const downloadLink = document.createElement('a');
-	    downloadLink.href = URL.createObjectURL(blob);
-	    downloadLink.download = props.detail.title;
-	    downloadLink.style.display = 'none';
-	    document.body.appendChild(downloadLink);
-	    downloadLink.click();
-		downloadLink.remove();
-		dowmLoadArr.push(props.detail.id)
-		uni.setStorageSync('download', JSON.stringify(dowmLoadArr))
-		downloadType.value = true
-		uni.hideLoading()
-	    document.body.removeChild(downloadLink);
+	    const blob = xhr.response
+	    const downloadLink = document.createElement('a')
+	    downloadLink.href = URL.createObjectURL(blob)
+	    downloadLink.download = props.detail.title
+	    downloadLink.style.display = 'none'
+	    document.body.appendChild(downloadLink)
+	    downloadLink.click()
+      downloadLink.remove()
+      dowmLoadArr.push(props.detail.id)
+      uni.setStorageSync('download', JSON.stringify(dowmLoadArr))
+      downloadType.value = true
+      uni.hideLoading()
+	    document.body.removeChild(downloadLink)
 	  }
-	};
-	
-	xhr.send();
-	// #endif
+  }
+
+  xhr.send()
+  // #endif
 }
 ```
 
@@ -1031,14 +1038,14 @@ const downloadMusicFn = () => {
 #### 播放设置
 点播播放有多种方式可供选择，这里采取的是官方最为推荐的 `VID + PlayAuth` 的方式。
 ```js
-var player = new Aliplayer({
-   id: 'J_prismPlayer',
-   width: '100%',
-   vid : '<your video ID>',//必选参数。音视频ID。示例：1e067a2831b641db90d570b6480f****。
-   playauth : '<your PlayAuth>',//必选参数。音视频播放凭证。
- },function(player){
-   console.log('The player is created.')
-});
+const player = new Aliplayer({
+  id: 'J_prismPlayer',
+  width: '100%',
+  vid: '<your video ID>', // 必选参数。音视频ID。示例：1e067a2831b641db90d570b6480f****。
+  playauth: '<your PlayAuth>', // 必选参数。音视频播放凭证。
+}, (player) => {
+  console.log('The player is created.')
+})
 ```
 此时运行，运行在浏览器中的 `demo` 已经成功跑起来，返回 `uniapp` 中运行，却报以下错误。
 > `Aliplayer is not defined`
@@ -1052,14 +1059,14 @@ var player = new Aliplayer({
    2. 动态创建 `link` 标签，实现跳转
 ```js
 function loadScriptString(src) {
-  var script = document.createElement('script') //创建一个script标签
+  const script = document.createElement('script') // 创建一个script标签
   script.type = 'text/javascript'
   script.src = src
   document.getElementsByTagName('head')[0].appendChild(script)
 }
 
 function loadLinkString(src) {
-  var link = document.createElement('link') //创建一个link标签
+  const link = document.createElement('link') // 创建一个link标签
   link.rel = 'stylesheet'
   link.href = src
   document.getElementsByTagName('head')[0].appendChild(link)
@@ -1076,28 +1083,28 @@ loadScriptString('https://g.alicdn.com/de/prismplayer/2.9.19/aliplayer-min.js')
 
 在 `webview` 中写原生 `html` 代码，把需要的参数通过 query 的方式传递过去。
 ```vue
-<template>
- <view class="content">
-  <web-view :src="videoUrl"></web-view>1
- </view>
-</template>
-
 <script>
 export default {
-    data() {
-        return {
-         videoUrl:'static/index.html?'
-        }
-    },
-    onLoad() {
-        let vid = '808243746770483c843bef3e4f91b629';
-        let playauth = "凭证";
-        this.videoUrl +=`vid=${vid}&playauth=${playauth}`;
-    },
-    methods: {
+  data() {
+    return {
+      videoUrl: 'static/index.html?'
     }
+  },
+  onLoad() {
+    const vid = '808243746770483c843bef3e4f91b629'
+    const playauth = '凭证'
+    this.videoUrl += `vid=${vid}&playauth=${playauth}`
+  },
+  methods: {
+  }
 }
 </script>
+
+<template>
+  <view class="content">
+    <web-view :src="videoUrl" />1
+  </view>
+</template>
 ```
 ```html
 <!DOCTYPE html>
@@ -1185,23 +1192,23 @@ export default {
 ```js
 /**
  * 转换富文本的图片最大为100%
-*/
-const formatRichText = (html) => { //控制小程序中图片大小
-	let newContent = html.replace(/<img[^>]*>/gi, function(match, capture) {
-		match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
-		match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
-		match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
-		return match;
-	});
-	newContent = newContent.replace(/style="[^"]+"/gi, function(match, capture) {
-		match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi,
-			'max-width:100%;');
-		return match;
-	});
-	newContent = newContent.replace(/<br[^>]*\/>/gi, '');
-	newContent = newContent.replace(/\<img/gi,
-		'<img style="max-width:100%;height:auto;"');
-	return newContent
+ */
+function formatRichText(html) { // 控制小程序中图片大小
+  let newContent = html.replace(/<img[^>]*>/gi, (match, capture) => {
+    match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '')
+    match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '')
+    match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '')
+    return match
+  })
+  newContent = newContent.replace(/style="[^"]+"/gi, (match, capture) => {
+    match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi,
+      'max-width:100%;')
+    return match
+  })
+  newContent = newContent.replace(/<br[^>]*\/>/gi, '')
+  newContent = newContent.replace(/\<img/gi,
+    '<img style="max-width:100%;height:auto;"')
+  return newContent
 }
 export default formatRichText
 ```

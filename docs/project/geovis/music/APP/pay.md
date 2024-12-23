@@ -14,7 +14,7 @@ title 支付页
 
    ```js
    // 点击支付按钮
-   const toPayFn = async () => {
+   async function toPayFn() {
      if (!checked.value) {
        uni.showToast({
          title: '请选择支付方式',
@@ -22,23 +22,23 @@ title 支付页
        })
        return
      }
-     //发起创建订单接口请求
-     shopStore.payFn(传参).then(res => {
+     // 发起创建订单接口请求
+     shopStore.payFn(传参).then((res) => {
        switch (checked.value) {
          case 'wxpay':
            uni.showToast({
              title: '暂未支持微信支付',
              icon: 'none'
            })
-           break;
+           break
          case 'alipay':
            realPay(res)
-           break;
+           break
          default:
-           break;
+           break
        }
      })
-   };
+   }
    ```
 
 ## 微信支付

@@ -2,11 +2,11 @@
 const FokaiSidebar = [
   {
     text: '🎞️ 佛开',
-    
+
     items: [
       {
         text: '🖥 平台',
-        
+
         items: [
           { text: '💡 介绍', link: '/baidu/fokai/platform/index' },
           { text: '👣 组件', link: '/baidu/fokai/platform/component' },
@@ -15,7 +15,7 @@ const FokaiSidebar = [
       },
       {
         text: '💡 LED大屏',
-        
+
         items: [
           { text: '💡 介绍', link: '/baidu/fokai/LED/index' },
           { text: '🟥 样式', link: '/baidu/fokai/LED/style' },

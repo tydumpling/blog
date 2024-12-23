@@ -9,76 +9,76 @@
 通过懒加载的形式引入除首页外的其他路由页面，代码如下：
 
 ```js
-import { lazy } from "react";
-import Home from "@/views/Home.jsx";
+import { lazy } from 'react'
+import Home from '@/views/Home.jsx'
 
-const Detail = lazy(() => import("@/views/Detail.jsx"));
-const Store = lazy(() => import("@/views/Store.jsx"));
-const Personal = lazy(() => import("@/views/Personal.jsx"));
-const Update = lazy(() => import("@/views/Update.jsx"));
-const Page404 = lazy(() => import("@/views/Page404.jsx"));
-const Login = lazy(() => import("@/views/Login.jsx"));
+const Detail = lazy(() => import('@/views/Detail.jsx'))
+const Store = lazy(() => import('@/views/Store.jsx'))
+const Personal = lazy(() => import('@/views/Personal.jsx'))
+const Update = lazy(() => import('@/views/Update.jsx'))
+const Page404 = lazy(() => import('@/views/Page404.jsx'))
+const Login = lazy(() => import('@/views/Login.jsx'))
 
 const routes = [
   {
-    path: "/",
-    name: "home",
+    path: '/',
+    name: 'home',
     component: Home,
     meta: {
-      title: "知乎日报-WebApp",
+      title: '知乎日报-WebApp',
     },
   },
   {
-    path: "/detail/:id",
-    name: "detail",
+    path: '/detail/:id',
+    name: 'detail',
     component: Detail,
     meta: {
-      title: "新闻详情-知乎日报",
+      title: '新闻详情-知乎日报',
     },
   },
   {
-    path: "/personal",
-    name: "personal",
+    path: '/personal',
+    name: 'personal',
     component: Personal,
     meta: {
-      title: "个人中心-知乎日报",
+      title: '个人中心-知乎日报',
     },
   },
   {
-    path: "/store",
-    name: "store",
+    path: '/store',
+    name: 'store',
     component: Store,
     meta: {
-      title: "我的收藏-知乎日报",
+      title: '我的收藏-知乎日报',
     },
   },
   {
-    path: "/update",
-    name: "update",
+    path: '/update',
+    name: 'update',
     component: Update,
     meta: {
-      title: "个人信息修改-知乎日报",
+      title: '个人信息修改-知乎日报',
     },
   },
   {
-    path: "/login",
-    name: "login",
+    path: '/login',
+    name: 'login',
     component: Login,
     meta: {
-      title: "登录-知乎日报",
+      title: '登录-知乎日报',
     },
   },
   {
-    path: "/*",
-    name: "404",
+    path: '/*',
+    name: '404',
     component: Page404,
     meta: {
-      title: "404-知乎日报",
+      title: '404-知乎日报',
     },
   },
-];
+]
 
-export default routes;
+export default routes
 ```
 
 ## index.js
@@ -92,31 +92,31 @@ export default routes;
 代码如下所示：
 
 ```jsx
-import React, { Suspense } from "react";
-import routes from "./routes.js";
+import React, { Suspense } from 'react'
+import routes from './routes.js'
 
 // 统一路由配置
-const Element = (props) => {
-};
+function Element(props) {
+}
 
-const RouterView = () => {
+function RouterView() {
   return (
     <Suspense
       fallback={<div>loading</div>}
     >
       <Routes>
         {routes.map((route) => {
-          let { name, path } = route;
+          const { name, path } = route
           return (
             <Route key={name} path={path} element={<Element {...route} />} />
-          );
+          )
         })}
       </Routes>
     </Suspense>
-  );
-};
+  )
+}
 
-export default RouterView;
+export default RouterView
 ```
 
 ### 统一配置路由
@@ -134,27 +134,28 @@ export default RouterView;
 import {
   Route,
   Routes,
-  useNavigate,
   useLocation,
+  useNavigate,
   useParams,
   useSearchParams,
-} from "react-router-dom";
+} from 'react-router-dom'
+
 // ...
 
 // 统一路由配置
-const Element = (props) => {
-  let { component: Component, meta } = props;
+function Element(props) {
+  const { component: Component, meta } = props
 
   // 修改页面的Title
-  document.title = meta ? meta.title : "知乎日报-mobile";
+  document.title = meta ? meta.title : '知乎日报-mobile'
 
   // 路由守卫设置
 
   // 获取路由信息，基于属性传递给组件
-  const navigate = useNavigate(),
-    location = useLocation(),
-    params = useParams(),
-    [usp] = useSearchParams();
+  const navigate = useNavigate()
+  const location = useLocation()
+  const params = useParams()
+  const [usp] = useSearchParams()
 
   return (
     <Component
@@ -163,8 +164,8 @@ const Element = (props) => {
       params={params}
       usp={usp}
     />
-  );
-};
+  )
+}
 ```
 
 ### 懒加载配置
@@ -172,11 +173,11 @@ const Element = (props) => {
 简单的 `Loading` 文本过于简陋，因此去查看有没有组件可以使用。通过查看官方文档，最终敲定使用 `Mask` 遮罩层与 `DotLoading` 加载图标，代码如下：
 
 ```jsx
-import { Mask, DotLoading } from "antd-mobile";
+import { DotLoading, Mask } from 'antd-mobile'
 
 // ...
 
-const RouterView = () => {
+function RouterView() {
   return (
     <Suspense
       fallback={
@@ -187,15 +188,15 @@ const RouterView = () => {
     >
       <Routes>
         {routes.map((route) => {
-          let { name, path } = route;
+          const { name, path } = route
           return (
             <Route key={name} path={path} element={<Element {...route} />} />
-          );
+          )
         })}
       </Routes>
     </Suspense>
-  );
-};
+  )
+}
 ```
 
 修改样式：
@@ -215,28 +216,29 @@ const RouterView = () => {
 在 `App.js` 根组件中引入导出的路由配置并使用，代码如下：
 
 ```js
-import RouterView from "@/router/index.js";
+import RouterView from '@/router/index.js'
 
 function App() {
   return (
     <>
       <RouterView />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
 ```
 
 此时运行会报错，提示需要使用 `router` 包裹 `routes` 。在入口文件 `index.js` 中导入路由模式并包裹 `<App />` 组件，代码如下：
 
 ```jsx
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "@/App";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from '@/App'
+
 // ...
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <HashRouter>
@@ -245,7 +247,7 @@ root.render(
       </ConfigProvider>
     </HashRouter>
   </React.StrictMode>
-);
+)
 ```
 
 目前为止，路由模块搭建完毕。
@@ -255,60 +257,60 @@ root.render(
 引入 `redux` 仓库内保存的数据，用于判断是否登录来判断能否进入登录后才能进入的页面。如果没有，则调用接口尝试获取数据，获取到数据则放行；获取数据失败则跳转到登录页。代码如下：
 
 ```jsx
-import React, { Suspense } from "react";
+import React, { Suspense } from 'react'
 import {
+  Navigate,
   Route,
   Routes,
-  useNavigate,
   useLocation,
+  useNavigate,
   useParams,
   useSearchParams,
-  Navigate,
-} from "react-router-dom";
-import routes from "./routes.js";
-import { Mask, DotLoading, Toast } from "antd-mobile";
-import store from "@/store";
-import Api from "@/api";
+} from 'react-router-dom'
+import { DotLoading, Mask, Toast } from 'antd-mobile'
+import routes from './routes.js'
+import store from '@/store'
+import Api from '@/api'
 
-const Element = async (props) => {
-  let { component: Component, meta, path } = props;
+async function Element(props) {
+  const { component: Component, meta, path } = props
 
   // 修改页面的Title
-  document.title = meta ? meta.title : "知乎日报-mobile";
+  document.title = meta ? meta.title : '知乎日报-mobile'
 
   // 路由守卫设置
   let {
-      base: { info },
-    } = store.getState(),
-    checkList = ["/personal", "/store"];
-    if (!info && checkList.includes(path)) {
-      // 先获取用户信息
-      let res = await Api.userInfo();
-      info = res.data;
-      if (!info) {
-        // 还是没有信息，说明没登录，需要去重新登录
-        Toast.show({
-          icon: "fail",
-          content: "请先登录",
-        });
-        return (
+    base: { info },
+  } = store.getState()
+  const checkList = ['/personal', '/store']
+  if (!info && checkList.includes(path)) {
+    // 先获取用户信息
+    const res = await Api.userInfo()
+    info = res.data
+    if (!info) {
+      // 还是没有信息，说明没登录，需要去重新登录
+      Toast.show({
+        icon: 'fail',
+        content: '请先登录',
+      })
+      return (
           <Navigate
             to={{
-              pathname: "/login",
+              pathname: '/login',
               search: `?to=${path}`,
             }}
           />
-        );
-      }
-      // 如果获取到信息，说明已登录，派发任务信息存储到容器中
-      store.dispatch(res);
+      )
     }
+    // 如果获取到信息，说明已登录，派发任务信息存储到容器中
+    store.dispatch(res)
+  }
 
   // 获取路由信息，基于属性传递给组件
-  const navigate = useNavigate(),
-    location = useLocation(),
-    params = useParams(),
-    [usp] = useSearchParams();
+  const navigate = useNavigate()
+  const location = useLocation()
+  const params = useParams()
+  const [usp] = useSearchParams()
 
   return (
     <Component
@@ -317,14 +319,14 @@ const Element = async (props) => {
       params={params}
       usp={usp}
     />
-  );
-};
+  )
+}
 
-const RouterView = () => {
-  //...
-};
+function RouterView() {
+  // ...
+}
 
-export default RouterView;
+export default RouterView
 ```
 
 运行后发现报错，提示 `Element` 必须返回一个 JSX 组件而不是 `Promise` 对象。因为 `Element` 是函数式组件，也就是说 `async` 不能加在 `Element` 函数上。
@@ -395,33 +397,34 @@ export default RouterView;
 代码如下：
 
 ```jsx
-const isLoading = (path) => {
-  let {
-      base: { info },
-    } = store.getState(),
-    checkList = ["/personal", "/store"];
-  return !info && checkList.includes(path);
-};
+function isLoading(path) {
+  const {
+    base: { info },
+  } = store.getState()
+  const checkList = ['/personal', '/store']
+  return !info && checkList.includes(path)
+}
 // 统一路由配置。不能把async家在这里，因为最终要返回一个 JSX 而不是 Promise
-const Element = (props) => {
-  let { component: Component, meta, path } = props;
+function Element(props) {
+  const { component: Component, meta, path } = props
 
-  let isShow = !isLoading(path);
-  let [_, setRandom] = useState(0);
+  const isShow = !isLoading(path)
+  const [_, setRandom] = useState(0)
 
   // 路由守卫设置
   useEffect(() => {
-    if (isShow) return;
+    if (isShow)
+      return;
     (async () => {
       // 先获取用户信息
-      let res = await Api.userInfo();
-      let info = res.data;
+      const res = await Api.userInfo()
+      const info = res.data
       if (!info) {
         // 还是没有信息，说明没登录，需要去重新登录
         Toast.show({
-          icon: "fail",
-          content: "请先登录",
-        });
+          icon: 'fail',
+          content: '请先登录',
+        })
         navigate({
           pathname: '/login',
           search: `?to=${path}`
@@ -429,33 +432,35 @@ const Element = (props) => {
         return
       }
       // 如果获取到信息，说明已登录，派发任务信息存储到容器中
-      store.dispatch(res);
-      setRandom(+new Date());
-    })();
-  });
+      store.dispatch(res)
+      setRandom(+new Date())
+    })()
+  })
 
   // 修改页面的Title
-  document.title = meta ? meta.title : "知乎日报-mobile";
+  document.title = meta ? meta.title : '知乎日报-mobile'
 
   // 获取路由信息，基于属性传递给组件
-  const navigate = useNavigate(),
-    location = useLocation(),
-    params = useParams(),
-    [usp] = useSearchParams();
+  const navigate = useNavigate()
+  const location = useLocation()
+  const params = useParams()
+  const [usp] = useSearchParams()
 
-  return !isShow ? (
+  return !isShow
+    ? (
     <Mask visible={true}>
       <DotLoading color="white" />
     </Mask>
-  ) : (
+      )
+    : (
     <Component
       navigate={navigate}
       location={location}
       params={params}
       usp={usp}
     />
-  );
-};
+      )
+}
 ```
 
 > 注意

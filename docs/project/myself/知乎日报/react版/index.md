@@ -28,14 +28,15 @@ npx create-react-app news
    // 处理最大宽度
    (function () {
      const handleMax = function handleMax() {
-       let html = document.documentElement,
-         root = document.getElementById("root"),
-         deviceW = html.clientWidth;
-       root.style.maxWidth = "750px";
-       if (deviceW >= 750) html.style.fontSize = "75px";
-     };
-     handleMax();
-   })();
+       const html = document.documentElement
+       const root = document.getElementById('root')
+       const deviceW = html.clientWidth
+       root.style.maxWidth = '750px'
+       if (deviceW >= 750)
+         html.style.fontSize = '75px'
+     }
+     handleMax()
+   })()
    ```
 
 ## 单位换算
@@ -81,15 +82,14 @@ yarn add customize-cra
 下载完毕后在根目录下创建 `config-overrides` 用于配置别名，代码如下：
 
 ```js
-const { override, addWebpackAlias } = require("customize-cra");
-
-const path = require("path");
+const path = require('node:path')
+const { override, addWebpackAlias } = require('customize-cra')
 
 module.exports = override(
   addWebpackAlias({
-    "@": path.resolve(__dirname, "src/"),
+    '@': path.resolve(__dirname, 'src/'),
   })
-);
+)
 ```
 
 紧接着修改 `package.json` 文件中的 `scripts` 对象内的启动语句，代码如下：
@@ -118,22 +118,22 @@ module.exports = override(
 2. 国际化配置
 
    ```js
-   import React from "react";
-   import ReactDOM from "react-dom/client";
-   import App from "@/App";
+   import React from 'react'
+   import ReactDOM from 'react-dom/client'
    
    // 国际化语法包
-   import { ConfigProvider } from "antd-mobile";
-   import zhCN from "antd-mobile/es/locales/zh-CN";
+   import { ConfigProvider } from 'antd-mobile'
+   import zhCN from 'antd-mobile/es/locales/zh-CN'
+   import App from '@/App'
    
    // ...
    
-   const root = ReactDOM.createRoot(document.getElementById("root"));
+   const root = ReactDOM.createRoot(document.getElementById('root'))
    root.render(
      <React.StrictMode>
        <ConfigProvider locale={zhCN}>
          <App />
        </ConfigProvider>
      </React.StrictMode>
-   );
+   )
    ```

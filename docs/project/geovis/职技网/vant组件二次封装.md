@@ -19,30 +19,16 @@ title vant组件二次封装
 代码如下所示：
 
 ```vue
-<template>
-  <div class="bar">
-    <van-nav-bar
-    :title="title"
-    :left-text="leftText"
-    :left-arrow="leftArrow"
-    @click-left="onClickLeft"
-    @click-right="onClickRight"
-  >
-    <template #right></template>
-  </van-nav-bar>
-  </div>
-</template>
-
 <script>
 export default {
   props: {
     leftText: {
       type: String,
-      default: "",
+      default: '',
     },
     title: {
       type: String,
-      default: "",
+      default: '',
     },
     leftArrow: {
       type: Boolean,
@@ -52,15 +38,29 @@ export default {
   methods: {
     // 点击左侧触发事件
     onClickLeft() {
-      this.$router.back();
+      this.$router.back()
       this.$emit('onClickLeft')
     },
     onClickRight() {
-      this.$emit("onClickRight");
+      this.$emit('onClickRight')
     },
   },
-};
+}
 </script>
+
+<template>
+  <div class="bar">
+    <van-nav-bar
+      :title="title"
+      :left-text="leftText"
+      :left-arrow="leftArrow"
+      @click-left="onClickLeft"
+      @click-right="onClickRight"
+    >
+      <template #right />
+    </van-nav-bar>
+  </div>
+</template>
 
 <style lang="less" scoped>
 .bar {

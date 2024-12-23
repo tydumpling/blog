@@ -2,7 +2,7 @@
 const NodeSidebar = [
   {
     text: 'Node',
-    
+
     items: [
       { text: 'node', link: '/Node/' },
       { text: 'fs', link: '/Node/fs' },

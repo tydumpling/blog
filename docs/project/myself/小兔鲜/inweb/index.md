@@ -202,7 +202,7 @@ yarn add axios
 - 配置最基础的拦截器
 
 ```js
-import axios from "axios";
+import axios from 'axios'
 
 const http = axios.create({
   baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net/',
@@ -210,12 +210,12 @@ const http = axios.create({
 })
 
 // axios请求拦截器
-http.interceptors.request.use(config => {
+http.interceptors.request.use((config) => {
   return config
 }, e => Promise.reject(e))
 
 // axios响应式拦截器
-http.interceptors.response.use(res => res.data, e => {
+http.interceptors.response.use(res => res.data, (e) => {
   return Promise.reject(e)
 })
 
@@ -232,7 +232,7 @@ export default http
 // api/index.js
 import http from '@/utils/http'
 
-export const test = () => {
+export function test() {
   return http({
     url: 'home/category/head'
   })
@@ -241,9 +241,10 @@ export const test = () => {
 
 ```js
 // main.js
-import {test} from '@api/index'
-test().then(res => {
-  console.log(res);
+import { test } from '@api/index'
+
+test().then((res) => {
+  console.log(res)
 })
 ```
 
@@ -261,10 +262,10 @@ test().then(res => {
 >
 > ```js
 > module.exports = {
->     //...
->     rules: {
->         'vue/multi-word-component-name': 0
->     }
+>   // ...
+>   rules: {
+>     'vue/multi-word-component-name': 0
+>   }
 > }
 > ```
 

@@ -16,15 +16,14 @@ title 优医问诊
 2. 配置： postcss.config.js
    
    ```js
-    // eslint-disable-next-line no-undef
-    module.exports = {
-        plugins: {
-            'postcss-px-to-viewport': {
-            // 设备宽度375计算vw的值
-            viewportWidth: 375,
-            },
-        },
-    };
+   module.exports = {
+     plugins: {
+       'postcss-px-to-viewport': {
+         // 设备宽度375计算vw的值
+         viewportWidth: 375,
+       },
+     },
+   }
    ```
 
 > 注意
@@ -65,67 +64,67 @@ import { headerToken, rejectCode } from './token'
 
 export const baseURL = 'https://consult-api.itheima.net/'
 const instance = axios.create({
-    // 基础地址，超时时间
-    baseURL,
-    timeout: 10000
+  // 基础地址，超时时间
+  baseURL,
+  timeout: 10000
 })
 
 // 请求头封装
 instance.interceptors.request.use(
-    headerToken.onFulfilled,
-    headerToken.onRejected
+  headerToken.onFulfilled,
+  headerToken.onRejected
 )
 
 // 响应状态码封装
 instance.interceptors.response.use(
-    rejectCode.onFulfilled,
-    rejectCode.onRejected
+  rejectCode.onFulfilled,
+  rejectCode.onRejected
 )
 ```
 
 对象方法函数：
 
 ```js
-import { useUserStore } from '@/stores/index'
 import { showToast } from 'vant'
+import { useUserStore } from '@/stores/index'
 import router from '@/router'
 
 // 请求头添加
 export const headerToken = {
-    onFulfilled: (res: any) => {
-        const store = useUserStore();
-        if (store.user?.token && res.headers) {
-            res.headers['Authorization'] = `Bearer ${store.user?.token}`
-        }
-        return res
-    },
-    onRejected: (err: any) => Promise.reject(err),
+  onFulfilled: (res: any) => {
+    const store = useUserStore()
+    if (store.user?.token && res.headers)
+      res.headers.Authorization = `Bearer ${store.user?.token}`
+
+    return res
+  },
+  onRejected: (err: any) => Promise.reject(err),
 }
 
 // 响应状态处理
 export const rejectCode = {
-    onFulfilled: (res: any) => {
-        // 后台约定，响应成功，但是code不是10000，是业务逻辑失败
-        if (res.data?.code !== 10000) {
-            showToast(res.data?.message || '业务失败')
-            return Promise.reject(res.data)
-        }
-        // 业务逻辑成功，返回响应数据，作为axios成功的结果
-        return res.data
-    },
-    onRejected: (err: any) => {
-        if (err.response.status === 401) {
-            // 删除用户信息
-            const store = useUserStore()
-            store.delUser()
-            // 跳转登录，带上接口失效所在页面的地址，登录完成后回跳使用
-            router.push({
-                path: '/login',
-                query: { returnUrl: router.currentRoute.value.fullPath }
-            })
-        }
-        return Promise.reject(err)
-    },
+  onFulfilled: (res: any) => {
+    // 后台约定，响应成功，但是code不是10000，是业务逻辑失败
+    if (res.data?.code !== 10000) {
+      showToast(res.data?.message || '业务失败')
+      return Promise.reject(res.data)
+    }
+    // 业务逻辑成功，返回响应数据，作为axios成功的结果
+    return res.data
+  },
+  onRejected: (err: any) => {
+    if (err.response.status === 401) {
+      // 删除用户信息
+      const store = useUserStore()
+      store.delUser()
+      // 跳转登录，带上接口失效所在页面的地址，登录完成后回跳使用
+      router.push({
+        path: '/login',
+        query: { returnUrl: router.currentRoute.value.fullPath }
+      })
+    }
+    return Promise.reject(err)
+  },
 }
 ```
 
@@ -141,7 +140,7 @@ export const rejectCode = {
 import axios, { AxiosError, type Method } from 'axios'
 
 // 4. 请求工具函数
-const request = (url: string, method: Method = 'GET', submitData?: object) => {
+function request(url: string, method: Method = 'GET', submitData?: object) {
   return instance.request({
     url,
     method,

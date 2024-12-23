@@ -84,14 +84,14 @@ export default {
 // ...
 
 export default {
-    // 监听el元素尺寸变化
-    mounted(el, binding) {
-        // ...
-    },
-    // 取消监听
-    unmounted(el) {
-        ob.unobserve(el)
-    }
+  // 监听el元素尺寸变化
+  mounted(el, binding) {
+    // ...
+  },
+  // 取消监听
+  unmounted(el) {
+    ob.unobserve(el)
+  }
 }
 ```
 

@@ -13,30 +13,32 @@ $nextTick 方法内部采用了一种异步队列技术，它采用了宏任务�
 首先查看一下核心代码—— `nextTick` 函数：
 
 ```js
-export function nextTick (cb?: Function, ctx?: Object) {
+export function nextTick(cb?: Function, ctx?: Object) {
   let _resolve
   callbacks.push(() => {
     if (cb) {
       try {
         cb.call(ctx)
-      } catch (e) {
+      }
+      catch (e) {
         handleError(e, ctx, 'nextTick')
       }
-    } else if (_resolve) {
+    }
+    else if (_resolve) {
       _resolve(ctx)
     }
   })
   if (!pending) {
     pending = true
-    if (useMacroTask) {
+    if (useMacroTask)
       macroTimerFunc()
-    } else {
+    else
       microTimerFunc()
-    }
+
   }
   // $flow-disable-line
   if (!cb && typeof Promise !== 'undefined') {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       _resolve = resolve
     })
   }
@@ -48,11 +50,11 @@ export function nextTick (cb?: Function, ctx?: Object) {
 ```js
 if (!pending) {
   pending = true
-  if (useMacroTask) {
+  if (useMacroTask)
     macroTimerFunc()
-  } else {
+  else
     microTimerFunc()
-  }
+
 }
 ```
 
@@ -72,9 +74,11 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
     // microtask queue but the queue isn't being flushed, until the browser
     // needs to do some other work, e.g. handle a timer. Therefore we can
     // "force" the microtask queue to be flushed by adding an empty timer.
-    if (isIOS) setTimeout(noop)
+    if (isIOS)
+      setTimeout(noop)
   }
-} else {
+}
+else {
   // fallback to macro
   microTimerFunc = macroTimerFunc
 }
@@ -94,10 +98,11 @@ if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   macroTimerFunc = () => {
     setImmediate(flushCallbacks)
   }
-} else if (typeof MessageChannel !== 'undefined' && (
-  isNative(MessageChannel) ||
+}
+else if (typeof MessageChannel !== 'undefined' && (
+  isNative(MessageChannel)
   // PhantomJS
-  MessageChannel.toString() === '[object MessageChannelConstructor]'
+  || MessageChannel.toString() === '[object MessageChannelConstructor]'
 )) {
   const channel = new MessageChannel()
   const port = channel.port2
@@ -105,7 +110,8 @@ if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   macroTimerFunc = () => {
     port.postMessage(1)
   }
-} else {
+}
+else {
   /* istanbul ignore next */
   macroTimerFunc = () => {
     setTimeout(flushCallbacks, 0)
@@ -133,13 +139,13 @@ HTML5中规定 setTimeout 的最小时间延迟是4ms，也就是说理想环境
 
 ```js
 for (macroTask of macroTaskQueue) {
-    // 1. Handle current MACRO-TASK
-    handleMacroTask();
-      
-    // 2. Handle all MICRO-TASK
-    for (microTask of microTaskQueue) {
-        handleMicroTask(microTask);
-    }
+  // 1. Handle current MACRO-TASK
+  handleMacroTask()
+
+  // 2. Handle all MICRO-TASK
+  for (microTask of microTaskQueue)
+    handleMicroTask(microTask)
+
 }
 ```
 

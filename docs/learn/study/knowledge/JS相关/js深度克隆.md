@@ -12,7 +12,7 @@ function deepClone(v) {}
 
 ```js
 function deepClone(v) {
-    return v;
+  return v
 }
 ```
 
@@ -26,15 +26,15 @@ function deepClone(v) {
 
 ```js
 function deepClone(v) {
-    // 数组情况
-    if (Array.isArray(v)) { // [!code ++]
-        let arr = []; // [!code ++]
-        for (let i = 0; i < v.length; i++) { // [!code ++]
-            arr[i] = deepClone(v[i]); // [!code ++]
-        } // [!code ++]
-        return arr; // [!code ++]
+  // 数组情况
+  if (Array.isArray(v)) { // [!code ++]
+    const arr = [] // [!code ++]
+    for (let i = 0; i < v.length; i++) { // [!code ++]
+      arr[i] = deepClone(v[i]) // [!code ++]
     } // [!code ++]
-    return v;
+    return arr // [!code ++]
+  } // [!code ++]
+  return v
 }
 ```
 
@@ -46,23 +46,23 @@ function deepClone(v) {
 
 ```js
 function deepClone(v) {
-    // 数组情况
-    if (Array.isArray(v)) {
-        let arr = [];
-        for (let i = 0; i < v.length; i++) {
-            arr[i] = deepClone(v[i]);
-        }
-        return arr;
-    }
-    // 对象情况
-    if (typeof v === "object" && v !== null) { // [!code ++]
-        let obj = {}; // [!code ++]
-        for (let key in v) { // [!code ++]
-            obj[key] = deepClone(v[key]); // [!code ++]
-        } // [!code ++]
-        return obj; // [!code ++]
+  // 数组情况
+  if (Array.isArray(v)) {
+    const arr = []
+    for (let i = 0; i < v.length; i++)
+      arr[i] = deepClone(v[i])
+
+    return arr
+  }
+  // 对象情况
+  if (typeof v === 'object' && v !== null) { // [!code ++]
+    const obj = {} // [!code ++]
+    for (const key in v) { // [!code ++]
+      obj[key] = deepClone(v[key]) // [!code ++]
     } // [!code ++]
-    return v;
+    return obj // [!code ++]
+  } // [!code ++]
+  return v
 }
 ```
 
@@ -74,26 +74,26 @@ function deepClone(v) {
 
 ```js
 function deepClone(v) {
-    // 数组情况
-    if (Array.isArray(v)) {
-        let arr = [];
-        for (let i = 0; i < v.length; i++) {
-            arr[i] = deepClone(v[i]);
-        }
-        return arr;
-    }
-    // 对象情况
-    if (typeof v === "object" && v !== null) {
-        let obj = {};
-        for (let key in v) {
-            obj[key] = deepClone(v[key]);
-        }
-        return obj;
-    }
-    // 函数情况
-    if (typeof v === "function") { // [!code ++]
-        return v; // [!code ++]
-    } // [!code ++]
-    return v;
+  // 数组情况
+  if (Array.isArray(v)) {
+    const arr = []
+    for (let i = 0; i < v.length; i++)
+      arr[i] = deepClone(v[i])
+
+    return arr
+  }
+  // 对象情况
+  if (typeof v === 'object' && v !== null) {
+    const obj = {}
+    for (const key in v)
+      obj[key] = deepClone(v[key])
+
+    return obj
+  }
+  // 函数情况
+  if (typeof v === 'function') { // [!code ++]
+    return v // [!code ++]
+  } // [!code ++]
+  return v
 }
 ```

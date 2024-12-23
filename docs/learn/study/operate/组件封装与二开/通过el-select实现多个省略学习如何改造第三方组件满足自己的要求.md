@@ -43,52 +43,52 @@
 代码如下：
 
 ```vue
+<script>
+// 创建 span 节点，在此创建整个 script 都可使用
+const span = document.createElement('span')
+span.className = 'num_select'
+
+export default {
+  name: 'App',
+  data() {
+    return {
+      options: [
+        // ...
+      ],
+      value: '',
+    }
+  },
+  mounted() {
+    const select = document.querySelector('.el-select')
+    select.appendChild(span)
+  },
+  methods: {
+    changeFn(val) {
+      // 触发事件函数后判断长度
+      if (val.length > 2) {
+        span.setAttribute('style', 'display:inline-block')
+        span.innerHTML = `+${val.length - 2}`
+      }
+      else {
+        span.setAttribute('style', 'display:none')
+      }
+    }
+  }
+}
+</script>
+
 <template>
   <div id="app">
-    <el-select multiple v-model="value" placeholder="请选择" @change="changeFn">
+    <el-select v-model="value" multiple placeholder="请选择" @change="changeFn">
       <el-option
         v-for="item in options"
         :key="item.value"
         :label="item.label"
         :value="item.value"
-      >
-      </el-option>
+      />
     </el-select>
   </div>
 </template>
-
-<script>
-// 创建 span 节点，在此创建整个 script 都可使用
-const span = document.createElement("span");
-span.className = "num_select";
-
-export default {
-  name: "App",
-  data() {
-    return {
-      options: [
-          // ...
-      ],
-      value: "",
-    };
-  },
-  mounted() {
-    const select = document.querySelector(".el-select");
-    select.appendChild(span);
-  },
-  methods: {
-    changeFn(val) {
-      // 触发事件函数后判断长度
-      if(val.length > 2) {
-        span.setAttribute('style', 'display:inline-block')
-        span.innerHTML = `+${val.length - 2}`
-      } else{
-        span.setAttribute('style', 'display:none')
-      }
-    }
-  }
-};
-</script>
 
 <style>
 /* 超出2的选项隐藏，设置span标签的样式力求一致 */

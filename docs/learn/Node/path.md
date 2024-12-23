@@ -9,11 +9,11 @@
 示例代码：
 
 ```js
-import path from "path";
+import path from 'node:path'
 
-console.log(path.join("./src/abc", "../", "module", "app.ts")); // src/module/app.ts
+console.log(path.join('./src/abc', '../', 'module', 'app.ts')) // src/module/app.ts
 
-console.log(path.join("src", "module", "../app.ts")); // src/app.ts
+console.log(path.join('src', 'module', '../app.ts')) // src/app.ts
 ```
 
 > 注意：
@@ -25,7 +25,7 @@ console.log(path.join("src", "module", "../app.ts")); // src/app.ts
 返回文件名中最后部分，一般是文件名，经常通过这个方法获取路径中的文件名。语法格式如下：
 
 ```js
-path.basename(path, [ext]);
+path.basename(path, [ext])
 ```
 
 - `path <string>` 必选参数，表示一个路径的字符串
@@ -35,10 +35,10 @@ path.basename(path, [ext]);
 示例代码：
 
 ```js
-import path from "path";
+import path from 'node:path'
 
-console.log(path.basename("./src/module/app.ts")); //app.ts
-console.log(path.basename("./src/module/app.ts", ".ts")); //app
+console.log(path.basename('./src/module/app.ts')) // app.ts
+console.log(path.basename('./src/module/app.ts', '.ts')) // app
 ```
 
 ## extname
@@ -46,7 +46,7 @@ console.log(path.basename("./src/module/app.ts", ".ts")); //app
 返回文件名的扩展名，可以获取路径中的扩展名部分，语法格式如下：
 
 ```js
-path.extname(path);
+path.extname(path)
 ```
 
 - `path <string>` 必选参数，表示一个路径的字符串
@@ -55,7 +55,7 @@ path.extname(path);
 示例代码：
 
 ```js
-console.log(path.extname("/src/module/app.ts")); //.ts
+console.log(path.extname('/src/module/app.ts')) // .ts
 ```
 
 ## \_\_dirname
@@ -63,7 +63,7 @@ console.log(path.extname("/src/module/app.ts")); //.ts
 获取当前脚本所在目录，这是内置函数，不需要 `require` ，不了解可以看 **模块管理** 章节
 
 ```js
-console.log(__dirname);
+console.log(__dirname)
 ```
 
 ## \_\_filename
@@ -71,7 +71,7 @@ console.log(__dirname);
 当前脚本的路径
 
 ```js
-console.log(__filename);
+console.log(__filename)
 ```
 
 ## dirname
@@ -79,7 +79,7 @@ console.log(__filename);
 返回文件中的目录部分
 
 ```js
-console.log(path.dirname("./src/module/app.ts")); //./src/module
+console.log(path.dirname('./src/module/app.ts')) // ./src/module
 ```
 
 ## parse
@@ -127,7 +127,7 @@ console.log(path.isAbsolute('/etc')) //true
 根据不同操作系统中的路径分隔符，返回绝对路径的文件
 
 ```js
-console.log(path.resolve("./src", "module", "app.ts")); /// Users/hd/code/test/src/module/app.ts
+console.log(path.resolve('./src', 'module', 'app.ts')) // / Users/hd/code/test/src/module/app.ts
 ```
 
 ## 案例
@@ -218,16 +218,17 @@ console.log(path.resolve("./src", "module", "app.ts")); /// Users/hd/code/test/s
 ### 读取文件
 
 ```js
-const fs = require("fs");
-const path = require("path");
+const fs = require('node:fs')
+const path = require('node:path')
 
-const styleReq = /<style>[\s\S]*<\/style>/; // css正则
-const scriptReq = /<script>[\s\S]*<\/script>/; // js正则
+const styleReq = /<style>[\s\S]*<\/style>/ // css正则
+const scriptReq = /<script>[\s\S]*<\/script>/ // js正则
 
-fs.readFile(path.join(__dirname, "./clock.html"), "utf8", (err, res) => {
-  if (err) return console.log("文件读取失败");
-  console.log(res);
-});
+fs.readFile(path.join(__dirname, './clock.html'), 'utf8', (err, res) => {
+  if (err)
+    return console.log('文件读取失败')
+  console.log(res)
+})
 ```
 
 ### 分离 css 样式
@@ -235,15 +236,15 @@ fs.readFile(path.join(__dirname, "./clock.html"), "utf8", (err, res) => {
 ```js
 function resolveCss(params) {
   // 正则获取符合条件的内容，是一个数组形式
-  const res = styleReq.exec(params);
+  const res = styleReq.exec(params)
 
   // 提取出的字符串进行字符串替换操作，替换开头和结尾的两个标签
-  const newRes = res[0].replace("<style>", "").replace("</style>", "");
+  const newRes = res[0].replace('<style>', '').replace('</style>', '')
 
   // 写入文件
-  fs.writeFile(path.join(__dirname, "./new.css"), newRes, "utf8", (err) => {
-    console.log(err);
-  });
+  fs.writeFile(path.join(__dirname, './new.css'), newRes, 'utf8', (err) => {
+    console.log(err)
+  })
 }
 ```
 
@@ -252,14 +253,14 @@ function resolveCss(params) {
 ```js
 function resolveJs(params) {
   // 正则获取符合条件的内容，是一个数组形式
-  const res = scriptReq.exec(params);
+  const res = scriptReq.exec(params)
 
   // 提取出的字符串进行字符串替换操作，替换开头和结尾的两个标签
-  const newRes = res[0].replace("<script>", "").replace("</script>", "");
+  const newRes = res[0].replace('<script>', '').replace('</script>', '')
 
-  fs.writeFile(path.join(__dirname, "./new.js"), newRes, "utf8", (err) => {
-    console.log(err);
-  });
+  fs.writeFile(path.join(__dirname, './new.js'), newRes, 'utf8', (err) => {
+    console.log(err)
+  })
 }
 ```
 

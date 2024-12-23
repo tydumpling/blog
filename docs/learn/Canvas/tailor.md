@@ -6,30 +6,30 @@
 
 ```vue
 <script setup>
-    import { ref } from 'vue'
-    
-    const imgUrl = ref('')
-    const canvasRef = ref(null)
-    const imgRef = ref(null)
-    const onChangeFn = e => {
-        // 获取用户上传的文件
-        const file = e.target.files[0]
-        
-        // 预览文件
-        let fr = new FileReader()
-        fr.readAsDataURL(file)
-        
-        // 获取图片读完的图片结果（非同步，需要在onload获取）
-        fr.onload = () => {
-            imgUrl.value = fr.result
-        }
-    }
+import { ref } from 'vue'
+
+const imgUrl = ref('')
+const canvasRef = ref(null)
+const imgRef = ref(null)
+function onChangeFn(e) {
+  // 获取用户上传的文件
+  const file = e.target.files[0]
+
+  // 预览文件
+  const fr = new FileReader()
+  fr.readAsDataURL(file)
+
+  // 获取图片读完的图片结果（非同步，需要在onload获取）
+  fr.onload = () => {
+    imgUrl.value = fr.result
+  }
+}
 </script>
 
 <template>
-	<input type="file" @change="onChangeFn" />
-	<img :src="imgUrl" ref="imgRef" />
-	<canvas ref="canvasRef" height="200" width="200"></canvas>
+  <input type="file" @change="onChangeFn">
+  <img ref="imgRef" :src="imgUrl">
+  <canvas ref="canvasRef" height="200" width="200" />
 </template>
 ```
 
@@ -40,15 +40,15 @@
 ```js
 // ...
 fr.onload = () => {
-	imgUrl.value = fr.result
-    
-    let ctx = canvasRef.value.getContext('2d')
-    
-    // 等比计算截取的图片宽高
-    let height = (200 / imgRef.value.height) * imgRef.value.naturalHeight
-    let width = (200 / imgRef.value.width) * imgRef.value.naturalWidth
-    
-    ctx.drawImage(imgRef.value, 0, 0, width, height, 0, 0, 200, 200)
+  imgUrl.value = fr.result
+
+  const ctx = canvasRef.value.getContext('2d')
+
+  // 等比计算截取的图片宽高
+  const height = (200 / imgRef.value.height) * imgRef.value.naturalHeight
+  const width = (200 / imgRef.value.width) * imgRef.value.naturalWidth
+
+  ctx.drawImage(imgRef.value, 0, 0, width, height, 0, 0, 200, 200)
 }
 ```
 

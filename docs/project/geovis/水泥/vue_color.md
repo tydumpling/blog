@@ -119,37 +119,37 @@ yarn add vue-color
 
      ```js
      {
-     	actStatus: null
-     	blue: 79
-     	bpmStatus: null
-     	code: null
-     	colorFill: null
-     	colorIdName: null
-     	createBy: null
-     	createTime: null
-     	description: null
-     	green: 183
-     	hasAuth: false
-     	html: "#00B74F"
-     	hue: 145.9
-     	id: "1622422742548848646"
-     	isDelete: null
-     	isHistory: null
-     	name: "7481C"
-     	procDefId: null
-     	procInstId: null
-     	publishTime: null
-     	ratio: null
-     	reason: null
-     	red: 0
-     	revisedBy: null
-     	startProcess: false
-     	sysOrgCode: null
-     	type: null
-     	updateBy: null
-     	updateTime: null
-     	version: null
-     	weight: null
+       actStatus: null
+       blue: 79
+       bpmStatus: null
+       code: null
+       colorFill: null
+       colorIdName: null
+       createBy: null
+       createTime: null
+       description: null
+       green: 183
+       hasAuth: false
+       html: '#00B74F'
+       hue: 145.9
+       id: '1622422742548848646'
+       isDelete: null
+       isHistory: null
+       name: '7481C'
+       procDefId: null
+       procInstId: null
+       publishTime: null
+       ratio: null
+       reason: null
+       red: 0
+       revisedBy: null
+       startProcess: false
+       sysOrgCode: null
+       type: null
+       updateBy: null
+       updateTime: null
+       version: null
+       weight: null
      }
      ```
 
@@ -162,48 +162,21 @@ yarn add vue-color
 ### 总体代码
 
 ```vue
-<template>
-  <div>
-      <div class="vue-color-picker">
-        <slider-picker @input="updateValue" :value="colors"></slider-picker>
-        <!-- <photoshop-picker v-model="colors" /> -->
-      </div>
-      <h2>颜色列表</h2>
-      <div style="display: flex; margin: 0px auto; height: 360px;">
-        <div class="colorList">
-          <div
-            class="color"
-            :style="`background-color: ${item.html};`"
-            @click="onColor(item, index)"
-            v-for="(item, index) in list"
-            :key="index"
-          >
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%;"><svg v-show="index === activIndex" viewBox="0 0 24 24" style="width: 24px; height: 24px;"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></div>
-        </div>
-        </div>
-        <div :style="`background-color: ${color.html};width: 50%;`">
-          <h2 v-if="color.name" style="margin-top: 100px;">色号:{{ color.name }}</h2>
-          <h2 v-if="color.name">RGB:{{ color.red }},{{ color.green }},{{ color.blue }}</h2>
-          <h2 v-if="color.name">hex:{{ color.html }}</h2>
-        </div>
-      </div>
-  </div>
-</template>
-
 <script>
-import { Photoshop, Chrome, Sketch, Swatches, Grayscale, Compact, Material, Slider } from 'vue-color'
+import { Chrome, Compact, Grayscale, Material, Photoshop, Sketch, Slider, Swatches } from 'vue-color'
 import { getAction } from '@/api/manage.js'
+
 export default {
   name: 'VueColorPicker',
   components: {
-    'photoshop-picker': Photoshop,
-    'chrome-picker': Chrome,
-    'sketch-picker': Sketch,
-    'swatches-picker': Swatches,
-    'grayscale-picker': Grayscale,
-    'compact-picker': Compact,
-    'material-picker': Material,
-    'slider-picker': Slider
+    PhotoshopPicker: Photoshop,
+    ChromePicker: Chrome,
+    SketchPicker: Sketch,
+    SwatchesPicker: Swatches,
+    GrayscalePicker: Grayscale,
+    CompactPicker: Compact,
+    MaterialPicker: Material,
+    SliderPicker: Slider
   },
   props: {
     colors: {
@@ -226,10 +199,10 @@ export default {
   methods: {
     // 修改上方滑条修改颜色
     updateValue(val) {
-      console.log(val);
+      console.log(val)
       this.activeIndex = -1
       val ? this.obj = val : ''
-      getAction('cement/cementColor/getHue', { hue: val ? val.oldHue : this.colors.oldHue }).then(res => {
+      getAction('cement/cementColor/getHue', { hue: val ? val.oldHue : this.colors.oldHue }).then((res) => {
         this.list = res.result
         this.onColor(res.result[0])
       })
@@ -242,6 +215,43 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div>
+    <div class="vue-color-picker">
+      <SliderPicker :value="colors" @input="updateValue" />
+      <!-- <photoshop-picker v-model="colors" /> -->
+    </div>
+    <h2>颜色列表</h2>
+    <div style="display: flex; margin: 0px auto; height: 360px;">
+      <div class="colorList">
+        <div
+          v-for="(item, index) in list"
+          :key="index"
+          class="color"
+          :style="`background-color: ${item.html};`"
+          @click="onColor(item, index)"
+        >
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%;">
+            <svg v-show="index === activIndex" viewBox="0 0 24 24" style="width: 24px; height: 24px;"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg>
+          </div>
+        </div>
+      </div>
+      <div :style="`background-color: ${color.html};width: 50%;`">
+        <h2 v-if="color.name" style="margin-top: 100px;">
+          色号:{{ color.name }}
+        </h2>
+        <h2 v-if="color.name">
+          RGB:{{ color.red }},{{ color.green }},{{ color.blue }}
+        </h2>
+        <h2 v-if="color.name">
+          hex:{{ color.html }}
+        </h2>
+      </div>
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .btn {
   display: flex;

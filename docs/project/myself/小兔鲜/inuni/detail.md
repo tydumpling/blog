@@ -153,7 +153,7 @@ onReady(() => {
       {
         borderRadius: '50%',
         borderColor: 'blue',
-        transform: `scale(.3) translateY(-20px)`,
+        transform: 'scale(.3) translateY(-20px)',
         offset: 1,
       },
     ],
@@ -207,7 +207,8 @@ onReady(() => {
     ></navigator>
     <navigator v-else url="/pages/index/index" open-type="switchTab" class="back icon-home">
     </navigator>
-    <view class="title">订单详情</view>
+    <view class="title">订单详情
+</view>
   </view>
 </view>
 ```

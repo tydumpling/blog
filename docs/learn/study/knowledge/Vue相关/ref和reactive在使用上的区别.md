@@ -18,13 +18,13 @@ const obj = reactive({})
 
 setTimeout(() => {
   console.log(obj)
-  obj = {a: 1, b: 2}
+  obj = { a: 1, b: 2 }
   console.log(obj)
 })
 </script>
 
 <template>
-	<div>
+  <div>
     {{ obj }}
   </div>
 </template>
@@ -60,19 +60,19 @@ setTimeout(() => {
 
 ```js
 function isRef(r) {
-  return !!(r && r.__v_isRef === true);
+  return !!(r && r.__v_isRef === true)
 }
 function ref(value) {
-  return createRef(value, false);
+  return createRef(value, false)
 }
 function shallowRef(value) {
-  return createRef(value, true);
+  return createRef(value, true)
 }
 function createRef(rawValue, shallow) {
-  if (isRef(rawValue)) {
-    return rawValue;
-  }
-  return new RefImpl(rawValue, shallow);
+  if (isRef(rawValue))
+    return rawValue
+
+  return new RefImpl(rawValue, shallow)
 }
 ```
 
@@ -85,23 +85,25 @@ function createRef(rawValue, shallow) {
 ```js
 class RefImpl {
   constructor(value, __v_isShallow) {
-    this.__v_isShallow = __v_isShallow;
-    this.dep = void 0;
-    this.__v_isRef = true;
-    this._rawValue = __v_isShallow ? value : toRaw(value);
-    this._value = __v_isShallow ? value : toReactive(value);
+    this.__v_isShallow = __v_isShallow
+    this.dep = void 0
+    this.__v_isRef = true
+    this._rawValue = __v_isShallow ? value : toRaw(value)
+    this._value = __v_isShallow ? value : toReactive(value)
   }
+
   get value() {
-    trackRefValue(this);
-    return this._value;
+    trackRefValue(this)
+    return this._value
   }
+
   set value(newVal) {
-    const useDirectValue = this.__v_isShallow || isShallow(newVal) || isReadonly(newVal);
-    newVal = useDirectValue ? newVal : toRaw(newVal);
+    const useDirectValue = this.__v_isShallow || isShallow(newVal) || isReadonly(newVal)
+    newVal = useDirectValue ? newVal : toRaw(newVal)
     if (hasChanged(newVal, this._rawValue)) {
-      this._rawValue = newVal;
-      this._value = useDirectValue ? newVal : toReactive(newVal);
-      triggerRefValue(this, 4, newVal);
+      this._rawValue = newVal
+      this._value = useDirectValue ? newVal : toReactive(newVal)
+      triggerRefValue(this, 4, newVal)
     }
   }
 }
@@ -128,16 +130,16 @@ class RefImpl {
 
 ```js
 function reactive(target) {
-  if (isReadonly(target)) {
-    return target;
-  }
+  if (isReadonly(target))
+    return target
+
   return createReactiveObject(
     target,
     false,
     mutableHandlers,
     mutableCollectionHandlers,
     reactiveMap
-  );
+  )
 }
 ```
 
@@ -147,27 +149,27 @@ function reactive(target) {
 function createReactiveObject(target, isReadonly2, baseHandlers, collectionHandlers, proxyMap) {
   if (!isObject(target)) {
     {
-      warn$2(`value cannot be made reactive: ${String(target)}`);
+      warn$2(`value cannot be made reactive: ${String(target)}`)
     }
-    return target;
+    return target
   }
-  if (target["__v_raw"] && !(isReadonly2 && target["__v_isReactive"])) {
-    return target;
-  }
-  const existingProxy = proxyMap.get(target);
-  if (existingProxy) {
-    return existingProxy;
-  }
-  const targetType = getTargetType(target);
-  if (targetType === 0 /* INVALID */) {
-    return target;
-  }
+  if (target.__v_raw && !(isReadonly2 && target.__v_isReactive))
+    return target
+
+  const existingProxy = proxyMap.get(target)
+  if (existingProxy)
+    return existingProxy
+
+  const targetType = getTargetType(target)
+  if (targetType === 0 /* INVALID */)
+    return target
+
   const proxy = new Proxy(
     target,
     targetType === 2 /* COLLECTION */ ? collectionHandlers : baseHandlers
-  );
-  proxyMap.set(target, proxy);
-  return proxy;
+  )
+  proxyMap.set(target, proxy)
+  return proxy
 }
 ```
 
@@ -178,108 +180,117 @@ function createReactiveObject(target, isReadonly2, baseHandlers, collectionHandl
 ```js
 class BaseReactiveHandler {
   constructor(_isReadonly = false, _isShallow = false) {
-    this._isReadonly = _isReadonly;
-    this._isShallow = _isShallow;
+    this._isReadonly = _isReadonly
+    this._isShallow = _isShallow
   }
+
   get(target, key, receiver) {
-    const isReadonly2 = this._isReadonly, isShallow2 = this._isShallow;
-    if (key === "__v_isReactive") {
-      return !isReadonly2;
-    } else if (key === "__v_isReadonly") {
-      return isReadonly2;
-    } else if (key === "__v_isShallow") {
-      return isShallow2;
-    } else if (key === "__v_raw") {
-      if (receiver === (isReadonly2 ? isShallow2 ? shallowReadonlyMap : readonlyMap : isShallow2 ? shallowReactiveMap : reactiveMap).get(target) || // receiver is not the reactive proxy, but has the same prototype
+    const isReadonly2 = this._isReadonly; const isShallow2 = this._isShallow
+    if (key === '__v_isReactive') {
+      return !isReadonly2
+    }
+    else if (key === '__v_isReadonly') {
+      return isReadonly2
+    }
+    else if (key === '__v_isShallow') {
+      return isShallow2
+    }
+    else if (key === '__v_raw') {
+      if (receiver === (isReadonly2 ? isShallow2 ? shallowReadonlyMap : readonlyMap : isShallow2 ? shallowReactiveMap : reactiveMap).get(target) // receiver is not the reactive proxy, but has the same prototype
       // this means the reciever is a user proxy of the reactive proxy
-      Object.getPrototypeOf(target) === Object.getPrototypeOf(receiver)) {
-        return target;
-      }
-      return;
+      || Object.getPrototypeOf(target) === Object.getPrototypeOf(receiver))
+        return target
+
+      return
     }
-    const targetIsArray = isArray(target);
+    const targetIsArray = isArray(target)
     if (!isReadonly2) {
-      if (targetIsArray && hasOwn(arrayInstrumentations, key)) {
-        return Reflect.get(arrayInstrumentations, key, receiver);
-      }
-      if (key === "hasOwnProperty") {
-        return hasOwnProperty;
-      }
+      if (targetIsArray && hasOwn(arrayInstrumentations, key))
+        return Reflect.get(arrayInstrumentations, key, receiver)
+
+      if (key === 'hasOwnProperty')
+        return hasOwnProperty
+
     }
-    const res = Reflect.get(target, key, receiver);
-    if (isSymbol(key) ? builtInSymbols.has(key) : isNonTrackableKeys(key)) {
-      return res;
-    }
-    if (!isReadonly2) {
-      track(target, "get", key);
-    }
-    if (isShallow2) {
-      return res;
-    }
-    if (isRef(res)) {
-      return targetIsArray && isIntegerKey(key) ? res : res.value;
-    }
-    if (isObject(res)) {
-      return isReadonly2 ? readonly(res) : reactive(res);
-    }
-    return res;
+    const res = Reflect.get(target, key, receiver)
+    if (isSymbol(key) ? builtInSymbols.has(key) : isNonTrackableKeys(key))
+      return res
+
+    if (!isReadonly2)
+      track(target, 'get', key)
+
+    if (isShallow2)
+      return res
+
+    if (isRef(res))
+      return targetIsArray && isIntegerKey(key) ? res : res.value
+
+    if (isObject(res))
+      return isReadonly2 ? readonly(res) : reactive(res)
+
+    return res
   }
 }
 class MutableReactiveHandler extends BaseReactiveHandler {
   constructor(isShallow2 = false) {
-    super(false, isShallow2);
+    super(false, isShallow2)
   }
+
   set(target, key, value, receiver) {
-    let oldValue = target[key];
+    let oldValue = target[key]
     if (!this._isShallow) {
-      const isOldValueReadonly = isReadonly(oldValue);
+      const isOldValueReadonly = isReadonly(oldValue)
       if (!isShallow(value) && !isReadonly(value)) {
-        oldValue = toRaw(oldValue);
-        value = toRaw(value);
+        oldValue = toRaw(oldValue)
+        value = toRaw(value)
       }
       if (!isArray(target) && isRef(oldValue) && !isRef(value)) {
         if (isOldValueReadonly) {
-          return false;
-        } else {
-          oldValue.value = value;
-          return true;
+          return false
+        }
+        else {
+          oldValue.value = value
+          return true
         }
       }
     }
-    const hadKey = isArray(target) && isIntegerKey(key) ? Number(key) < target.length : hasOwn(target, key);
-    const result = Reflect.set(target, key, value, receiver);
+    const hadKey = isArray(target) && isIntegerKey(key) ? Number(key) < target.length : hasOwn(target, key)
+    const result = Reflect.set(target, key, value, receiver)
     if (target === toRaw(receiver)) {
-      if (!hadKey) {
-        trigger(target, "add", key, value);
-      } else if (hasChanged(value, oldValue)) {
-        trigger(target, "set", key, value, oldValue);
-      }
+      if (!hadKey)
+        trigger(target, 'add', key, value)
+      else if (hasChanged(value, oldValue))
+        trigger(target, 'set', key, value, oldValue)
+
     }
-    return result;
+    return result
   }
+
   deleteProperty(target, key) {
-    const hadKey = hasOwn(target, key);
-    const oldValue = target[key];
-    const result = Reflect.deleteProperty(target, key);
-    if (result && hadKey) {
-      trigger(target, "delete", key, void 0, oldValue);
-    }
-    return result;
+    const hadKey = hasOwn(target, key)
+    const oldValue = target[key]
+    const result = Reflect.deleteProperty(target, key)
+    if (result && hadKey)
+      trigger(target, 'delete', key, void 0, oldValue)
+
+    return result
   }
+
   has(target, key) {
-    const result = Reflect.has(target, key);
-    if (!isSymbol(key) || !builtInSymbols.has(key)) {
-      track(target, "has", key);
-    }
-    return result;
+    const result = Reflect.has(target, key)
+    if (!isSymbol(key) || !builtInSymbols.has(key))
+      track(target, 'has', key)
+
+    return result
   }
+
   ownKeys(target) {
     track(
       target,
-      "iterate",
-      isArray(target) ? "length" : ITERATE_KEY
-    );
-    return Reflect.ownKeys(target);
+      'iterate',
+      isArray(target) ? 'length' : ITERATE_KEY
+    )
+    return Reflect.ownKeys(target)
   }
 }
 ```

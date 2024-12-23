@@ -58,7 +58,7 @@ export default defineConfig({
       vue: 'vue/dist/vue.esm.js',
     }
   }
-});
+})
 ```
 
 ## 与Vue相关
@@ -68,42 +68,45 @@ export default defineConfig({
 有一个场景，一个父组件引用了公共扎点子组件，在地图上渲染扎点，其代码如下所示：
 
 ```vue
+<script>
+export default {
+  setup() {
+    const showList = ref([])
+
+    const mouseenterCallbackFn = (index) => {
+      set(showList.value, index, true)
+    }
+
+    const mouseleaveCallbackFn = (index) => {
+      set(showList.value, index, false)
+    }
+
+    return {
+      showList,
+      mouseleaveCallbackFn,
+      mouseenterCallbackFn
+    }
+  }
+}
+</script>
+
 <template>
-	<marker-dom
+  <marker-dom
     v-for="(item, index) in list" :key="item.id"
     :info="{
       ...item,
       :position="[item.lng, item.lat]"
-      :name="item.name"
-      :onClickCallback="() => clickCallbackFn(item)"
-      :onMouseenterCallback="() => mouseenterCallbackFn(index)"
-      :onMouseleaveCallback="() => mouseleaveCallbackFn(index)"
+    :name="item.name"
+    :on-click-callback="() => clickCallbackFn(item)"
+    :on-mouseenter-callback="() => mouseenterCallbackFn(index)"
+    :on-mouseleave-callback="() => mouseleaveCallbackFn(index)"
     }"
   >
-    <div v-show="showList[index]"> ... </div>
+    <div v-show="showList[index]">
+      ...
+    </div>
   </marker-dom>
 </template>
-  
-<script>
-  export default {
-    setup() {
-      const showList = ref([])
-      
-      const mouseenterCallbackFn = index => {
-        set(showList.value, index, true)
-      }
-      
-      const mouseleaveCallbackFn = index => {
-        set(showList.value, index, false)
-      }
-      
-      return {
-        showList,
-        mouseleaveCallbackFn, mouseenterCallbackFn
-      }
-    }
-  }
-</script>
 ```
 
 根据上述代码不难看出它主要做了循环数据，把每一项的数据和经纬度、点击、鼠标移入移出回调函数等放到对象中传递给子组件。鼠标移入把数组对应索引改为 `true` 展示对应的卡片；鼠标移出后隐藏。
@@ -113,10 +116,10 @@ export default defineConfig({
 然后开始排查问题，既然重新渲染，那么就去看哪里触发了子组件的渲染函数。在子组件中有两个地方用到了该方法，一个在 `onMounted` ，一个在 `watch` 。前者可以排除，生命周期只触发一次，`watch` 代码如下所示：
 
 ```js
-watch(() => props.info, (_, {name}) => {
-  removeIcon(name); // 删除旧扎点
-  addIcon(); // 新建新扎点
-}, {deep: true})
+watch(() => props.info, (_, { name }) => {
+  removeIcon(name) // 删除旧扎点
+  addIcon() // 新建新扎点
+}, { deep: true })
 ```
 
 打印 `props.info` ，控制台有相关打印，可以判断是子组件侦听到数据发生改变，因此重新渲染扎点图标。但是父组件并没有修改到 `list` 数组，`info` 内的数据不会被变动到。

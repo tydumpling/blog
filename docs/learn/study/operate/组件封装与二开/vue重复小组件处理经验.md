@@ -48,21 +48,21 @@ export const signProp = (content) => {
 ### jsx方案
 
 ```jsx
-import {render} from 'vue'
+import { render } from 'vue'
 
-export const signProp = (content) => {
-  let pop = <div class="cover">
+export function signProp(content) {
+  const pop = <div class="cover">
   	<div class="covercontent">
         <div>{content}</div>
       	<div>
       		<button onClick={() => {
-              document.body.removeChild(pop.el) // 这里需要真实dom，虚拟dom会报错
-            }}>不同意</button>
+      		  document.body.removeChild(pop.el) // 这里需要真实dom，虚拟dom会报错
+      		}}>不同意</button>
           <button>确认签署</button>
       	</div>
     </div>
   </div>
-  
+
   // 参数一：要渲染的虚拟dom；参数二，要渲染到那个真实dom上
   render(pop, document.body)
 }
@@ -73,26 +73,26 @@ export const signProp = (content) => {
 参考一下 `element-ui` 的方法修改一下。
 
 ```jsx
-import {render} from 'vue'
+import { render } from 'vue'
 
-export const signProp = (content, handler) => {
-    let div = document.createElement('div')
-    let pop = <div class="dialog-cover">
+export function signProp(content, handler) {
+  const div = document.createElement('div')
+  const pop = <div class="dialog-cover">
   	    <div class="dialog-cover-content">
             <div class="content">{content}</div>
             <div class="btns">
       		    <button onClick={() => {
-                    document.body.removeChild(div) // 这里需要真实dom，虚拟dom会报错
-                    handler.cancel && handler.cancel()
-                }}>不同意</button>
+      		      document.body.removeChild(div) // 这里需要真实dom，虚拟dom会报错
+      		      handler.cancel && handler.cancel()
+      		    }}>不同意</button>
                 <button onClick={() => {
-                    document.body.removeChild(div) // 这里需要真实dom，虚拟dom会报错
-                    handler.confirm && handler.confirm()
+                  document.body.removeChild(div) // 这里需要真实dom，虚拟dom会报错
+                  handler.confirm && handler.confirm()
                 }}>确认签署</button>
       	    </div>
         </div>
     </div>
-  
+
   // 参数一：要渲染的虚拟dom；参数二，要渲染到那个真实dom上
   render(pop, div)
   document.body.appendChild(div)
@@ -105,15 +105,18 @@ export const signProp = (content, handler) => {
 
 ```vue
 <script setup>
-import {signProp} from './signProp.jsx'
+import { signProp } from './signProp.jsx'
 </script>
 
 <template>
-	<button @click="signProp('我是内容文本', {
-    confirm: () => {},
-    cancel: () => {}
+  <button
+    @click="signProp('我是内容文本', {
+      confirm: () => {},
+      cancel: () => {},
     })"
-   >click me</button>
+  >
+    click me
+  </button>
 </template>
 ```
 

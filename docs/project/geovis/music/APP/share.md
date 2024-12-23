@@ -128,86 +128,87 @@ ctx.draw(true, (ret) => {
 ### 代码展示
 ```vue
 <script setup>
-	const init = async () => {
-		const res = await getUserShareCode(code)
-		if (res.code === 200) {
-			codeImg.value = res.result
+async function init() {
+  const res = await getUserShareCode(code)
+  if (res.code === 200) {
+    codeImg.value = res.result
 
-			// 获取设备信息，主要获取宽度，赋值给canvasW 也就是宽度：100%
-			SystemInfo.value = await getSystemInfo()
+    // 获取设备信息，主要获取宽度，赋值给canvasW 也就是宽度：100%
+    SystemInfo.value = await getSystemInfo()
 
-			// 获取商品主图，二维码信息，APP端会返回图片的本地路径（H5端只能返回原路径）
-			let goodsImgUrl = '/static/img/smallIcon/share.png' // 主图本地路径，也可以用网络地址
-			goodsImg.value = await getImageInfo(goodsImgUrl);
+    // 获取商品主图，二维码信息，APP端会返回图片的本地路径（H5端只能返回原路径）
+    const goodsImgUrl = '/static/img/smallIcon/share.png' // 主图本地路径，也可以用网络地址
+    goodsImg.value = await getImageInfo(goodsImgUrl)
 
-			canvasW.value = SystemInfo.value.windowWidth; // 画布宽度
-			canvasH.value = SystemInfo.value.windowHeight;  // 画布高度
-			heightVal.value = canvasH.value * 0.45
+    canvasW.value = SystemInfo.value.windowWidth // 画布宽度
+    canvasH.value = SystemInfo.value.windowHeight // 画布高度
+    heightVal.value = canvasH.value * 0.45
 
-			// 如果主图，设备信息都获取成功，开始绘制海报，这里需要用setTimeout延时绘制，否则可能会出现图片不显示。
-			if (goodsImg.value.errMsg == 'getImageInfo:ok' && SystemInfo.value.errMsg == 'getSystemInfo:ok') {
-				uni.showToast({
-					icon: 'loading',
-					mask: true,
-					duration: 10000,
-					title: '海报绘制中',
-				});
-				setTimeout(() => {
-					var ctx = uni.createCanvasContext('drawing', this);
-					// 1.填充背景色，白色
-					ctx.setFillStyle('#fafafa'); // 默认白色
-					ctx.fillRect(0, 0, canvasW.value, canvasH.value) // fillRect(x,y,宽度，高度)
+    // 如果主图，设备信息都获取成功，开始绘制海报，这里需要用setTimeout延时绘制，否则可能会出现图片不显示。
+    if (goodsImg.value.errMsg == 'getImageInfo:ok' && SystemInfo.value.errMsg == 'getSystemInfo:ok') {
+      uni.showToast({
+        icon: 'loading',
+        mask: true,
+        duration: 10000,
+        title: '海报绘制中',
+      })
+      setTimeout(() => {
+        const ctx = uni.createCanvasContext('drawing', this)
+        // 1.填充背景色，白色
+        ctx.setFillStyle('#fafafa') // 默认白色
+        ctx.fillRect(0, 0, canvasW.value, canvasH.value) // fillRect(x,y,宽度，高度)
 
-					// 2.绘制主图，二维码
-					ctx.drawImage(goodsImgUrl, 0, 0, canvasW.value, canvasH.value) // drawImage(图片路径,x,y,绘制图像的宽度，绘制图像的高度)
-					ctx.drawImage(codeImg.value, canvasW.value - canvasW.value / 2 - canvasW.value / 4, heightVal.value - 20, canvasW.value / 2 , canvasW.value / 2) // drawImage(图片路径,x,y,绘制图像的宽度，绘制图像的高度)
+        // 2.绘制主图，二维码
+        ctx.drawImage(goodsImgUrl, 0, 0, canvasW.value, canvasH.value) // drawImage(图片路径,x,y,绘制图像的宽度，绘制图像的高度)
+        ctx.drawImage(codeImg.value, canvasW.value - canvasW.value / 2 - canvasW.value / 4, heightVal.value - 20, canvasW.value / 2, canvasW.value / 2) // drawImage(图片路径,x,y,绘制图像的宽度，绘制图像的高度)
 
-					// 3、邀请码
-					ctx.setFontSize(25) // 字号
-					ctx.setFillStyle('#f1654d') // 颜色
-					ctx.fillText(code, canvasW.value - canvasW.value / 2 - 75, canvasH.value * 0.4 - 10) // （文字，x，y）
+        // 3、邀请码
+        ctx.setFontSize(25) // 字号
+        ctx.setFillStyle('#f1654d') // 颜色
+        ctx.fillText(code, canvasW.value - canvasW.value / 2 - 75, canvasH.value * 0.4 - 10) // （文字，x，y）
 
-					// draw方法 把以上内容画到 canvas 中
-					ctx.draw(true, (ret) => {
-						isShow.value = true // 显示按钮-保存图片到相册
-						uni.showToast({
-							icon: 'success',
-							mask: true,
-							title: '绘制完成',
-						});
+        // draw方法 把以上内容画到 canvas 中
+        ctx.draw(true, (ret) => {
+          isShow.value = true // 显示按钮-保存图片到相册
+          uni.showToast({
+            icon: 'success',
+            mask: true,
+            title: '绘制完成',
+          })
 
-            // 生成图片代码
-            
-					});
-				}, 1500)
-			} else {
-				console.log('读取图片信息失败')
-			}
-		}
-	}
+          // 生成图片代码
 
-	// 获取图片信息
-	const getImageInfo = (image) => {
-		return new Promise((req, rej) => {
-			uni.getImageInfo({
-				src: image,
-				success: function(res) {
-					req(res)
-				},
-			});
-		})
-	}
+        })
+      }, 1500)
+    }
+    else {
+      console.log('读取图片信息失败')
+    }
+  }
+}
 
-	// 获取设备信息
-	const getSystemInfo = () => {
-		return new Promise((req, rej) => {
-			uni.getSystemInfo({
-				success: function(res) {
-					req(res)
-				}
-			});
-		})
-	}
+// 获取图片信息
+function getImageInfo(image) {
+  return new Promise((req, rej) => {
+    uni.getImageInfo({
+      src: image,
+      success(res) {
+        req(res)
+      },
+    })
+  })
+}
+
+// 获取设备信息
+function getSystemInfo() {
+  return new Promise((req, rej) => {
+    uni.getSystemInfo({
+      success(res) {
+        req(res)
+      }
+    })
+  })
+}
 </script>
 ```
 

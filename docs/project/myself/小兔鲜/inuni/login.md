@@ -12,8 +12,8 @@
 
 ```vue
 <script setup lang="ts">
-import { loginApi } from '@/services/login'
 import { onLoad } from '@dcloudio/uni-app'
+import { loginApi } from '@/services/login'
 
 // 获取 code 登录凭证
 let code = ''
@@ -40,8 +40,8 @@ const onGetPhoneNumber: UniHelper.ButtonOnGetphonenumber = (ev) => {
 <template>
   <view class="viewport">
     <view class="login">
-      <button open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" class="button phone">
-        <text class="icon icon-phone"></text>
+      <button open-type="getPhoneNumber" class="button phone" @getphonenumber="onGetPhoneNumber">
+        <text class="icon icon-phone" />
         手机号快捷登录
       </button>
     </view>

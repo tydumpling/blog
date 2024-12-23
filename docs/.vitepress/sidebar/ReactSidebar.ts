@@ -2,7 +2,7 @@
 const ReactSidebar = [
   {
     text: 'React',
-    
+
     items: [
       { text: '无脚手架项目创建', link: '/React/' },
       { text: 'Diff算法', link: '/React/react的diff算法' },

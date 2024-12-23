@@ -5,8 +5,9 @@
 如果采用错误抛出的方法来结束循序，代码如下：
 
 ```js
-arr.forEach(item => {
-    if(item.id === '2') throw 'Error'
+arr.forEach((item) => {
+  if (item.id === '2')
+    throw 'Error'
 })
 
 console.log('后续执行的代码')
@@ -20,11 +21,13 @@ console.log('后续执行的代码')
 
 ```js
 try {
-    arr.forEach(item => {
-    	if(item.id === '2') throw 'Error'
-	})
-} catch {
-	console.log('后续执行的代码')
+  arr.forEach((item) => {
+    	if (item.id === '2')
+      throw 'Error'
+  })
+}
+catch {
+  console.log('后续执行的代码')
 }
 ```
 

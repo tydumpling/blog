@@ -43,7 +43,8 @@ router.beforeEach((to) => {
   // 不需要登录的页面，白名单
   const whiteList = ['/login', '/404']
   // 如果没有登录且不在白名单内，去登录
-  if (!whiteList.includes(to.path) && !store.user?.token) return '/login'
+  if (!whiteList.includes(to.path) && !store.user?.token)
+    return '/login'
   // 否则不做任何处理
 })
 
@@ -63,7 +64,7 @@ router.afterEach((to) => {
 - 有一部分是需要的。此时需要用到 `Pick` 关键字取出这些属性。代码示例如下：
 
   ```js
-  type Person = {
+  interface Person {
     name: string
     age: number
   }
@@ -74,7 +75,7 @@ router.afterEach((to) => {
 - 有一部分是不需要的。此时需要用到 `Omit` 关键字取出这些属性。代码示例如下：
 
   ```js
-  type Person = {
+  interface Person {
     name: string
     age: number
   }
@@ -103,12 +104,14 @@ router.afterEach((to) => {
 
 ```vue
 <com-a v-model="count"></com-a>
+
 <!-- 等价 -->
 <com-a :modelValue="count" @update:modelValue="count=$event"></com-a>
 ```
 
 ```vue
 <com-a v-model:msg="str"></com-a>
+
 <!-- 等价 -->
 <com-a :msg="str" @update:msg="str=$event"></com-a>
 ```
@@ -146,7 +149,7 @@ const toggleItem = (value: string | number) => {
 // 默认值需要转换
 const defaultFlag = computed({
   get() {
-    return patient.value.defaultFlag === 1 ? true : false
+    return patient.value.defaultFlag === 1
   },
   set(value) {
     patient.value.defaultFlag = value ? 1 : 0
