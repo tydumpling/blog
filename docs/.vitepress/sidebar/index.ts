@@ -38,28 +38,23 @@ import StudySidebar from './StudySidebar'
 import TsSidebar from './TsSidebar'
 import tydumpgeovisdebar from './tydumpgeovisdebar'
 import VitePressSidebar from './VitePressSidebar'
-import Vue2Sidebar from './Vue2Sidebar'
-import Vue3Sidebar from './Vue3Sidebar'
+import VueSidebar from './VueSidebar'
 import NPMSidebar from './NPMSidebar'
+import { AngularSidebar } from './AngularSidebar'
 
-export { default as sidebarInterview } from './interview'
-export { default as sidebarAlgorithm } from './algorithm'
-export { default as sidebarPartterns } from './partterns'
-export { default as sidebarProgram } from './program'
-export { default as exeryWeek } from './exeryweek'
+// export { default as sidebarInterview } from './interview'
+// export { default as sidebarAlgorithm } from './algorithm'
+// export { default as sidebarPartterns } from './partterns'
+// export { default as sidebarProgram } from './program'
+// export { default as exeryWeek } from './exeryweek'
 export default {
   '/Canvas': CanvasSidebar,
   '/CSS': CssSidebar,
   '/Javascript': JsSidebar,
   '/Reg': RegSidebar,
-  '/vue2': Vue2Sidebar,
-  '/Vue3': Vue3Sidebar,
+  '/vue': VueSidebar,
   '/React': ReactSidebar,
-  '/Angular/': autoSidebar({
-    base: '/learn/Angular/',
-    // title: 'Angular', // 可选：侧边栏标题
-    // collapsed: false,
-  }),
+  '/Angular/': AngularSidebar,
   '/TypeScript': TsSidebar,
   '/Node': NodeSidebar,
   '/NPM': NPMSidebar,

@@ -26,43 +26,12 @@ export default withPwa(defineConfig({
   // 打包目录
   // dest: './dist',
   head: head as Array<[string, Record<string, string>]>,
-  async buildEnd(siteConfig) {
-    await sitemap({ hostname: 'https://tydumpling.cn/' })
-    await genFeed(siteConfig)
+  locales: {
+    root: { label: '简体中文', lang: 'zh-CN' },
   },
-  vite: {
-    build: {
-      chunkSizeWarningLimit: 2000,
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            // 排除 vue 相关模块
-            if (id.includes('node_modules') && !id.includes('vue'))
-              return 'vendor'
-          },
-        },
-      },
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
-      },
-    },
-    ssr: {
-      // 添加 SSR 外部化配置
-      noExternal: ['mark.js', 'vue'],
-    },
-    optimizeDeps: {
-      // 包含需要预构建的依赖
-      include: ['vue'],
-    },
-  },
-
   // 忽略死链检查（指向一个不存在页面或资源）
   ignoreDeadLinks: true,
-
+  rewrites,
   markdown: {
     // lineNumbers:true, //代码快是否启动行号
     image: {
@@ -124,5 +93,8 @@ export default withPwa(defineConfig({
       copyright: 'Copyright © 2023-present tydumpling',
     },
   },
-  rewrites,
+  async buildEnd(siteConfig) {
+    await sitemap({ hostname: 'https://tydumpling.cn/' })
+    await genFeed(siteConfig)
+  },
 }))
