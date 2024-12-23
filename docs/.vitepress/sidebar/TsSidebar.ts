@@ -15,6 +15,7 @@ const TsSidebar = [
       { text: '枚举与基础约束', link: '/TypeScript/枚举与基础约束' },
       { text: '装饰器', link: '/TypeScript/装饰器' },
       { text: 'constructor', link: '/TypeScript/bl-constructor' },
+      { text: '语雀tsNote', link: '/TypeScript/oldNote' },
 
     ],
   },
