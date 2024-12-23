@@ -10,6 +10,11 @@ export function MarkdownTransform(): Plugin {
       if (!id.match(/\.md\b/))
         return null
 
+      // 排除首页
+      const [_name, i] = id.split('/').slice(-2)
+      if (_name === 'docs' && i === 'index.md')
+        return code
+
       // 1. 获取页面信息
       const { readTime, words } = getReadingTime(code)
       const pageInfo = `<PageInfo readTime="${readTime}" words="${words}"/>\n\n`
@@ -49,10 +54,8 @@ export function MarkdownTransform(): Plugin {
       }
 
       // 4. 添加页脚
-      if (!id.endsWith('index.md')) {
-        const { footer } = await getDocsMarkdown()
-        code = replacer(code, footer, 'FOOTER', 'tail')
-      }
+      const { footer } = await getDocsMarkdown()
+      code = replacer(code, footer, 'FOOTER', 'tail')
 
       return code
     },
