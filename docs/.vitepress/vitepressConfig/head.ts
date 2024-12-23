@@ -25,6 +25,7 @@ const head = [
   ['meta', { property: 'og:description', content: description }],
   ['meta', { property: 'og:url', content: site }],
   ['meta', { property: 'og:locale', content: 'zh_CN' }],
+  ['meta', { name: 'algolia-site-verification', content: '52A7D1918E48E50A' }],
   // analytics
   ['script', { 'async': '', 'defer': '', 'data-website-id': `${process.env.UMAMI_WEBSITE_ID || ''}`, 'src': `${process.env.UMAMI_ENDPOINT || ''}` }],
   ['link', { rel: 'manifest', href: '/blog/manifest.webmanifest' }],
