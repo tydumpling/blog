@@ -9,11 +9,28 @@ export function MarkdownTransform(): Plugin {
     async transform(code, id) {
       if (!id.match(/\.md\b/))
         return null
-      // convert links to relative
-      code = code.replace(/https?:\/\/tydumpling\.cn\//g, '/')
-      const [_name, i] = id.split('/').slice(-2)
 
-      // convert img
+      // 1. 获取页面信息
+      const { readTime, words } = getReadingTime(code)
+      const pageInfo = `<PageInfo readTime="${readTime}" words="${words}"/>\n\n`
+      
+      // 2. 检查是否有一级标题并插入 PageInfo
+      const hasH1 = /^#\s+[^#\n]+$/m.test(code)
+      if (hasH1) {
+        // 在第一个一级标题后插入
+        code = code.replace(
+          /^(#\s+[^#\n]+$\n)/m,
+          `$1\n${pageInfo}`
+        )
+      } else {
+        // 在文档开头插入
+        code = `${pageInfo}${code}`
+      }
+
+      // 3. 处理其他转换
+      code = code.replace(/https?:\/\/tydumpling\.cn\//g, '/')
+      
+      // 处理图片
       const imgRegex = /!\[(.+?)\]\((.+?)\)/g
       let imgMatches = imgRegex.exec(code)
       while (imgMatches) {
@@ -22,7 +39,7 @@ export function MarkdownTransform(): Plugin {
         imgMatches = imgRegex.exec(code)
       }
 
-      // convert links to components
+      // 处理链接
       const linkRegex = /\[(.+?)\]\((.+?)\)/g
       let matches = linkRegex.exec(code)
       while (matches) {
@@ -31,15 +48,11 @@ export function MarkdownTransform(): Plugin {
         matches = linkRegex.exec(code)
       }
 
-      // cut index.md
-      if (_name === 'docs' && i === 'index.md')
-        return code
-
-      const { footer } = await getDocsMarkdown()
-      code = replacer(code, footer, 'FOOTER', 'tail')
-      const { readTime, words } = getReadingTime(code)
-      code = code
-        .replace(/(#\s.+?\n)/, `$1\n\n<PageInfo readTime="${readTime}" words="${words}"/>\n`)
+      // 4. 添加页脚
+      if (!id.endsWith('index.md')) {
+        const { footer } = await getDocsMarkdown()
+        code = replacer(code, footer, 'FOOTER', 'tail')
+      }
 
       return code
     },
@@ -47,15 +60,8 @@ export function MarkdownTransform(): Plugin {
 }
 
 export async function getDocsMarkdown() {
-  const ContributorsSection = `## Contributors
-  <Contributors/>`
-
-  const CopyRightSection = `
-  <CopyRight/>`
-
-  const footer = `${ContributorsSection}\n${CopyRightSection}\n`
-
-  return {
-    footer,
-  }
+  const ContributorsSection = `\n\n## Contributors\n\n<Contributors/>`
+  const CopyRightSection = `\n\n<CopyRight/>\n\n`
+  const footer = `${ContributorsSection}${CopyRightSection}`
+  return { footer }
 }

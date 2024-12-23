@@ -1,7 +1,7 @@
 export default {
-  appId: 'C3P7IZLZFY',
-  apiKey: 'f87286e989d94eae0aca08416e2a5f1d',
-  indexName: 'movies_index',
+  appId: 'WI27LM724T',
+  apiKey: '00c1cd1ada29b5f4ecb67f95c932c877',
+  indexName: 'tydumplingio',
   placeholder: '请输入关键词',
   translations: {
     button: {

@@ -12,6 +12,8 @@ module.exports = {
   extends: '@antfu',
   rules: {
     'vue/no-deprecated-functional-template': 'off',
+    'no-console': 'off',
+     'no-console': ['warn', { allow: ['log', 'warn', 'error'] }],
     'vue/one-component-per-file': 'off',
     'vue/no-template-shadow': 'off',
     'vue/require-prop-types': 'off',
