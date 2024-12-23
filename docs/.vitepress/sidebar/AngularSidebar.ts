@@ -1,4 +1,4 @@
-const base = '/learn/Angular/'
+const base = '/Angular/'
 export const AngularSidebar = [
   {
     text: 'Angular',

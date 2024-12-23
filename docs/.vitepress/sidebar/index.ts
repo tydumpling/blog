@@ -54,7 +54,7 @@ export default {
   '/Reg': RegSidebar,
   '/vue': VueSidebar,
   '/React': ReactSidebar,
-  '/Angular/': AngularSidebar,
+  '/Angular': AngularSidebar,
   '/TypeScript': TsSidebar,
   '/Node': NodeSidebar,
   '/NPM': NPMSidebar,
