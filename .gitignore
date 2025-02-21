@@ -1,6 +1,7 @@
 # Dependencies
 node_modules
 pnpm-lock.yaml
+yarn-lock.yaml
 # Production
 docs/.vitepress/dist/
 docs/.vitepress/cache
