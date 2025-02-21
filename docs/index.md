@@ -51,11 +51,11 @@ features:
   - icon:  🎫
     title:  面经
     details: 面经
-    link: /面试鸭/面试典/js/(a==1&&a==2&&a==3)
+    link: /面试鸭/面试典/js/index
   - icon:  📘
-    title: tydumpling小站
-    details: tydumpling博客效果展示，功能实现，不容错过
-    link: https://tydumpling.github.io/blogweb/#/
+    title: tydumpling使用到的插件
+    details: tydumpling博客插件功能实现
+    link: /vitePress/plugin
   - icon:  🎈️
     title: 持续更新中~
     details: 尽情期待~

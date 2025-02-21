@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import { generateSitemap as sitemap } from 'sitemap-ts'
+import { generateSidebar, withSidebar } from 'vitepress-sidebar'
 import nav from './vitepressConfig/nav'
-import sidebar from './sidebar/index'
 import rewrites from './vitepressConfig/rewrites'
 import { pwa } from './plugins/pwa'
 import { genFeed } from './plugins/genFeed'
@@ -85,7 +85,13 @@ export default withPwa(defineConfig({
     },
 
     // 左侧导航栏
-    sidebar,
+    sidebar: generateSidebar({
+      documentRootPath: '/docs',
+      pathPrefix: '/blog', // 添加路径前缀
+      useTitleFromFrontmatter: true,
+      hyphenToSpace: true,
+      collapsed: true,
+    }),
     // 社交链接
     socialLinks,
     // 页脚

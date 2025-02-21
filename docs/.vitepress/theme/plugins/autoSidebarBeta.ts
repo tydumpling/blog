@@ -50,13 +50,36 @@ function getMdTitle(filePath: string): string {
   }
 }
 // 路径生成
+// function getSidebar(dir: string, title: string | undefined) {
+//   const curDir = resolve(DIR_SRC, dir)
+//   const files = fastGlobSync('file', curDir)
+
+//   const items = files.map((file) => {
+//     const fullPath = resolve(curDir, file)
+//     // 使用实际的文件路径
+//     const relativePath = join('/', dir, file)
+
+//     return {
+//       text: getMdTitle(fullPath),
+//       link: relativePath.replace(/\.md$/, ''),
+//       collapsed: false,
+//     }
+//   })
+//   return [{
+//     text: title || dir.split('/').pop() || '',
+//     items,
+//     collapsed: false,
+//   }]
+// }
+// 修改 getSidebar 函数来处理多级目录
 function getSidebar(dir: string, title: string | undefined) {
   const curDir = resolve(DIR_SRC, dir)
   const files = fastGlobSync('file', curDir)
+  const directories = fastGlobSync('directory', curDir)
 
-  const items = files.map((file) => {
+  // 处理文件
+  const fileItems = files.map((file) => {
     const fullPath = resolve(curDir, file)
-    // 使用实际的文件路径
     const relativePath = join('/', dir, file)
 
     return {
@@ -65,12 +88,33 @@ function getSidebar(dir: string, title: string | undefined) {
       collapsed: false,
     }
   })
+
+  // 处理子目录
+  const directoryItems = directories.map((subDir) => {
+    const subDirPath = join(dir, subDir)
+    const subDirFiles = fastGlobSync('file', resolve(DIR_SRC, subDirPath))
+    return {
+      text: subDir,
+      collapsed: true,
+      items: subDirFiles.map((file) => {
+        const fullPath = resolve(DIR_SRC, subDirPath, file)
+        const relativePath = join('/', subDirPath, file)
+
+        return {
+          text: getMdTitle(fullPath),
+          link: relativePath.replace(/\.md$/, ''),
+        }
+      }),
+    }
+  })
+
   return [{
     text: title || dir.split('/').pop() || '',
-    items,
+    items: [...fileItems, ...directoryItems],
     collapsed: false,
   }]
 }
+
 export default (options: Options) => {
   try {
     // 简化路径处理

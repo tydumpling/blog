@@ -7,7 +7,7 @@ const ProjectSidebar = [
     text: '项目',
     items: [
       { text: '🧟 中科星图', link: '/geovis/' },
-      { text: '⛷️百度外包', link: '/baidu/' },
+      { text: '⛷️百度Apollo', link: '/baidu/' },
       { text: '🔪 tydumpling博客', link: '/tydumpling/' },
       { text: '📜 自主学习', link: '/myself/' },
     ],

@@ -63,9 +63,14 @@ export default {
   '/study/knowledge': StudyKnowledgeSidebar,
   '/study/item': StudyItemSidebar,
   '/study/operate': StudyOperateeSidebar,
-  '/面试鸭/面试典': DictionarySidebar,
-  '/面试鸭/面试问': AskSidebar,
-  '/面试鸭/面试算法': LeedCodeSidebar,
+  // '/面试鸭/面试典': DictionarySidebar,
+  // '/面试鸭/面试问': AskSidebar,
+  // '/面试鸭/面试算法': LeedCodeSidebar,
+  '/面试鸭/': autoSidebar({
+    base: '/面试鸭/',
+    title: '面试鸭',
+  }),
+
   '/project': ProjectSidebar,
   '/geovis': geovisSidebar,
   '/geovis/sale': SaleSidebar,
