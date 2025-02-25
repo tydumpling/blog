@@ -1,8 +1,9 @@
-import { inBrowser, useRoute } from 'vitepress'
+import { inBrowser, useData, useRoute } from 'vitepress'
 import type { EnhanceAppContext, Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { nextTick, onMounted, watch } from 'vue'
 import mediumZoom from 'medium-zoom'
+import giscusTalk from 'vitepress-plugin-comment-with-giscus'
 import { registerAnalytics, siteIds, trackPageview } from './plugins/baidutongji'
 import googleAnalytics from './plugins/googleAnalytics'
 import './styles/main.css'
@@ -42,7 +43,31 @@ const theme: Theme = {
     }
   },
   setup() {
+    const { frontmatter } = useData()
     const route = useRoute()
+
+    // 评论功能
+    giscusTalk({
+      repo: 'tydumpling/blog',
+      repoId: 'R_kgDONRfAeA',
+      category: 'Genera', // default: `General`
+      categoryId: 'DIC_kwDONRfAeM4CnTxe',
+      mapping: 'pathname', // default: `pathname`
+      inputPosition: 'top', // default: `top`
+      lang: 'zh-CN', // default: `zh-CN`
+      lightTheme: 'light', // default: `light`
+      darkTheme: 'transparent_dark', // default: `transparent_dark`
+      strict: '0', // default: `0`
+      reactionsEnabled: '1', // default: `1`
+      emitMetadata: '0', // default: `0`
+      loading: 'lazy', // default: `lazy`
+      crossorigin: 'anonymous', // default: `anonymous`
+    }, {
+      frontmatter, route,
+    },
+
+    true,
+    )
     const initZoom = () => {
       mediumZoom('.main img', { background: 'var(--vp-c-bg)' }) // Should there be a new?
     }

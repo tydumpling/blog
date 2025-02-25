@@ -1479,6 +1479,13 @@
   resolved "https://registry.npmmirror.com/@fastify/busboy/-/busboy-2.1.1.tgz"
   integrity sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==
 
+"@giscus/vue@^2.2.8":
+  version "2.4.0"
+  resolved "https://registry.npmmirror.com/@giscus/vue/-/vue-2.4.0.tgz#d81b9c3171169a32aad3fcdb2c9941fbd1d4e094"
+  integrity sha512-QOxKHgsMT91myyQagP2v20YYAei1ByZuc3qcaYxbHx4AwOeyVrybDIuRFwG9YDv6OraC86jYnU4Ixd37ddC/0A==
+  dependencies:
+    giscus "^1.4.0"
+
 "@humanwhocodes/config-array@^0.11.11":
   version "0.11.14"
   resolved "https://registry.npmmirror.com/@humanwhocodes/config-array/-/config-array-0.11.14.tgz"
@@ -1595,6 +1602,18 @@
   version "1.1.1"
   resolved "https://registry.npmmirror.com/@kwsites/promise-deferred/-/promise-deferred-1.1.1.tgz"
   integrity sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==
+
+"@lit-labs/ssr-dom-shim@^1.2.0":
+  version "1.3.0"
+  resolved "https://registry.npmmirror.com/@lit-labs/ssr-dom-shim/-/ssr-dom-shim-1.3.0.tgz#a28799c463177d1a0b0e5cefdc173da5ac859eb4"
+  integrity sha512-nQIWonJ6eFAvUUrSlwyHDm/aE8PBDu5kRpL0vHMg6K8fK3Diq1xdPjTnsJSwxABhaZ+5eBi1btQB5ShUTKo4nQ==
+
+"@lit/reactive-element@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.npmmirror.com/@lit/reactive-element/-/reactive-element-2.0.4.tgz#8f2ed950a848016383894a26180ff06c56ae001b"
+  integrity sha512-GFn91inaUa2oHLak8awSIigYz0cU0Payr1rcFsrkf5OJ5eSPxElyZfKh0f2p9FsTiZWXQdWGJeXZICEfXXYSXQ==
+  dependencies:
+    "@lit-labs/ssr-dom-shim" "^1.2.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -4147,6 +4166,13 @@ giget@^1.2.3:
     pathe "^1.1.2"
     tar "^6.2.0"
 
+giscus@^1.4.0:
+  version "1.6.0"
+  resolved "https://registry.npmmirror.com/giscus/-/giscus-1.6.0.tgz#96c592e01829707b3a0ba72c2636c07a28b5c19d"
+  integrity sha512-Zrsi8r4t1LVW950keaWcsURuZUQwUaMKjvJgTCY125vkW6OiEBkatE7ScJDbpqKHdZwb///7FVC21SE3iFK3PQ==
+  dependencies:
+    lit "^3.2.1"
+
 glob-parent@^5.1.2, glob-parent@~5.1.2:
   version "5.1.2"
   resolved "https://registry.npmmirror.com/glob-parent/-/glob-parent-5.1.2.tgz"
@@ -4907,6 +4933,31 @@ listr2@~8.2.5:
     log-update "^6.1.0"
     rfdc "^1.4.1"
     wrap-ansi "^9.0.0"
+
+lit-element@^4.1.0:
+  version "4.1.1"
+  resolved "https://registry.npmmirror.com/lit-element/-/lit-element-4.1.1.tgz#07905992815076e388cf6f1faffc7d6866c82007"
+  integrity sha512-HO9Tkkh34QkTeUmEdNYhMT8hzLid7YlMlATSi1q4q17HE5d9mrrEHJ/o8O2D0cMi182zK1F3v7x0PWFjrhXFew==
+  dependencies:
+    "@lit-labs/ssr-dom-shim" "^1.2.0"
+    "@lit/reactive-element" "^2.0.4"
+    lit-html "^3.2.0"
+
+lit-html@^3.2.0:
+  version "3.2.1"
+  resolved "https://registry.npmmirror.com/lit-html/-/lit-html-3.2.1.tgz#8fc49e3531ee5947e4d93e8a5aa642ab1649833b"
+  integrity sha512-qI/3lziaPMSKsrwlxH/xMgikhQ0EGOX2ICU73Bi/YHFvz2j/yMCIrw4+puF2IpQ4+upd3EWbvnHM9+PnJn48YA==
+  dependencies:
+    "@types/trusted-types" "^2.0.2"
+
+lit@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.npmmirror.com/lit/-/lit-3.2.1.tgz#d6dd15eac20db3a098e81e2c85f70a751ff55592"
+  integrity sha512-1BBa1E/z0O9ye5fZprPtdqnc0BFzxIxTTOO/tQFmyC/hj1O3jL4TfmLBw0WEwjAokdLwpclkvGgDJwTIh0/22w==
+  dependencies:
+    "@lit/reactive-element" "^2.0.4"
+    lit-element "^4.1.0"
+    lit-html "^3.2.0"
 
 local-pkg@^0.4.3:
   version "0.4.3"
@@ -6892,6 +6943,13 @@ vite@^5.4.10:
     rollup "^4.20.0"
   optionalDependencies:
     fsevents "~2.3.3"
+
+vitepress-plugin-comment-with-giscus@^1.1.15:
+  version "1.1.15"
+  resolved "https://registry.npmmirror.com/vitepress-plugin-comment-with-giscus/-/vitepress-plugin-comment-with-giscus-1.1.15.tgz#640a1e213113eeb7b97ef649e0d0fcc56fd6657d"
+  integrity sha512-1DJjgN+7SYvn5ZkjuSXPmz7nlqfcrh4qCGGviiZghA2ELXnaO2m9WY7m+RisPSaqCn90xqe0JbO2T4NMq8iUBg==
+  dependencies:
+    "@giscus/vue" "^2.2.8"
 
 vitepress-sidebar@^1.31.0:
   version "1.31.0"
