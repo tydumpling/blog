@@ -50,7 +50,6 @@ const theme: Theme = {
     giscusTalk({
       repo: 'tydumpling/blog',
       repoId: 'R_kgDONRfAeA',
-      category: 'Genera', // default: `General`
       categoryId: 'DIC_kwDONRfAeM4CnTxe',
       mapping: 'pathname', // default: `pathname`
       inputPosition: 'top', // default: `top`

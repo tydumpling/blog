@@ -4,7 +4,10 @@
 
 如果你想拥有本网站 [tydumpling](https://tydumpling.github.io/blog/) 一样的 vitepress 文档效果，不妨从这篇文章看起。
 
+1. 实现博客的搜索功能 [相关网址](https://www.algolia.com/)
 
+2. 实现博客的评论功能 [相关网址](https://chunge16.github.io/vitepress-blogs/blog/posts/2023/vitepress-plugin-comment-with-giscus)
+3. 博客首页样式等优化 [相关网址](https://swkende.github.io/swkende-doc/01_VitePress/03_VitePress%E4%BC%98%E5%8C%96.html)
 ## 相关说明
 
 对于下文中的一些 npm 包，如果你有时间可以来提提 pr 写上安装代码，方便自己也帮助他人，我会非常感谢的。
