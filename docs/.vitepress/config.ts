@@ -8,6 +8,7 @@ import { pwa } from './plugins/pwa'
 import { genFeed } from './plugins/genFeed'
 import head from './vitepressConfig/head'
 import algolia from './vitepressConfig/algolia'
+import sidebar from './sidebar/index'
 
 // 'packages/:pkg/src/(.*)': ':pkg/index.md'
 // packages这是路径的固定部分，base路径
@@ -85,13 +86,14 @@ export default withPwa(defineConfig({
     },
 
     // 左侧导航栏
-    sidebar: generateSidebar({
-      documentRootPath: '/docs',
-      pathPrefix: '/blog', // 添加路径前缀
-      useTitleFromFrontmatter: true,
-      hyphenToSpace: true,
-      collapsed: true,
-    }),
+    sidebar,
+    // sidebar: generateSidebar({
+    //   documentRootPath: '/docs',
+    //   pathPrefix: '/blog', // 添加路径前缀
+    //   useTitleFromFrontmatter: true,
+    //   hyphenToSpace: true,
+    //   collapsed: true,
+    // }),
     // 社交链接
     socialLinks,
     // 页脚
