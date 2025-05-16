@@ -21,7 +21,7 @@ export default withPwa(defineConfig({
   pwa,
   // 网站标题
   title: 'tydumpling博客',
-  base: '/',
+  base: '/blog/',
   // 网站描述
   description: 'tydumpling博客',
   // 打包目录
