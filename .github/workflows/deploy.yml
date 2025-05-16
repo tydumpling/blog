@@ -1,3 +1,4 @@
+# 构建 VitePress 站点并将其部署到 GitHub Pages 的示例工作流程
 name: Deploy VitePress site to Pages
 
 on:
@@ -12,7 +13,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true  # 允许取消正在运行的重复任务
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -23,40 +24,47 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 设置 Node.js 和 Yarn
-      - name: Setup Node.js
+      # 设置 Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn  # 自动缓存 Yarn 依赖
+          cache: yarn
 
-      - name: Enable Yarn
-        run: corepack enable
-
-      # 优先缓存依赖
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            .vitepress/cache
-            ​**​/node_modules
-          key: ${{ runner.os }}-modules-${{ hashFiles('​**​/yarn.lock') }}
+      # 设置 Yarn
+      - name: Setup Yarn
+        run: |
+          corepack enable
+          yarn set version stable
+          yarn config set nodeLinker node-modules
+          yarn config set enableGlobalCache false
 
       # 安装依赖
       - name: Install dependencies
-        run: yarn install --frozen-lockfile  # 确保依赖版本严格一致
+        run: |
+          yarn install --no-immutable
+          yarn cache clean
 
       # 构建
       - name: Build
         run: |
-          yarn build  # 统一使用 Yarn 命令（而非 npm）
-          touch .vitepress/dist/.nojekyll  # 修复路径问题
+          npm run build
+          touch dist/.nojekyll  # 重要：防止 GitHub Pages 忽略下划线开头的文件
 
       # 上传构建产物
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .vitepress/dist  # 修正为正确路径
+          path: docs/.vitepress/dist
+
+      # 缓存依赖
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            .vitepress/cache
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
   deploy:
     environment:
@@ -64,6 +72,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
+    name: Deploy
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
