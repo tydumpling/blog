@@ -2,6 +2,12 @@
   "rewrites": [
     {
       "source": "/blog/(.*)",
+      "has": [
+        {
+          "type": "file",
+          "value": "public/$1"
+        }
+      ],
       "destination": "/blog/index.html"
     }
   ]
