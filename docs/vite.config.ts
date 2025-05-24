@@ -14,6 +14,7 @@ const require = createRequire(import.meta.url)
 
 export default defineConfig(async () => {
   return <UserConfig>{
+    base: '/blog/', // 添加 base 配置
     server: {
       hmr: {
         overlay: false,
@@ -30,7 +31,7 @@ export default defineConfig(async () => {
       // plugins
       Components({
         // 自动注册这里指定了只扫描这个目录
-        dirs: resolve(__dirname, '.vitepress/theme/components'),
+        dirs: resolve(__dirname, '.vitepress/theme/components'), // 确保路径正确
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
         resolvers: [
           IconsResolver({
