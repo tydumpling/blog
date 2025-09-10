@@ -1,0 +1,138 @@
+Rolldown 是一个使用 Rust 编程语言 开发的高性能 JavaScript 模块打包工具（bundler），它的目标是成为 Rollup 的 Rust 实现版本，即在保持与 Rollup 相似的 API 和功能体验的同时，利用 Rust 的性能优势，提供更快的构建速度和更低的内存消耗。
+
+🧩 一、Rolldown 是什么？
+
+• 全称：Rolldown
+
+• 开发语言：Rust
+
+• 定位：一个用 Rust 编写的、兼容 Rollup 生态的 JavaScript/TypeScript 模块打包器。
+
+• 目标：
+
+  • 提供与 https://rollupjs.org/ 类似的开发者体验（比如插件系统、配置方式等）；
+
+  • 借助 Rust 的高性能，显著提升构建速度，尤其在大型项目上；
+
+  • 为生态系统（如 Vite）提供更高效的底层打包能力。
+
+💡 Rollup 是目前非常流行的 JavaScript 模块打包工具，尤其擅长生成高效、 Tree-shaking 友好的 ES Module 格式代码，被很多库开发者所喜爱。而 Vite（由尤雨溪开发，Vue 官方构建工具）在开发时使用 esbuild，但在生产构建时默认依赖 Rollup。
+
+Rolldown 的出现，是为了探索用 Rust 重写打包工具核心逻辑，从而在保留 Rollup 优秀设计的同时，实现 更极致的性能表现。
+
+⚙️ 二、Rolldown 的作用
+
+Rolldown 的主要作用和传统打包工具（如 Rollup、Webpack）一样，是：
+
+1. 模块打包（Bundling）
+
+将多个 JavaScript / TypeScript 模块（包括 ESM、CommonJS 等）及其依赖整合成一个或多个优化后的文件，便于浏览器或 Node.js 环境运行。
+
+2. Tree-shaking（摇树优化）
+
+通过静态分析，剔除未使用的代码，减小最终打包体积，这是 Rollup 的强项，Rolldown 也继承了这一特性。
+
+3. 支持多种模块格式
+
+支持 ES Module (ESM)、CommonJS (CJS) 等模块格式的输入与输出，并可配置输出格式（如 iife、umd、esm 等）。
+
+4. 插件驱动架构
+
+和 Rollup 一样，Rolldown 也采用 插件机制，允许开发者通过编写插件来扩展其功能，例如：
+• 加载不同类型的文件（如 .vue, .jsx, .ts）
+
+• 转换代码（如 Babel 转换、TypeScript 编译）
+
+• 代码压缩、注入全局变量等
+
+这意味着现有的许多 Rollup 插件 有希望能在 Rolldown 中复用或稍作适配即可使用。
+
+⚡ 三、Rolldown 为什么值得关注？
+
+✅ 1. Rust 驱动，性能更强
+
+相比用 JavaScript/TypeScript 编写的打包工具（如原生 Rollup），Rust 拥有更快的执行速度和更低的内存开销。Rolldown 有望在以下方面带来性能提升：
+
+• 更快的模块解析与依赖图构建
+
+• 更快的代码转换与打包速度
+
+• 更低的内存占用，尤其对大型项目更友好
+
+这对于大型前端工程或需要频繁重新构建的开发场景（如 monorepo），有显著优势。
+
+✅ 2. 兼容 Rollup 生态
+
+Rolldown 力求与 Rollup 的 API 设计保持兼容，这意味着：
+
+• 开发者可以更容易地从 Rollup 迁移到 Rolldown；
+
+• 大量现成的 Rollup 插件可能无需大幅修改就能在 Rolldown 中使用；
+
+• 对于已经熟悉 Rollup 的团队，学习成本较低；
+
+✅ 3. 为 Vite 等工具提供更优底层
+
+Vite 当前的生产构建依赖 Rollup，如果未来 Vite 或其他工具（如 Webpack 替代方案）采用 Rolldown 作为底层打包器，将能大幅提升构建效率。
+
+事实上，Rolldown 项目本身也是由 Vite 团队主导或密切参与开发的，其诞生背景之一就是为未来 Vite 提供一个更快的打包引擎选项。
+
+🛠️ 四、Rolldown 的现状（截至 2024 年）
+
+• 项目状态：活跃开发中，尚未达到 1.0 正式版，但已具备一定的可用性，社区和团队正在积极迭代。
+
+• GitHub 地址：https://github.com/rolldown/rolldown
+
+• 使用场景：目前更适合早期尝试、集成测试、或对性能有极致追求的开发者/团队，生产环境使用需谨慎评估。
+
+• 目标用户：
+
+  • 打包工具开发者
+
+  • 前端基础设施团队
+
+  • 希望替代或增强 Rollup 的用户
+
+  • 对 Rust + 前端工具链感兴趣的技术爱好者
+
+🆚 五、Rolldown 与其他打包工具对比
+
+工具 语言 特点 适用场景
+
+Rolldown Rust 高性能，兼容 Rollup，Rust 实现，未来潜力大 高性能构建、下一代打包工具
+
+Rollup JavaScript Tree-shaking 强，适合库打包，生态丰富 JS 库打包、轻量级应用
+
+Webpack JavaScript 功能全面、插件生态庞大，但相对较慢 复杂 SPA、企业级应用
+
+esbuild Go 极快构建速度，但功能较简单，主要用于转译/预构建 快速启动、dev 构建、预构建
+
+Parcel JavaScript 零配置、开箱即用，但性能与灵活性中等 快速原型、简单项目
+
+🚀 六、总结：Rolldown 是什么？有什么用？
+
+✅ Rolldown 是什么？
+
+• 一个用 Rust 编写的高性能 JavaScript 打包工具，目标是兼容并替代 Rollup，同时提供更快的构建速度。
+
+• 由 Vite 团队主导，致力于成为未来更快的构建基础设施。
+
+✅ 它的作用是什么？
+
+• 将多个模块打包成少数优化文件，用于浏览器或 Node.js；
+
+• 支持 Tree-shaking、插件系统，兼容 Rollup 配置与插件生态；
+
+• 利用 Rust 实现更快的构建性能和更低资源占用；
+
+• 为 Vite 等工具提供更高效的打包能力，推动前端工具链性能革命。
+
+📌 如果你感兴趣，可以：
+
+• 前往 https://github.com/rolldown/rolldown 查看源码与文档；
+
+• 关注 Vite 官方动态，了解其未来是否采用 Rolldown 作为构建后端；
+
+• 如果你是打包工具重度用户、插件作者或性能敏感型项目开发者，可以尝试体验 Rolldown，关注其发展。
+
+如你有兴趣，我还可以帮你对比 Rolldown 与 esbuild、Webpack 或 Parcel 的具体差异，或者介绍如何尝试使用 Rolldown 进行项目打包。
